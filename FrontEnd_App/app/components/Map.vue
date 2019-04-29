@@ -1,25 +1,47 @@
 <template>
-    <page>
-        <ActionBar title="로스트 댕댕이"/>
-        <GridLayout columns="*" rows="*">
-            <Label class="message" :text="msg" col="0" row="0"/>
+    <Page class="page">
+        <ActionBar class="action-bar" title="map"></ActionBar>
+        <GridLayout>
+                <Mapbox
+                    accessToken="pk.eyJ1IjoicWtyODE5IiwiYSI6ImNqdjJhMjY1eTIyeDgzeW1mejl4YmZlaWsifQ.1hDcizlwRYzZqUXF6gz6tQ"
+                    mapStyle="traffic_day"
+                    latitude="37.532600"
+                    longitude="127.024612"
+                    hideCompass="true"
+                    zoomLevel="12"
+                    showUserLocation="false"
+                    disableZoom="false"
+                    disableRotation="false"
+                    disableScroll="false"
+                    disableTilt="false"
+                    @mapReady="onMapReady($event)">
+                </Mapbox>
         </GridLayout>
     </Page>
-
 </template>
 
-
-<script >
-  export default {
-    data() {
-      return {
-        msg: '맵화면!'
-      }
-    },
-    methods:{
-
-    }
-  }
+<script>
+    import * as utils from "utils/utils";
+    export default {
+        data () {
+            return { };
+        },
+        methods: {
+            onMapReady(args) {
+                args.map.addMarkers([
+                    {
+                        lat: 37.532600,
+                        lng: 127.024612,
+                        title: "Seoul",
+                        subtitle: "",
+                        onCalloutTap: () => {
+                            
+                        }
+                    }
+                ]);
+            }
+        }
+    };
 </script>
 
 <style scoped>
