@@ -34,9 +34,6 @@
                         lng: 127.024612,
                         title: "Seoul",
                         subtitle: "",
-                        onCalloutTap: () => {
-                            
-                        }
                     }
                 ]);
             }
