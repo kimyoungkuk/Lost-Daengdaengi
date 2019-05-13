@@ -22,20 +22,22 @@
 
 <script>
     import * as utils from "utils/utils";
+    import axios from 'axios';
     export default {
         data () {
-            return { };
+            
+            return { 
+                makerinfo : []
+            };
         },
         methods: {
             onMapReady(args) {
-                args.map.addMarkers([
-                    {
-                        lat: 37.532600,
-                        lng: 127.024612,
-                        title: "Seoul",
-                        subtitle: "",
-                    }
-                ]);
+                axios.get('http://210.107.198.174:8000/LDapp',{
+                })
+                .then(res => {args.map.addMarkers(res.data)})
+                .catch(error => {console.log(error)});
+                
+                console.log(this.makerinfo)
             }
         }
     };

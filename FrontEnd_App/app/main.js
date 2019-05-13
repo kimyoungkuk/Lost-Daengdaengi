@@ -3,12 +3,23 @@ import Main from './components/Main'
 import VueDevtools from 'nativescript-vue-devtools'
 import router from './router'
 import store from './store'
-Vue.prototype.$router = router
+import { TNSFontIcon, fonticon } from './nativescript-fonticon';
 
+Vue.prototype.$router = router
 Vue.prototype.$goto = function (to, options) {
   this.$navigateTo(this.$router[to], options)
 }
 
+
+TNSFontIcon.debug = false;
+TNSFontIcon.paths = {
+    'fa': './fonts/font-awesome.css',
+    'ion': './fonts/ionicons.css',
+};
+TNSFontIcon.loadCss();
+
+
+Vue.filter('fonticon', fonticon);
 Vue.registerElement("Mapbox", () => require("nativescript-mapbox").MapboxView)
 
 if(TNS_ENV !== 'production') {
