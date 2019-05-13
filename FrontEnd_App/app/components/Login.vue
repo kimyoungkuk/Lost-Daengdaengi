@@ -39,6 +39,7 @@
 
 <script>
 // A stub for a service that authenticates users.
+
 const userService = {
     register(user) {
         return Promise.resolve(user);
