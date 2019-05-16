@@ -2,6 +2,8 @@ import Vue from 'nativescript-vue'
 import Main from './components/Main'
 import VueDevtools from 'nativescript-vue-devtools'
 import router from './router'
+// import axios from 'axios'
+// import VueAxios from 'vue-axios'
 import store from './store'
 import RadDataForm from 'nativescript-ui-dataform/vue'
 import { TNSFontIcon, fonticon } from './nativescript-fonticon';
@@ -11,7 +13,13 @@ Vue.prototype.$goto = function (to, options) {
   this.$navigateTo(this.$router[to], options)
 }
 
+<<<<<<< HEAD
 Vue.use(RadDataForm);
+=======
+// Vue.use(VueAxios, axios)
+
+// Vue.config.productionTip = false
+>>>>>>> 718ee5a9bd95188f8c331e9350f8966bc522c928
 
 TNSFontIcon.debug = false;
 TNSFontIcon.paths = {

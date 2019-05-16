@@ -15,10 +15,14 @@
   },
   "dependencies": {
     "@vue/devtools": "^5.1.0",
+    "axios": "^0.18.0",
+    "email-validator": "^2.0.4",
     "nativescript-camera": "^4.4.1",
     "nativescript-mapbox": "^4.4.1",
-    "nativescript-plugin-firebase": "^8.3.1",
+    "nativescript-plugin-firebase": "^8.3.2",
     "nativescript-socket.io": "^0.9.0",
+    "nativescript-socketio": "^3.2.1",
+    "nativescript-theme-core": "^1.0.6",
     "nativescript-toast": "^1.4.6",
     "nativescript-ui-dataform": "^4.0.0",
     "nativescript-vue": "^2.0.0",
@@ -28,9 +32,9 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "babel-loader": "^8.0.2",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "babel-loader": "^8.0.6",
     "babel-traverse": "6.26.0",
     "babel-types": "6.26.0",
     "babylon": "6.18.0",
@@ -38,15 +42,15 @@
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
     "lazy": "1.0.11",
-    "nativescript-dev-webpack": "^0.22.0-next-2019-04-17-111030-01",
-    "nativescript-vue-template-compiler": "^2.0.0",
+    "nativescript-dev-webpack": "^0.22.0",
+    "nativescript-vue-template-compiler": "^2.2.2",
     "nativescript-worker-loader": "~0.9.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
-    "terser-webpack-plugin": "^1.1.0",
+    "terser-webpack-plugin": "^1.2.4",
     "vue-loader": "^15.2.6",
-    "webpack": "^4.16.4",
+    "webpack": "^4.31.0",
     "webpack-bundle-analyzer": "~2.13.1",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.3.2"
   }
 }
