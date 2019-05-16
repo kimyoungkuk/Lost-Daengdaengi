@@ -24,6 +24,7 @@
 				</StackLayout>
 
 				<Button :text="isLoggingIn ? 'Log In' : 'Sign Up'" @tap="submit" class="btn btn-primary m-t-20" />
+                <Button v-show="isLoggingIn" :text="'\uf1a0' +' Google login' " @tap="loginGoogle" class="fab btn btn-active" />
 				<Label v-show="isLoggingIn" text="Forgot your password?" class="login-label" @tap="forgotPassword" />
 			</StackLayout>
 
@@ -40,16 +41,42 @@
 <script>
 // A stub for a service that authenticates users.
 
+import firebase from "nativescript-plugin-firebase";
+
 const userService = {
-    register(user) {
-        return Promise.resolve(user);
-    },
-    login(user) {
-        return Promise.resolve(user);
-    },
-    resetPassword(email) {
-        return Promise.resolve(email);
-    }
+    async loginGoogle(user) {
+     await firebase
+      .login({
+        type: firebase.LoginType.GOOGLE       
+      })
+      .then(result => {
+        return Promise.resolve(JSON.stringify(result));
+      })
+      .catch(error => {
+        console.error(error);
+        return Promise.reject(error);
+      });
+  },
+  async register(user) {
+    return await firebase.createUser({
+      email: user.email,
+      password: user.password
+    });
+  },
+  async login(user) {
+    return await firebase.login({
+      type: firebase.LoginType.PASSWORD,
+      passwordOptions: {
+        email: user.email,
+        password: user.password
+      }
+    });
+  },
+  async resetPassword(email) {
+    return await firebase.resetPassword({
+      email: email
+    });
+  }
 };
 
 // A stub for the main page of your app. In a real app you’d put this page in its own .vue file.
@@ -65,6 +92,7 @@ export default {
     data() {
         return {
             isLoggingIn: true,
+            key: ' ',
             user: {
                 email: "ID@gmail.com",
                 password: "Password",
@@ -73,6 +101,31 @@ export default {
         };
     },
     methods: {
+        loginGoogle(){
+        userService
+        .loginGoogle(this.user)
+        .then((result) => {
+          console.log('----로그인 시 받아온 값----')
+          console.log(this.user.email)
+          this.axios.get('http://210.107.198.174:8000/LDapp/dog_shelter_list', {
+              
+          }).then(res => {console.log(res.data)})
+
+          this.axios.post('http://081a1720.ngrok.io/api/users/login',{
+              key: this.user.email
+                })
+                .then(function(response){
+                    console.log(response)
+                    console.log("보냄")
+                })
+                .catch(error => {console.log(error)});
+                this.$goto('map');  
+        })
+        .catch((error) => {
+          console.error(err);
+          this.alert(error)
+        });
+    },
         toggleForm() {
             this.isLoggingIn = !this.isLoggingIn;
         },
@@ -95,7 +148,9 @@ export default {
             userService
                 .login(this.user)
                 .then(() => {
-                    this.$navigateTo(HomePage);
+                    console.log('----로그인 시 받아온 값----')
+                    console.log(this.user.email)
+                    this.$goto('map');  
                 })
                 .catch(() => {
                     this.alert("Unfortunately we could not find your account.");
@@ -103,6 +158,11 @@ export default {
         },
 
         register() {
+            var validator = require("email-validator");
+      if (!validator.validate(this.user.email)) {
+        this.alert("Please enter a valid email address.");
+        return;
+      }
             if (this.user.password != this.user.confirmPassword) {
                 this.alert("Your passwords do not match.");
                 return;
@@ -169,6 +229,7 @@ export default {
 </script>
 
 <style scoped>
+@import '~nativescript-theme-core/css/core.light.css';
 	.page {
 		align-items: center;
 		flex-direction: column;

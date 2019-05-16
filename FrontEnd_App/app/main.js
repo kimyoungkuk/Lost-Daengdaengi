@@ -2,6 +2,8 @@ import Vue from 'nativescript-vue'
 import Main from './components/Main'
 import VueDevtools from 'nativescript-vue-devtools'
 import router from './router'
+// import axios from 'axios'
+// import VueAxios from 'vue-axios'
 import store from './store'
 import { TNSFontIcon, fonticon } from './nativescript-fonticon';
 
@@ -10,6 +12,9 @@ Vue.prototype.$goto = function (to, options) {
   this.$navigateTo(this.$router[to], options)
 }
 
+// Vue.use(VueAxios, axios)
+
+// Vue.config.productionTip = false
 
 TNSFontIcon.debug = false;
 TNSFontIcon.paths = {

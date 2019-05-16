@@ -7,6 +7,7 @@
             <Button text="로그인" height="50" width="100" @tap="$goto('login')" />
             <Button text="게시판" height="50" width="100" @tap="$goto('board')" />
             <Button text="맵뷰" height="50" width="100" @tap="$goto('map')" />
+            <Button text="글쓰기" height="50" width="100" @tap="$goto('boardWrite')" />
             <Label class="message" :text="msg" col="0" row="0"/>
           </StackLayout>
         </FlexboxLayout >
@@ -14,6 +15,7 @@
 </template>
 
 <script >
+
   export default {
     data() {
       return {
