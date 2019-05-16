@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "316348012387",
+    "firebase_url": "https://caps-e1b68.firebaseio.com",
+    "project_id": "caps-e1b68",
+    "storage_bucket": "caps-e1b68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316348012387:android:459163bd31908909",
+        "android_client_info": {
+          "package_name": "org.nativescript.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "316348012387-6lqjifur6h4p3eus2tc1m5sg9ugpiff8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrAJMkPwER1Ro2vov7wMqp0FnPfs9ScqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316348012387-6lqjifur6h4p3eus2tc1m5sg9ugpiff8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
