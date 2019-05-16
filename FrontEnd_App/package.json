@@ -15,12 +15,15 @@
   },
   "dependencies": {
     "@vue/devtools": "^5.1.0",
+    "nativescript-camera": "^4.4.1",
     "nativescript-mapbox": "^4.4.1",
     "nativescript-socket.io": "^0.9.0",
     "nativescript-toast": "^1.4.6",
+    "nativescript-ui-dataform": "^4.0.0",
     "nativescript-vue": "^2.0.0",
     "nativescript-vue-devtools": "^1.0.0",
-    "tns-core-modules": "^5.0.2",
+    "net": "^1.0.2",
+    "tns-core-modules": "^5.4.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
