@@ -8,6 +8,7 @@
             <Button text="게시판" height="50" width="100" @tap="$goto('board')" />
             <Button text="맵뷰" height="50" width="100" @tap="$goto('map')" />
             <Button text="글쓰기" height="50" width="100" @tap="$goto('boardWrite')" />
+            <Button text="카메라" height="50" width="100" @tap="$goto('camera')" />
             <Label class="message" :text="msg" col="0" row="0"/>
           </StackLayout>
         </FlexboxLayout >

@@ -15,19 +15,21 @@
   },
   "dependencies": {
     "@vue/devtools": "^5.1.0",
+    "axios": "^0.18.0",
     "email-validator": "^2.0.4",
-    "nativescript-loading-indicator": "^2.5.1",
+    "nativescript-camera": "^4.4.1",
     "nativescript-mapbox": "^4.4.1",
     "nativescript-plugin-firebase": "^8.3.2",
     "nativescript-socket.io": "^0.9.0",
     "nativescript-socketio": "^3.2.1",
     "nativescript-theme-core": "^1.0.6",
     "nativescript-toast": "^1.4.6",
-    "nativescript-vue": "^2.2.2",
-    "nativescript-vue-devtools": "^1.2.0",
+    "nativescript-ui-dataform": "^4.0.0",
+    "nativescript-vue": "^2.0.0",
+    "nativescript-vue-devtools": "^1.0.0",
     "net": "^1.0.2",
     "tns-core-modules": "^5.4.0",
-    "vuex": "^3.1.1"
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
