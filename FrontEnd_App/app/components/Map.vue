@@ -36,7 +36,7 @@
         },
         methods: {
             onMapReady(args) {
-                axios.get('http://081a1720.ngrok.io/api/users/login',{
+                axios.get('http://210.107.198.174:8000/LDapp/dog_shelter_list',{
                 })
                 .then(res => {
                     //args.map.addMarkers(res.data)
