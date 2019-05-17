@@ -4,6 +4,7 @@ import VueDevtools from 'nativescript-vue-devtools'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import RadDataForm from 'nativescript-ui-dataform/vue'
 import { TNSFontIcon, fonticon } from './nativescript-fonticon';
 
 Vue.prototype.$router = router
@@ -15,6 +16,9 @@ Vue.prototype.$http = axios
 Vue.use(axios);
 
 Vue.config.productionTip = false
+
+Vue.use(RadDataForm);
+
 
 TNSFontIcon.debug = false;
 TNSFontIcon.paths = {
