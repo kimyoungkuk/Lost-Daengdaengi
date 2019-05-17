@@ -93,6 +93,7 @@ export default {
         return {
             isLoggingIn: true,
             key: ' ',
+            isUser: ' ',
             user: {
                 email: "ID@gmail.com",
                 password: "Password",
@@ -103,28 +104,36 @@ export default {
     methods: {
         loginGoogle(){
         userService
-        .loginGoogle(this.user)
+        .loginGoogle(this)
         .then((result) => {
           console.log('----로그인 시 받아온 값----')
+          console.log(this.$store.state.API_URL)
           console.log(this.user.email)
-          this.axios.get('http://210.107.198.174:8000/LDapp/dog_shelter_list', {
-              
-          }).then(res => {console.log(res.data)})
-
-          this.axios.post('http://081a1720.ngrok.io/api/users/login',{
+          this.$store.state.user_Email = this.user.email
+          console.log(this.$store.state.user_Email)
+          this.$http.post(this.$store.state.API_URL + '/api/users/login',{
               key: this.user.email
                 })
                 .then(function(response){
-                    console.log(response)
-                    console.log("보냄")
-                })
+                    console.log(response.data)
+                    if(response.data == '1'){
+                        this.$goto('map');
+                    }
+                    else if(response.data == '0'){
+                        this.$goto('setUserInfo')
+                    }
+                }.bind(this))
                 .catch(error => {console.log(error)});
-                this.$goto('map');  
+                // this.$goto('map');  
         })
         .catch((error) => {
           console.error(err);
           this.alert(error)
         });
+    },
+    goToNext(){
+        console.log('--------gotonext------')
+        console.log(this.isUser)
     },
         toggleForm() {
             this.isLoggingIn = !this.isLoggingIn;
