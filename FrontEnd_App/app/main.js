@@ -13,13 +13,10 @@ Vue.prototype.$goto = function (to, options) {
   this.$navigateTo(this.$router[to], options)
 }
 
-<<<<<<< HEAD
 Vue.use(RadDataForm);
-=======
 // Vue.use(VueAxios, axios)
 
 // Vue.config.productionTip = false
->>>>>>> 718ee5a9bd95188f8c331e9350f8966bc522c928
 
 TNSFontIcon.debug = false;
 TNSFontIcon.paths = {

@@ -17,6 +17,7 @@
     "@vue/devtools": "^5.1.0",
     "axios": "^0.18.0",
     "email-validator": "^2.0.4",
+    "nativescript-background-http": "^3.4.0",
     "nativescript-camera": "^4.4.1",
     "nativescript-mapbox": "^4.4.1",
     "nativescript-plugin-firebase": "^8.3.2",

@@ -4,10 +4,10 @@
         <GridLayout rows = "*,auto">
             <GridLayout row = "0">
                 <ScrollView>
-                    <RadDataForm :source = "source" :metadata="meta" :groups="groups"></RadDataForm>
+                    <RadDataForm ref = "dataform" :source = "source" :metadata="meta" :groups="groups"></RadDataForm>
                 </ScrollView>
             </GridLayout>
-            <Button row = "1" @click = "onClick" text = "제출"></Button>
+            <Button row = "1" @tap = "onClick" text = "제출"></Button>
         </GridLayout>
         <!-- <ScrollView>
             <RadDataForm :source="source" :metadata="meta" :groups="groups"></RadDataForm>
@@ -17,7 +17,7 @@
 
 <script>
     import { PropertyGroup } from "nativescript-ui-dataform";
-    
+    import axios from "axios";
     export default {
         data() {
             return {
@@ -43,33 +43,41 @@
                         "displayName": "잃어버린 시간",
                         "groupName": "Owner_post",
                         "index": 1,
+                        "editor":"DatePicker",
+
+                    },{
+                        "name": "lost_time1",
+                        "displayName": "잃어버린 시간",
+                        "groupName": "Owner_post",
+                        "index": 2,
+                        "editor":"TimePicker",
                     }, {
                         "name": "dog_sex",
                         "displayName": "성별",
                         "groupName": "Owner_post",
-                        "index": 2,
+                        "index": 3,
                     },{
                         "name": "dog_type",
                         "displayName": "견종",
                         "groupName": "Owner_post",
-                        "index": 3,
-                        "valueProvider" :["말티즈", "시츄", "슈나우져"]
+                        "index": 4,
+                        // "valueProvider" :["말티즈", "시츄", "슈나우져"]
                     }, {
                         "name": "dog_age",
                         "displayName": "나이",
                         "groupName": "Owner_post",
-                        "index": 4,
-                        "editor" : "Number"
+                        "index": 5,
+                        // "editor" : "Stepper"
                     }, {
                         "name": "dog_feature",
                         "displayName": "특징",
                         "groupName": "Owner_post",
-                        "index": 5,
+                        "index": 6,
                     }, {
                         "name": "remark",
                         "displayName": "비고",
                         "groupName": "Owner_post",
-                        "index": 6,
+                        "index": 7,
                     }, {
                         "name": "phone_num",
                         "displayName": "연락처",
@@ -86,22 +94,24 @@
                         "groupName": "Owner_Post",
                         "index": 10,
                     },{
-                        "name": "post_time",
+                        "name": "posted_time",
                         "displayName": "게시 시간",
                         "groupName": "Owner_Post",
                         "index": 11,
                         "editor":"DatePicker"
                     },{
-                        "name": "post_due",
+                        "name": "posted_due",
                         "displayName": "게시 기간",
                         "groupName": "Owner_Post",
                         "index": 12,
+                        "editor":"DatePicker",
                     } ]
                 },
 
                 source: {
                     dog_name : "",
                     lost_time : "",
+                    lost_time1 : "",
                     dog_sex :"",
                     dog_type :"",
                     dog_age :"",
@@ -110,11 +120,38 @@
                     phone_num:"",
                     lat:"",
                     lng:"",
-                    post_time:"",
-                    post_due:"",
+                    posted_time:"",
+                    posted_due:"",
 
                 }
             };
+        },
+
+        methods :{
+            onClick(args){
+                console.log(this.$refs.dataform.getPropertyByName('phone_num').valueCandidate);
+                axios.post('http://55913c1c.ngrok.io/api/owner_post_create',{
+                    phone_num : this.$refs.dataform.getPropertyByName('phone_num').valueCandidate,
+                    dog_name : this.$refs.dataform.getPropertyByName('dog_name').valueCandidate,
+                    lost_time : this.$refs.dataform.getPropertyByName('lost_time').valueCandidate+" " +this.$refs.dataform.getPropertyByName('lost_time1').valueCandidate,
+                    dog_sex :this.$refs.dataform.getPropertyByName('dog_sex').valueCandidate,
+                    dog_type :this.$refs.dataform.getPropertyByName('dog_type').valueCandidate,
+                    dog_age :this.$refs.dataform.getPropertyByName('dog_age').valueCandidate,
+                    dog_feature:this.$refs.dataform.getPropertyByName('dog_feature').valueCandidate,
+                    remark:this.$refs.dataform.getPropertyByName('remark').valueCandidate,
+                    lat:this.$refs.dataform.getPropertyByName('lat').valueCandidate,
+                    lng:this.$refs.dataform.getPropertyByName('lng').valueCandidate,
+                    posted_time:this.$refs.dataform.getPropertyByName('posted_time').valueCandidate,
+                    posted_due:this.$refs.dataform.getPropertyByName('posted_due').valueCandidate,
+                })
+                .then(res => {
+                    console.log(res.data);
+                    })
+                .catch(error => {console.log(error)});
+                console.log(this.makerinfo)
+                console.log(this.$refs.dataform.getPropertyByName('dog_age').valueCandidate);
+            }
+            
         }
     };
 </script>

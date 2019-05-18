@@ -37,6 +37,8 @@
     import { Page } from "tns-core-modules/ui/page";
     import { View } from 'tns-core-modules/ui/core/view';
     import { takePicture, requestPermissions } from "nativescript-camera";
+    import { fromAsset,toBase64String } from "image-source";
+    import axios from "axios";
     export default {
         data() {
             return {
@@ -55,30 +57,21 @@
                 let that = this;
                 requestPermissions().then(
                     () => {
-                        takePicture({ width: that.width, height: that.height, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
+                        takePicture({ width: 240, height: 240, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
                             then((imageAsset) => {
                                 that.cameraImage = imageAsset;
-                                console.log(imageAsset._observers);
-                                console.log(imageAsset);
-                                imageAsset.getImageAsync(function (nativeImage) {
-                                    console.log(nativeImage.constructor.prototype)
-                                    let scale = 1;
-                                    let actualWidth = 0;
-                                    let actualHeight = 0;
-                                    if (imageAsset.android) {
-                                        // get the current density of the screen (dpi) and divide it by the default one to get the scale
-                                        scale = nativeImage.getDensity() / android.util.DisplayMetrics.DENSITY_DEFAULT;
-                                        actualWidth = nativeImage.getWidth();
-                                        actualHeight = nativeImage.getHeight();
-                                    } else {
-                                        scale = nativeImage.scale;
-                                        actualWidth = nativeImage.size.width * scale;
-                                        actualHeight = nativeImage.size.height * scale;
-                                    }
-                                    that.labelText = `Displayed Size: ${actualWidth}x${actualHeight} with scale ${scale}\n` +
-                                        `Image Size: ${Math.round(actualWidth / scale)}x${Math.round(actualHeight / scale)}`;
-                                    console.log(`${labelText}`);
-                                });
+                                fromAsset(imageAsset).then(imgSource=>{
+                                    // console.log(imgSource.toBase64String('png'));
+                                    // console.log(typeof(imgSource.toBase64String('png')));
+                                    // console.log(imgSource.toBase64String('png').length);
+                                    axios.post('http://55913c1c.ngrok.io/api/image_test',{
+                                        image : imgSource.toBase64String('png'),
+                                        
+                                    }).then(res => {
+                                        console.log("q보냄");
+                                    }).catch(err=>{})
+                                })
+                                
                             },
                             (err) => {
                                 console.log("Error -> " + err.message);

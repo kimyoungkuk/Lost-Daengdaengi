@@ -11,7 +11,7 @@ const router = {
    login: Login_,
    map: Map_,
    board: Board_,
-   makePost : makePost_
+   camera : camera_
    //boardWrite: Board_Write,
    //camera: camera_
 }

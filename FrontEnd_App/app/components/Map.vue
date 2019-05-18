@@ -39,7 +39,7 @@
                 axios.get('http://210.107.198.174:8000/LDapp/dog_shelter_list',{
                 })
                 .then(res => {
-                    //args.map.addMarkers(res.data)
+                    args.map.addMarkers(res.data)
                     console.log(res.data);
                     })
                 .catch(error => {console.log(error)});
