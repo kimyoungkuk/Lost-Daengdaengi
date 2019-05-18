@@ -2,9 +2,8 @@ import Vue from 'nativescript-vue'
 import Main from './components/Main'
 import VueDevtools from 'nativescript-vue-devtools'
 import router from './router'
-// import axios from 'axios'
-// import VueAxios from 'vue-axios'
 import store from './store'
+import axios from 'axios'
 import RadDataForm from 'nativescript-ui-dataform/vue'
 import { TNSFontIcon, fonticon } from './nativescript-fonticon';
 
@@ -13,10 +12,17 @@ Vue.prototype.$goto = function (to, options) {
   this.$navigateTo(this.$router[to], options)
 }
 
-Vue.use(RadDataForm);
+
 // Vue.use(VueAxios, axios)
 
 // Vue.config.productionTip = false
+
+Vue.prototype.$http = axios
+Vue.use(axios);
+
+Vue.config.productionTip = false
+
+Vue.use(RadDataForm);
 
 TNSFontIcon.debug = false;
 TNSFontIcon.paths = {
@@ -24,7 +30,6 @@ TNSFontIcon.paths = {
     'ion': './fonts/ionicons.css',
 };
 TNSFontIcon.loadCss();
-
 
 Vue.filter('fonticon', fonticon);
 Vue.registerElement("Mapbox", () => require("nativescript-mapbox").MapboxView)
@@ -51,6 +56,6 @@ firebase
   );
 
 new Vue({
-  store,
-  render: h => h('frame', [h(Main)])
+  render: h => h('frame', [h(Main)]),
+  store
 }).$start()

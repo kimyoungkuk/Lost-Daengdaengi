@@ -25,7 +25,6 @@
 
 <script>
     import * as utils from "utils/utils";
-    import axios from 'axios';
     const SwipeDirection = require("tns-core-modules/ui/gestures").SwipeDirection;
     export default {
         data () {
@@ -36,14 +35,14 @@
         },
         methods: {
             onMapReady(args) {
-                axios.get('http://210.107.198.174:8000/LDapp/dog_shelter_list',{
+                this.$http.get(this.$store.state.API_URL + '/api/dogshelter',{
                 })
                 .then(res => {
                     args.map.addMarkers(res.data)
                     console.log(res.data);
                     })
                 .catch(error => {console.log(error)});
-                console.log(this.makerinfo)
+                // console.log(this.makerinfo)
             },
             onSwipe(args) {
                 let direction =
