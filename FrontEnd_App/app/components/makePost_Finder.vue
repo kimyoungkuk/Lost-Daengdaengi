@@ -98,11 +98,24 @@
                         "index": 9,
                         "editor":"DatePicker",
                     },{
-                        "name": "shelter",
+                        "name": "shelter_name",
                         "displayName": "유기견보호소",
                         "groupName": "Finder_Post",
-                        "index": 9,
-                        "editor":"DatePicker",
+                        "index": 10,
+                        'editor': 'Picker',
+                        'valuesProvider': [
+                            "대전광역시 동물보호센터",
+                            "반송원",
+                            "용인시 동물보호센터",
+                            "아산천사원유기견보호소",
+                            "영암 유기견보호소",
+                            "반려동물과함께하는내사랑바둑이",
+                            "남양동물보호센터",
+                            "나나우리봉사단",
+                            "대관령동물병원",
+                            "대장마을협동조합 반려동물놀이터"
+                        ]
+
                     } ]
                 },
 
@@ -118,6 +131,7 @@
                         lng: this.$store.state.FinderPost.lng,
                         posted_time:this.$store.state.FinderPost.posted_time,
                         posted_due:this.$store.state.FinderPost.posted_due,
+                        shelter_name : this.$store.state.FinderPost.shelter_name
                     },
                 isSingleMode: true,
                 imageAssets: [],
@@ -138,6 +152,7 @@
                 this.$store.state.FinderPost.dog_feature = this.$refs.dataform_f.getPropertyByName('dog_feature').valueCandidate;
                 this.$store.state.FinderPost.posted_time = this.$refs.dataform_f.getPropertyByName('posted_time').valueCandidate;
                 this.$store.state.FinderPost.posted_due = this.$refs.dataform_f.getPropertyByName('posted_due').valueCandidate;
+                this.$store.state.FinderPost.shelter_name = this.$refs.dataform_f.getPropertyByName('shelter_name').valueCandidate;
                 this.$goto('camera');
             },
             onTap_Loc(args){
@@ -148,6 +163,7 @@
                 this.$store.state.FinderPost.dog_feature = this.$refs.dataform_f.getPropertyByName('dog_feature').valueCandidate;
                 this.$store.state.FinderPost.posted_time = this.$refs.dataform_f.getPropertyByName('posted_time').valueCandidate;
                 this.$store.state.FinderPost.posted_due = this.$refs.dataform_f.getPropertyByName('posted_due').valueCandidate;
+                this.$store.state.FinderPost.shelter_name = this.$refs.dataform_f.getPropertyByName('shelter_name').valueCandidate;
                 this.$store.state.CurrentPostType = false;
                 this.$goto('select_Loc');
             },
@@ -159,6 +175,7 @@
                 this.$store.state.FinderPost.dog_feature = this.$refs.dataform_f.getPropertyByName('dog_feature').valueCandidate;
                 this.$store.state.FinderPost.posted_time = this.$refs.dataform_f.getPropertyByName('posted_time').valueCandidate;
                 this.$store.state.FinderPost.posted_due = this.$refs.dataform_f.getPropertyByName('posted_due').valueCandidate;
+                this.$store.state.FinderPost.shelter_name = this.$refs.dataform_f.getPropertyByName('shelter_name').valueCandidate;
                 axios.post('http://210.107.198.174:8000/api/finderPosts/create',{
                     title : this.$store.state.FinderPost.title,
                     find_time : this.$store.state.FinderPost.find_time,
@@ -170,7 +187,7 @@
                     posted_time:this.$store.state.FinderPost.posted_time,
                     posted_due:this.$store.state.FinderPost.posted_due,
                     image : this.$store.state.FinderPost.image,
-                    shelter : "1"
+                    shelter_name : this.$store.state.FinderPost.shelter_name
                 })
                 .then(res => {
                     console.log(res.data);
