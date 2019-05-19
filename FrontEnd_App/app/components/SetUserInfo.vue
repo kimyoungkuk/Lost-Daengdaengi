@@ -1,6 +1,8 @@
 <template>
 	<Page class="page">
-		<ActionBar title="환영합니다." class="action-bar" />
+		<ActionBar title="환영합니다." class="action-bar" >
+      <button text = "글쓰기" android:horizontalAlignment="right"/>
+    </ActionBar>
 		<ScrollView>
 			<StackLayout class="home-panel">
 				<Label textWrap="true" class="body m-20" text="세계 최강 유기견 찾기 앱입니다."
@@ -28,7 +30,7 @@ export default {
         // The result property is true if the dialog is closed with the OK button, false if closed with the Cancel button or undefined if closed with a neutral button.
         console.log("Dialog result: " + result.result);
         console.log("Text: " + result.text);
-            this.$http.post(this.$store.state.API_URL + '/api/users/signup',{
+            this.$http.post(this.$store.state.API_URL + '/api/users/signUp',{
               key: this.$store.state.user_Email,
               nickname: result.text
                 })
