@@ -1,6 +1,6 @@
 <template>
     <Page class="page">
-        <ActionBar title="Home" class="action-bar" >
+        <ActionBar title="반려견을 찾아주세요" class="action-bar" >
             <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="$goto('map')"/>
         </ActionBar>
         <GridLayout rows = "*,auto,auto,auto">
@@ -9,9 +9,9 @@
                     <RadDataForm ref = "dataform_f" :source = "source" :metadata="meta" :groups="groups"></RadDataForm>
                 </ScrollView>
             </GridLayout>
-            <Button row = "1" text = "위치 보기" height="50" width="100" @tap = "onTap_Loc"></Button>
-            <Button row="2" text="사진 찍기" @tap="onTakePictureTap" horizontalAlignment="center" />
-            <Button row = "3" @tap = "onTap_sub" text = "등록하기"></Button>
+            <Button class="btn btn-primary" row = "1" text = "위치 보기" height="50" width="100" @tap = "onTap_Loc"></Button>
+            <Button class="btn btn-primary" row="2" text="사진 찍기" @tap="onTakePictureTap" horizontalAlignment="center" />
+            <Button class="btn btn-primary" row = "3" @tap = "onTap_sub" text = "등록하기"></Button>
         </GridLayout>
         <!-- <ScrollView>
             <RadDataForm :source="source" :metadata="meta" :groups="groups"></RadDataForm>
@@ -203,10 +203,16 @@
                     })
                 .catch(error => {console.log(error)});
                 //console.log(this.makerinfo)
-                //console.log(this.$refs.dataform.getPropertyByName('dog_age').valueCandidate);
-                
+                //console.log(this.$refs.dataform.getPropertyByName('dog_age').valueCandidate);   
             }
-            
         }
     };
 </script>
+
+<style scoped>
+@import '~nativescript-theme-core/css/core.light.css';
+    ActionBar {
+        background-color: #4ba5fa;
+        color: #ffffff;
+    }
+</style>

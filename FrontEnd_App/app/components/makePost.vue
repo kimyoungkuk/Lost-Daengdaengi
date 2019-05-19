@@ -1,6 +1,6 @@
 <template>
     <Page class="page">
-        <ActionBar title="Home" class="action-bar" >
+        <ActionBar title="유기견을 신고합니다." class="action-bar" >
             <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="$goto('map')"/>
         </ActionBar>
         <GridLayout rows = "*,auto,auto,auto">
@@ -9,9 +9,9 @@
                     <RadDataForm ref = "dataform" :source = "source" :metadata="meta" :groups="groups"></RadDataForm>
                 </ScrollView>
             </GridLayout>
-            <Button row = "1" text = "위치 보기" height="50" width="100" @tap = "onTap_Loc"></Button>
-            <Button row="2" text="사진 선택" @tap="onSelectSingleTap" horizontalAlignment="center" />
-            <Button row = "3" @tap = "onTap_sub" text = "등록하기"></Button>
+            <Button class="btn btn-primary" row = "1" text = "위치 보기" height="50" width="100" @tap = "onTap_Loc"></Button>
+            <Button class="btn btn-primary" row="2" text="사진 선택" @tap="onSelectSingleTap" horizontalAlignment="center" />
+            <Button class="btn btn-primary" row = "3" @tap = "onTap_sub" text = "등록하기"></Button>
         </GridLayout>
         <!-- <ScrollView>
             <RadDataForm :source="source" :metadata="meta" :groups="groups"></RadDataForm>
@@ -249,3 +249,11 @@
         }
     };
 </script>
+
+<style scoped>
+@import '~nativescript-theme-core/css/core.light.css';
+    ActionBar {
+        background-color: #4ba5fa;
+        color: #ffffff;
+    }
+</style>
