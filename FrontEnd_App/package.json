@@ -14,10 +14,15 @@
     }
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-language": "^0.10.0",
     "@vue/devtools": "^5.1.0",
     "email-validator": "^2.0.4",
+    "mapbox-gl": "^0.54.0",
     "nativescript-background-http": "^3.4.0",
     "nativescript-camera": "^4.4.1",
+    "nativescript-geolocation": "^5.1.0",
+    "nativescript-gps": "^1.2.12",
+    "nativescript-imagepicker": "^6.2.0",
     "nativescript-mapbox": "^4.4.1",
     "nativescript-plugin-firebase": "^8.3.2",
     "nativescript-socket.io": "^0.9.0",

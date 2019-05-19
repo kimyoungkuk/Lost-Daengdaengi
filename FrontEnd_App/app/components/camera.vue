@@ -4,30 +4,12 @@
             <Label class="action-bar-title" text="Home"></Label>
         </ActionBar>
 
-        <GridLayout rows="auto, *, auto, auto">
-            <StackLayout row="0" orientation="vertical" padding="5">
-                <StackLayout orientation="horizontal" row="0" padding="5">
-                    <Label text="saveToGallery" />
-                    <Switch v-model="saveToGallery"/>
-                </StackLayout>
-                <StackLayout android:visibility="collapsed" orientation="horizontal" row="0" padding="5">
-                    <Label text="allowsEditing" />
-                    <Switch v-model="allowsEditing"/>
-                </StackLayout>
-                <StackLayout orientation="horizontal" row="0" padding="5">
-                    <Label text="keepAspectRatio" />
-                    <Switch v-model="keepAspectRatio"/>
-                </StackLayout>
-                <StackLayout orientation="horizontal" padding="5">
-                    <Label text="width"></Label>
-                    <TextField hint="Enter width" keyboardType="number" v-model="width" class="input"></TextField>
-                    <Label text="height"></Label>
-                    <TextField hint="Enter height" keyboardType="number" v-model="height" class="input"></TextField>
-                </StackLayout>
-            </StackLayout>
-            <Image row="1" :src="cameraImage" id="image" stretch="aspectFit" margin="10"/>
-            <TextView row="2" :text="labelText" editable="false"></TextView>>
-            <Button row="3"  text="Take Picture" @tap="onTakePictureTap"  padding="10"/>
+        <GridLayout rows=" *, auto, auto,auto">
+            
+            <Image row="0" :src="cameraImage" id="image" stretch="aspectFit" margin="10"/>
+            <TextView row="1" :text="labelText" editable="false"></TextView>>
+            <Button row="2"  text="사진 찍기" @tap="onTakePictureTap"  padding="10"/>
+            <Button row ="3" text = "맞습니다." @tap="onSelect" paddin="10"/>
         </GridLayout>
     </Page>
 </template>
@@ -42,6 +24,7 @@
     export default {
         data() {
             return {
+                imgStr : "",
                 saveToGallery: false,
                 allowsEditing: false,
                 keepAspectRatio: true,
@@ -52,23 +35,31 @@
             }
         },
         methods: {
+            onSelect(args){
+                this.$store.state.FinderPost.dog_type = this.labelText;
+                this.$goto('makePost_Finder');
+            },
             onTakePictureTap: function(args) {
                 let page = (args.object).page;
                 let that = this;
                 requestPermissions().then(
                     () => {
-                        takePicture({ width: 240, height: 240, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
+                        takePicture({ width: 50, height: 50, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
                             then((imageAsset) => {
                                 that.cameraImage = imageAsset;
                                 fromAsset(imageAsset).then(imgSource=>{
+                                    this.$store.state.FinderPost.image = imgSource.toBase64String('png');
                                     // console.log(imgSource.toBase64String('png'));
                                     // console.log(typeof(imgSource.toBase64String('png')));
                                     // console.log(imgSource.toBase64String('png').length);
-                                    axios.post('http://55913c1c.ngrok.io/api/image_test',{
+                                    axios.post('http://210.107.198.174:8000/api/classification',{
                                         image : imgSource.toBase64String('png'),
                                         
                                     }).then(res => {
                                         console.log("q보냄");
+                                        console.log(res.data);
+                                        this.labelText = res.data;
+                                        
                                     }).catch(err=>{})
                                 })
                                 
