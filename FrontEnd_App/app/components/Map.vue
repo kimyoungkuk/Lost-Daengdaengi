@@ -15,6 +15,7 @@
                     disableRotation="false"
                     disableScroll="false"
                     disableTilt="false"
+                    defaultLanguage = "ko"
                     @mapReady="onMapReady($event)">
                 </Mapbox>
                         <GridLayout row="2">
@@ -35,6 +36,7 @@
 <script>
     import * as utils from "utils/utils";
     const SwipeDirection = require("tns-core-modules/ui/gestures").SwipeDirection;
+    import * as mapbox from "nativescript-mapbox";
     export default {
         data () {
             
@@ -44,7 +46,14 @@
         },
         methods: {
             onMapReady(args) {
-                this.$http.get(this.$store.state.API_URL + '/api/dogshelter',{
+                this.map = args.map;
+                args.map.getUserLocation().then(data =>{
+                    console.log(data.speed);
+                    console.log("123123");
+                })
+                 args.map.setOnMapClickListener((point) => console.log(`Map tapped: ${JSON.stringify(point)}`));
+                //map.setLayoutProperty('country-label', 'text-field', ['get', 'name_ko']);
+                this.$http.get(this.$store.state.API_URL + '/api/ownerPosts/list',{
                 })
                 .then(res => {
                     args.map.addMarkers(res.data)
@@ -64,7 +73,9 @@
                                 : "right";
                 console.log(direction);
                 if(direction == "up"){
+                    this.map.destroy();
                     this.$goto('board');
+                    
                 }
                 console.log.unshift({
                     text: "You performed a " + direction + " swipe"

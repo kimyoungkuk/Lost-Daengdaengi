@@ -18,6 +18,11 @@ Vue.prototype.$goto = function (to, options) {
   this.$navigateTo(this.$router[to], options)
 }
 
+
+// Vue.use(VueAxios, axios)
+
+// Vue.config.productionTip = false
+
 Vue.prototype.$http = axios
 Vue.use(axios);
 
@@ -29,7 +34,6 @@ Vue.registerElement(
 Vue.config.productionTip = false
 
 Vue.use(RadDataForm);
-
 
 TNSFontIcon.debug = false;
 TNSFontIcon.paths = {
