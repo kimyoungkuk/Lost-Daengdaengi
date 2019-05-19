@@ -1,8 +1,6 @@
 <template>
 	<Page class="page">
-		<ActionBar title="환영합니다." class="action-bar" >
-      <button text = "글쓰기" android:horizontalAlignment="right"/>
-    </ActionBar>
+		<ActionBar title="환영합니다." class="action-bar"/>
 		<ScrollView>
 			<StackLayout class="home-panel">
 				<Label textWrap="true" class="body m-20" text="세계 최강 유기견 찾기 앱입니다."

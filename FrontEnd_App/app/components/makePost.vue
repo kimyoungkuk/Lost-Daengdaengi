@@ -1,6 +1,8 @@
 <template>
     <Page class="page">
-        <ActionBar title="Home" class="action-bar" />
+        <ActionBar title="Home" class="action-bar" >
+            <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="$goto('map')"/>
+        </ActionBar>
         <GridLayout rows = "*,auto,auto,auto">
             <GridLayout row = "0">
                 <ScrollView>
@@ -9,7 +11,7 @@
             </GridLayout>
             <Button row = "1" text = "위치 보기" height="50" width="100" @tap = "onTap_Loc"></Button>
             <Button row="2" text="사진 선택" @tap="onSelectSingleTap" horizontalAlignment="center" />
-            <Button row = "3" @tap = "onTap_sub" text = "제출"></Button>
+            <Button row = "3" @tap = "onTap_sub" text = "등록하기"></Button>
         </GridLayout>
         <!-- <ScrollView>
             <RadDataForm :source="source" :metadata="meta" :groups="groups"></RadDataForm>
@@ -192,6 +194,7 @@
                 this.$store.state.ownerPost.image = this.imgStr;
                 this.$store.state.ownerPost.posted_time = this.$refs.dataform.getPropertyByName('posted_time').valueCandidate;
                 this.$store.state.ownerPost.posted_due = this.$refs.dataform.getPropertyByName('posted_due').valueCandidate;
+                 this.$store.state.CurrentPostType = true;
                 this.$goto('select_Loc');
             },
             onTap_sub(args){
@@ -227,6 +230,14 @@
                 })
                 .then(res => {
                     console.log(res.data);
+                    alert({
+  title: "게시글이 등록 되었습니다.",
+  message: "곧 찾을거에요!",
+  okButtonText: "네!"
+}).then(() => {
+    this.$goto("map")
+  console.log("Alert dialog closed");
+});
                     //this.$goto('board');
                     })
                 .catch(error => {console.log(error)});

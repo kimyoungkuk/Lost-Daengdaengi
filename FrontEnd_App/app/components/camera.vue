@@ -44,7 +44,7 @@
                 let that = this;
                 requestPermissions().then(
                     () => {
-                        takePicture({ width: 480, height: 360, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
+                        takePicture({ width: 360, height: 240, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
                             then((imageAsset) => {
                                 that.cameraImage = imageAsset;
                                 fromAsset(imageAsset).then(imgSource=>{

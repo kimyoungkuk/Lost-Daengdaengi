@@ -2,7 +2,14 @@
     <Page class="page">
         <ActionBar class="action-bar" title="map">
             <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="goBack"/>
-            <button text = "글쓰기" android:horizontalAlignment="right"/>
+            <ActionItem @tap="$goto('makePost_Finder')">
+                <button text="찾았어요" class="btn btn-primary" android:horizontalAlignment="right" >/>
+                </button>
+            </ActionItem>
+            <ActionItem @tap="$goto('makePost')" >
+                <button text="찾아주세요" class="btn btn-primary" android:horizontalAlignment="right">/>
+                </button>
+            </ActionItem>
         </ActionBar>
         <GridLayout :rows="row_scale">  
             <GridLayout row = "0">
@@ -47,7 +54,7 @@
             return { 
                 makerinfo : [],
                 map : null,
-                row_scale : "100,auto",
+                row_scale : "*, 100",
                 count : 0
             };
         },
@@ -67,14 +74,7 @@
                 })
             },
             onMapReady(args) {
-                
                 this.map = args.map;
-                console.log(this.map)
-                args.map.getUserLocation().then(data =>{
-                    console.log(data.speed);
-                    console.log("123123");
-                })
-                 args.map.setOnMapClickListener((point) => console.log(`Map tapped: ${JSON.stringify(point)}`));
                 //map.setLayoutProperty('country-label', 'text-field', ['get', 'name_ko']);
                 this.$http.get(this.$store.state.API_URL + '/api/ownerPosts/list',{
                 })
@@ -122,6 +122,7 @@
 </script>
 
 <style scoped>
+@import '~nativescript-theme-core/css/core.light.css';
 .fab-button {
   height: 70;
   margin: 15;

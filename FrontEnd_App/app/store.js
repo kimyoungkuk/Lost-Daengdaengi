@@ -30,9 +30,9 @@ export default new Vuex.Store({
   FinderPost: {
     title : " ",
     dog_type :" ",
-    dog_feature:"특징",
-    phone_num:"010",
-    image:"asdasd",
+    dog_feature:" ",
+    phone_num:" ",
+    image:"",
     lat: 0,
     lng: 0,
     find_time :" ",

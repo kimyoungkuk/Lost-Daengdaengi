@@ -50,6 +50,10 @@ const userService = {
         type: firebase.LoginType.GOOGLE       
       })
       .then(result => {
+          console.log("***********************")
+          console.log(result)
+          user.user.email = result.email
+          user.key = result.uid
         return Promise.resolve(JSON.stringify(result));
       })
       .catch(error => {
@@ -79,15 +83,6 @@ const userService = {
   }
 };
 
-// A stub for the main page of your app. In a real app you’d put this page in its own .vue file.
-const HomePage = {
-    template: `
-<Page>
-	<Label class="m-20" textWrap="true" text="You have successfully authenticated. This is where you build your core application functionality."></Label>
-</Page>
-`
-};
-
 export default {
     data() {
         return {
@@ -95,9 +90,9 @@ export default {
             key: ' ',
             isUser: ' ',
             user: {
-                email: "ID@gmail.com",
-                password: "Password",
-                confirmPassword: "Password"
+                email: "@gmail.com",
+                password: "",
+                confirmPassword: ""
             }
         };
     },
@@ -106,16 +101,15 @@ export default {
         userService
         .loginGoogle(this)
         .then((result) => {
-          console.log('----로그인 시 받아온 값----')
-          console.log(this.$store.state.API_URL)
+          console.log('----Gmail 유저 이메일----')
           console.log(this.user.email)
-          this.$store.state.user_Email = this.user.email
-          console.log(this.$store.state.user_Email)
+          console.log(this.key)
+          this.$store.state.user_Email = this.key
           this.$http.post(this.$store.state.API_URL + '/api/users/login',{
-              key: this.user.email
+              key: this.key
                 })
                 .then(function(response){
-                    console.log(response.data)
+                    console.log(response)
                     if(response.data == '1'){
                         this.$goto('map');
                     }
@@ -124,7 +118,6 @@ export default {
                     }
                 }.bind(this))
                 .catch(error => {console.log(error)});
-                // this.$goto('map');  
         })
         .catch((error) => {
           console.error(err);
@@ -263,7 +256,7 @@ export default {
 		font-weight: 600;
 		margin-bottom: 70;
 		text-align: center;
-		color: #D51A1A;
+		color: #4ba5fa;
 	}
 
 	.input-field {
@@ -282,7 +275,7 @@ export default {
 	.btn-primary {
 		height: 50;
 		margin: 30 5 15 5;
-		background-color: #D51A1A;
+		background-color: #4ba5fa;
 		border-radius: 5;
 		font-size: 20;
 		font-weight: 600;

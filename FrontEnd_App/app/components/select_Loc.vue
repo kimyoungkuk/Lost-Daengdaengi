@@ -1,6 +1,5 @@
 <template>
-    <Page class="page">
-        <ActionBar class="action-bar" title="map"></ActionBar>
+    <Page class="page" actionBarHidden="true">
         <GridLayout rows="*,auto">
             <GridLayout row = "0">
                 <Mapbox 
@@ -102,7 +101,7 @@
 
 <style scoped>
     ActionBar {
-        background-color: #53ba82;
+        background-color: #4ba5fa;
         color: #ffffff;
     }
 
