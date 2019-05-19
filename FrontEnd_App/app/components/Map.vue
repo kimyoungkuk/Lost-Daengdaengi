@@ -1,7 +1,7 @@
 <template>
     <Page class="page">
         <ActionBar class="action-bar" title="map"></ActionBar>
-        <GridLayout rows="*,auto,auto">
+        <GridLayout :rows="row_scale">
             <GridLayout row = "0">
                 <Mapbox
                     accessToken="pk.eyJ1IjoicWtyODE5IiwiYSI6ImNqdjJhMjY1eTIyeDgzeW1mejl4YmZlaWsifQ.1hDcizlwRYzZqUXF6gz6tQ"
@@ -18,16 +18,14 @@
                     defaultLanguage = "ko"
                     @mapReady="onMapReady($event)">
                 </Mapbox>
-                        <GridLayout row="2">
-      <fab
-        @tap="fabTap"
-        row="0"
-        rippleColor="#f1f1f1"
-        class="fab-button"
-      ></fab>
-        </GridLayout> 
+                <fab @tap = "onTap" row="0" rippleColor="#ffffff" class="fab-button"></fab>
             </GridLayout>
-                <Button row = "1" backgroundColor = "#ffffff" @swipe = "onSwipe" padding = "10"></Button>
+            <GridLayout row = "1" rows = "auto,*">
+                <Label row = "0" backgroundColor = "#ffffff" @swipe = "onSwipe" padding = "10"></Label>
+                <ScrollView row="1">
+                    <WebView loaded="onWebViewLoaded" id="myWebView" src="http://google.com/" />
+                </ScrollView>
+            </GridLayout>
         </GridLayout>     
 
     </Page>
@@ -37,16 +35,38 @@
     import * as utils from "utils/utils";
     const SwipeDirection = require("tns-core-modules/ui/gestures").SwipeDirection;
     import * as mapbox from "nativescript-mapbox";
+    import * as geolocation from "nativescript-geolocation";
+    import { Accuracy } from "tns-core-modules/ui/enums";
+
     export default {
         data () {
             
             return { 
-                makerinfo : []
+                makerinfo : [],
+                map : null,
+                row_scale : "100,auto",
+                count : 0
             };
         },
         methods: {
+            onTap(args){
+                console.log("Tap");
+                geolocation.getCurrentLocation({
+                    desiredAccuracy: Accuracy.high,
+                    maximumAge: 5000,
+                    timeout: 10000
+                }).then(loc => {
+                    console.log(loc)
+                    this.map.setCenter({
+                        lat : loc.latitude,
+                        lng : loc.longitude
+                    })
+                })
+            },
             onMapReady(args) {
+                
                 this.map = args.map;
+                console.log(this.map)
                 args.map.getUserLocation().then(data =>{
                     console.log(data.speed);
                     console.log("123123");
@@ -73,9 +93,20 @@
                                 : "right";
                 console.log(direction);
                 if(direction == "up"){
-                    this.map.destroy();
-                    this.$goto('board');
-                    
+                    this.row_scale = "70,*"
+                    count = 0;
+                }if(direction == "down"){
+                    if(this.count == 0){
+                        this.row_scale = "*,100";
+                        this.count ++;
+                        console.log("100")
+                    }
+                    else{
+                        this.row_scale = "*,50";
+                        this.count--;
+                        console.log("50")
+                    }
+
                 }
                 console.log.unshift({
                     text: "You performed a " + direction + " swipe"
