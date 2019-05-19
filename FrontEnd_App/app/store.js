@@ -39,6 +39,7 @@ export default new Vuex.Store({
     find_time1 : " ",
     posted_time:" ",
     posted_due:" ",
+    shelter_name:"대전광역시 동물보호센터"
   },
 },
   mutations: {

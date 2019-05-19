@@ -110,6 +110,7 @@ export default {
           console.log(this.$store.state.API_URL)
           console.log(this.user.email)
           this.$store.state.user_Email = this.user.email
+          console.log(result)
           console.log(this.$store.state.user_Email)
           this.$http.post(this.$store.state.API_URL + '/api/users/login',{
               key: this.user.email
