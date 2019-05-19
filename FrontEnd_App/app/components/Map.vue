@@ -25,9 +25,9 @@
                 <fab @tap = "onTap" row="0" rippleColor="#ffffff" icon = "ic_menu_mylocation" class="fab-button"></fab>
             </GridLayout>
             <GridLayout row = "1" rows = "auto,*">
-                <Label row = "0" backgroundColor = "#ffffff" @swipe = "onSwipe" padding = "10"></Label>
+                <Label row = "0" backgroundColor = "#4ba5fa" @swipe = "onSwipe" padding = "10"></Label>
                 <ScrollView row="1">
-                    <WebView loaded="onWebViewLoaded" id="myWebView" src="http://google.com/" />
+                    <WebView loaded="onWebViewLoaded" id="myWebView" src="http://192.168.43.210:8080/finderboard" />
                 </ScrollView>
             </GridLayout>
         </GridLayout>     

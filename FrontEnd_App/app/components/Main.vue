@@ -1,11 +1,11 @@
 <template>
     <Page>
-        <ActionBar hide title="Lost DaengDaengi Main"/>
+        <ActionBar title="Lost DaengDaengi Main"/>
                 <ScrollView>
           <StackLayout>
-            <Image class="logo" src="~/assets/images/DaengDaengi.png" horizontalAlignment="center" stretch="none" />
-            <Button class="btn btn-primary" text="로그인" height="50" width="100" @tap="$goto('login')" />
-            <WebView row="1" height="500" loaded="onWebViewLoaded" id="myWebView" src="http://192.168.43.210:8080/" />
+            <!-- <Image class="logo" src="~/assets/images/DaengDaengi.png" horizontalAlignment="center" stretch="none"/> -->
+            <WebView row="1" height="440" loaded="onWebViewLoaded" id="myWebView" src="http://192.168.43.210:8080/" />
+            <Button class="btn btn-primary" text="시작하기" height="50" width="175" @tap="$goto('login')" />
             <Button text="맵뷰" height="50" width="100" @tap="$goto('map')" />
             <Button text="게시물작성" height="50" width="100" @tap="$goto('makePost')" />
             <Button text="카메라" height="50" width="100" @tap="$goto('camera')" />

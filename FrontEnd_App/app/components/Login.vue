@@ -1,5 +1,5 @@
 <template>
-	<Page>
+	<Page actionBarHidden="true">
 		<FlexboxLayout class="page">
 			<StackLayout class="form">
 				<Image class="logo" src="~/assets/images/DaengDaengi.png" />
