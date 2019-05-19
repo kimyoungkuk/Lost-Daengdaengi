@@ -1,6 +1,6 @@
 <template>
     <Page class="page">
-        <ActionBar class="action-bar" title="map"></ActionBar>
+        <ActionBar class="action-bar" title="Map"></ActionBar>
         <GridLayout :rows="row_scale">
             <GridLayout row = "0">
                 <Mapbox
@@ -21,9 +21,9 @@
                 <fab @tap = "onTap" row="0" rippleColor="#ffffff" class="fab-button"></fab>
             </GridLayout>
             <GridLayout row = "1" rows = "auto,*">
-                <Label row = "0" backgroundColor = "#ffffff" @swipe = "onSwipe" padding = "10"></Label>
+                <Label row = "0" backgroundColor = "#4ba5fa" @swipe = "onSwipe" padding = "10"></Label>
                 <ScrollView row="1">
-                    <WebView loaded="onWebViewLoaded" id="myWebView" src="http://google.com/" />
+                    <WebView loaded="onWebViewLoaded" id="myWebView" src="http://192.168.43.210:8080/finderboard" />
                 </ScrollView>
             </GridLayout>
         </GridLayout>     
@@ -127,7 +127,7 @@
   vertical-align: bottom;
 }
     ActionBar {
-        background-color: #53ba82;
+        background-color: #4ba5fa;
         color: #ffffff;
     }
 

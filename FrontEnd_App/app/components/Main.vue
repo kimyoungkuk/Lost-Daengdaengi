@@ -1,6 +1,6 @@
 <template>
     <Page>
-        <ActionBar android.icon="res://icon" title="Lost DaengDaengi Main"/>
+        <ActionBar title="Lost DaengDaengi Main"/>
                 <ScrollView>
           <StackLayout>
             <!-- <Image class="logo" src="~/assets/images/DaengDaengi.png" horizontalAlignment="center" stretch="none"/> -->
