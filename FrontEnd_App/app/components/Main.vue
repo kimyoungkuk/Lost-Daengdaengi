@@ -9,6 +9,8 @@
             <Button text="맵뷰" height="50" width="100" @tap="$goto('map')" />
             <Button text="닉네임" height="50" width="100" @tap="$goto('setUserInfo')" />
             <Button text="카메라" height="50" width="100" @tap="$goto('makePost')" />
+            <Button text="Parallax" height="50" width="100" @tap="$goto('parallax')" />
+            <Button text="FabButton" height="50" width="100" @tap="$goto('main2')" />
             <Label class="message" :text="msg" col="0" row="0"/>
           </StackLayout>
         </FlexboxLayout >

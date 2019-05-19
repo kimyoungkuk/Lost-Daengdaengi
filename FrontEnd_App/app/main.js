@@ -6,7 +6,13 @@ import store from './store'
 import axios from 'axios'
 import RadDataForm from 'nativescript-ui-dataform/vue'
 import { TNSFontIcon, fonticon } from './nativescript-fonticon';
+import ButtonPlugin from 'nativescript-material-button/vue';
+import CardViewPlugin from 'nativescript-material-cardview/vue';
+import FabPlugin from "nativescript-vue-fab"
 
+Vue.use(ButtonPlugin);
+Vue.use(CardViewPlugin);
+Vue.use(FabPlugin)
 Vue.prototype.$router = router
 Vue.prototype.$goto = function (to, options) {
   this.$navigateTo(this.$router[to], options)
@@ -14,6 +20,11 @@ Vue.prototype.$goto = function (to, options) {
 
 Vue.prototype.$http = axios
 Vue.use(axios);
+
+Vue.registerElement(
+  'Fab',
+  () => require('nativescript-floatingactionbutton').Fab
+);
 
 Vue.config.productionTip = false
 
