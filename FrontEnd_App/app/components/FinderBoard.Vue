@@ -13,7 +13,7 @@
                     <Button class="btn btn-primary btn-active icon"
                         row="0" col="2" text="&#xea42;" tap="goForward" />
                 </GridLayout>
-                <WebView row="1" loaded="onWebViewLoaded" id="myWebView" src="http://192.168.43.210:8080/" />
+                <WebView row="1" loaded="onWebViewLoaded" id="myWebView" src="http://192.168.43.210:8080/finderboard" />
                 <Label row="2" text="  " />
             </GridLayout>
         </ScrollView>

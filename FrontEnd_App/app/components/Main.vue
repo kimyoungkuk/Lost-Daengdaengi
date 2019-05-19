@@ -1,11 +1,11 @@
 <template>
     <Page>
-        <ActionBar title="Lost DaengDaengi Main"/>
-        <FlexboxLayout class="page" >
+        <ActionBar hide title="Lost DaengDaengi Main"/>
+                <ScrollView>
           <StackLayout>
             <Image class="logo" src="~/assets/images/DaengDaengi.png" horizontalAlignment="center" stretch="none" />
-            <Button text="로그인" height="50" width="100" @tap="$goto('login')" />
-            <Button text="게시판" height="50" width="100" @tap="$goto('board')" />
+            <Button class="btn btn-primary" text="로그인" height="50" width="100" @tap="$goto('login')" />
+            <WebView row="1" height="500" loaded="onWebViewLoaded" id="myWebView" src="http://192.168.43.210:8080/" />
             <Button text="맵뷰" height="50" width="100" @tap="$goto('map')" />
             <Button text="게시물작성" height="50" width="100" @tap="$goto('makePost')" />
             <Button text="카메라" height="50" width="100" @tap="$goto('camera')" />
@@ -13,11 +13,12 @@
             <Button text="닉네임" height="50" width="100" @tap="$goto('setUserInfo')" />
             <Button text="카메라" height="50" width="100" @tap="$goto('makePost')" />
             <Button text="Parallax" height="50" width="100" @tap="$goto('parallax')" />
-            <Button text="FabButton" height="50" width="100" @tap="$goto('main2')" />
+            <Button text="찾은 게시판" height="50" width="100" @tap="$goto('ownerBoard')" />
+            <Button text="찾는 게시판" height="50" width="100" @tap="$goto('finderBoard')" />
             <Button text="GPS" height="50" width="100" @tap="$goto('gps')" />  
             <Label class="message" :text="msg" col="0" row="0"/>
           </StackLayout>
-        </FlexboxLayout >
+               </ScrollView>
     </Page>
 </template>
 
@@ -36,12 +37,13 @@
 </script>
 
 <style scoped>
+@import '~nativescript-theme-core/css/core.light.css';
 	.page {
 		align-items: center;
 		flex-direction: column;
   }
     ActionBar {
-        background-color: #53ba82;
+        background-color: #4ba5fa;
         color: #ffffff;
     }
 
