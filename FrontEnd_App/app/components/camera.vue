@@ -28,8 +28,8 @@
                 saveToGallery: false,
                 allowsEditing: false,
                 keepAspectRatio: true,
-                width: 320,
-                height: 240,
+                width: 1600,
+                height: 960,
                 cameraImage: null,
                 labelText: ""
             }
@@ -44,7 +44,7 @@
                 let that = this;
                 requestPermissions().then(
                     () => {
-                        takePicture({ width: 50, height: 50, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
+                        takePicture({ width: 480, height: 360, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
                             then((imageAsset) => {
                                 that.cameraImage = imageAsset;
                                 fromAsset(imageAsset).then(imgSource=>{
