@@ -1,7 +1,10 @@
 <template>
     <Page class="page">
-        <ActionBar class="action-bar" title="Map"></ActionBar>
-        <GridLayout :rows="row_scale">
+        <ActionBar class="action-bar" title="map">
+            <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="goBack"/>
+            <button text = "글쓰기" android:horizontalAlignment="right"/>
+        </ActionBar>
+        <GridLayout :rows="row_scale">  
             <GridLayout row = "0">
                 <Mapbox
                     accessToken="pk.eyJ1IjoicWtyODE5IiwiYSI6ImNqdjJhMjY1eTIyeDgzeW1mejl4YmZlaWsifQ.1hDcizlwRYzZqUXF6gz6tQ"
@@ -18,7 +21,7 @@
                     defaultLanguage = "ko"
                     @mapReady="onMapReady($event)">
                 </Mapbox>
-                <fab @tap = "onTap" row="0" rippleColor="#ffffff" class="fab-button"></fab>
+                <fab @tap = "onTap" row="0" rippleColor="#ffffff" icon = "ic_menu_mylocation" class="fab-button"></fab>
             </GridLayout>
             <GridLayout row = "1" rows = "auto,*">
                 <Label row = "0" backgroundColor = "#4ba5fa" @swipe = "onSwipe" padding = "10"></Label>
@@ -122,7 +125,7 @@
 .fab-button {
   height: 70;
   margin: 15;
-  background-color: #ff4081;
+  background-color: #ffffff;
   horizontal-align: right;
   vertical-align: bottom;
 }
