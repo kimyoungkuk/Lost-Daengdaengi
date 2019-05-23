@@ -54,6 +54,7 @@ class Finder_post(models.Model):
     find_time       =   models.DateTimeField()
     dog_feature     =   models.TextField()
     dog_type        =   models.CharField(max_length = 200)
+    shelter_name    =   models.CharField(max_length = 200, default = True)
     # one-to-one
     shelter         =   models.ForeignKey(
             Dog_shelter,
