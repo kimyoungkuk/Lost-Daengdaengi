@@ -11,7 +11,7 @@
             </GridLayout>
             <Button class="btn btn-primary" row = "1" text = "위치 보기" height="50" width="100" @tap = "onTap_Loc"></Button>
             <Button class="btn btn-primary" row="2" text="사진 선택" @tap="onSelectSingleTap" horizontalAlignment="center" />
-            <Button class="btn btn-primary" row = "3" @tap = "onTap_sub" text = "등록하기"></Button>
+            <Button class="btn btn-primary" row = "3" @tap = "onTap_sub" text = "등록하기" :isEnabled="!processing"></Button>
         </GridLayout>
         <!-- <ScrollView>
             <RadDataForm :source="source" :metadata="meta" :groups="groups"></RadDataForm>
@@ -29,6 +29,7 @@
     export default {
         data() {
             return {
+                processing: false,
                 groups: [ 
                     Object.assign(new PropertyGroup(), { 
                         name: "Owner_post",
@@ -198,6 +199,7 @@
                 this.$goto('select_Loc');
             },
             onTap_sub(args){
+                this.processing = true;
                 console.log(this.$refs.dataform.getPropertyByName('phone_num').valueCandidate);
                 this.$store.state.ownerPost.title = this.$refs.dataform.getPropertyByName('title').valueCandidate;
                 this.$store.state.ownerPost.phone_num = this.$refs.dataform.getPropertyByName('phone_num').valueCandidate;
@@ -240,7 +242,9 @@
 });
                     //this.$goto('board');
                     })
-                .catch(error => {console.log(error)});
+                .catch(error => {
+                    this.processing = false;
+                    console.log(error)});
                 console.log(this.makerinfo)
                 console.log(this.$refs.dataform.getPropertyByName('dog_age').valueCandidate);
                 

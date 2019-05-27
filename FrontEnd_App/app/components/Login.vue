@@ -5,14 +5,10 @@
 			<StackLayout class="form">
 				<Image class="logo" src="~/assets/images/DaengDaengi.png" />
 				<Label class="header" text="Lost DaengDaengi" />
-
                 <Button v-show="isLoggingIn" :text="'Google login'" :isEnabled="!processing" @tap="loginGoogle" class="fab btn btn-active" />
 			</StackLayout>
-                    
-	        
-	    
 		</FlexboxLayout>
-        <ActivityIndicator rowSpan="3" height="50" :busy="processing"></ActivityIndicator>
+        <ActivityIndicator rowSpan="3" height="80" color="#4ba5fa" :busy="processing"></ActivityIndicator>
         </GridLayout>
 	</Page>
 </template>

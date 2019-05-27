@@ -2,7 +2,7 @@
     <Page class="page">
         <ActionBar class="action-bar" title="map">
             <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="$goto('login')"/>
-            <ActionItem @tap="$goto('makePost_Finder')">
+            <ActionItem @tap="$goto('makePost_Finder', {clearHistory:true})">
                 <button text="찾았어요" class="btn btn-primary" android:horizontalAlignment="right" >/>
                 </button>
             </ActionItem>
@@ -34,7 +34,7 @@
             <GridLayout row = "1" rows = "auto,*">
                 <Label row = "0" backgroundColor = "#4ba5fa" @swipe = "onSwipe" padding = "10"></Label>
                 <ScrollView row="1">
-                    <WebView loaded="onWebViewLoaded" id="myWebView" src="http://192.168.43.210:8080/finderboard" />
+                    <WebView loaded="onWebViewLoaded" id="myWebView" :src="API_WEBVIEW_URL_finder"/>
                 </ScrollView>
             </GridLayout>
         </GridLayout>     
@@ -49,10 +49,11 @@
     import * as geolocation from "nativescript-geolocation";
     import { Accuracy } from "tns-core-modules/ui/enums";
     import axios from "axios";
+import { MapboxView } from 'nativescript-mapbox';
     export default {
         data () {
-            
             return { 
+                API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard',
                 makerinfo : [],
                 map : null,
                 row_scale : "*, 100",
@@ -65,7 +66,7 @@
                 if(this.ischecked == false){
                     this.map.setOnMapClickListener((point) => {
                         console.log("Map clicked at latitude: " + point.lat + ", longitude: " + point.lng);
-                        axios.post('http://210.107.198.174:8000/api/posts/filter',{
+                        axios.post(this.$store.state.API_URL + '/api/posts/filter',{
                             lat : point.lat,
                             lng : point.lng
                         }).then(res=>{
@@ -165,6 +166,9 @@
                 });
             },
 
+
+        },
+        beforeRouteLeave (to, from, next) {
 
         }
     };
