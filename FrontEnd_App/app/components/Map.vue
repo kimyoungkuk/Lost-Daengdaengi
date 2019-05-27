@@ -1,7 +1,7 @@
 <template>
     <Page class="page">
         <ActionBar class="action-bar" title="map">
-            <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="goBack"/>
+            <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="$goto('login')"/>
             <ActionItem @tap="$goto('makePost_Finder')">
                 <button text="찾았어요" class="btn btn-primary" android:horizontalAlignment="right" >/>
                 </button>
