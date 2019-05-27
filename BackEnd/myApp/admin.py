@@ -22,8 +22,12 @@ class Finder_postAdmin(admin.ModelAdmin):
     list_filter = ('dog_type','shelter',('find_time', DateRangeFilter),)
     search_fields = ['dog_feature']
 
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['nickname','key','is_admin']
+    list_filter = ('is_admin',)
+
 # Register your models here.
-admin.site.register(User)
+admin.site.register(User, UserAdmin)
 admin.site.register(Owner_post, Owner_postAdmin)
 admin.site.register(Finder_post, Finder_postAdmin)
 admin.site.register(Dog_shelter, Dog_shelterAdmin)

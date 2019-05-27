@@ -18,7 +18,7 @@ export default new Vuex.Store({
       dog_sex : 1,
       dog_type :" ",
       dog_age : 0,
-      dog_feature:" ",
+      dog_feature:"",
       remark:" ",
       phone_num:" ",
       image:" ",

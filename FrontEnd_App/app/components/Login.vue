@@ -1,40 +1,19 @@
 <template>
 	<Page actionBarHidden="true">
+        <GridLayout row="auto, auto,auto">
 		<FlexboxLayout class="page">
 			<StackLayout class="form">
 				<Image class="logo" src="~/assets/images/DaengDaengi.png" />
 				<Label class="header" text="Lost DaengDaengi" />
 
-				<StackLayout class="input-field" marginBottom="25">
-					<TextField class="input" hint="Email" keyboardType="email" autocorrect="false" autocapitalizationType="none" v-model="user.email"
-					 returnKeyType="next" @returnPress="focusPassword" fontSize="18" />
-					<StackLayout class="hr-light" />
-				</StackLayout>
-
-				<StackLayout class="input-field" marginBottom="25">
-					<TextField ref="password" class="input" hint="Password" secure="true" v-model="user.password" :returnKeyType="isLoggingIn ? 'done' : 'next'"
-					 @returnPress="focusConfirmPassword" fontSize="18" />
-					<StackLayout class="hr-light" />
-				</StackLayout>
-
-				<StackLayout v-show="!isLoggingIn" class="input-field">
-					<TextField ref="confirmPassword" class="input" hint="Confirm password" secure="true" v-model="user.confirmPassword" returnKeyType="done"
-					 fontSize="18" />
-					<StackLayout class="hr-light" />
-				</StackLayout>
-
-				<Button :text="isLoggingIn ? 'Log In' : 'Sign Up'" @tap="submit" class="btn btn-primary m-t-20" />
-                <Button v-show="isLoggingIn" :text="'\uf1a0' +' Google login' " @tap="loginGoogle" class="fab btn btn-active" />
-				<Label v-show="isLoggingIn" text="Forgot your password?" class="login-label" @tap="forgotPassword" />
+                <Button v-show="isLoggingIn" :text="'Google login'" :isEnabled="!processing" @tap="loginGoogle" class="fab btn btn-active" />
 			</StackLayout>
-
-			<Label class="login-label sign-up-label" @tap="toggleForm">
-	          <FormattedString>
-	            <Span :text="isLoggingIn ? 'Don’t have an account? ' : 'Back to Login'" />
-	            <Span :text="isLoggingIn ? 'Sign up' : ''" class="bold" />
-	          </FormattedString>
-	        </Label>
+                    
+	        
+	    
 		</FlexboxLayout>
+        <ActivityIndicator rowSpan="3" height="50" :busy="processing"></ActivityIndicator>
+        </GridLayout>
 	</Page>
 </template>
 
@@ -90,14 +69,16 @@ export default {
             key: ' ',
             isUser: ' ',
             user: {
-                email: "@gmail.com",
+                email: "",
                 password: "",
                 confirmPassword: ""
-            }
+            },
+            processing: false,
         };
     },
     methods: {
         loginGoogle(){
+        this.processing = true;
         userService
         .loginGoogle(this)
         .then((result) => {
@@ -112,9 +93,11 @@ export default {
                     console.log(response)
                     if(response.data == '1'){
                         this.$goto('map');
+                        this.processing = false;
                     }
                     else if(response.data == '0'){
                         this.$goto('setUserInfo')
+                        this.processing = false;
                     }
                 }.bind(this))
                 .catch(error => {console.log(error)});
@@ -133,6 +116,7 @@ export default {
         },
 
         submit() {
+            this.processing = true;
             if (!this.user.email || !this.user.password) {
                 this.alert(
                     "Please provide both an email address and password."
@@ -182,43 +166,6 @@ export default {
                     );
                 });
         },
-
-        forgotPassword() {
-            prompt({
-                title: "Forgot Password",
-                message:
-                    "Enter the email address you used to register for APP NAME to reset your password.",
-                inputType: "email",
-                defaultText: "",
-                okButtonText: "Ok",
-                cancelButtonText: "Cancel"
-            }).then(data => {
-                if (data.result) {
-                    userService
-                        .resetPassword(data.text.trim())
-                        .then(() => {
-                            this.alert(
-                                "Your password was successfully reset. Please check your email for instructions on choosing a new password."
-                            );
-                        })
-                        .catch(() => {
-                            this.alert(
-                                "Unfortunately, an error occurred resetting your password."
-                            );
-                        });
-                }
-            });
-        },
-
-        focusPassword() {
-            this.$refs.password.nativeView.focus();
-        },
-        focusConfirmPassword() {
-            if (!this.isLoggingIn) {
-                this.$refs.confirmPassword.nativeView.focus();
-            }
-        },
-
         alert(message) {
             return alert({
                 title: "APP NAME",

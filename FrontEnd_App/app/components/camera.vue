@@ -1,15 +1,15 @@
 <template>
     <Page class="page">
         <ActionBar class="action-bar">
-            <Label class="action-bar-title" text="Home"></Label>
+            <Label class="action-bar-title" text="카메라"></Label>
         </ActionBar>
 
         <GridLayout rows=" *, auto, auto,auto">
             
             <Image row="0" :src="cameraImage" id="image" stretch="aspectFit" margin="10"/>
             <TextView row="1" :text="labelText" editable="false"></TextView>>
-            <Button row="2"  text="사진 찍기" @tap="onTakePictureTap"  padding="10"/>
-            <Button row ="3" text = "맞습니다." @tap="onSelect" paddin="10"/>
+            <Button class="btn btn-primary" row="2"  text="사진찍기" @tap="onTakePictureTap"  padding="10"/>
+            <Button class="btn btn-primary" row ="3" text = "맞습니다" @tap="onSelect" paddin="10"/>
         </GridLayout>
     </Page>
 </template>
@@ -28,8 +28,8 @@
                 saveToGallery: false,
                 allowsEditing: false,
                 keepAspectRatio: true,
-                width: 1600,
-                height: 960,
+                width: 160,
+                height: 120,
                 cameraImage: null,
                 labelText: ""
             }
@@ -44,7 +44,7 @@
                 let that = this;
                 requestPermissions().then(
                     () => {
-                        takePicture({ width: 360, height: 240, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
+                        takePicture({ width: 160, height: 120, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
                             then((imageAsset) => {
                                 that.cameraImage = imageAsset;
                                 fromAsset(imageAsset).then(imgSource=>{
@@ -52,6 +52,7 @@
                                     // console.log(imgSource.toBase64String('png'));
                                     // console.log(typeof(imgSource.toBase64String('png')));
                                     // console.log(imgSource.toBase64String('png').length);
+                                    //
                                     axios.post('http://210.107.198.174:8000/api/classification',{
                                         image : imgSource.toBase64String('png'),
                                         
@@ -76,6 +77,11 @@
 </script>
 
 <style scoped lang="scss">
+@import '~nativescript-theme-core/css/core.light.css';
+    ActionBar {
+        background-color: #4ba5fa;
+        color: #ffffff;
+    }
     // // Start custom common variables
     // @import '../app-variables';
     // // End custom common variables

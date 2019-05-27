@@ -42,4 +42,6 @@ urlpatterns = [
     path('api/posts/filter', myApp.views.post_filter, name="posts/filter"),
     path('api/classification', myApp.views.classificationImage, name="classification"),
     path('api/dogShelter/near', myApp.views.FindNearShelter, name = "dogShelter/near"),
+    path('api/ownerPosts/filter/dogType', myApp.views.filteringOwner, name = "ownerPosts/filter/dogType"),
+    path('api/finderPosts/filter/dogType', myApp.views.filteringFinder, name = "finderPosts/filter/dogType"),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

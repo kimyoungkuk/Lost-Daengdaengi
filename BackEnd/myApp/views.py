@@ -84,18 +84,18 @@ def FindNearShelter(request):
     if currentLocation.is_valid():
         queryset = Dog_shelter.objects.all()
         shelterList = Dog_shelterSerializer(queryset, many = True)
-        logging.error(currentLocation.data)
-        for i in currentLocation.data:
-            logging.error(i)
-        logging.error(len(currentLocation.data))
-        logging.error(currentLocation.data['lat'])
-        logging.error(currentLocation.data['lng'])
-        logging.error(shelterList.data[0])
-        logging.error(shelterList.data[0]['lat'])
-        logging.error(type(currentLocation.data['lat']))
-        logging.error(type(shelterList.data[0]['lat']))
-#        logging.error(haversine(currentLocation.data['lat'],currentLocation.data['lng'], shelterList.data['lat'],shelterList.data['lng']))
-        return Response(currentLocation.data, status = status.HTTP_201_CREATED)
+
+        distMIN = 1000
+        id_value = 0
+        for i in range(0,len(shelterList.data)):
+            dist = haversine(currentLocation.data['lat'],currentLocation.data['lng'],shelterList.data[i]['lat'],shelterList.data[i]['lng']) 
+            if dist <= distMIN:
+                distMIN = dist
+                id_value = i + 1
+        
+        nearestQueryset = Dog_shelter.objects.get(pk = id_value)
+        nearestDogShelter = Dog_shelterSerializer(nearestQueryset)
+        return Response(nearestDogShelter.data, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
@@ -139,6 +139,11 @@ def finder_post_create(request):
     if serializer.is_valid():
         serializer.save()
 
+        tmp = Dog_shelter.objects.get(shelter_name = serializer.data['shelter_name'])
+        post = Finder_post.objects.get(id = serializer.data['id'])
+        post.shelter = tmp
+        post.save()
+
         if serializer.data['image'] != "":
             os.makedirs('./media/finder/' + str(serializer.data['id']))
             output = open('media/finder/' + str(serializer.data['id']) + '/profile.jpg', 'wb+')
@@ -175,6 +180,22 @@ def post_filter(request):
         serializerFinder = Finder_postSerializer(finder_posts, many = True)
         return Response(serializerOwner.data + serializerFinder.data, status = status.HTTP_201_CREATED)
     return Response(currentLocation.errors, status = status.HTTP_400_BAD_REQUEST)
+@api_view(['POST'])
+def filteringFinder(request):
+    condition = FilteringSerializer(data = request.data)
+    if condition.is_valid():
+        finder_posts = Finder_post.objects.filter(dog_type = condition.data['dog_type'])
+        serializerFinder = Finder_postSerializer(finder_posts, many = True)
+        return Response(serializerFinder.data, status = status.HTTP_201_CREATED)
+    return Response(condition.errors, status = status.HTTP_400_BAD_REQUEST)
+@api_view(['POST'])
+def filteringOwner(request):
+    condition = FilteringSerializer(data = request.data)
+    if condition.is_valid():
+        owner_posts = Owner_post.objects.filter(dog_type = condition.data['dog_type'])
+        serializerOwner = Owner_postSerializer(owner_posts, many = True)
+        return Response(serializerOwner.data, status = status.HTTP_201_CREATED)
+    return Response(condition.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
 

@@ -31,6 +31,11 @@ class GetImageSerializer(serializers.ModelSerializer):
         model = Finder_post
         fields = ('image',)
 
+class FilteringSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Finder_post
+        fields = ('dog_type',)
+
 #class ReportSerializer(serializers.ModelSerializer):
 #    class Meta:
 #        model = Report
