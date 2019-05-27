@@ -26,6 +26,14 @@
     import * as imagepicker from "nativescript-imagepicker";
     import { fromAsset,toBase64String } from "image-source";
     import axios from "axios";
+
+    // var applicationModule = require("application");
+    // var AndroidApplication = applicationModule.android;
+    // var activity = AndroidApplication.foregroundActivity;
+    //     activity = AndroidApplication.foregroundActivity;
+    // activity.onBackPressed = function () {
+    //         this.$goto('map');
+    // };
     export default {
         data() {
             return {
