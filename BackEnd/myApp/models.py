@@ -27,7 +27,7 @@ class Owner_post(models.Model):
     dog_feature     =   models.TextField()
     remark          =   models.TextField()
 
-    user_key        =   models.CharField(max_length = 1000, default = "")
+    # user_key        =   models.CharField(max_length = 1000, default = "")
 
     def __str__(self):
         return self.title
@@ -68,7 +68,7 @@ class Finder_post(models.Model):
     def __str__(self):
         return self.title
     
-    user_key        =   models.CharField(max_length = 1000, default = "")
+    # user_key        =   models.CharField(max_length = 1000, default = "")
 
 
 #class Report(models.Model):
