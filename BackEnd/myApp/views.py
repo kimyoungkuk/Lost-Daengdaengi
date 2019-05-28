@@ -104,8 +104,9 @@ def FindNearShelter(request):
 @api_view(['GET'])
 def owner_post_list(request):
     ownerposts=Owner_post.objects.all()
+    n=Owner_post.objects.count()
     os = Owner_postSerializer(ownerposts, many = True)
-    for i in range(len(os)):
+    for i in range(n):
         for j in range(20):
             if os[i].imageurl[j:j+3]=="174":
                 os[i].imageurl='http://202.30.31.91'+os[i].imageurl[j+3:]
