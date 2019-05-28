@@ -53,7 +53,7 @@
                                     // console.log(typeof(imgSource.toBase64String('png')));
                                     // console.log(imgSource.toBase64String('png').length);
                                     //
-                                    axios.post('http://210.107.198.174:8000/api/classification',{
+                                    axios.post('http://202.30.31.91:8000/api/classification',{
                                         image : imgSource.toBase64String('png'),
                                         
                                     }).then(res => {
