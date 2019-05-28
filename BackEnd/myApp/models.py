@@ -29,8 +29,8 @@ class Owner_post(models.Model):
 
     user_nickname        =   models.CharField(max_length = 1000, default = "")
     user_key        =   models.CharField(max_length = 1000, default = "")
-    report_conut    =   models.IntegerField(default = 0)
-    view_count      =   models.IntegerField(default = 0)
+    report_conut    =   models.IntegerField(blank=True, default = 0)
+    view_count      =   models.IntegerField(blank=True, default = 0)
 
     def __str__(self):
         return self.title
@@ -73,8 +73,8 @@ class Finder_post(models.Model):
     
     user_nickname        =   models.CharField(max_length = 1000, default = "")
     user_key        =   models.CharField(max_length = 1000, default = "")
-    report_conut    =   models.IntegerField(default = 0)
-    view_count      =   models.IntegerField(default = 0)
+    report_conut    =   models.IntegerField(blank=True, default = 0)
+    view_count      =   models.IntegerField(blank=True, default = 0)
 
 class Comment(models.Model):
     user_nickname = models.CharField(max_length=20,default="")
