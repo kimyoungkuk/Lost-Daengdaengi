@@ -104,13 +104,13 @@ def FindNearShelter(request):
 @api_view(['GET'])
 def owner_post_list(request):
         
-    owner_posts = Owner_post.objects.all().values('title','id','dog_type','lost_time','imageurl','lat','lng')
+    owner_posts = Owner_post.objects.all().values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
     serializer = Owner_postSerializer(owner_posts, many = True)
     return Response(owner_posts)
 @api_view(['GET'])
 def finder_post_list(request):
 
-    finder_posts = Finder_post.objects.all().values('title','id','dog_type','find_time','imageurl','lat','lng')
+    finder_posts = Finder_post.objects.all().values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
     serializer = Finder_postSerializer(finder_posts, many = True)
     return Response(finder_posts)
 
