@@ -108,7 +108,7 @@ def owner_post_list(request):
     return Response(serializer.data)
 @api_view(['GET'])
 def finder_post_list(request):
-    finder_posts = Finder_post.objects.all()
+    finder_posts = Finder_post.objects.all().values('title','id','type','find_time')
     serializer = Finder_postSerializer(finder_posts, many = True)
     return Response(serializer.data)
 
