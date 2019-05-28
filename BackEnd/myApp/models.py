@@ -27,8 +27,8 @@ class Owner_post(models.Model):
     dog_feature     =   models.TextField()
     remark          =   models.TextField()
 
-    user_nickname        =   models.CharField(max_length = 1000, default = "")
-    user_key        =   models.CharField(max_length = 1000, default = "")
+    user_nickname        =   models.CharField(max_length = 1000, blank=True, default = "")
+    user_key        =   models.CharField(max_length = 1000, blank=True, default = "")
     report_conut    =   models.IntegerField(blank=True, default = 0)
     view_count      =   models.IntegerField(blank=True, default = 0)
 
@@ -71,8 +71,8 @@ class Finder_post(models.Model):
     def __str__(self):
         return self.title
     
-    user_nickname        =   models.CharField(max_length = 1000, default = "")
-    user_key        =   models.CharField(max_length = 1000, default = "")
+    user_nickname        =   models.CharField(max_length = 1000, blank=True, default = "")
+    user_key        =   models.CharField(max_length = 1000, blank=True, default = "")
     report_conut    =   models.IntegerField(blank=True, default = 0)
     view_count      =   models.IntegerField(blank=True, default = 0)
 
