@@ -120,6 +120,7 @@ def owner_post_detail(request,pk):
     serializer = Owner_postSerializer(owner_posts, many = True)
     owner_post = Owner_post.objects.get(id=pk)
     owner_post.view_count = owner_post.view_count+1
+    owner_post.save()
     return Response(serializer.data)
 @api_view(['GET'])
 def finder_post_detail(request,pk):
@@ -127,6 +128,7 @@ def finder_post_detail(request,pk):
     serializer = Finder_postSerializer(finder_posts, many = True)
     finder_post = Finder_post.objects.get(id=pk)
     finder_post.view_count = finder_post.view_count+1
+    finder_post.save()
     return Response(serializer.data)
 
 
