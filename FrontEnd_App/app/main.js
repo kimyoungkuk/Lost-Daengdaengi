@@ -31,7 +31,7 @@ Vue.registerElement(
   'Fab',
   () => require('nativescript-floatingactionbutton').Fab
 );
-
+Vue.registerElement('RadSideDrawer', () => require('nativescript-ui-sidedrawer').RadSideDrawer);
 Vue.config.productionTip = false
 
 Vue.use(RadDataForm);
