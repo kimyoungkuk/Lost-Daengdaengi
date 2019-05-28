@@ -39,8 +39,8 @@ def login(request):
             try: # 맞는 key를 가진 User가 있느냐
                 user = User.objects.get(key = serializer.data['key'])
             except User.DoesNotExist:
-                return Response(0, status = status.HTTP_201_CREATED)
-            return Response(1, status = status.HTTP_201_CREATED)
+                return Response({'state':0,'nickname':""}, status = status.HTTP_201_CREATED)
+            return Response({'state':1,'nickname':user.nickname}, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 @api_view(['POST'])
 def signup(request):
