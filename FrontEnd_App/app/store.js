@@ -6,7 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user_Email: "",
-    API_URL: "http://210.107.198.174:8000",
+    API_BACKEND_URL: "http://202.30.31.91:8000",
+    API_WEBVIEW_URL: "http://202.30.31.91",
+    // API_WEBVIEW_URL: "http://192.168.43.210:8080",
     shelter_List : [],
     shelter_List_Near :[],
     CurrentPostType : true,

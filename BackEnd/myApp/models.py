@@ -17,7 +17,7 @@ class Owner_post(models.Model):
     posted_due      =   models.DateField()
 
     image           =   models.TextField(default = "", blank=True, null=True)
-    imageurl        =   models.CharField(max_length = 2000, default = "http://210.107.198.174:8000/media/default_image.jpg", blank=True, null=True)
+    imageurl        =   models.CharField(max_length = 2000, default = "http://202.30.31.91:8000/media/default_image.jpg", blank=True, null=True)
 
     dog_name        =   models.CharField(max_length = 200)
     dog_sex         =   models.IntegerField()
@@ -49,7 +49,7 @@ class Finder_post(models.Model):
     posted_due      =   models.DateField()
 
     image           =   models.TextField(default = "", blank=True, null=True)
-    imageurl        =   models.CharField(max_length = 2000, default = "http://210.107.198.174:8000/media/default_image.jpg", blank=True, null=True)
+    imageurl        =   models.CharField(max_length = 2000, default = "http://202.30.31.91:8000/media/default_image.jpg", blank=True, null=True)
 
     find_time       =   models.DateTimeField()
     dog_feature     =   models.TextField()

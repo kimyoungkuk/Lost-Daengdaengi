@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='finder_post',
             name='imageurl',
-            field=models.CharField(blank=True, default='http://210.107.198.174:8000/media/default_image.jpg', max_length=2000, null=True),
+            field=models.CharField(blank=True, default='http://202.30.31.91:8000/media/default_image.jpg', max_length=2000, null=True),
         ),
         migrations.AlterField(
             model_name='finder_post',
@@ -34,6 +34,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='owner_post',
             name='imageurl',
-            field=models.CharField(blank=True, default='http://210.107.198.174:8000/media/default_image.jpg', max_length=2000, null=True),
+            field=models.CharField(blank=True, default='http://202.30.31.91:8000/media/default_image.jpg', max_length=2000, null=True),
         ),
     ]

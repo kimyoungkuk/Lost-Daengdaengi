@@ -11,7 +11,7 @@
             </GridLayout>
             <Button class="btn btn-primary" row = "1" text = "위치 보기" height="50" width="100" @tap = "onTap_Loc"></Button>
             <Button class="btn btn-primary" row="2" text="사진 찍기" @tap="onTakePictureTap" horizontalAlignment="center" />
-            <Button class="btn btn-primary" row = "3" @tap = "onTap_sub" text = "등록하기"></Button>
+            <Button class="btn btn-primary" row = "3" @tap = "onTap_sub" text = "등록하기" :isEnabled="!processing"></Button> 
         </GridLayout>
         <!-- <ScrollView>
             <RadDataForm :source="source" :metadata="meta" :groups="groups"></RadDataForm>
@@ -37,6 +37,7 @@
     export default {
         data() {
             return {
+                processing : false,
                 groups: [ 
                     Object.assign(new PropertyGroup(), { 
                         name: "Finder_post",
@@ -176,6 +177,7 @@
                 this.$goto('select_Loc');
             },
             onTap_sub(args){
+                this.processing = true;
                 this.$store.state.FinderPost.title = this.$refs.dataform_f.getPropertyByName('title').valueCandidate;
                 this.$store.state.FinderPost.phone_num = this.$refs.dataform_f.getPropertyByName('phone_num').valueCandidate;
                 this.$store.state.FinderPost.find_time = this.$refs.dataform_f.getPropertyByName('find_time').valueCandidate+" " +this.$refs.dataform_f.getPropertyByName('find_time1').valueCandidate,
@@ -184,7 +186,7 @@
                 this.$store.state.FinderPost.posted_time = this.$refs.dataform_f.getPropertyByName('posted_time').valueCandidate;
                 this.$store.state.FinderPost.posted_due = this.$refs.dataform_f.getPropertyByName('posted_due').valueCandidate;
                 this.$store.state.FinderPost.shelter_name = this.$refs.dataform_f.getPropertyByName('shelter_name').valueCandidate;
-                axios.post('http://210.107.198.174:8000/api/finderPosts/create',{
+                axios.post(this.$store.state.API_BACKEND_URL + '/api/finderPosts/create',{
                     title : this.$store.state.FinderPost.title,
                     find_time : this.$store.state.FinderPost.find_time,
                     dog_type :this.$store.state.FinderPost.dog_type,
@@ -209,7 +211,9 @@
 });
                     //this.$goto('board');
                     })
-                .catch(error => {console.log(error)});
+                .catch(error => {
+                    this.processing = false
+                    console.log(error)});
                 //console.log(this.makerinfo)
                 //console.log(this.$refs.dataform.getPropertyByName('dog_age').valueCandidate);   
             }

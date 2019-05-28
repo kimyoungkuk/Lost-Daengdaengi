@@ -2,9 +2,10 @@
     <Page>
         <ActionBar title="Lost DaengDaengi Main"/>
                 <ScrollView>
-          <StackLayout>
+          <StackLayout>     
             <!-- <Image class="logo" src="~/assets/images/DaengDaengi.png" horizontalAlignment="center" stretch="none"/> -->
-            <WebView row="1" height="440" loaded="onWebViewLoaded" id="myWebView" src="http://192.168.43.210:8080/" />
+            <WebView row="0" @loadFinished="completeLoading" height="440" loaded="onWebViewLoaded" id="myWebView" :src="this.$store.state.API_WEBVIEW_URL"/>
+            <Progress color="#4ba5fa" v-show="loadingComplete" :value="loadingValue" row ="0"/>
             <Button class="btn btn-primary" text="시작하기" height="50" width="175" @tap="$goto('login')" />
             <!-- <Label class="message" :text="msg" col="0" row="0"/> -->
           </StackLayout>
@@ -17,11 +18,28 @@
   export default {
     data() {
       return {
+        loadingValue: 0,
+        loadingComplete: true
         // msg: 'Lost Daengdaengi!'
       }
     },
     methods:{
+      completeLoading(){
+        this.loadingComplete=false
+      },
+      OnInit() {
+    var d = setInterval(() => {
+      this.loadingValue += 1
+      if(this.loadingValue==90){
+        clearInterval(d)
+      }
+    }, 20);
 
+}
+
+    },
+    created(){
+      this.OnInit()
     }
   }
 </script>

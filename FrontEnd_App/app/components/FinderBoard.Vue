@@ -5,7 +5,7 @@
             <GridLayout>
                 <GridLayout row="0" rows="*" columns="50 * 50" class="form">
                 </GridLayout>
-                <WebView row="1" loaded="onWebViewLoaded" id="myWebView" src="http://192.168.43.210:8080/finderboard" />
+                <WebView row="1" loaded="onWebViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL" />
                 <Label row="2" text="  " />
             </GridLayout>
         </ScrollView>
@@ -15,7 +15,9 @@
 <script>
     export default {
         data() {
-            return {};
+            return {
+                API_WEBVIEW_URL: this.$store.state.API_WEBVIEW_URL + "/finderboard",
+            };
         }
     };
 </script>
