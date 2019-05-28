@@ -186,7 +186,7 @@
                 this.$store.state.FinderPost.posted_time = this.$refs.dataform_f.getPropertyByName('posted_time').valueCandidate;
                 this.$store.state.FinderPost.posted_due = this.$refs.dataform_f.getPropertyByName('posted_due').valueCandidate;
                 this.$store.state.FinderPost.shelter_name = this.$refs.dataform_f.getPropertyByName('shelter_name').valueCandidate;
-                axios.post('http://210.107.198.174:8000/api/finderPosts/create',{
+                axios.post(this.$store.state.API_BACKEND_URL + '/api/finderPosts/create',{
                     title : this.$store.state.FinderPost.title,
                     find_time : this.$store.state.FinderPost.find_time,
                     dog_type :this.$store.state.FinderPost.dog_type,

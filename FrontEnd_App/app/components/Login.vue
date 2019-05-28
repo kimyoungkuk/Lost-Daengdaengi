@@ -82,7 +82,7 @@ export default {
           console.log(this.user.email)
           console.log(this.key)
           this.$store.state.user_Email = this.key
-          this.$http.post(this.$store.state.API_URL + '/api/users/login',{
+          this.$http.post(this.$store.state.API_BACKEND_URL + '/api/users/login',{
               key: this.key
                 })
                 .then(function(response){
