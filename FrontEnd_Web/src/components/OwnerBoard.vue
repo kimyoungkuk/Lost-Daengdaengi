@@ -44,7 +44,7 @@
                 <strong>견종 : </strong>{{post.dog_type}}
             </p>
             <p class="card-text">
-                <strong>잃어버린 날짜 : </strong>{{post.lost_time}}
+              <strong>찾은 날짜 : </strong>{{$moment($moment(post.lost_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}
             </p>
             <div slot="footer">
                 <b-btn variant="primary" block>상세보기</b-btn>
@@ -74,7 +74,7 @@ export default {
         .then(res => {
             console.log(res.data)
             this.posts = res.data
-        }).bind(this)
+        })
     },
   computed: {
             formattedPosts() {

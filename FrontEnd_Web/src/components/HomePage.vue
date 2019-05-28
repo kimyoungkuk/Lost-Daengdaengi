@@ -1,39 +1,34 @@
 <template>
-  <div>
+  <div >
+    <div >
     <b-carousel
-      id="carousel-1"
-      v-model="slide"
       :interval="4000"
       controls
+      indicators
       fade
-      background="#ababab"
-      img-width="80%"
-      img-height="200"
-      style="text-shadow: 1px 1px 2px #333;"
-      @sliding-start="onSlideStart"
-      @sliding-end="onSlideEnd"
+      style="text-shadow: 1px 1px 2px #333; img-width:10px;"
+      
     >
       <!-- Text slides with image -->
       <b-carousel-slide
         caption="대한민국 최강 유기견 플랫폼"
         text="지금 당장 시작하세요"
-        img-src="https://cdn.pixabay.com/photo/2016/01/05/17/51/dog-1123016_960_720.jpg"
-        background
+        img-src="https://pixabay.com/get/57e1d7404a53aa14f6d1867dda6d49214b6ac3e456547849702879d49f/dog-1123016_1920.jpg"
+        
       ></b-carousel-slide>
 
       <!-- Slides with custom text -->
             <b-carousel-slide
         caption="Lost DaengDaengi"
         text="여러분의 반려견을 지켜주세요"
-        img-src="https://cdn.pixabay.com/photo/2016/01/19/17/41/friends-1149841_960_720.jpg"
-        background
+        img-src="https://pixabay.com/get/57e8d0434855aa14f6d1867dda6d49214b6ac3e45654784970287fd692/adorable-1850276_1920.jpg"
       ></b-carousel-slide>
 
                   <b-carousel-slide
         caption="Lost DaengDaengi"
         text="자동화된 시스템을 경험하세요"
-        img-src="https://cdn.pixabay.com/photo/2016/11/29/05/09/child-1867463_960_720.jpg"
-        background
+        img-src="https://pixabay.com/get/57e1d14a4e52ac14f6d1867dda6d49214b6ac3e456547849702878d295/man-and-dog-1149400_1920.jpg"
+  
       ></b-carousel-slide>
 
       <!-- <b-carousel-slide img-src="https://cdn.pixabay.com/photo/2016/01/19/17/41/friends-1149841_960_720.jpg">
@@ -66,15 +61,12 @@
         </p>
       </b-carousel-slide> -->
     </b-carousel>
-
+    </div>
     <!-- <p class="mt-4">
       Slide #: {{ slide }}<br>
       Sliding: {{ sliding }}
     </p> -->
-      <b-footer
-    dark
-    height="auto"
-  >
+      <div>
     <b-card
       class="flex"
       title="2019 Capstone Design"
@@ -83,7 +75,7 @@
         <strong>Team Bohemian Capsody <br/> AJOU Univ.<br/></strong>&copy; 2019 김영국 | 박신혁 | 박찬영 | 최순원 
       </b-card-text>
     </b-card>
-  </b-footer>
+      </div>
   </div>
   
 </template>
@@ -116,9 +108,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-h3 {
-  margin: 40px 0 0;
-}
 ul {
   list-style-type: none;
   padding: 0;
