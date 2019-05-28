@@ -72,7 +72,7 @@ export default {
     }
   },
   created(){
-      this.$http.get('http://210.107.198.174:8000/api/finderPosts/list')
+      this.$http.get('http://202.30.31.91:8000/api/finderPosts/list')
         .then(res => {
             console.log(res.data)
             this.posts = res.data
@@ -92,7 +92,7 @@ export default {
 methods: {
       onSubmit(evt) {
         evt.preventDefault()
-        this.$http.post('http://210.107.198.174:8000/api/finderPosts/filter/dogType', {
+        this.$http.post('http://202.30.31.91:8000/api/finderPosts/filter/dogType', {
             dog_type: this.form.input 
         }).then(res => {
             console.log(res.data)
