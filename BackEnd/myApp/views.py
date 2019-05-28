@@ -110,7 +110,7 @@ def owner_post_list(request):
         for j in range(20):
             if os.data[i]['imageurl'][j:j+3]=="174":
                 os.data[i]['imageurl']='http://202.30.31.91'+os.data[i]['imageurl'][j+3:]
-
+    os.save()
     owner_posts = Owner_post.objects.all().values('title','id','dog_type','lost_time','imageurl')
     serializer = Owner_postSerializer(owner_posts, many = True)
     return Response(owner_posts)
