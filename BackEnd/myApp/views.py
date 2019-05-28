@@ -103,12 +103,34 @@ def FindNearShelter(request):
 
 @api_view(['GET'])
 def owner_post_list(request):
-    owner_posts = Owner_post.objects.all()
+    ownerposts=Owner_post.objects.all()
+    n=Owner_post.objects.count()
+    os = Owner_postSerializer(ownerposts, many = True)
+    for i in range(n):
+        post = Owner_post.objects.get(id = os.data[i]['id'])
+        for j in range(20):
+            if post.imageurl[j:j+3]=="174":
+                post.imageurl='http://202.30.31.91'+post.imageurl[j+3:]
+                break
+        post.save()
+        
+    owner_posts = Owner_post.objects.all().values('title','id','dog_type','lost_time','imageurl')
+    serializer = Owner_postSerializer(owner_posts, many = True)
+    return Response(owner_posts)
+@api_view(['GET'])
+def finder_post_list(request):
+    finder_posts = Finder_post.objects.all().values('title','id','dog_type','find_time','imageurl')
+    serializer = Finder_postSerializer(finder_posts, many = True)
+    return Response(finder_posts)
+
+@api_view(['GET'])
+def owner_post_detail(request,pk):
+    owner_posts = Owner_post.objects.filter(id=pk)
     serializer = Owner_postSerializer(owner_posts, many = True)
     return Response(serializer.data)
 @api_view(['GET'])
-def finder_post_list(request):
-    finder_posts = Finder_post.objects.all()
+def finder_post_detail(request,pk):
+    finder_posts = Finder_post.objects.filter(id=pk)
     serializer = Finder_postSerializer(finder_posts, many = True)
     return Response(serializer.data)
 

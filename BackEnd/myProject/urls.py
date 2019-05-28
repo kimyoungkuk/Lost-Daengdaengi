@@ -35,10 +35,14 @@ urlpatterns = [
     path('api/dogShelter', myApp.views.Dog_shelter_list, name = "dogShelter"),
     path('api/users/login', myApp.views.login, name = "login"),
     path('api/users/signUp', myApp.views.signup, name = "signUp"),
+    
     path('api/ownerPosts/list', myApp.views.owner_post_list, name = "ownerPosts/list"),
     path('api/finderPosts/list', myApp.views.finder_post_list, name = "finderPosts/list"),
     path('api/ownerPosts/create', myApp.views.owner_post_create, name="ownerPosts/create"),
     path('api/finderPosts/create', myApp.views.finder_post_create, name="finderPosts/create"),
+    path('api/ownerPosts/detail/<int:pk>', myApp.views.owner_post_detail, name="ownerPosts/detail"),
+    path('api/finderPosts/detail/<int:pk>', myApp.views.finder_post_detail, name="finderPosts/detail"),
+    
     path('api/posts/filter', myApp.views.post_filter, name="posts/filter"),
     path('api/classification', myApp.views.classificationImage, name="classification"),
     path('api/dogShelter/near', myApp.views.FindNearShelter, name = "dogShelter/near"),
