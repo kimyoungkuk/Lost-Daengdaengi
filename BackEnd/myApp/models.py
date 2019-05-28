@@ -29,7 +29,7 @@ class Owner_post(models.Model):
 
     user_nickname        =   models.CharField(max_length = 1000, blank=True, default = "")
     user_key        =   models.CharField(max_length = 1000, blank=True, default = "")
-    report_conut    =   models.IntegerField(blank=True, default = 0)
+    report_count    =   models.IntegerField(blank=True, default = 0)
     view_count      =   models.IntegerField(blank=True, default = 0)
 
     def __str__(self):
@@ -73,7 +73,7 @@ class Finder_post(models.Model):
     
     user_nickname        =   models.CharField(max_length = 1000, blank=True, default = "")
     user_key        =   models.CharField(max_length = 1000, blank=True, default = "")
-    report_conut    =   models.IntegerField(blank=True, default = 0)
+    report_count    =   models.IntegerField(blank=True, default = 0)
     view_count      =   models.IntegerField(blank=True, default = 0)
 
 class Comment(models.Model):
