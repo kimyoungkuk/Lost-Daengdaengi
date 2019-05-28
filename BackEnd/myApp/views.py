@@ -114,14 +114,14 @@ def finder_post_list(request):
 
 @api_view(['GET'])
 def owner_post_detail(request,pk):
-    owner_posts = Owner_post.objects.get(id=pk)
-    serializer = Owner_postSerializer(owner_posts, many = True)
-    return Response(serializer.data)
+    owner_post = Owner_post.objects.get(id=pk)
+    # serializer = Owner_postSerializer(owner_posts, many = True)
+    return Response(owner_post)
 @api_view(['GET'])
 def finder_post_detail(request,pk):
-    finder_posts = Finder_post.objects.get(id=pk)
-    serializer = Finder_postSerializer(finder_posts, many = True)
-    return Response(serializer.data)
+    finder_post = Finder_post.objects.get(id=pk)
+    # serializer = Finder_postSerializer(finder_posts, many = True)
+    return Response(finder_post)
 
 
 @api_view(['POST'])
