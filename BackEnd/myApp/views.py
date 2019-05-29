@@ -39,8 +39,8 @@ def login(request):
             try: # 맞는 key를 가진 User가 있느냐
                 user = User.objects.get(key = serializer.data['key'])
             except User.DoesNotExist:
-                return Response(0, status = status.HTTP_201_CREATED)
-            return Response(1, status = status.HTTP_201_CREATED)
+                return Response({'state':0,'nickname':""}, status = status.HTTP_201_CREATED)
+            return Response({'state':1,'nickname':user.nickname}, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 @api_view(['POST'])
 def signup(request):
@@ -103,13 +103,32 @@ def FindNearShelter(request):
 
 @api_view(['GET'])
 def owner_post_list(request):
-    owner_posts = Owner_post.objects.all()
+        
+    owner_posts = Owner_post.objects.all().values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
     serializer = Owner_postSerializer(owner_posts, many = True)
-    return Response(serializer.data)
+    return Response(owner_posts)
 @api_view(['GET'])
 def finder_post_list(request):
-    finder_posts = Finder_post.objects.all()
+
+    finder_posts = Finder_post.objects.all().values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
     serializer = Finder_postSerializer(finder_posts, many = True)
+    return Response(finder_posts)
+
+@api_view(['GET'])
+def owner_post_detail(request,pk):
+    owner_posts = Owner_post.objects.filter(id=pk)
+    serializer = Owner_postSerializer(owner_posts, many = True)
+    owner_post = Owner_post.objects.get(id=pk)
+    owner_post.view_count = owner_post.view_count+1
+    owner_post.save()
+    return Response(serializer.data)
+@api_view(['GET'])
+def finder_post_detail(request,pk):
+    finder_posts = Finder_post.objects.filter(id=pk)
+    serializer = Finder_postSerializer(finder_posts, many = True)
+    finder_post = Finder_post.objects.get(id=pk)
+    finder_post.view_count = finder_post.view_count+1
+    finder_post.save()
     return Response(serializer.data)
 
 

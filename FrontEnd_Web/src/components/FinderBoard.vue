@@ -34,7 +34,7 @@
     <b-card-group deck deck v-for="row in formattedPosts">
         <b-card  v-for="post in row"
                 :title="post.title"
-                :img-src=post.imageurl
+                :img-src="post.imageurl"
                 style="max-width: 30rem;"
                 img-top>
             <p class="card-text">
@@ -44,10 +44,11 @@
                 <strong>견종 : </strong>{{post.dog_type}}
             </p>
             <p class="card-text">
-                <strong>찾은 날짜 : </strong>{{post.find_time}}
+              <strong>찾은 날짜 : </strong>{{$moment($moment(post.find_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}
+                <!-- <strong>찾은 날짜 : </strong>{{$moment(post.find_time).format('LLLL')}} -->
             </p>
             <div slot="footer">
-                <b-btn variant="primary" block>상세보기</b-btn>
+                <router-link :to="`/finderboard/view/${post.id}`"><b-btn variant="primary" block>상세보기</b-btn></router-link>
             </div>
         </b-card>
     </b-card-group>
@@ -76,7 +77,7 @@ export default {
         .then(res => {
             console.log(res.data)
             this.posts = res.data
-        }).bind(this)
+        })
     },
   computed: {
             formattedPosts() {
@@ -97,7 +98,7 @@ methods: {
         }).then(res => {
             console.log(res.data)
             this.posts = res.data
-        }).bind(this)
+        })
         alert(JSON.stringify(this.form))
         console.log(this.form)
       },

@@ -26,6 +26,12 @@ class Owner_post(models.Model):
     dog_age         =   models.IntegerField()
     dog_feature     =   models.TextField()
     remark          =   models.TextField()
+
+    user_nickname   =   models.CharField(max_length = 1000, blank=True, default = "")
+    user_key        =   models.CharField(max_length = 1000, blank=True, default = "")
+    report_count    =   models.IntegerField(blank=True, default = 0)
+    view_count      =   models.IntegerField(blank=True, default = 0)
+
     def __str__(self):
         return self.title
 
@@ -64,6 +70,22 @@ class Finder_post(models.Model):
             )
     def __str__(self):
         return self.title
+    
+    user_nickname   =   models.CharField(max_length = 1000, blank=True, default = "")
+    user_key        =   models.CharField(max_length = 1000, blank=True, default = "")
+    report_count    =   models.IntegerField(blank=True, default = 0)
+    view_count      =   models.IntegerField(blank=True, default = 0)
+
+class Comment(models.Model):
+    user_nickname = models.CharField(max_length=20,default="")
+    user_key        =   models.CharField(max_length = 1000, default = "")
+    contents = models.TextField('contents')
+    posted_date = models.DateTimeField('posted_date',auto_now_add=True)
+    commented_post = models.IntegerField(default=0)
+    
+
+
+
 
 #class Report(models.Model):
 #    reason          =   models.CharField(max_length = 10)

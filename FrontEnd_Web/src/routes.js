@@ -5,6 +5,7 @@ import FinderBoard from './components/FinderBoard'
 import OwnerBoard from './components/OwnerBoard'
 import Login from './components/Login'
 import AboutUs from './components/AboutUs'
+import PostDetail from './components/PostDetailFinder'
 
 export default [
   {
@@ -41,6 +42,11 @@ export default [
     path: '/aboutus',
     name: 'aboutus',
     component: AboutUs
+  },
+  {
+    path: '/finderboard/view/:id',
+    name: 'postDetailFinder',
+    component: PostDetail
   },
   {
     path: '*',
