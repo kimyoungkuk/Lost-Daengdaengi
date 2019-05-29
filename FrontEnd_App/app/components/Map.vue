@@ -1,8 +1,10 @@
 <template>
     <Page class="page">
         <ActionBar class="action-bar" title="map">
-            <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="$goto('login')"/>
-            <ActionItem @tap="$goto('makePost_Finder', {clearHistory:true})">
+            <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="openDrawer"/>
+
+            <ActionItem @tap="onTapFinder">
+
                 <button text="찾았어요" class="btn btn-primary" android:horizontalAlignment="right" >/>
                 </button>
             </ActionItem>
@@ -13,19 +15,14 @@
         </ActionBar>
         <GridLayout :rows="row_scale">  
             <GridLayout rows = "*,auto,auto" row = "0">
-                <Mapbox row = "0"
+                <Mapbox 
+                    row = "0"
                     accessToken="pk.eyJ1IjoicWtyODE5IiwiYSI6ImNqdjJhMjY1eTIyeDgzeW1mejl4YmZlaWsifQ.1hDcizlwRYzZqUXF6gz6tQ"
                     mapStyle="traffic_day"
                     latitude="37.532600"
                     longitude="127.024612"
                     hideCompass="true"
                     zoomLevel="12"
-                    showUserLocation="false"
-                    disableZoom="false"
-                    disableRotation="false"
-                    disableScroll="false"
-                    disableTilt="false"
-                    defaultLanguage = "ko"
                     @mapReady="onMapReady($event)">
                 </Mapbox>
                 <Switch row ="1" @checkedChange = "OncheckedChange" checked="false" />
@@ -48,9 +45,12 @@
     import * as mapbox from "nativescript-mapbox";
     import * as geolocation from "nativescript-geolocation";
     import { Accuracy } from "tns-core-modules/ui/enums";
+    const applicationModule = require("tns-core-modules/application");
     import axios from "axios";
-import { MapboxView } from 'nativescript-mapbox';
+    import { MapboxView } from 'nativescript-mapbox';
+    import sideDrawer from '~/mixins/sideDrawer'
     export default {
+        mixins: [ sideDrawer ],
         data () {
             return { 
                 API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard',
@@ -108,6 +108,9 @@ import { MapboxView } from 'nativescript-mapbox';
                         lng : loc.longitude
                     })
                 })
+            },
+            onTapFinder(args){
+                this.$goto('makePost_Finder');
             },
             onMapReady(args) {
                 this.map = args.map;

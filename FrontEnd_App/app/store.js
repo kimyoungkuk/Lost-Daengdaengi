@@ -44,11 +44,17 @@ export default new Vuex.Store({
     posted_due:" ",
     shelter_name:"대전광역시 동물보호센터"
   },
+  sideDrawer: false
 },
   mutations: {
-
+    setSideDrawer (state, data) {
+      state.sideDrawer = data
+    }
   },
   actions: {
 
+  },
+  getters :{
+    sideDrawer: (state) => state.sideDrawer
   }
 });
