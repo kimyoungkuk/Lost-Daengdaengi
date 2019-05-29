@@ -87,11 +87,13 @@ export default {
                 })
                 .then(function(response){
                     console.log(response)
-                    if(response.data == '1'){
+                    if(response.data.state == '1'){
+                        this.$store.state.user_nickname = response.data.nickname
+                        console.log(response.data)
                         this.$goto('map');
                         this.processing = false;
                     }
-                    else if(response.data == '0'){
+                    else if(response.data.state == '0'){
                         this.$goto('setUserInfo')
                         this.processing = false;
                     }

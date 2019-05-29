@@ -8,7 +8,7 @@
             <b-badge variant="dark">찾은 날짜</b-badge>
             {{this.form.find_time}}
             <b-badge variant="dark">조회수</b-badge>
-            {{this.form.count}}
+            {{this.form.view_count}}
             <br>
             <b-badge variant="dark">제목</b-badge>
             {{this.form.title}}
@@ -111,7 +111,7 @@ export default {
         title: "",
         imageurl: "",
         find_time: "",
-        count: "",
+        view_count: "",
         dog_type: "",
         dog_feature: "",
         phone_num: "",

@@ -28,13 +28,15 @@ export default {
         // The result property is true if the dialog is closed with the OK button, false if closed with the Cancel button or undefined if closed with a neutral button.
         console.log("Dialog result: " + result.result);
         console.log("Text: " + result.text);
-            this.$http.post(this.$store.state.API_URL + '/api/users/signUp',{
+            this.$http.post(this.$store.state.API_BACKEND_URL + '/api/users/signUp',{
               key: this.$store.state.user_Email,
               nickname: result.text
                 })
                 .then(function(response){
                     console.log(response)
                     if(response.status == '201'){
+                        this.$store.state.user_nickname = result.text
+                        console.log(result.text)
                         this.$goto('map')
                     }else{
 

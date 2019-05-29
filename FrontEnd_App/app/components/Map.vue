@@ -66,7 +66,7 @@ import { MapboxView } from 'nativescript-mapbox';
                 if(this.ischecked == false){
                     this.map.setOnMapClickListener((point) => {
                         console.log("Map clicked at latitude: " + point.lat + ", longitude: " + point.lng);
-                        axios.post(this.$store.state.API_URL + '/api/posts/filter',{
+                        axios.post(this.$store.state.API_BACKEND_URL + '/api/posts/filter',{
                             lat : point.lat,
                             lng : point.lng
                         }).then(res=>{
@@ -79,7 +79,7 @@ import { MapboxView } from 'nativescript-mapbox';
                 }
                 else{
                     this.ischecked = false;
-                    this.$http.get(this.$store.state.API_URL + '/api/finderPosts/list',{
+                    this.$http.get(this.$store.state.API_BACKEND_URL + '/api/finderPosts/list',{
                     })
                     .then(res => {
                         this.makerinfo = res.data;
@@ -113,15 +113,14 @@ import { MapboxView } from 'nativescript-mapbox';
                 this.map = args.map;
                  args.map.setOnMapClickListener((point) => console.log(`Map tapped: ${JSON.stringify(point)}`));
                 //map.setLayoutProperty('country-label', 'text-field', ['get', 'name_ko']);
-                this.$http.get(this.$store.state.API_URL + '/api/ownerPosts/list',{
+                this.$http.get(this.$store.state.API_BACKEND_URL + '/api/ownerPosts/list',{
                 })
                 .then(res => {
                     args.map.addMarkers(res.data)
-                    // console.log(res.data);
                     })
                 .catch(error => {console.log(error)});
                 // console.log(this.makerinfo)
-                this.$http.get(this.$store.state.API_URL + '/api/finderPosts/list',{
+                this.$http.get(this.$store.state.API_BACKEND_URL + '/api/finderPosts/list',{
                 })
                 .then(res => {
                     this.makerinfo = res.data;

@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user_Email: "",
+    user_nickname: "",
     API_BACKEND_URL: "http://202.30.31.91:8000",
     API_WEBVIEW_URL: "http://202.30.31.91",
     // API_WEBVIEW_URL: "http://192.168.43.210:8080",
