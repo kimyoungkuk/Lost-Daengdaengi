@@ -1,5 +1,5 @@
 import Vue from 'nativescript-vue'
-import Main from './components/Main'
+// import Main from './components/Main'
 import VueDevtools from 'nativescript-vue-devtools'
 import router from './router'
 import store from './store'
@@ -9,6 +9,9 @@ import { TNSFontIcon, fonticon } from './nativescript-fonticon';
 import ButtonPlugin from 'nativescript-material-button/vue';
 import CardViewPlugin from 'nativescript-material-cardview/vue';
 import FabPlugin from "nativescript-vue-fab"
+import store_ from '~/store'
+import sideDrawer from '~/components/sideDrawer'
+import drawerContent from '~/components/drawerContent'  
 
 Vue.use(ButtonPlugin);
 Vue.use(CardViewPlugin);
@@ -67,7 +70,16 @@ firebase
     }
   );
 
-new Vue({
-  render: h => h('frame', [h(Main)]),
-  store
-}).$start()
+  new Vue({
+    store,
+    store_,
+    render (h) {
+      return h(
+        sideDrawer,
+        [
+          h(drawerContent, { slot: 'drawerContent' }),
+          h(router.main, { slot: 'mainContent' })
+        ]
+      )
+    }
+  }).$start()

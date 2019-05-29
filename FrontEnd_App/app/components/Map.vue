@@ -1,7 +1,7 @@
 <template>
     <Page class="page">
         <ActionBar class="action-bar" title="map">
-            <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="$goto('login')"/>
+            <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="openDrawer"/>
 
             <ActionItem @tap="onTapFinder">
 
@@ -47,8 +47,10 @@
     import { Accuracy } from "tns-core-modules/ui/enums";
     const applicationModule = require("tns-core-modules/application");
     import axios from "axios";
-import { MapboxView } from 'nativescript-mapbox';
+    import { MapboxView } from 'nativescript-mapbox';
+    import sideDrawer from '~/mixins/sideDrawer'
     export default {
+        mixins: [ sideDrawer ],
         data () {
             return { 
                 API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard',
@@ -64,7 +66,7 @@ import { MapboxView } from 'nativescript-mapbox';
                 if(this.ischecked == false){
                     this.map.setOnMapClickListener((point) => {
                         console.log("Map clicked at latitude: " + point.lat + ", longitude: " + point.lng);
-                        axios.post(this.$store.state.API_URL + '/api/posts/filter',{
+                        axios.post(this.$store.state.API_BACKEND_URL + '/api/posts/filter',{
                             lat : point.lat,
                             lng : point.lng
                         }).then(res=>{
@@ -77,7 +79,7 @@ import { MapboxView } from 'nativescript-mapbox';
                 }
                 else{
                     this.ischecked = false;
-                    this.$http.get(this.$store.state.API_URL + '/api/finderPosts/list',{
+                    this.$http.get(this.$store.state.API_BACKEND_URL + '/api/finderPosts/list',{
                     })
                     .then(res => {
                         this.makerinfo = res.data;
@@ -114,7 +116,7 @@ import { MapboxView } from 'nativescript-mapbox';
                 this.map = args.map;
                  args.map.setOnMapClickListener((point) => console.log(`Map tapped: ${JSON.stringify(point)}`));
                 //map.setLayoutProperty('country-label', 'text-field', ['get', 'name_ko']);
-                this.$http.get(this.$store.state.API_URL + '/api/ownerPosts/list',{
+                this.$http.get(this.$store.state.API_BACKEND_URL + '/api/ownerPosts/list',{
                 })
                 .then(res => {
                     args.map.addMarkers(res.data)
@@ -122,7 +124,7 @@ import { MapboxView } from 'nativescript-mapbox';
                     })
                 .catch(error => {console.log(error)});
                 // console.log(this.makerinfo)
-                this.$http.get(this.$store.state.API_URL + '/api/finderPosts/list',{
+                this.$http.get(this.$store.state.API_BACKEND_URL + '/api/finderPosts/list',{
                 })
                 .then(res => {
                     this.makerinfo = res.data;
