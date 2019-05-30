@@ -121,7 +121,8 @@ def owner_post_detail(request,pk):
     owner_post = Owner_post.objects.get(id=pk)
     owner_post.view_count = owner_post.view_count+1
     owner_post.save()
-    return Response(serializer.data)
+    comments = Comment.objects.filter(commented_post_type="owner").filter(commented_post=owner_post.id)
+    return Response({'post':serializer.data,'comments':comments})
 @api_view(['GET'])
 def finder_post_detail(request,pk):
     finder_posts = Finder_post.objects.filter(id=pk)
@@ -129,7 +130,8 @@ def finder_post_detail(request,pk):
     finder_post = Finder_post.objects.get(id=pk)
     finder_post.view_count = finder_post.view_count+1
     finder_post.save()
-    return Response(serializer.data)
+    comments = Comment.objects.filter(commented_post_type="finder").filter(commented_post=finder_post.id)
+    return Response({'post':serializer.data,'comments':comments})
 
 
 @api_view(['POST'])
