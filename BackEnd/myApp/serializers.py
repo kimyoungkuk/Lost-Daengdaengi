@@ -37,7 +37,7 @@ class CommentSerializer(serializers.ModelSerializer):
     commented_post  =   serializers.IntegerField(required=False)
     commented_post_type  =   serializers.CharField(required=False)
     class Meta:
-        model = Dog_shelter
+        model = Comment
         fields = '__all__'
 
 class NearSerializer(serializers.ModelSerializer):
