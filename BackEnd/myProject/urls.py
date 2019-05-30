@@ -35,6 +35,7 @@ urlpatterns = [
     path('api/dogShelter', myApp.views.Dog_shelter_list, name = "dogShelter"),
     path('api/users/login', myApp.views.login, name = "login"),
     path('api/users/signUp', myApp.views.signup, name = "signUp"),
+    path('api/users/changeNickname', myApp.views.signup, name = "changeNickname"),
     
     path('api/ownerPosts/list', myApp.views.owner_post_list, name = "ownerPosts/list"),
     path('api/finderPosts/list', myApp.views.finder_post_list, name = "finderPosts/list"),
