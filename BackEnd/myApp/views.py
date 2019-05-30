@@ -133,7 +133,7 @@ def finder_post_detail(request,pk):
     comments = Comment.objects.filter(commented_post_type="finder").filter(commented_post=finder_post.id)
     comments_serializer = Finder_postSerializer(comments, many = True)
     
-    return Response({'post':post_serializer.data})
+    return Response({'post':post_serializer.data,'comments':comments_serializer.data})
 
 
 @api_view(['POST'])
