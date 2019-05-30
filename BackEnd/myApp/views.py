@@ -131,7 +131,7 @@ def finder_post_detail(request,pk):
     finder_post.view_count = finder_post.view_count+1
     finder_post.save()
     comments = Comment.objects.filter(commented_post_type="finder").filter(commented_post=finder_post.id)
-    comments_serializer = Finder_postSerializer(comments, many = True)
+    comments_serializer = CommentSerializer(comments, many = True)
     
     return Response({'post':post_serializer.data,'comments':comments_serializer.data})
 
