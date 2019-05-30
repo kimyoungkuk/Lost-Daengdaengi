@@ -236,6 +236,25 @@ def post_filter(request):
         serializerFinder = Finder_postSerializer(finder_posts, many = True)
         return Response(serializerOwner.data + serializerFinder.data, status = status.HTTP_201_CREATED)
     return Response(currentLocation.errors, status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def post_filter_with(request,lat,lng):
+    owner_posts = Owner_post.objects.filter(
+        lat__gte = lat - 0.003,
+        lat__lte = lat + 0.003,
+        lng__gte = lng - 0.003,
+        lng__lte = lng + 0.003
+        )
+    finder_posts = Finder_post.objects.filter(
+        lat__gte = lat - 0.003,
+        lat__lte = lat + 0.003,
+        lng__gte = lng - 0.003,
+        lng__lte = lng + 0.003
+        )
+    serializerOwner = Owner_postSerializer(owner_posts, many = True)
+    serializerFinder = Finder_postSerializer(finder_posts, many = True)
+    return Response(serializerOwner.data + serializerFinder.data, status = status.HTTP_201_CREATED)
+    
 @api_view(['POST'])
 def filteringFinder(request):
     condition = FilteringSerializer(data = request.data)

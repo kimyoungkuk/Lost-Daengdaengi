@@ -85,7 +85,7 @@ class Comment(models.Model):
     commented_post  =   models.IntegerField(default=0)
     
 
-class report(models.Model):
+class Report(models.Model):
     user_nickname   =   models.CharField(max_length=20,default="")
     contents        =   models.TextField()
     reported_time   =   models.DateTimeField('posted_date',auto_now_add=True)
