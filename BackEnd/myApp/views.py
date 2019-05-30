@@ -125,7 +125,7 @@ def owner_post_detail(request,pk):
     comments = Comment.objects.filter(commented_post_type="owner").filter(commented_post=owner_post.id)
     comments_serializer = CommentSerializer(comments, many = True)
     
-    return Response({'post':post_serializer.data,'comments':comments_serializer.data})
+    return Response({'post':owner_post,'comments':comments_serializer.data})
 
 @api_view(['GET'])
 def finder_post_detail(request,pk):
@@ -138,7 +138,7 @@ def finder_post_detail(request,pk):
     comments = Comment.objects.filter(commented_post_type="finder").filter(commented_post=finder_post.id)
     comments_serializer = CommentSerializer(comments, many = True)
     
-    return Response({'post':post_serializer.data,'comments':comments_serializer.data})
+    return Response({'post':finder_post,'comments':comments_serializer.data})
 
 
 @api_view(['POST'])
