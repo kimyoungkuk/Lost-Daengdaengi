@@ -31,11 +31,6 @@ class Finder_postSerializer(serializers.ModelSerializer):
         model = Finder_post
         fields = '__all__'
 class CommentSerializer(serializers.ModelSerializer):
-    user_nickname   =   serializers.CharField(required=False)
-    user_key        =   serializers.CharField(required=False)
-    contents        =   serializers.CharField(required=False)
-    commented_post  =   serializers.IntegerField(required=False)
-    commented_post_type  =   serializers.CharField(required=False)
     class Meta:
         model = Comment
         fields = '__all__'
