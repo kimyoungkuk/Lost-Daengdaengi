@@ -201,6 +201,20 @@ def comment_create(request):
         return Response(serializer.data, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET','POST'])
+def report_create(request):
+    if request.method == 'GET':
+        reports = Report.objects.all()
+        serializer = ReportSerializer(reports, many = True)
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
+    else:
+        serializer = ReportSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
+    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 def post_filter(request):

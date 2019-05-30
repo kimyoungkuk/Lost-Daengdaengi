@@ -47,7 +47,8 @@
               <strong>찾은 날짜 : </strong>{{$moment($moment(post.lost_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}
             </p>
             <div slot="footer">
-                <b-btn variant="primary" block>상세보기</b-btn>
+                <!-- <b-btn variant="primary" block>상세보기</b-btn> -->
+                <router-link :to="`/ownerboard/view/${post.id}`"><b-btn variant="primary" block>상세보기</b-btn></router-link>
             </div>
         </b-card>
     </b-card-group>

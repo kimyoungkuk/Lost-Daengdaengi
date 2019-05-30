@@ -45,6 +45,8 @@ urlpatterns = [
     
     path('api/comments/create', myApp.views.comment_create, name="comments/create"),
     
+    path('api/reports/create', myApp.views.report_create, name="reports/create"),
+    
     path('api/posts/filter', myApp.views.post_filter, name="posts/filter"),
     path('api/classification', myApp.views.classificationImage, name="classification"),
     path('api/dogShelter/near', myApp.views.FindNearShelter, name = "dogShelter/near"),

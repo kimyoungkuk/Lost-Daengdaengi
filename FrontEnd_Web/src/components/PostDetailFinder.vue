@@ -40,6 +40,7 @@
                   <v-card-actions>
                     <v-btn flat color="orange">Share</v-btn>
                     <v-btn flat color="orange">Explore</v-btn>
+                    <v-btn flat color="orange" v-on:click="reportBoard">report</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -101,6 +102,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "boardView",
   data() {
@@ -187,7 +189,7 @@ export default {
         });
     },
     toBoard() {
-      this.$router.push("/board");
+      this.$router.push("/finderboard");
     },
     updateBoard() {
       this.$http.get(`/api/board/posts/${this.$route.params.id}`).then(res => {
@@ -206,6 +208,9 @@ export default {
         }
       });
     },
+    reportBoard() {
+      console.log("ASDASD");
+    },
     addComment() {
       let comment = {
         user_key: "",
@@ -219,13 +224,18 @@ export default {
       comment.contents = this.contents;
       comment.commented_post = this.form.id;
       comment.commented_post_type = "finder"
-      this.$http.post(`http://202.30.31.91:8000/api/comments/create`, {
+      // this.$http.post(`http://202.30.31.91:8000/api/comments/create`, {
+      axios.post(`http://202.30.31.91:8000/api/comments/create`, {
       user_key : "pgd0919@gmail.com",
       user_nickname : "ChanYoung",
-      contents : "this.comment.contents",
-      commented_post : "this.form.id",
+      contents : comment.contents,
+      commented_post : comment.commented_post,
       commented_post_type : "finder"
       })
+      .then(res => {
+        console.log(res.data);
+        console.log("QWEQWE");
+      });
       this.contents = "";
   
       this.getBoardDetail();
