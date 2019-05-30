@@ -40,6 +40,7 @@
                   <v-card-actions>
                     <v-btn flat color="orange">Share</v-btn>
                     <v-btn flat color="orange">Explore</v-btn>
+                    <v-btn flat color="orange" v-on:click="reportBoard">report</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -206,6 +207,9 @@ export default {
           this.$router.push("/board");
         }
       });
+    },
+    reportBoard() {
+      console.log("ASDASD");
     },
     addComment() {
       let comment = {

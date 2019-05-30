@@ -80,7 +80,7 @@ class Comment(models.Model):
     user_nickname   =   models.CharField(max_length=20,default="")
     user_key        =   models.CharField(max_length = 1000, default = "")
     contents        =   models.TextField('contents')
-    commented_date     =   models.DateTimeField('posted_date',auto_now_add=True)
+    commented_time     =   models.DateTimeField('posted_date',auto_now_add=True)
     commented_post_type  =   models.CharField(max_length=20,default="")
     commented_post  =   models.IntegerField(default=0)
     
