@@ -33,7 +33,7 @@ class Finder_postSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     user_nickname   =   serializers.CharField(required=False)
     user_key        =   serializers.CharField(required=False)
-    contents        =   serializers.TextField(required=False)
+    contents        =   serializers.CharField(required=False)
     commented_post  =   serializers.IntegerField(required=False)
     commented_post_type  =   serializers.CharField(required=False)
     class Meta:
