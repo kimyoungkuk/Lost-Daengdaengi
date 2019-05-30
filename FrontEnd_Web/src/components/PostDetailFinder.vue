@@ -45,11 +45,11 @@
               </v-flex>
             </v-layout>
           </div>
-          <h6 slot="footer" v-for="item in form.comments" v-bind:key="item._id">
-            <p class="comment_name">{{item.name}}</p>&emsp;
-            <p class="comment_date">{{item.createAt}}</p>
+          <h6 slot="footer" v-for="item in comments" v-bind:key="item.id">
+            <p class="comment_name">{{item.user_nickname}}</p>&emsp;
+            <p class="comment_date">{{item.commented_date}}</p>
             <div class="comment">
-              <p class="comment">{{item.memo}}</p>
+              <p class="comment">{{item.contents}}</p>
               <b-badge
                 v-if="userId===item.id || admin === 1"
                 pill
@@ -74,7 +74,7 @@
             placeholder="댓글을 입력하세요."
             rows="2"
             max-rows="6"
-            v-model="memo"
+            v-model="contents"
           ></b-form-textarea>
           <v-flex> 
             <b-button class="comment" type="submit" variant="primary" size="sm">댓글 작성(Enter)</b-button>
@@ -116,16 +116,21 @@ export default {
         dog_feature: "",
         phone_num: "",
         shelter_name: "",
-        comments: [
-          {
-            name: "",
-            memo: "",
-            createAt: new Date()
-          }
-        ]
       },
-      memo: "",
-      userId: "",
+      comments: [
+          {
+            user_key: "",
+            user_nickname: "",
+            contents: "",
+            commented_date: new Date(),
+            commented_post_type: '',
+            commented_post: Number,
+          }
+        ],
+      contents: "",
+      user_nickname: "",
+      commented_post_type: "",
+      commented_post :Number,
       admin: "",
       date: new Date()
     };
@@ -149,8 +154,10 @@ export default {
           }`
         )
         .then(res => {
-          console.log(res.data);
-          this.form = res.data[0];
+          console.log(res.data.post[0]);
+          console.log(res.data.comments)
+          this.form = res.data.post[0];
+          this.comments = res.data.comments
           console.log(this.form);
           this.form.find_time = this.$moment(this.form.find_time).format(
             "LLLL"
@@ -201,15 +208,26 @@ export default {
     },
     addComment() {
       let comment = {
-        name: "",
-        memo: "",
-        boardId: Number
+        user_key: "",
+        user_nickname: "",
+        contents: "",
+        commented_post: Number,
+        commented_post_type: ""
       };
-      comment.name = this.$cookies.get("nickname");
-      comment.memo = this.memo;
-      comment.boardId = this.form._id;
-      this.$http.post(`/api/board/comment`, comment);
-      this.memo = "";
+      comment.user_key = "pgd0919@gmail.com"
+      comment.user_nickname = "ChanYoung"
+      comment.contents = this.contents;
+      comment.commented_post = this.form.id;
+      comment.commented_post_type = "finder"
+      this.$http.post(`http://202.30.31.91:8000/api/comments/create`, {
+      user_key : "pgd0919@gmail.com",
+      user_nickname : "ChanYoung",
+      contents : "this.comment.contents",
+      commented_post : "this.form.id",
+      commented_post_type : "finder"
+      })
+      this.contents = "";
+  
       this.getBoardDetail();
     },
     deleteComment(_id) {
