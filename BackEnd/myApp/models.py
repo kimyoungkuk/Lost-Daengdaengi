@@ -81,7 +81,7 @@ class Comment(models.Model):
     user_key        =   models.CharField(max_length = 1000, default = "")
     contents        =   models.TextField('contents')
     posted_date     =   models.DateTimeField('posted_date',auto_now_add=True)
-    commented_post_type  =   models.IntegerField(default=0)
+    commented_post_type  =   models.CharField(max_length=20,default="")
     commented_post  =   models.IntegerField(default=0)
     
 
@@ -89,7 +89,7 @@ class report(models.Model):
     user_nickname   =   models.CharField(max_length=20,default="")
     contents        =   models.TextField()
     reported_time   =   models.DateTimeField('posted_date',auto_now_add=True)
-    reported_post_type   =   models.IntegerField(default=0)
+    reported_post_type   =   models.CharField(max_length=20,default="")
     reported_post  =   models.IntegerField(default=0)
 
 
