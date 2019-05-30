@@ -177,11 +177,17 @@ def finder_post_create(request):
             pass
         return Response(serializer.data, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-@api_view(['POST'])
+
+@api_view(['GET','POST'])
 def comment_create(request):
-    serializer = CommentSerializer(data = request.data)
-    if serializer.is_valid():
-        serializer.save()
+    if request.method == 'GET':
+        comments = Comment.get.objects.all()
+        serializer = CommentSerializer(comment, many = True)
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
+    else:
+        serializer = CommentSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
 
         return Response(serializer.data, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
