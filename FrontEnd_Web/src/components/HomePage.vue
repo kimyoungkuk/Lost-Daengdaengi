@@ -13,7 +13,7 @@
       <b-carousel-slide
         caption="대한민국 최강 유기견 플랫폼"
         text="지금 당장 시작하세요"
-        img-src="https://pixabay.com/get/57e1d7404a53aa14f6d1867dda6d49214b6ac3e456547849702879d49f/dog-1123016_1920.jpg"
+        img-src="https://pixabay.com/get/5ee0d44b4854b108feda8460825668204022dfe056587348732679d0/pug-801826_1920.jpg"
         
       ></b-carousel-slide>
 
@@ -21,13 +21,13 @@
             <b-carousel-slide
         caption="Lost DaengDaengi"
         text="여러분의 반려견을 지켜주세요"
-        img-src="https://pixabay.com/get/57e8d0434855aa14f6d1867dda6d49214b6ac3e45654784970287fd692/adorable-1850276_1920.jpg"
+        img-src="https://pixabay.com/get/55e0d1414d57ad14f6d1867dda6d49214b6ac3e45654784b742972d395/friends-3042751_1920.jpg"
       ></b-carousel-slide>
 
                   <b-carousel-slide
         caption="Lost DaengDaengi"
         text="자동화된 시스템을 경험하세요"
-        img-src="https://pixabay.com/get/57e1d14a4e52ac14f6d1867dda6d49214b6ac3e456547849702878d295/man-and-dog-1149400_1920.jpg"
+        img-src="https://pixabay.com/get/57e1d14a4e52ac14f6d1867dda6d49214b6ac3e45654784b74287bd597/man-and-dog-1149400_1920.jpg"
   
       ></b-carousel-slide>
 
