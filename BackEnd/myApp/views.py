@@ -238,7 +238,9 @@ def post_filter(request):
     return Response(currentLocation.errors, status = status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
-def post_filter_with(request,lat,lng):
+def post_filter_with(request):
+    lat = request.GET.get("lat")
+    lng = request.GET.get("lng")
     owner_posts = Owner_post.objects.filter(
         lat__gte = lat - 0.003,
         lat__lte = lat + 0.003,
