@@ -119,7 +119,7 @@ def owner_post_detail(request,pk):
     owner_posts = Owner_post.objects.filter(id=pk)
     post_serializer = Owner_postSerializer(owner_posts, many = True)
     owner_post = Owner_post.objects.get(id=pk)
-    post_serializer = Owner_postSerializer(owner_post, many = True)
+    # post_serializer = Owner_postSerializer(owner_post, many = True)
     owner_post.view_count = owner_post.view_count+1
     owner_post.save()
     comments = Comment.objects.filter(commented_post_type="owner").filter(commented_post=owner_post.id)
@@ -132,7 +132,7 @@ def finder_post_detail(request,pk):
     finder_posts = Finder_post.objects.filter(id=pk)
     post_serializer = Finder_postSerializer(finder_posts, many = True)
     finder_post = Finder_post.objects.get(id=pk)
-    post_serializer = Finder_postSerializer(finder_post, many = True)
+    # post_serializer = Finder_postSerializer(finder_post, many = True)
     finder_post.view_count = finder_post.view_count+1
     finder_post.save()
     comments = Comment.objects.filter(commented_post_type="finder").filter(commented_post=finder_post.id)
