@@ -181,8 +181,8 @@ def finder_post_create(request):
 @api_view(['GET','POST'])
 def comment_create(request):
     if request.method == 'GET':
-        comments = Comment.get.objects.all()
-        serializer = CommentSerializer(comment, many = True)
+        comments = Comment.objects.all()
+        serializer = CommentSerializer(comments, many = True)
         return Response(serializer.data, status = status.HTTP_201_CREATED)
     else:
         serializer = CommentSerializer(data = request.data)
