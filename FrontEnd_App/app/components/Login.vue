@@ -8,7 +8,7 @@
                 <Button v-show="isLoggingIn" :text="'Google login'" :isEnabled="!processing" @tap="loginGoogle" class="fab btn btn-active" />
 			</StackLayout>
 		</FlexboxLayout>
-        <ActivityIndicator rowSpan="3" height="80" color="#4ba5fa" :busy="processing"></ActivityIndicator>
+        <ActivityIndicator rowSpan="3" height="50" :busy="processing"></ActivityIndicator>
         </GridLayout>
 	</Page>
 </template>
@@ -87,11 +87,13 @@ export default {
                 })
                 .then(function(response){
                     console.log(response)
-                    if(response.data == '1'){
+                    if(response.data.state == '1'){
+                        this.$store.state.user_nickname = response.data.nickname
+                        console.log(response.data)
                         this.$goto('map');
                         this.processing = false;
                     }
-                    else if(response.data == '0'){
+                    else if(response.data.state == '0'){
                         this.$goto('setUserInfo')
                         this.processing = false;
                     }

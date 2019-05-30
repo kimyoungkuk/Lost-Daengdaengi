@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user_Email: "",
+    user_nickname: "",
     API_BACKEND_URL: "http://202.30.31.91:8000",
     API_WEBVIEW_URL: "http://202.30.31.91",
     // API_WEBVIEW_URL: "http://192.168.43.210:8080",
@@ -43,11 +44,17 @@ export default new Vuex.Store({
     posted_due:" ",
     shelter_name:"대전광역시 동물보호센터"
   },
+  sideDrawer: false
 },
   mutations: {
-
+    setSideDrawer (state, data) {
+      state.sideDrawer = data
+    }
   },
   actions: {
 
+  },
+  getters :{
+    sideDrawer: (state) => state.sideDrawer
   }
 });

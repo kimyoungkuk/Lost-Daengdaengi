@@ -228,7 +228,7 @@
                     lng: this.$store.state.ownerPost.lng,
                     posted_time:this.$store.state.ownerPost.posted_time,
                     posted_due:this.$store.state.ownerPost.posted_due,
-                    image : this.$store.state.ownerPost.image
+                    image : this.$store.state.ownerPost.image,
                 })
                 .then(res => {
                     console.log(res.data);
