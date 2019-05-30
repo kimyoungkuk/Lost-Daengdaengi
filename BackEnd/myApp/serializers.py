@@ -31,7 +31,7 @@ class Finder_postSerializer(serializers.ModelSerializer):
         model = Finder_post
         fields = '__all__'
 class CommentSerializer(serializers.ModelSerializer):
-    commented_date  =   serializers.DateField(required=False)
+    commented_date  =   serializers.DateTimeField(required=False)
     class Meta:
         model = Comment
         fields = '__all__'
