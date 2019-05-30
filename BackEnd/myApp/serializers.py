@@ -30,6 +30,11 @@ class Finder_postSerializer(serializers.ModelSerializer):
     class Meta:
         model = Finder_post
         fields = '__all__'
+class CommentSerializer(serializers.ModelSerializer):
+    commented_date  =   serializers.DateTimeField(required=False)
+    class Meta:
+        model = Comment
+        fields = '__all__'
 
 class NearSerializer(serializers.ModelSerializer):
     class Meta:

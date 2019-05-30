@@ -117,19 +117,28 @@ def finder_post_list(request):
 @api_view(['GET'])
 def owner_post_detail(request,pk):
     owner_posts = Owner_post.objects.filter(id=pk)
-    serializer = Owner_postSerializer(owner_posts, many = True)
+    post_serializer = Owner_postSerializer(owner_posts, many = True)
     owner_post = Owner_post.objects.get(id=pk)
+    # post_serializer = Owner_postSerializer(owner_post, many = True)
     owner_post.view_count = owner_post.view_count+1
     owner_post.save()
-    return Response(serializer.data)
+    comments = Comment.objects.filter(commented_post_type="owner").filter(commented_post=owner_post.id)
+    comments_serializer = CommentSerializer(comments, many = True)
+    
+    return Response({'post':post_serializer.data,'comments':comments_serializer.data})
+
 @api_view(['GET'])
 def finder_post_detail(request,pk):
     finder_posts = Finder_post.objects.filter(id=pk)
-    serializer = Finder_postSerializer(finder_posts, many = True)
+    post_serializer = Finder_postSerializer(finder_posts, many = True)
     finder_post = Finder_post.objects.get(id=pk)
+    # post_serializer = Finder_postSerializer(finder_post, many = True)
     finder_post.view_count = finder_post.view_count+1
     finder_post.save()
-    return Response(serializer.data)
+    comments = Comment.objects.filter(commented_post_type="finder").filter(commented_post=finder_post.id)
+    comments_serializer = CommentSerializer(comments, many = True)
+    
+    return Response({'post':post_serializer.data,'comments':comments_serializer.data})
 
 
 @api_view(['POST'])
@@ -175,6 +184,20 @@ def finder_post_create(request):
             post.save()
         else:
             pass
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
+    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET','POST'])
+def comment_create(request):
+    if request.method == 'GET':
+        comments = Comment.objects.all()
+        serializer = CommentSerializer(comments, many = True)
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
+    else:
+        serializer = CommentSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+
         return Response(serializer.data, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
