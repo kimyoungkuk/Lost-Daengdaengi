@@ -1,6 +1,9 @@
 <template>
     <Page>
-        <ActionBar title="Lost DaengDaengi Main"/>
+        <ActionBar title="Lost DaengDaengi Main">
+          <NavigationButton icon = "~/assets/images/baseline_menu_black_18dp.png"/>
+        </ActionBar>
+
                 <ScrollView>
           <StackLayout>     
             <!-- <Image class="logo" src="~/assets/images/DaengDaengi.png" horizontalAlignment="center" stretch="none"/> -->
