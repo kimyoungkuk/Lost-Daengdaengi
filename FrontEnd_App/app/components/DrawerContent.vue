@@ -1,7 +1,7 @@
 <template lang="html">
   <ScrollView>
     <StackLayout width="100%">
-      <Label class="drawer-header" text="Drawer"/>
+      <Label class="drawer-header" :text="this.$store.state.user_nick_visible"/>
 
       <Label
         v-for="(page, i) in pages"
@@ -22,9 +22,11 @@ export default {
   mixins: [sideDrawer],
   data () {
     return {
-      // define our pages, making sure the component matches that defined in /app/router/index.js
+      user_NickName : this.$store.state.user_nick_visible,
+      user_email :this.$store.state.user_Email,
+      
       pages: [
-        { name: 'Home', component: this.$router.Home },
+        { name: 'Home', component: this.$router.main },
         { name: 'Page One', component: this.$router.PageOne },
         { name: 'Page Two', component: this.$router.PageTwo }
       ]
@@ -32,8 +34,10 @@ export default {
   },
   methods: {
     goToPage (pageComponent) {
+
       // use the manual navigation method
       this.$navigateTo(pageComponent)
+      console.log(this.user_NickName);
       // and we probably want to close the drawer when changing pages
       this.closeDrawer()
     }
@@ -42,4 +46,24 @@ export default {
 </script>
 
 <style lang="css">
+.drawer-close-button {
+  margin-top: 20;
+  padding: 10 10 10 10;
+  background-color: #53ba82;
+  color: #ffffff;
+}
+
+.drawer-header {
+    padding: 50 16 16 16;
+    margin-bottom: 16;
+    background-color: #333333;
+    color: #ffffff;
+    font-size: 24;
+}
+
+.drawer-item {
+    padding: 8 16;
+    color: #333333;
+    font-size: 16;
+}
 </style>
