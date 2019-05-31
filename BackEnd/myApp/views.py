@@ -50,6 +50,16 @@ def signup(request):
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+@api_view(['POST'])
+def changeNickname(request):
+    if request.method == 'POST':
+        serializer = UserSerializer(data = request.data)
+        if serializer.is_valid():
+            user = User.objects.get(key = serializer.data['key'])
+            user.nickname = serializer.data['nickname']
+            user.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'POST'])
@@ -201,6 +211,20 @@ def comment_create(request):
         return Response(serializer.data, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET','POST'])
+def report_create(request):
+    if request.method == 'GET':
+        reports = Report.objects.all()
+        serializer = ReportSerializer(reports, many = True)
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
+    else:
+        serializer = ReportSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
+    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 def post_filter(request):
@@ -222,6 +246,27 @@ def post_filter(request):
         serializerFinder = Finder_postSerializer(finder_posts, many = True)
         return Response(serializerOwner.data + serializerFinder.data, status = status.HTTP_201_CREATED)
     return Response(currentLocation.errors, status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def post_filter_with(request):
+    lat = request.GET.get("lat")
+    lng = request.GET.get("lng")
+    owner_posts = Owner_post.objects.filter(
+        lat__gte = lat - 0.003,
+        lat__lte = lat + 0.003,
+        lng__gte = lng - 0.003,
+        lng__lte = lng + 0.003
+        )
+    finder_posts = Finder_post.objects.filter(
+        lat__gte = lat - 0.003,
+        lat__lte = lat + 0.003,
+        lng__gte = lng - 0.003,
+        lng__lte = lng + 0.003
+        )
+    serializerOwner = Owner_postSerializer(owner_posts, many = True)
+    serializerFinder = Finder_postSerializer(finder_posts, many = True)
+    return Response(serializerOwner.data + serializerFinder.data, status = status.HTTP_201_CREATED)
+    
 @api_view(['POST'])
 def filteringFinder(request):
     condition = FilteringSerializer(data = request.data)
