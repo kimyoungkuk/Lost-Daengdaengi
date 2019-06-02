@@ -49,6 +49,7 @@ def signup(request):
         if serializer.is_valid():
             user_num = User.objects.filter(nickname = serializer.data['nickname']).count()
             if user_num == 0:#같은 닉네임의 유저가 0명
+                user = User()
                 user.admin = 0
                 user.key = serializer.data['key']
                 user.nickname = serializer.data['nickname']
