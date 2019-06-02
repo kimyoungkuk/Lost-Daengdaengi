@@ -33,3 +33,4 @@ admin.site.register(Finder_post, Finder_postAdmin)
 admin.site.register(Dog_shelter, Dog_shelterAdmin)
 
 admin.site.register(Comment)
+admin.site.register(Report)

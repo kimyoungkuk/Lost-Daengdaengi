@@ -35,6 +35,7 @@ urlpatterns = [
     path('api/dogShelter', myApp.views.Dog_shelter_list, name = "dogShelter"),
     path('api/users/login', myApp.views.login, name = "login"),
     path('api/users/signUp', myApp.views.signup, name = "signUp"),
+    path('api/users/changeNickname', myApp.views.signup, name = "changeNickname"),
     
     path('api/ownerPosts/list', myApp.views.owner_post_list, name = "ownerPosts/list"),
     path('api/finderPosts/list', myApp.views.finder_post_list, name = "finderPosts/list"),
@@ -48,6 +49,8 @@ urlpatterns = [
     path('api/reports/create', myApp.views.report_create, name="reports/create"),
     
     path('api/posts/filter', myApp.views.post_filter, name="posts/filter"),
+    path('api/posts/filter/with', myApp.views.post_filter_with, name="posts/filter/with"),
+    
     path('api/classification', myApp.views.classificationImage, name="classification"),
     path('api/dogShelter/near', myApp.views.FindNearShelter, name = "dogShelter/near"),
     path('api/ownerPosts/filter/dogType', myApp.views.filteringOwner, name = "ownerPosts/filter/dogType"),

@@ -57,5 +57,12 @@ export default [
   {
     path: '*',
     redirect: '/'
-  }
+  },
+
+  {
+    path: '/mp',
+    name: 'parent',
+    component: parent
+  },
+
 ]

@@ -2,6 +2,7 @@
 export default {
     data () {
       return {
+        nickname : "",
         // we'll use this to enable gestures on our sideDrawer.
         gesturesEnabled: false
       }
@@ -28,9 +29,11 @@ export default {
     methods: {
       // some helpful methods for opening and closing the drawer from the vue instance.
       openDrawer () {
+        this.$store.state.user_nick_visible = this.$store.state.user_nickname + ' 님 안녕하세요'
         this.drawer = true
       },
       closeDrawer () {
+        console.log(this.$store.state.user_nickname)
         this.drawer = false
       }
     }
