@@ -16,7 +16,7 @@
     export default {
         data() {
             return {
-                API_WEBVIEW_URL: this.$store.state.API_WEBVIEW_URL + "/finderboard",
+                API_WEBVIEW_URL: this.$store.state.API_WEBVIEW_URL + "/finderboard"
             };
         }
     };

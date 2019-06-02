@@ -31,7 +31,7 @@
             <GridLayout row = "1" rows = "auto,*">
                 <Label row = "0" backgroundColor = "#4ba5fa" @swipe = "onSwipe" padding = "10"></Label>
                 <ScrollView row="1">
-                    <WebView loaded="onWebViewLoaded" id="myWebView" :src="API_WEBVIEW_URL_finder"/>
+                    <WebView ref = "webview" loaded="onWebViewLoaded" id="myWebView" :src="API_WEBVIEW_URL_finder"/>
                 </ScrollView>
             </GridLayout>
         </GridLayout>     
@@ -49,6 +49,7 @@
     import axios from "axios";
     import { MapboxView } from 'nativescript-mapbox';
     import sideDrawer from '~/mixins/sideDrawer'
+    
     export default {
         mixins: [ sideDrawer ],
         data () {
@@ -102,20 +103,27 @@
                     timeout: 10000
                 }).then(loc => {
                     console.log(loc)
-                    
                     this.map.setCenter({
                         lat : loc.latitude,
                         lng : loc.longitude
                     })
                 })
             },
+    // var webview:WebView = <WebView>page.getViewById("webvid");
+    // webview.src = "~/www/index.html";
+    // reloadWebview(page, webview);
             onTapFinder(args){
                 this.$goto('makePost_Finder');
             },
             onMapReady(args) {
                 this.map = args.map;
-                 args.map.setOnMapClickListener((point) => console.log(`Map tapped: ${JSON.stringify(point)}`));
+                 args.map.setOnMapClickListener((point) => {
+                    console.log(`Map tapped: ${JSON.stringify(point)}`)
+                    this.API_WEBVIEW_URL_finder = this.API_WEBVIEW_URL_finder + "?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname + "&lat=" + point.lat + "&lng=" + point.lng
+                    console.log(this.API_WEBVIEW_URL_finder)
+                 })
                 //map.setLayoutProperty('country-label', 'text-field', ['get', 'name_ko']);
+
                 this.$http.get(this.$store.state.API_BACKEND_URL + '/api/ownerPosts/list',{
                 })
                 .then(res => {

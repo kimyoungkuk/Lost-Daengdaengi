@@ -44,6 +44,10 @@ export default {
                       }
                       else if(response.data.state == '1'){
                         //같은 닉네임의 유저가 이미 있을때
+                        alert('닉네임이 중복되었습니다. 다시 입력하세요')
+  .then(() => {
+    console.log("Alert dialog closed.");
+  });
                       }
 
                     }else{
