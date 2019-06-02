@@ -9,8 +9,10 @@ import FinderBoard_ from '../components/FinderBoard'
 import OwnerBoard_ from '../components/OwnerBoard'
 import select_Loc_ from '../components/select_Loc'
 import makePost_Finder_ from '../components/makePost_Finder'
+import Mypage_ from '../components/mypage'
 
 const router = { 
+   mypage : Mypage_,
    main: Main_, 
    login: Login_,
    map: Map_,

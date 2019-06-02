@@ -50,6 +50,16 @@ def signup(request):
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+@api_view(['POST'])
+def changeNickname(request):
+    if request.method == 'POST':
+        serializer = UserSerializer(data = request.data)
+        if serializer.is_valid():
+            user = User.objects.get(key = serializer.data['key'])
+            user.nickname = serializer.data['nickname']
+            user.save()
+            return Response(serializer.data, status = status.HTTP_201_CREATED)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', 'POST'])
