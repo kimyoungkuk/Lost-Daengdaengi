@@ -96,8 +96,31 @@
         >삭제</b-button>
       </b-button-group>
       </v-flex>
+
+      <div>
+        <b-button v-b-modal.modal-1>신고</b-button>
+
+        <b-modal id="modal-1" title="게시물에 문제가 있나요?">
+            <b-form @submit.prevent="addComment" v-on:keyup.enter="addComment">
+          <b-form-textarea
+            class="comment_input"
+            placeholder="신고내용을 입력하세요."
+            rows="2"
+            max-rows="6"
+            v-model="contents"
+          ></b-form-textarea>
+          <v-flex> 
+            <b-button class="comment" type="submit" variant="primary" size="sm">신고내용 제출(Enter)</b-button>
+          </v-flex>
+        </b-form>
+          <!-- <p class="my-4">신고내용을 보내주세요!</p> -->
+          
+        </b-modal>
+        
+      </div>
+
     </v-flex>
-  
+
 </template>
 
 <script>
@@ -251,6 +274,32 @@ export default {
             this.$router.push("/board");
           }
         });
+    },
+    createReport() {
+      let report = {
+        user_nickname: "",
+        contents: "",
+        reported_post: Number,
+        reported_post_type: ""
+      };
+      report.user_nickname = "ChanYoung"
+      report.contents = this.contents;
+      report.reported_post = this.form.id;
+      report.reported_post_type = "owner"
+      // this.$http.post(`http://202.30.31.91:8000/api/reports/create`, {
+      axios.post(`http://202.30.31.91:8000/api/reports/create`, {
+      user_nickname : report.user_nickname,
+      contents : report.contents,
+      reported_post : report.reported_post,
+      reported_post_type : report.reported_post_type
+      })
+      .then(res => {
+        console.log(res.data);
+        console.log("ZXCZXC");
+      });
+      this.contents = "";
+  
+      this.getBoardDetail();
     }
   }
 };
