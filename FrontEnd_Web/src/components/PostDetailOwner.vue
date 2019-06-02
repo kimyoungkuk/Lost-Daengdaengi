@@ -101,16 +101,16 @@
         <b-button v-b-modal.modal-1>신고</b-button>
 
         <b-modal id="modal-1" title="게시물에 문제가 있나요?">
-            <b-form @submit.prevent="addComment" v-on:keyup.enter="addComment">
+            <b-form @submit.prevent="createReport" v-on:keyup.enter="createReport">
           <b-form-textarea
-            class="comment_input"
+            class="report_input"
             placeholder="신고내용을 입력하세요."
             rows="2"
             max-rows="6"
-            v-model="contents"
+            v-model="report_contents"
           ></b-form-textarea>
           <v-flex> 
-            <b-button class="comment" type="submit" variant="primary" size="sm">신고내용 제출(Enter)</b-button>
+            <b-button class="report" type="submit" variant="primary" size="sm">신고내용 제출(Enter)</b-button>
           </v-flex>
         </b-form>
           <!-- <p class="my-4">신고내용을 보내주세요!</p> -->
@@ -278,18 +278,18 @@ export default {
     createReport() {
       let report = {
         user_nickname: "",
-        contents: "",
+        report_contents: "",
         reported_post: Number,
         reported_post_type: ""
       };
       report.user_nickname = "ChanYoung"
-      report.contents = this.contents;
+      report.report_contents = this.report_contents;
       report.reported_post = this.form.id;
       report.reported_post_type = "owner"
       // this.$http.post(`http://202.30.31.91:8000/api/reports/create`, {
       axios.post(`http://202.30.31.91:8000/api/reports/create`, {
       user_nickname : report.user_nickname,
-      contents : report.contents,
+      report_contents : report.report_contents,
       reported_post : report.reported_post,
       reported_post_type : report.reported_post_type
       })
@@ -349,6 +349,33 @@ div.comment_submit {
 }
 
 .comment_input {
+  width: 800px;
+}
+
+p.report_date {
+  display: inline;
+  color: darkgrey;
+}
+
+p.report {
+  display: inline;
+}
+
+p.report_name {
+  display: inline;
+  font-weight: bold;
+}
+
+div.report {
+  padding-top: 10px;
+}
+
+div.report_submit {
+  padding-top: 20px;
+  padding-left: 700px;
+}
+
+.report_input {
   width: 800px;
 }
 </style>
