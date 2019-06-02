@@ -40,7 +40,7 @@
                   <v-card-actions>
                     <v-btn flat color="orange">Share</v-btn>
                     <v-btn flat color="orange">Explore</v-btn>
-                    <v-btn flat color="orange" v-on:click="reportBoard">report</v-btn>
+                    <v-btn flat color="orange" v-b-modal.modal-prevent-closing v-on:click="reportBoard">report</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -95,7 +95,7 @@
           v-on:click="deleteBoard"
           variant="danger"
         >삭제</b-button>
-        <b-button v-b-modal.modal-prevent-closing>신고</b-button>
+        <!-- <b-button v-b-modal.modal-prevent-closing>신고</b-button> -->
       </b-button-group>
       </v-flex>
 
