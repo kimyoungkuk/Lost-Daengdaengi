@@ -35,9 +35,15 @@ export default {
                 .then(function(response){
                     console.log(response)
                     if(response.status == '201'){
+                      if(response.data.state == '0'){
                         this.$store.state.user_nickname = result.text
                         console.log(result.text)
                         this.$goto('map')
+                      }
+                      else if(response.data.state == '1'){
+                        //같은 닉네임의 유저가 이미 있을때
+                      }
+
                     }else{
 
                     }

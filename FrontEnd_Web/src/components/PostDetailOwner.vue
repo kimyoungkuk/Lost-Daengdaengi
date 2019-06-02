@@ -314,10 +314,10 @@ export default {
       .then(res => {
         console.log(res.data);
         console.log("ZXCZXC");
-      this.contents = "";
-      this.getBoardDetail();
 
       });
+      this.contents = "";
+      this.getBoardDetail();
     },
 
 
