@@ -94,30 +94,45 @@
           v-on:click="deleteBoard"
           variant="danger"
         >삭제</b-button>
+        <b-button v-b-modal.modal-prevent-closing>신고</b-button>
       </b-button-group>
       </v-flex>
 
-      <div>
-        <b-button v-b-modal.modal-1>신고</b-button>
 
-        <b-modal id="modal-1" title="게시물에 문제가 있나요?">
-            <b-form @submit.prevent="createReport" v-on:keyup.enter="createReport">
-          <b-form-textarea
-            class="report_input"
-            placeholder="신고내용을 입력하세요."
-            rows="2"
-            max-rows="6"
+    <!-- <div class="mt-3">
+      Submitted Names:
+      <div v-if="submittedNames.length === 0">--</div>
+      <ul v-else class="mb-0 pl-3">
+        <li v-for="name in submittedNames">{{ name }}</li>
+      </ul>
+    </div> -->
+
+      <b-modal
+        id="modal-prevent-closing"
+        ref="modal"
+        title="게시글이 이상한가요?"
+        @show="resetModal"
+        @hidden="resetModal"
+        @ok="handleOk"
+      >
+        <form ref="form" @submit.stop.prevent="handleSubmit">
+          <b-form-group
+            :state="nameState"
+            label="신고내용을 입력해주세요"
+            label-for="name-input"
+            invalid-feedback="신고내용이 입력되지 않았습니다."
+          >
+          <b-form-input
+            id="name-input"
             v-model="report_contents"
-          ></b-form-textarea>
-          <v-flex> 
-            <b-button class="report" type="submit" variant="primary" size="sm">신고내용 제출(Enter)</b-button>
-          </v-flex>
-        </b-form>
-          <!-- <p class="my-4">신고내용을 보내주세요!</p> -->
-          
-        </b-modal>
-        
-      </div>
+            :state="nameState"
+            required
+          ></b-form-input>
+          </b-form-group>
+        </form>
+      </b-modal>
+
+   
 
     </v-flex>
 
@@ -129,6 +144,10 @@ export default {
   name: "boardView",
   data() {
     return {
+        name: '',
+        nameState: null,
+        submittedNames: [],
+        
       form: {
         _id: this.$route.params.id,
         id: "",
@@ -254,10 +273,9 @@ export default {
       .then(res => {
         console.log(res.data);
         console.log("QWEQWE");
+        this.contents = "";
+        this.getBoardDetail();
       });
-      this.contents = "";
-  
-      this.getBoardDetail();
     },
     deleteComment(_id) {
       this.$http
@@ -296,11 +314,43 @@ export default {
       .then(res => {
         console.log(res.data);
         console.log("ZXCZXC");
-      });
       this.contents = "";
-  
       this.getBoardDetail();
+
+      });
+    },
+
+
+    checkFormValidity() {
+        const valid = this.$refs.form.checkValidity()
+        this.nameState = valid ? 'valid' : 'invalid'
+        return valid
+    },
+    resetModal() {
+        this.name = ''
+        this.nameState = null
+    },
+    handleOk(bvModalEvt) {
+        // Prevent modal from closing
+        bvModalEvt.preventDefault()
+        // Trigger submit handler
+        this.handleSubmit()
+    },
+    handleSubmit() {
+        // Exit when the form isn't valid
+        if (!this.checkFormValidity()) {
+          return
+        }
+        // Push the name to submitted names
+        this.submittedNames.push(this.name)
+        // Hide the modal manually
+        this.$nextTick(() => {
+          this.$refs.modal.hide()
+          this.createReport()
+        })
     }
+
+    
   }
 };
 </script>
