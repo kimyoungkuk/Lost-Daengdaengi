@@ -49,7 +49,10 @@ def signup(request):
         if serializer.is_valid():
             user_num = User.objects.filter(nickname = serializer.data['nickname']).count()
             if user_num == 0:#같은 닉네임의 유저가 0명
-                serializer.save()
+                user.admin = 0
+                user.key = serializer.data['key']
+                user.nickname = serializer.data['nickname']
+                user.save()
                 return Response({'state':0,'nickname':serializer.data['nickname']}, status = status.HTTP_201_CREATED)
             else:
                 return Response({'state':1,'nickname':serializer.data['nickname']}, status = status.HTTP_201_CREATED)
