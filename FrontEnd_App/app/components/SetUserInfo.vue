@@ -36,7 +36,9 @@ export default {
                     console.log(response)
                     if(response.status == '201'){
                       if(response.data.state == '0'){
-                        this.$store.state.user_nickname = result.text
+                        // this.$store.state.user_nickname = result.text
+                        // console.log(result.text)
+                        this.$store.state.user_nickname = response.data.state
                         console.log(result.text)
                         this.$goto('map')
                       }
