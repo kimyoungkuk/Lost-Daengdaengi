@@ -309,10 +309,10 @@ def filteringFinder(request):
     filtering = FilteringSerializer(data = request.data)
     if filtering.is_valid():
         if(filtering.data['category']=='견종'):
-            finder_posts = Finder_post.objects.filter(dog_type = filtering.data['input'])
+            finder_posts = Finder_post.objects.filter(dog_type = filtering.data['value'])
             serializerFinder = Finder_postSerializer(finder_posts, many = True)
         elif(filtering.data['category']=='작성자'):
-            finder_posts = Finder_post.objects.filter(user_nickname = filtering.data['input'])
+            finder_posts = Finder_post.objects.filter(user_nickname = filtering.data['value'])
             serializerFinder = Finder_postSerializer(finder_posts, many = True)
         
         return Response(serializerFinder.data, status = status.HTTP_201_CREATED)
@@ -323,10 +323,10 @@ def filteringOwner(request):
     filtering = FilteringSerializer(data = request.data)
     if filtering.is_valid():
         if(filtering.data['category']=='견종'):
-            owner_posts = Owner_post.objects.filter(dog_type = filtering.data['input'])
+            owner_posts = Owner_post.objects.filter(dog_type = filtering.data['value'])
             serializerOwner = Owner_postSerializer(owner_posts, many = True)
         elif(filtering.data['category']=='작성자'):
-            owner_posts = Owner_post.objects.filter(user_nickname = filtering.data['input'])
+            owner_posts = Owner_post.objects.filter(user_nickname = filtering.data['value'])
             serializerOwner = Owner_postSerializer(owner_posts, many = True)
         
         return Response(serializerOwner.data, status = status.HTTP_201_CREATED)

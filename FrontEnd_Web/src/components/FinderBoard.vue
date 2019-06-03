@@ -14,7 +14,7 @@
         <b-form-group id="input-group-2" label="검색 내용" label-for="input-2">
           <b-form-input
             id="input-2"
-            v-model="form.input"
+            v-model="form.value"
             required
             placeholder="검색 내용을 입력하세요."
           ></b-form-input>
@@ -74,7 +74,7 @@ export default {
       lng : 0,
       posts: [{title:'', dog_type:'', find_time:'', imageurl:''}],
       form: {
-          input: '',
+          value: '',
           category: null,
         },
         categories: [{ text: '선택하세요.', value: null }, '견종', '작성자', '내용'],
@@ -127,7 +127,7 @@ export default {
       evt.preventDefault()
       this.$http.post('http://202.30.31.91:8000/api/finderPosts/filter', {
         category : this.form.category,
-        input : this.form.input
+        value : this.form.value
       }).then(res => {
         console.log(res.data)
         this.posts = res.data
@@ -138,7 +138,7 @@ export default {
     onReset(evt) {
       evt.preventDefault()
       // Reset our form values
-      this.form.input = ''
+      this.form.value = ''
       this.form.category = null
       // Trick to reset/clear native browser form validation state
       this.show = false
