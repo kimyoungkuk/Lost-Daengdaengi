@@ -53,8 +53,9 @@ class GetImageSerializer(serializers.ModelSerializer):
         fields = ('image',)
 
 class FilteringSerializer(serializers.ModelSerializer):
-    category = serializers.CharField(max_length=200)
-    value = serializers.CharField(max_length=200)
+    class Meta:
+        category = serializers.CharField(max_length=200)
+        value = serializers.CharField(max_length=200)
 
 class KeySerializer(serializers.ModelSerializer):
     class Meta:
