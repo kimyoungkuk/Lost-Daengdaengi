@@ -30,12 +30,18 @@
             </GridLayout>
             <GridLayout row = "1" rows = "auto,*">
                 <Label row = "0" backgroundColor = "#4ba5fa" @swipe = "onSwipe" padding = "10"></Label>
+<<<<<<< HEAD
                 <scrollview row="1" rows = "auto">
                     <stacklayout row = "0">
                         <WebView loaded="onWebViewLoaded" id="myWebView" :src="API_WEBVIEW_URL_finder"/>
                     </stacklayout>
 
                 </scrollview>
+=======
+                <ScrollView row="1" :scrollableHeight="hhh">
+                    <WebView ref = "webview" loaded="onWebViewLoaded" id="myWebView" :src="API_WEBVIEW_URL_finder"/>
+                </ScrollView>
+>>>>>>> e893769a1fadc668b1a80a8b2a3e9c55068f07ae
             </GridLayout>
         </GridLayout>     
 
@@ -43,6 +49,9 @@
 </template>
 
 <script>
+
+    import { PercentLength } from "tns-core-modules/ui/styling/style-properties";
+
     import * as utils from "utils/utils";
     const SwipeDirection = require("tns-core-modules/ui/gestures").SwipeDirection;
     import * as mapbox from "nativescript-mapbox";
@@ -52,16 +61,18 @@
     import axios from "axios";
     import { MapboxView } from 'nativescript-mapbox';
     import sideDrawer from '~/mixins/sideDrawer'
+    
     export default {
         mixins: [ sideDrawer ],
         data () {
             return { 
                 API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard',
+                temp : this.$store.state.API_WEBVIEW_URL + '/finderboard',
                 makerinfo : [],
                 map : null,
                 row_scale : "*, 100",
                 ischecked : false,
-                count : 0
+                count : 0,
             };
         },
         methods: {
@@ -105,20 +116,27 @@
                     timeout: 10000
                 }).then(loc => {
                     console.log(loc)
-                    
                     this.map.setCenter({
                         lat : loc.latitude,
                         lng : loc.longitude
                     })
                 })
             },
+    // var webview:WebView = <WebView>page.getViewById("webvid");
+    // webview.src = "~/www/index.html";
+    // reloadWebview(page, webview);
             onTapFinder(args){
                 this.$goto('makePost_Finder');
             },
             onMapReady(args) {
                 this.map = args.map;
-                 args.map.setOnMapClickListener((point) => console.log(`Map tapped: ${JSON.stringify(point)}`));
+                 args.map.setOnMapClickListener((point) => {
+                    console.log(`Map tapped: ${JSON.stringify(point)}`)
+                    this.API_WEBVIEW_URL_finder = this.temp + "?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname + "&lat=" + point.lat + "&lng=" + point.lng
+                    console.log(this.API_WEBVIEW_URL_finder)
+                 })
                 //map.setLayoutProperty('country-label', 'text-field', ['get', 'name_ko']);
+
                 this.$http.get(this.$store.state.API_BACKEND_URL + '/api/ownerPosts/list',{
                 })
                 .then(res => {

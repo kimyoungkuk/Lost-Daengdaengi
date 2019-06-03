@@ -12,6 +12,7 @@
     "bootstrap-vue": "^2.0.0-rc.20",
     "core-js": "^2.6.5",
     "moment": "^2.24.0",
+    "url-search-params-polyfill": "^6.0.0",
     "vue": "^2.6.10",
     "vue-momentjs": "^0.1.2",
     "vue-router": "^3.0.6",

@@ -35,9 +35,21 @@ export default {
                 .then(function(response){
                     console.log(response)
                     if(response.status == '201'){
-                        this.$store.state.user_nickname = result.text
+                      if(response.data.state == '0'){
+                        // this.$store.state.user_nickname = result.text
+                        // console.log(result.text)
+                        this.$store.state.user_nickname = response.data.nickname
                         console.log(result.text)
                         this.$goto('map')
+                      }
+                      else if(response.data.state == '1'){
+                        //같은 닉네임의 유저가 이미 있을때
+                        alert('닉네임이 중복되었습니다. 다시 입력하세요')
+  .then(() => {
+    console.log("Alert dialog closed.");
+  });
+                      }
+
                     }else{
 
                     }

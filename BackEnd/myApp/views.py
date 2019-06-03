@@ -47,9 +47,18 @@ def signup(request):
     if request.method == 'POST':
         serializer = UserSerializer(data = request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status = status.HTTP_201_CREATED)
-        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+            user_num = User.objects.filter(nickname = serializer.data['nickname']).count()
+            if user_num == 0:#같은 닉네임의 유저가 0명
+                user = User()
+                user.admin = 0
+                user.key = serializer.data['key']
+                user.nickname = serializer.data['nickname']
+                user.save()
+                return Response({'state':0,'nickname':serializer.data['nickname']}, status = status.HTTP_201_CREATED)
+            else:
+                return Response({'state':1,'nickname':serializer.data['nickname']}, status = status.HTTP_201_CREATED)
+            
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 @api_view(['POST'])
 def changeNickname(request):
     if request.method == 'POST':
@@ -249,8 +258,8 @@ def post_filter(request):
 
 @api_view(['GET'])
 def post_filter_with(request):
-    lat = request.GET.get("lat")
-    lng = request.GET.get("lng")
+    lat = float(request.GET.get("lat"))
+    lng = float(request.GET.get("lng"))
     owner_posts = Owner_post.objects.filter(
         lat__gte = lat - 0.003,
         lat__lte = lat + 0.003,

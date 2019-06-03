@@ -48,7 +48,7 @@
                 <!-- <strong>찾은 날짜 : </strong>{{$moment(post.find_time).format('LLLL')}} -->
             </p>
             <div slot="footer">
-                <router-link :to="`/finderboard/view/${post.id}`"><b-btn variant="primary" block>상세보기</b-btn></router-link>
+                <router-link :to="`/finderboard/view/${post.id}?key=${key}&nickname=${nickname}&lat=${lat}&lng=${lng}`"><b-btn variant="primary" block>상세보기</b-btn></router-link>
             </div>
         </b-card>
     </b-card-group>
@@ -57,12 +57,17 @@
 </template>
 
 <script>
+import 'url-search-params-polyfill';
 export default {
   // finder 게시글 제목(title), 견종(dog_type) , 잃어버린 날짜(lost_time), imgsrc(imageurl)
   // API (/api/finderPosts/list)
   // API (/api/ownerPosts/list)
   data: function () {
     return {
+      key : '',
+      nickname : '',
+      lat : 0,
+      lng : 0,
       posts: [{title:'', dog_type:'', find_time:'', imageurl:''}],
       form: {
           input: '',
@@ -73,12 +78,30 @@ export default {
     }
   },
   created(){
-      this.$http.get('http://202.30.31.91:8000/api/finderPosts/list')
-        .then(res => {
-            console.log(res.data)
-            this.posts = res.data
-        })
-    },
+    let urlParams = new URLSearchParams(window.location.search);
+    this.key = urlParams.get('key');
+    this.nickname = urlParams.get('nickname');
+    this.lat = urlParams.get('lat');
+    this.lng = urlParams.get('lng');
+    console.log(this.key)
+    console.log(this.nickname)
+    console.log(this.lat)
+    console.log(this.lng)
+    this.$http.get('http://202.30.31.91:8000/api/finderPosts/list')
+      .then(res => {
+          console.log(res.data)
+          this.posts = res.data
+            
+          if (this.lat!=null && this.lng!=null){
+            this.$http.get("http://202.30.31.91:8000/api/posts/filter/with?key="+this.key+"&nickname="+this.nickname+"&lat=" + this.lat + "&lng=" + this.lng)
+              .then(res => {
+                this.posts = res.data
+                console.log(res.data)
+              })
+          }
+          
+      })
+  },
   computed: {
             formattedPosts() {
           return this.posts.reduce((c, n, i) => {

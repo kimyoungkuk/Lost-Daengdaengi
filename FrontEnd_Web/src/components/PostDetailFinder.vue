@@ -40,7 +40,7 @@
                   <v-card-actions>
                     <v-btn flat color="orange">Share</v-btn>
                     <v-btn flat color="orange">Explore</v-btn>
-                    <v-btn flat color="orange" v-on:click="reportBoard">report</v-btn>
+                    <v-btn flat color="orange" v-b-modal.modal-prevent-closing v-on:click="reportBoard">report</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -95,8 +95,44 @@
           v-on:click="deleteBoard"
           variant="danger"
         >삭제</b-button>
+        <!-- <b-button v-b-modal.modal-prevent-closing>신고</b-button> -->
       </b-button-group>
       </v-flex>
+
+    <!-- <div class="mt-3">
+      Submitted Names:
+      <div v-if="submittedNames.length === 0">--</div>
+      <ul v-else class="mb-0 pl-3">
+        <li v-for="name in submittedNames">{{ name }}</li>
+      </ul>
+    </div> -->
+
+      <b-modal
+        id="modal-prevent-closing"
+        ref="modal"
+        title="게시글이 이상한가요?"
+        @show="resetModal"
+        @hidden="resetModal"
+        @ok="handleOk"
+      >
+        <form ref="form" @submit.stop.prevent="handleSubmit">
+          <b-form-group
+            :state="nameState"
+            label="신고내용을 입력해주세요"
+            label-for="name-input"
+            invalid-feedback="신고내용이 입력되지 않았습니다."
+          >
+          <b-form-input
+            id="name-input"
+            v-model="report_contents"
+            :state="nameState"
+            required
+          ></b-form-input>
+          </b-form-group>
+        </form>
+      </b-modal>
+
+
     </v-flex>
   
 </template>
@@ -107,6 +143,14 @@ export default {
   name: "boardView",
   data() {
     return {
+      key : '',
+      nickname : '',
+      lat : 0,
+      lng : 0,
+      name: '',
+      nameState: null,
+      submittedNames: [],
+
       form: {
         _id: this.$route.params.id,
         id: "",
@@ -138,6 +182,17 @@ export default {
     };
   },
   created() {
+    let urlParams = new URLSearchParams(window.location.search);
+    this.key = urlParams.get('key');
+    this.nickname = urlParams.get('nickname');
+    this.lat = urlParams.get('lat');
+    this.lng = urlParams.get('lng');
+    console.log(this.key)
+    console.log(this.nickname)
+    console.log(this.lat)
+    console.log(this.lng)
+            
+    console.log("QWERTYUIOP");
     this.getBoardDetail();
     this.getUserId();
   },
@@ -219,15 +274,15 @@ export default {
         commented_post: Number,
         commented_post_type: ""
       };
-      comment.user_key = "pgd0919@gmail.com"
-      comment.user_nickname = "ChanYoung"
+      comment.user_key = this.key;
+      comment.user_nickname = this.nickname;
       comment.contents = this.contents;
       comment.commented_post = this.form.id;
       comment.commented_post_type = "finder"
       // this.$http.post(`http://202.30.31.91:8000/api/comments/create`, {
       axios.post(`http://202.30.31.91:8000/api/comments/create`, {
-      user_key : "pgd0919@gmail.com",
-      user_nickname : "ChanYoung",
+      user_key : comment.user_key,
+      user_nickname : comment.user_nickname,
       contents : comment.contents,
       commented_post : comment.commented_post,
       commented_post_type : "finder"
@@ -255,6 +310,62 @@ export default {
             this.$router.push("/board");
           }
         });
+    },
+    createReport() {
+      let report = {
+        user_nickname: "",
+        report_contents: "",
+        reported_post: Number,
+        reported_post_type: ""
+      };
+      report.user_nickname = "ChanYoung"
+      report.report_contents = this.report_contents;
+      report.reported_post = this.form.id;
+      report.reported_post_type = "owner"
+      // this.$http.post(`http://202.30.31.91:8000/api/reports/create`, {
+      axios.post(`http://202.30.31.91:8000/api/reports/create`, {
+      user_nickname : report.user_nickname,
+      report_contents : report.report_contents,
+      reported_post : report.reported_post,
+      reported_post_type : report.reported_post_type
+      })
+      .then(res => {
+        console.log(res.data);
+        console.log("ZXCZXC");
+
+      });
+      this.contents = "";
+      this.getBoardDetail();
+    },
+
+
+    checkFormValidity() {
+        const valid = this.$refs.form.checkValidity()
+        this.nameState = valid ? 'valid' : 'invalid'
+        return valid
+    },
+    resetModal() {
+        this.name = ''
+        this.nameState = null
+    },
+    handleOk(bvModalEvt) {
+        // Prevent modal from closing
+        bvModalEvt.preventDefault()
+        // Trigger submit handler
+        this.handleSubmit()
+    },
+    handleSubmit() {
+        // Exit when the form isn't valid
+        if (!this.checkFormValidity()) {
+          return
+        }
+        // Push the name to submitted names
+        this.submittedNames.push(this.name)
+        // Hide the modal manually
+        this.$nextTick(() => {
+          this.$refs.modal.hide()
+          this.createReport()
+        })
     }
   }
 };
@@ -304,6 +415,33 @@ div.comment_submit {
 }
 
 .comment_input {
+  width: 800px;
+}
+
+p.report_date {
+  display: inline;
+  color: darkgrey;
+}
+
+p.report {
+  display: inline;
+}
+
+p.report_name {
+  display: inline;
+  font-weight: bold;
+}
+
+div.report {
+  padding-top: 10px;
+}
+
+div.report_submit {
+  padding-top: 20px;
+  padding-left: 700px;
+}
+
+.report_input {
   width: 800px;
 }
 </style>
