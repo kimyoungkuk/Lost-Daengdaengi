@@ -1,5 +1,5 @@
 <template lang="html">
-  <ScrollView>
+  <ScrollView @swipe = "onSwipe">
     <StackLayout width="100%">
       <Label class="drawer-header" :text="this.$store.state.user_nick_visible"/>
 
@@ -14,10 +14,12 @@
       <Button class="drawer-close-button" @tap="closeDrawer()">Close Drawer</Button>
     </StackLayout>
   </ScrollView>
+  
 </template>
 
 <script>
 import sideDrawer from '~/mixins/sideDrawer'
+const SwipeDirection = require("tns-core-modules/ui/gestures").SwipeDirection;
 export default {
   mixins: [sideDrawer],
   data () {
@@ -26,13 +28,18 @@ export default {
       user_email :this.$store.state.user_Email,
       
       pages: [
-        { name: 'Home', component: this.$router.main },
-        { name: 'Page One', component: this.$router.PageOne },
-        { name: 'Page Two', component: this.$router.PageTwo }
+        { name: '마이 페이지', component: this.$router.mypage },
+        { name: '내가 쓴 게시물', component: this.$router.PageOne },
+//{ name: '로그아웃', component: this.$router.PageTwo }
       ]
     }
   },
   methods: {
+    onSwipe(args){
+      if(args.direction == SwipeDirection.left){
+        this.closeDrawer()
+      }
+    },
     goToPage (pageComponent) {
 
       // use the manual navigation method
