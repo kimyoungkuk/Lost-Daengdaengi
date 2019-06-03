@@ -187,6 +187,7 @@
                 this.$store.state.FinderPost.posted_due = this.$refs.dataform_f.getPropertyByName('posted_due').valueCandidate;
                 this.$store.state.FinderPost.shelter_name = this.$refs.dataform_f.getPropertyByName('shelter_name').valueCandidate;
                 axios.post(this.$store.state.API_BACKEND_URL + '/api/finderPosts/create',{
+                    user_nickname : this.$store.state.user_nickname,
                     title : this.$store.state.FinderPost.title,
                     find_time : this.$store.state.FinderPost.find_time,
                     dog_type :this.$store.state.FinderPost.dog_type,
@@ -201,14 +202,14 @@
                 })
                 .then(res => {
                     console.log(res.data);
-                                        alert({
-  title: "게시글이 등록 되었습니다.",
-  message: "감사합니다!",
-  okButtonText: "네!"
-}).then(() => {
-    this.$goto("map")
-  console.log("Alert dialog closed");
-});
+                    alert({
+                        title: "게시글이 등록 되었습니다.",
+                        message: "감사합니다!",
+                        okButtonText: "네!"
+                        }).then(() => {
+                            this.$goto("map")
+                        console.log("Alert dialog closed");
+                        });
                     //this.$goto('board');
                     })
                 .catch(error => {
