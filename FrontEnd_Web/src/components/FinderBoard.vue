@@ -2,8 +2,8 @@
 <div>
     <div>
       <b-button-group>
-      <b-button router-link to='/finderboard' variant="outline-primary">발견인 게시판</b-button>
-      <b-button router-link to='/ownerboard' variant="outline-primary">유기견주 게시판</b-button>
+      <b-button router-link to='/finderboard' variant="outline-primary">발견인 게시판{{this.key}}</b-button>
+      <b-button router-link to='/ownerboard' variant="outline-primary">유기견주 게시판{{this.nickname}}</b-button>
     </b-button-group>
     </div>
      <div>
@@ -26,8 +26,8 @@
           required
         ></b-form-select>
       </b-form-group>
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="submit" variant="primary">Submit{{this.lat}}</b-button>
+      <b-button type="reset" variant="danger">Reset{{this.lng}}</b-button>
     </b-form>
   </div>
     <div>
@@ -87,20 +87,20 @@ export default {
     console.log(this.nickname)
     console.log(this.lat)
     console.log(this.lng)
-      this.$http.get('http://202.30.31.91:8000/api/finderPosts/list')
-        .then(res => {
-            console.log(res.data)
-            this.posts = res.data
+    this.$http.get('http://202.30.31.91:8000/api/finderPosts/list')
+      .then(res => {
+          console.log(res.data)
+          this.posts = res.data
             
-            if (this.lat!=null && this.lng!=null){
-              this.$http.get("http://202.30.31.91:8000/api/posts/filter/with?key="+this.key+"&nickname="+this.nickname+"&lat=" + this.lat + "&lng=" + this.lng)
-                .then(res => {
-                  this.posts = res.data
-                  console.log(res.data)
-                })
-            }
-        })
-    },
+          if (this.lat!=null && this.lng!=null){
+            this.$http.get("http://202.30.31.91:8000/api/posts/filter/with?key="+this.key+"&nickname="+this.nickname+"&lat=" + this.lat + "&lng=" + this.lng)
+              .then(res => {
+                this.posts = res.data
+                console.log(res.data)
+              })
+          }
+      })
+  },
   computed: {
             formattedPosts() {
           return this.posts.reduce((c, n, i) => {
