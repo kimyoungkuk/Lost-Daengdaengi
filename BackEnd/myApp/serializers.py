@@ -43,23 +43,27 @@ class ReportSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class NearSerializer(serializers.ModelSerializer):
-    class Meta:
-        # model = Owner_post
-        fields = ('lat', 'lng',)
+    # class Meta:
+    #     model = Owner_post
+    #     fields = ('lat', 'lng',)
+    fields = ('lat', 'lng',)
 
 class GetImageSerializer(serializers.ModelSerializer):
-    class Meta:
-        # model = Finder_post
-        fields = ('image',)
+    # class Meta:
+    #     model = Finder_post
+    #     fields = ('image',)
+    fields = ('image',)
 
 class FilteringSerializer(serializers.ModelSerializer):
-    class Meta:
-        # model = Finder_post
-        fields = ('category','input')
+    # class Meta:
+    #     model = Finder_post
+    #     fields = ('category','input')
+    fields = ('category','input')
 
 class KeySerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = ('key',)
+    # class Meta:
+    #     fields = ('key',)
+    fields = ('key',)
 
 #class ReportSerializer(serializers.ModelSerializer):
 #    class Meta:
