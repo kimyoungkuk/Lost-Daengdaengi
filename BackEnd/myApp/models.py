@@ -32,6 +32,8 @@ class Owner_post(models.Model):
     report_count    =   models.IntegerField(blank=True, default = 0)
     view_count      =   models.IntegerField(blank=True, default = 0)
 
+    is_finished     =   models.IntegerField(blank=True, default = 0)
+
     def __str__(self):
         return self.title
 
@@ -75,6 +77,8 @@ class Finder_post(models.Model):
     user_key        =   models.CharField(max_length = 1000, blank=True, default = "")
     report_count    =   models.IntegerField(blank=True, default = 0)
     view_count      =   models.IntegerField(blank=True, default = 0)
+    
+    is_finished     =   models.IntegerField(blank=True, default = 0)
 
 class Comment(models.Model):
     user_nickname   =   models.CharField(max_length=20,default="")
@@ -93,8 +97,24 @@ class Report(models.Model):
     reported_post   =   models.IntegerField(default=0)
 
 
-
-
+class Adopt_post(models.Model):
+    title           =   models.CharField(max_length = 1000)
+    phone_num       =   models.CharField(max_length = 1000)
+    posted_time     =   models.DateTimeField(auto_now_add = True)
+    dog_type        =   models.CharField(max_length = 200)
+    dog_age         =   models.IntegerField()
+    dog_sex         =   models.IntegerField()
+    is_neu          =   models.IntegerField()
+    is_vac          =   models.IntegerField()
+    contents        =   models.TextField()
+    shelter         =   models.ForeignKey(
+            Dog_shelter,
+            on_delete = models.CASCADE,
+            blank = True,
+            null = True
+            )
+    def __str__(self):
+        return self.title
 
 #class Report(models.Model):
 #    reason          =   models.CharField(max_length = 10)
