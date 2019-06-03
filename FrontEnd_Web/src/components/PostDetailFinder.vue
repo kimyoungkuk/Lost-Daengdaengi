@@ -18,8 +18,7 @@
           <div>
             <v-layout>
               <v-flex xs12 sm6 offset-sm3>
-                <v-card id="iii" >
-                  <a href="/finderboard/view/5/#iii">dddd</a>
+                <v-card>
                   <v-img class="white--text" height="300px" :src="this.form.imageurl">
                     <v-container fill-height fluid>
                       <v-layout fill-height>
@@ -182,9 +181,6 @@ export default {
     console.log("QWERTYUIOP");
     this.getBoardDetail();
     this.getUserId();
-  },
-  mounted(){
-    this.$router.push('/finderboard/view/5#iii');
   },
   methods: {
     getUserId() {
