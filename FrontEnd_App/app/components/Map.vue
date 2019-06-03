@@ -30,7 +30,7 @@
             </GridLayout>
             <GridLayout row = "1" rows = "auto,*">
                 <Label row = "0" backgroundColor = "#4ba5fa" @swipe = "onSwipe" padding = "10"></Label>
-                <ScrollView row="1">
+                <ScrollView row="1" :scrollableHeight="hhh">
                     <WebView ref = "webview" loaded="onWebViewLoaded" id="myWebView" :src="API_WEBVIEW_URL_finder"/>
                 </ScrollView>
             </GridLayout>
@@ -40,6 +40,9 @@
 </template>
 
 <script>
+
+    import { PercentLength } from "tns-core-modules/ui/styling/style-properties";
+
     import * as utils from "utils/utils";
     const SwipeDirection = require("tns-core-modules/ui/gestures").SwipeDirection;
     import * as mapbox from "nativescript-mapbox";
@@ -60,7 +63,7 @@
                 map : null,
                 row_scale : "*, 100",
                 ischecked : false,
-                count : 0
+                count : 0,
             };
         },
         methods: {
@@ -120,7 +123,6 @@
                 this.map = args.map;
                  args.map.setOnMapClickListener((point) => {
                     console.log(`Map tapped: ${JSON.stringify(point)}`)
-    
                     this.API_WEBVIEW_URL_finder = this.temp + "?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname + "&lat=" + point.lat + "&lng=" + point.lng
                     console.log(this.API_WEBVIEW_URL_finder)
                  })

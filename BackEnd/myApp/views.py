@@ -258,8 +258,8 @@ def post_filter(request):
 
 @api_view(['GET'])
 def post_filter_with(request):
-    lat = request.GET.get("lat")
-    lng = request.GET.get("lng")
+    lat = float(request.GET.get("lat"))
+    lng = float(request.GET.get("lng"))
     owner_posts = Owner_post.objects.filter(
         lat__gte = lat - 0.003,
         lat__lte = lat + 0.003,
