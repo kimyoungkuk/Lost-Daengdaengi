@@ -31,7 +31,7 @@
             <GridLayout row = "1" rows = "auto,*">
                 <Label row = "0" backgroundColor = "#4ba5fa" @swipe = "onSwipe" padding = "10"></Label>
                 <ScrollView row="1" :scrollableHeight="hhh">
-                    <WebView ref = "webview" loaded="onWebViewLoaded" id="myWebView" :src="API_WEBVIEW_URL_finder"/>
+                    <WebView ref = "webview" loaded="onWebViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder_temp"/>
                 </ScrollView>
             </GridLayout>
         </GridLayout>     
@@ -58,7 +58,7 @@
         data () {
             return { 
                 API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard',
-                temp : this.$store.state.API_WEBVIEW_URL + '/finderboard',
+                API_WEBVIEW_URL_finder_temp : this.$store.state.API_WEBVIEW_URL + '/finderboard',
                 makerinfo : [],
                 map : null,
                 row_scale : "*, 100",
@@ -121,11 +121,13 @@
             },
             onMapReady(args) {
                 this.map = args.map;
-                 args.map.setOnMapClickListener((point) => {
+                args.map.setOnMapClickListener((point) => {
                     console.log(`Map tapped: ${JSON.stringify(point)}`)
-                    this.API_WEBVIEW_URL_finder = this.temp + "?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname + "&lat=" + point.lat + "&lng=" + point.lng
+                    this.API_WEBVIEW_URL_finder = this.API_WEBVIEW_URL_finder_temp + "?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname + "&lat=" + point.lat + "&lng=" + point.lng
+                    
                     console.log(this.API_WEBVIEW_URL_finder)
-                 })
+                })
+                console.log("ASDASD");
                 //map.setLayoutProperty('country-label', 'text-field', ['get', 'name_ko']);
 
                 this.$http.get(this.$store.state.API_BACKEND_URL + '/api/ownerPosts/list',{

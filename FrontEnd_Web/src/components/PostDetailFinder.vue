@@ -162,6 +162,7 @@ export default {
         dog_feature: "",
         phone_num: "",
         shelter_name: "",
+        user_nickname:"",
       },
       comments: [
           {
@@ -227,6 +228,9 @@ export default {
         });
     },
     deleteBoard() {
+      console.log("!@#")
+      console.log(this.form)
+      console.log("QWE")
       this.$http
         .delete(`/api/board/posts/${this.$route.params.id}`)
         .then(res => {
