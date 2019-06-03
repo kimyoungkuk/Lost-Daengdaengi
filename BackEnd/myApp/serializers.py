@@ -11,7 +11,6 @@ class Owner_postSerializer(serializers.ModelSerializer):
     user_nickname   =   serializers.CharField(required=False)
     user_key        =   serializers.CharField(required=False)
     report_count    =   serializers.IntegerField(required=False)
-    
     class Meta:
         model = Owner_post
         fields = '__all__'
@@ -45,18 +44,18 @@ class ReportSerializer(serializers.ModelSerializer):
 
 class NearSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Owner_post
+        # model = Owner_post
         fields = ('lat', 'lng',)
 
 class GetImageSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Finder_post
+        # model = Finder_post
         fields = ('image',)
 
 class FilteringSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Finder_post
-        fields = ('dog_type',)
+        # model = Finder_post
+        fields = ('category','input')
 
 class KeySerializer(serializers.ModelSerializer):
     class Meta:

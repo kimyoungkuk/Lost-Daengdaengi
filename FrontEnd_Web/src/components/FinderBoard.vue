@@ -122,29 +122,30 @@ export default {
 
       
   },
-methods: {
-      onSubmit(evt) {
-        evt.preventDefault()
-        this.$http.post('http://202.30.31.91:8000/api/finderPosts/filter/dogType', {
-            dog_type: this.form.input 
-        }).then(res => {
-            console.log(res.data)
-            this.posts = res.data
-        })
-        alert(JSON.stringify(this.form))
-        console.log(this.form)
-      },
-      onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        this.form.input = ''
-        this.form.category = null
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
-      },
-}
+  methods: {
+    onSubmit(evt) {
+      evt.preventDefault()
+      this.$http.post('http://202.30.31.91:8000/api/finderPosts/filter', {
+        category : this.form.category,
+        input : this.form.input
+      }).then(res => {
+        console.log(res.data)
+        this.posts = res.data
+      })
+      alert(JSON.stringify(this.form))
+      console.log(this.form)
+    },
+    onReset(evt) {
+      evt.preventDefault()
+      // Reset our form values
+      this.form.input = ''
+      this.form.category = null
+      // Trick to reset/clear native browser form validation state
+      this.show = false
+      this.$nextTick(() => {
+        this.show = true
+      })
+    },
+  }
 }
 </script>

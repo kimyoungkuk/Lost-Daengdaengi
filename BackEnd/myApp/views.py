@@ -244,31 +244,39 @@ def report_create(request):
         serializer = ReportSerializer(data = request.data)
         if serializer.is_valid():
             serializer.save()
+            if serializer.data['reported_post_type']=='owner':
+                owner_post = Owner_post.objects.get(id=serializer.data['reported_post'])
+                owner_post.report_count = owner_post.report_count+1
+                owner_post.save()
+            elif serializer.data['reported_post_type']=='finder':
+                finder_post = Finder_post.objects.get(id=serializer.data['reported_post'])
+                finder_post.report_count = finder_post.report_count+1
+                finder_post.save()
 
         return Response(serializer.data, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['POST'])
-def post_filter(request):
-    currentLocation = NearSerializer(data = request.data)
-    if currentLocation.is_valid():  
-        owner_posts = Owner_post.objects.filter(
-                lat__gte = currentLocation.data['lat'] - 0.003,
-                lat__lte = currentLocation.data['lat'] + 0.003,
-                lng__gte = currentLocation.data['lng'] - 0.003,
-                lng__lte = currentLocation.data['lng'] + 0.003
-                )
-        finder_posts = Finder_post.objects.filter(
-                lat__gte = currentLocation.data['lat'] - 0.003,
-                lat__lte = currentLocation.data['lat'] + 0.003,
-                lng__gte = currentLocation.data['lng'] - 0.003,
-                lng__lte = currentLocation.data['lng'] + 0.003
-                )
-        serializerOwner = Owner_postSerializer(owner_posts, many = True)
-        serializerFinder = Finder_postSerializer(finder_posts, many = True)
-        return Response(serializerOwner.data + serializerFinder.data, status = status.HTTP_201_CREATED)
-    return Response(currentLocation.errors, status = status.HTTP_400_BAD_REQUEST)
+# @api_view(['POST'])
+# def post_filter(request):
+#     currentLocation = NearSerializer(data = request.data)
+#     if currentLocation.is_valid():  
+#         owner_posts = Owner_post.objects.filter(
+#                 lat__gte = currentLocation.data['lat'] - 0.003,
+#                 lat__lte = currentLocation.data['lat'] + 0.003,
+#                 lng__gte = currentLocation.data['lng'] - 0.003,
+#                 lng__lte = currentLocation.data['lng'] + 0.003
+#                 )
+#         finder_posts = Finder_post.objects.filter(
+#                 lat__gte = currentLocation.data['lat'] - 0.003,
+#                 lat__lte = currentLocation.data['lat'] + 0.003,
+#                 lng__gte = currentLocation.data['lng'] - 0.003,
+#                 lng__lte = currentLocation.data['lng'] + 0.003
+#                 )
+#         serializerOwner = Owner_postSerializer(owner_posts, many = True)
+#         serializerFinder = Finder_postSerializer(finder_posts, many = True)
+#         return Response(serializerOwner.data + serializerFinder.data, status = status.HTTP_201_CREATED)
+#     return Response(currentLocation.errors, status = status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 def owner_post_filter_with(request):
@@ -298,20 +306,31 @@ def finder_post_filter_with(request):
     
 @api_view(['POST'])
 def filteringFinder(request):
-    condition = FilteringSerializer(data = request.data)
-    if condition.is_valid():
-        finder_posts = Finder_post.objects.filter(dog_type = condition.data['dog_type'])
-        serializerFinder = Finder_postSerializer(finder_posts, many = True)
+    filtering = FilteringSerializer(data = request.data)
+    if filtering.is_valid():
+        if(filtering.data['category']=='견종'):
+            finder_posts = Finder_post.objects.filter(dog_type = filtering.data['input'])
+            serializerFinder = Finder_postSerializer(finder_posts, many = True)
+        elif(filtering.data['category']=='작성자'):
+            finder_posts = Finder_post.objects.filter(user_nickname = filtering.data['input'])
+            serializerFinder = Finder_postSerializer(finder_posts, many = True)
+        
         return Response(serializerFinder.data, status = status.HTTP_201_CREATED)
-    return Response(condition.errors, status = status.HTTP_400_BAD_REQUEST)
+    return Response(filtering.errors, status = status.HTTP_400_BAD_REQUEST)
+
 @api_view(['POST'])
 def filteringOwner(request):
-    condition = FilteringSerializer(data = request.data)
-    if condition.is_valid():
-        owner_posts = Owner_post.objects.filter(dog_type = condition.data['dog_type'])
-        serializerOwner = Owner_postSerializer(owner_posts, many = True)
+    filtering = FilteringSerializer(data = request.data)
+    if filtering.is_valid():
+        if(filtering.data['category']=='견종'):
+            owner_posts = Owner_post.objects.filter(dog_type = filtering.data['input'])
+            serializerOwner = Owner_postSerializer(owner_posts, many = True)
+        elif(filtering.data['category']=='작성자'):
+            owner_posts = Owner_post.objects.filter(user_nickname = filtering.data['input'])
+            serializerOwner = Owner_postSerializer(owner_posts, many = True)
+        
         return Response(serializerOwner.data, status = status.HTTP_201_CREATED)
-    return Response(condition.errors, status = status.HTTP_400_BAD_REQUEST)
+    return Response(filtering.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
 

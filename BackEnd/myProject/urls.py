@@ -50,12 +50,13 @@ urlpatterns = [
     
     path('api/reports/create', myApp.views.report_create, name="reports/create"),
     
-    path('api/posts/filter', myApp.views.post_filter, name="posts/filter"),
+    # path('api/posts/filter', myApp.views.post_filter, name="posts/filter"),
+    
     path('api/ownerPosts/filter/with', myApp.views.owner_post_filter_with, name="ownerPosts/filter/with"),
     path('api/finderPosts/filter/with', myApp.views.finder_post_filter_with, name="finderPosts/filter/with"),
     
     path('api/classification', myApp.views.classificationImage, name="classification"),
     path('api/dogShelter/near', myApp.views.FindNearShelter, name = "dogShelter/near"),
-    path('api/ownerPosts/filter/dogType', myApp.views.filteringOwner, name = "ownerPosts/filter/dogType"),
-    path('api/finderPosts/filter/dogType', myApp.views.filteringFinder, name = "finderPosts/filter/dogType"),
+    path('api/ownerPosts/filter', myApp.views.filteringOwner, name = "ownerPosts/filter"),
+    path('api/finderPosts/filter', myApp.views.filteringFinder, name = "finderPosts/filter"),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
