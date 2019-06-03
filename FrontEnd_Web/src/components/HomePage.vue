@@ -28,52 +28,8 @@
         :img-src= "src3"
   
       ></b-carousel-slide>
-
-      <!-- <b-carousel-slide img-src="https://cdn.pixabay.com/photo/2016/01/19/17/41/friends-1149841_960_720.jpg">
-        <h1>여러분의 반려견을 지켜주세요</h1>
-      </b-carousel-slide> -->
-
-      <!-- Slides with image only -->
-      <!-- <b-carousel-slide img-src="https://cdn.pixabay.com/photo/2016/11/29/05/09/child-1867463_960_720.jpg">
-        <h1>자동화된 찾기 시스템을 경험하세요</h1>
-      </b-carousel-slide> -->
-
-      <!-- Slides with img slot -->
-      <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-      <!-- <b-carousel-slide>
-        <img
-          slot="img"
-          class="d-block img-fluid w-100"
-          width="1024"
-          height="480"
-          src="https://picsum.photos/1024/480/?image=55"
-          alt="image slot"
-        >
-      </b-carousel-slide> -->
-
-      <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-      <!-- <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
-          a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
-        </p>
-      </b-carousel-slide> -->
     </b-carousel>
     </div>
-    <!-- <p class="mt-4">
-      Slide #: {{ slide }}<br>
-      Sliding: {{ sliding }}
-    </p> -->
-      <div>
-    <b-card
-      class="flex"
-      title="2019 Capstone Design"
-    >
-    <b-card-text>
-        <strong>Team Bohemian Capsody <br/> AJOU Univ.<br/></strong>&copy; 2019 김영국 | 박신혁 | 박찬영 | 최순원 
-      </b-card-text>
-    </b-card>
-      </div>
   </div>
   
 </template>
@@ -106,7 +62,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 ul {
