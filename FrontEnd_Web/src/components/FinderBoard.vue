@@ -48,7 +48,7 @@
                 <!-- <strong>찾은 날짜 : </strong>{{$moment(post.find_time).format('LLLL')}} -->
             </p>
             <div slot="footer">
-                <router-link :to="`/finderboard/view/${post.id}?lat=${lat}&lng=${lng}`"><b-btn variant="primary" block>상세보기</b-btn></router-link>
+                <router-link :to="`/finderboard/view/${post.id}?key=${key}&nickname=${nickname}&lat=${lat}&lng=${lng}`"><b-btn variant="primary" block>상세보기</b-btn></router-link>
             </div>
         </b-card>
     </b-card-group>
