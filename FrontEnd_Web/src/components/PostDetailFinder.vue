@@ -274,15 +274,15 @@ export default {
         commented_post: Number,
         commented_post_type: ""
       };
-      comment.user_key = "pgd0919@gmail.com"
-      comment.user_nickname = "ChanYoung"
+      comment.user_key = this.key;
+      comment.user_nickname = this.nickname;
       comment.contents = this.contents;
       comment.commented_post = this.form.id;
       comment.commented_post_type = "finder"
       // this.$http.post(`http://202.30.31.91:8000/api/comments/create`, {
       axios.post(`http://202.30.31.91:8000/api/comments/create`, {
-      user_key : "pgd0919@gmail.com",
-      user_nickname : "ChanYoung",
+      user_key : comment.user_key,
+      user_nickname : comment.user_nickname,
       contents : comment.contents,
       commented_post : comment.commented_post,
       commented_post_type : "finder"
