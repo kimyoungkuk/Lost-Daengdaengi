@@ -58,7 +58,7 @@
         data () {
             return { 
                 API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard',
-                temp : this.$store.state.API_WEBVIEW_URL + '/finderboard',
+                temp : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname,
                 makerinfo : [],
                 map : null,
                 row_scale : "*, 100",
@@ -123,7 +123,7 @@
                 this.map = args.map;
                  args.map.setOnMapClickListener((point) => {
                     console.log(`Map tapped: ${JSON.stringify(point)}`)
-                    this.API_WEBVIEW_URL_finder = this.temp + "?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname + "&lat=" + point.lat + "&lng=" + point.lng
+                    this.API_WEBVIEW_URL_finder = this.temp + "&lat=" + point.lat + "&lng=" + point.lng
                     console.log(this.API_WEBVIEW_URL_finder)
                  })
                 //map.setLayoutProperty('country-label', 'text-field', ['get', 'name_ko']);
