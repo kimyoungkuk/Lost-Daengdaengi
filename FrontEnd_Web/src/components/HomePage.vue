@@ -1,27 +1,46 @@
 <template>
-  <div >
-    <div >
-    <b-carousel
-      :interval="4000"
-      controls
-      indicators
-      fade
-      style="text-shadow: 1px 1px 2px #333; img-width:10px;"
-    >
-      <!-- Text slides with image -->
-      <b-carousel-slide
-        caption="대한민국 최강 유기견 플랫폼"
-        text="지금 당장 시작하세요"
-        :img-src= "src1"
-      ></b-carousel-slide>
+  <div>
+    <div>
+      <b-carousel
+        :interval="3000"
+        controls
+        indicators
+        fade
+        style="text-shadow: 1px 1px 2px #333; img-width:10px;">
+        <!-- Text slides with image -->
+        <b-carousel-slide
+          caption="대한민국 최강 유기견 플랫폼"
+          text="지금 당장 시작하세요"
+          :img-src= "src1"
+        ></b-carousel-slide>
 
-      <!-- Slides with custom text -->
-            <b-carousel-slide
-        caption="Lost DaengDaengi"
-        text="여러분의 반려견을 지켜주세요"
-        :img-src= "src2"
-      ></b-carousel-slide>
+        <!-- Slides with custom text -->
+        <b-carousel-slide
+          caption="반려견을 위한 시작"
+          text="여러분의 반려견을 지켜주세요"
+          :img-src= "src2"
+        ></b-carousel-slide>
 
+<<<<<<< HEAD
+        <b-carousel-slide
+          caption="Lost DaengDaengi"
+          text="자동화된 시스템을 경험하세요"
+          :img-src= "src3"
+        ></b-carousel-slide>
+      </b-carousel>
+    </div>
+
+    <div>
+      <b-card
+        class="flex"
+        title="2019 Capstone Design">
+        <b-card-text>
+          <strong>Team Bohemian Capsody <br/> AJOU Univ.<br/></strong>&copy; 2019 김영국 | 박신혁 | 박찬영 | 최순원 
+        </b-card-text>
+      </b-card>
+    </div>
+    
+=======
                   <b-carousel-slide
         caption="Lost DaengDaengi"
         text="자동화된 시스템을 경험하세요"
@@ -30,8 +49,8 @@
       ></b-carousel-slide>
     </b-carousel>
     </div>
+>>>>>>> e65086ff354e2f0822baa9e0da11362a12578b98
   </div>
-  
 </template>
 
 <script>

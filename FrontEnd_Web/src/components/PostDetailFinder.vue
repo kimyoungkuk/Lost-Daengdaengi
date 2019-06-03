@@ -2,7 +2,7 @@
     <v-flex class="in_board-view">
       <b-card-group deck>
         <b-card header-tag="header" footer-tag="footer">
-          <h6 slot="header" class="mb-0">
+          <!-- <h6 slot="header" class="mb-0">
             <b-badge variant="dark">작성자</b-badge>
             {{this.form.writer}}
             <b-badge variant="dark">찾은 날짜</b-badge>
@@ -14,11 +14,16 @@
             {{this.form.title}}
             <b-badge variant="dark">견종</b-badge>
             {{this.form.dog_type}}
-          </h6>
+          </h6> -->
+          <div class="div_header" slot="header">
+            <b>Lost-Daengdaengi</b><b style="float:right;">조회:{{this.form.view_count}}</b>
+          </div>
+
           <div>
             <v-layout>
               <v-flex xs12 sm6 offset-sm3>
                 <v-card>
+                  <!-- 이미지 불러오기 -->
                   <v-img class="white--text" height="300px" :src="this.form.imageurl">
                     <v-container fill-height fluid>
                       <v-layout fill-height>
@@ -28,15 +33,21 @@
                       </v-layout>
                     </v-container>
                   </v-img>
+                  <!-- 유기견 정보 출력 -->
                   <v-card-title>
                     <div>
-                      <span class="grey--text">연락처 : {{this.form.phone_num}}</span>
-                      <br>
-                      <span>특징 : {{this.form.dog_feature}}</span>
-                      <br>
-                      <span>보호소 : {{this.form.shelter_name}}</span>
+                      <p>
+                        <b-button id="button1" variant="danger"><b>발견</b></b-button>
+                        <span>&nbsp&nbsp&nbsp<b>{{this.form.title}}</b></span><br>
+                      </p>
+                      <span><b>&middot</b>&nbsp날&nbsp&nbsp&nbsp&nbsp짜 : {{this.form.find_time}}</span><br>
+                      <span><b>&middot</b>&nbsp연락처 : {{this.form.phone_num}}</span><br>
+                      <span><b>&middot</b>&nbsp아이디 : {{this.user_nickname}}</span><br>
+                      <span><b>&middot</b>&nbsp보호소 : {{this.form.shelter_name}}</span><br>
+                      <span><b>&middot</b>&nbsp특&nbsp&nbsp&nbsp&nbsp징 : {{this.form.dog_feature}}</span>
                     </div>
                   </v-card-title>
+                  <!-- SHARE, EXPLORE, REPORT 버튼 -->
                   <v-card-actions>
                     <v-btn flat color="orange">Share</v-btn>
                     <v-btn flat color="orange">Explore</v-btn>
@@ -46,6 +57,7 @@
               </v-flex>
             </v-layout>
           </div>
+
           <h6 slot="footer" v-for="item in comments" v-bind:key="item.id">
             <p class="comment_name">{{item.user_nickname}}</p>&emsp;
             <p class="comment_date">{{item.commented_date}}</p>
@@ -374,6 +386,9 @@ export default {
 </script>
 
 <style>
+.div_header {
+  text-align: center;
+}
 div.board_back_color {
   display: inline-block;
   background-color: white;
