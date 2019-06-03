@@ -117,8 +117,9 @@ class Adopt_post(models.Model):
         return self.title
 
 
-class Dummy(models.Model):
-    dummy           =   models.CharField(max_length = 100)
+class Filtering(models.Model):
+    category           =   models.CharField(max_length = 100)
+    value           =   models.CharField(max_length = 100)
 #class Report(models.Model):
 #    reason          =   models.CharField(max_length = 10)
 #    detail          =   models.TextField()
