@@ -30,18 +30,9 @@
             </GridLayout>
             <GridLayout row = "1" rows = "auto,*">
                 <Label row = "0" backgroundColor = "#4ba5fa" @swipe = "onSwipe" padding = "10"></Label>
-<<<<<<< HEAD
-                <scrollview row="1" rows = "auto">
-                    <stacklayout row = "0">
-                        <WebView loaded="onWebViewLoaded" id="myWebView" :src="API_WEBVIEW_URL_finder"/>
-                    </stacklayout>
-
-                </scrollview>
-=======
                 <ScrollView row="1" :scrollableHeight="hhh">
-                    <WebView ref = "webview" loaded="onWebViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder_temp"/>
+                    <WebView ref = "webview" loaded="onWebViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
                 </ScrollView>
->>>>>>> e893769a1fadc668b1a80a8b2a3e9c55068f07ae
             </GridLayout>
         </GridLayout>     
 
@@ -66,8 +57,8 @@
         mixins: [ sideDrawer ],
         data () {
             return { 
-                API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard',
-                API_WEBVIEW_URL_finder_temp : this.$store.state.API_WEBVIEW_URL + '/finderboard',
+                API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname,
+                API_WEBVIEW_URL_finder_temp : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname,
                 makerinfo : [],
                 map : null,
                 row_scale : "*, 100",
@@ -132,7 +123,7 @@
                 this.map = args.map;
                 args.map.setOnMapClickListener((point) => {
                     console.log(`Map tapped: ${JSON.stringify(point)}`)
-                    this.API_WEBVIEW_URL_finder = this.API_WEBVIEW_URL_finder_temp + "?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname + "&lat=" + point.lat + "&lng=" + point.lng
+                    this.API_WEBVIEW_URL_finder = this.API_WEBVIEW_URL_finder_temp + "&lat=" + point.lat + "&lng=" + point.lng
                     
                     console.log(this.API_WEBVIEW_URL_finder)
                 })

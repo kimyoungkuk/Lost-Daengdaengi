@@ -234,7 +234,7 @@ export default {
       if(this.form.user_nickname==this.nickname){
 
         this.$http
-        .post(`/api/finderPosts/delete/${this.$route.params.id}`)
+        .post(`http://202.30.31.91:8000/api/finderPosts/delete/${this.$route.params.id}`)
         .then(res => {
           const status = res.status;
           // if (status === 200) {
