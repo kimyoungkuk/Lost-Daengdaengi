@@ -4,7 +4,7 @@
         <b-card header-tag="header" footer-tag="footer">
           <h6 slot="header" class="mb-0">
             <b-badge variant="dark">작성자</b-badge>
-            {{this.form.writer}}
+            {{this.form.user_nickname}}
             <b-badge variant="dark">찾은 날짜</b-badge>
             {{this.form.find_time}}
             <b-badge variant="dark">조회수</b-badge>
@@ -91,7 +91,6 @@
           variant="primary"
         >수정</b-button>
         <b-button
-          v-if="userId == form.userId || admin === 1"
           v-b-modal.modal-delete
           variant="danger"
         >삭제</b-button>
@@ -242,7 +241,7 @@ export default {
           const status = res.status;
           // if (status === 200) {
             alert("정상적으로 삭제되었습니다.");
-            this.$router.push("/finderboard");
+            // this.$router.push("/finderboard");
           // } else if (status === 203) {
           //   alert("해당 권한이 존재하지 않습니다.");
           //   this.$router.push("/board");
@@ -254,7 +253,7 @@ export default {
       }
       else{
         alert("해당 권한이 존재하지 않습니다.");
-        this.$router.push("/finderboard");
+        // this.$router.push("/finderboard");
       }
     },
     toBoard() {
