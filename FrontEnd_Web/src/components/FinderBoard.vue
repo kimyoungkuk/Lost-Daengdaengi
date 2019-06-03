@@ -79,12 +79,17 @@ export default {
   },
   created(){
     let urlParams = new URLSearchParams(window.location.search);
-    this.key = urlParams.get('key');
-    this.nickname = urlParams.get('nickname');
+    if(this.$store.state.user_Email=="" || this.$store.state.user_nickname=="")
+    {
+      this.$store.state.user_Email = urlParams.get('key');
+      this.key = urlParams.get('key');
+      this.$store.state.user_nickname = urlParams.get('nickname');
+      this.nickname = urlParams.get('nickname');
+      console.log(this.key)
+      console.log(this.nickname)
+    }
     this.lat = urlParams.get('lat');
     this.lng = urlParams.get('lng');
-    console.log(this.key)
-    console.log(this.nickname)
     console.log(this.lat)
     console.log(this.lng)
     this.$http.get('http://202.30.31.91:8000/api/finderPosts/list')

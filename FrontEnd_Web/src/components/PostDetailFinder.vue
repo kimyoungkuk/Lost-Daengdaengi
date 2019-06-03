@@ -143,8 +143,8 @@ export default {
   name: "boardView",
   data() {
     return {
-      key : '',
-      nickname : '',
+      key :  this.$store.state.user_Email,
+      nickname :  this.$store.state.user_nickname,
       lat : 0,
       lng : 0,
       name: '',
@@ -183,15 +183,6 @@ export default {
     };
   },
   created() {
-    let urlParams = new URLSearchParams(window.location.search);
-    this.key = urlParams.get('key');
-    this.nickname = urlParams.get('nickname');
-    this.lat = urlParams.get('lat');
-    this.lng = urlParams.get('lng');
-    console.log(this.key)
-    console.log(this.nickname)
-    console.log(this.lat)
-    console.log(this.lng)
             
     console.log("QWERTYUIOP");
     this.getBoardDetail();
