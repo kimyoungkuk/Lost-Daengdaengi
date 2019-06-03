@@ -1,17 +1,15 @@
 <template>
     <Page class="page">
-        <ActionBar title="유기견을 신고합니다." class="action-bar" >
-            <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="$goto('map')"/>
-        </ActionBar>
+        <ActionBar title="Home" class="action-bar" />
         <GridLayout rows = "*,auto,auto,auto">
             <GridLayout row = "0">
                 <ScrollView>
                     <RadDataForm ref = "dataform" :source = "source" :metadata="meta" :groups="groups"></RadDataForm>
                 </ScrollView>
             </GridLayout>
-            <Button class="btn btn-primary" row = "1" text = "위치 보기" height="50" width="100" @tap = "onTap_Loc"></Button>
-            <Button class="btn btn-primary" row="2" text="사진 선택" @tap="onSelectSingleTap" horizontalAlignment="center" />
-            <Button class="btn btn-primary" row = "3" @tap = "onTap_sub" text = "등록하기" :isEnabled="!processing"></Button>
+            <Button row = "1" text = "위치 보기" height="50" width="100" @tap = "onTap_Loc"></Button>
+            <Button row="2" text="사진 선택" @tap="onSelectSingleTap" horizontalAlignment="center" />
+            <Button row = "3" @tap = "onTap_sub" text = "제출"></Button>
         </GridLayout>
         <!-- <ScrollView>
             <RadDataForm :source="source" :metadata="meta" :groups="groups"></RadDataForm>
@@ -29,7 +27,6 @@
     export default {
         data() {
             return {
-                processing: false,
                 groups: [ 
                     Object.assign(new PropertyGroup(), { 
                         name: "Owner_post",
@@ -131,7 +128,7 @@
                         dog_sex :this.$store.state.ownerPost.dog_sex,
                         dog_type :this.$store.state.ownerPost.dog_type,
                         dog_age :this.$store.state.ownerPost.dog_age,
-                        dog_feature:this.$store.state.ownerPost.dog_feature,
+                        dog_feature:this.$store.state.ownerPost.dog_age,
                         remark:this.$store.state.ownerPost.remark,
                         phone_num:this.$store.state.ownerPost.phone_num,
                         lat: this.$store.state.ownerPost.lat,
@@ -195,11 +192,10 @@
                 this.$store.state.ownerPost.image = this.imgStr;
                 this.$store.state.ownerPost.posted_time = this.$refs.dataform.getPropertyByName('posted_time').valueCandidate;
                 this.$store.state.ownerPost.posted_due = this.$refs.dataform.getPropertyByName('posted_due').valueCandidate;
-                 this.$store.state.CurrentPostType = true;
+                this.$store.state.CurrentPostType = true;
                 this.$goto('select_Loc');
             },
             onTap_sub(args){
-                this.processing = true;
                 console.log(this.$refs.dataform.getPropertyByName('phone_num').valueCandidate);
                 this.$store.state.ownerPost.title = this.$refs.dataform.getPropertyByName('title').valueCandidate;
                 this.$store.state.ownerPost.phone_num = this.$refs.dataform.getPropertyByName('phone_num').valueCandidate;
@@ -213,7 +209,8 @@
                 this.$store.state.ownerPost.image = this.imgStr;
                 this.$store.state.ownerPost.posted_time = this.$refs.dataform.getPropertyByName('posted_time').valueCandidate;
                 this.$store.state.ownerPost.posted_due = this.$refs.dataform.getPropertyByName('posted_due').valueCandidate;
-                axios.post(this.$store.state.API_BACKEND_URL + '/api/ownerPosts/create',{
+                axios.post(this.$store.state.API_BACKEND_URL + 'api/ownerPosts/create',{
+                    user_nickname : this.$store.state.user_nickname,
                     title : this.$store.state.ownerPost.title,
                     dog_name : this.$store.state.ownerPost.dog_name,
                     lost_time : this.$store.state.ownerPost.lost_time,
@@ -228,23 +225,13 @@
                     lng: this.$store.state.ownerPost.lng,
                     posted_time:this.$store.state.ownerPost.posted_time,
                     posted_due:this.$store.state.ownerPost.posted_due,
-                    image : this.$store.state.ownerPost.image,
+                    image : this.$store.state.ownerPost.image
                 })
                 .then(res => {
                     console.log(res.data);
-                    alert({
-  title: "게시글이 등록 되었습니다.",
-  message: "곧 찾을거에요!",
-  okButtonText: "네!"
-}).then(() => {
-    this.$goto("map")
-  console.log("Alert dialog closed");
-});
                     //this.$goto('board');
                     })
-                .catch(error => {
-                    this.processing = false;
-                    console.log(error)});
+                .catch(error => {console.log(error)});
                 console.log(this.makerinfo)
                 console.log(this.$refs.dataform.getPropertyByName('dog_age').valueCandidate);
                 
@@ -253,11 +240,3 @@
         }
     };
 </script>
-
-<style scoped>
-@import '~nativescript-theme-core/css/core.light.css';
-    ActionBar {
-        background-color: #4ba5fa;
-        color: #ffffff;
-    }
-</style>
