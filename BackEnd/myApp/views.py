@@ -211,7 +211,8 @@ def owner_post_delete(request,pk):
     owner_post = Owner_post.objects.get(id=pk)
     owner_post.delete()
     return Response(1, status = status.HTTP_201_CREATED)
-    @api_view(['POST'])
+
+@api_view(['POST'])
 def finder_post_delete(request,pk):
     finder_post = Finder_post.objects.get(id=pk)
     finder_post.delete()
