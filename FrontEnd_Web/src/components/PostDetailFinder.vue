@@ -241,7 +241,7 @@ export default {
           const status = res.status;
           // if (status === 200) {
             alert("정상적으로 삭제되었습니다.");
-            // this.$router.push("/finderboard");
+            this.$router.push("/finderboard");
           // } else if (status === 203) {
           //   alert("해당 권한이 존재하지 않습니다.");
           //   this.$router.push("/board");
@@ -253,7 +253,7 @@ export default {
       }
       else{
         alert("해당 권한이 존재하지 않습니다.");
-        // this.$router.push("/finderboard");
+        this.$router.push("/finderboard");
       }
     },
     toBoard() {

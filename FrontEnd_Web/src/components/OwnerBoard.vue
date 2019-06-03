@@ -61,6 +61,10 @@ export default {
   // finder 게시글 제목(title), 견종(dog_type) , 잃어버린 날짜(lost_time), imgsrc(imageurl)
   data: function () {
     return {
+      key : this.$store.state.user_Email,
+      nickname : this.$store.state.user_nickname,
+      lat : 0,
+      lng : 0,
       posts: [{title:'', dog_type:'', lost_time:'', imageurl:''}],
             form: {
           input: '',
@@ -71,11 +75,33 @@ export default {
     }
   },
   created(){
-      this.$http.get('http://202.30.31.91:8000/api/ownerPosts/list')
-        .then(res => {
-            console.log(res.data)
-            this.posts = res.data
-        })
+    let urlParams = new URLSearchParams(window.location.search);
+    if(this.$store.state.user_Email=="" || this.$store.state.user_nickname=="")
+    {
+      this.$store.state.user_Email = urlParams.get('key');
+      this.key = urlParams.get('key');
+      this.$store.state.user_nickname = urlParams.get('nickname');
+      this.nickname = urlParams.get('nickname');
+      console.log(this.key)
+      console.log(this.nickname)
+    }
+    this.lat = urlParams.get('lat');
+    this.lng = urlParams.get('lng');
+    console.log(this.lat)
+    console.log(this.lng)
+    this.$http.get('http://202.30.31.91:8000/api/ownerPosts/list')
+      .then(res => {
+          console.log(res.data)
+          this.posts = res.data
+
+          if (this.lat!=null && this.lng!=null){
+          this.$http.get("http://202.30.31.91:8000/api/ownerPosts/filter/with?key="+this.key+"&nickname="+this.nickname+"&lat=" + this.lat + "&lng=" + this.lng)
+            .then(res => {
+              this.posts = res.data
+              console.log(res.data)
+            })
+          }
+      })
     },
   computed: {
             formattedPosts() {

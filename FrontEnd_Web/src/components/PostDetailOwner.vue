@@ -4,7 +4,7 @@
         <b-card header-tag="header" footer-tag="footer">
           <h6 slot="header" class="mb-0">
             <b-badge variant="dark">작성자</b-badge>
-            {{this.form.writer}}
+            {{this.form.user_nickname}}
             <b-badge variant="dark">잃어버린 날짜</b-badge>
             {{this.form.lost_time}}
             <b-badge variant="dark">조회수</b-badge>
@@ -40,6 +40,7 @@
                   <v-card-actions>
                     <v-btn flat color="orange">Share</v-btn>
                     <v-btn flat color="orange">Explore</v-btn>
+                    <v-btn flat color="orange" v-b-modal.modal-report v-on:click="reportBoard">report</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -90,25 +91,36 @@
           variant="primary"
         >수정</b-button>
         <b-button
-          v-if="userId == form.userId || admin === 1"
-          v-on:click="deleteBoard"
+          v-b-modal.modal-delete
           variant="danger"
         >삭제</b-button>
-        <b-button v-b-modal.modal-prevent-closing>신고</b-button>
       </b-button-group>
       </v-flex>
 
 
-    <!-- <div class="mt-3">
-      Submitted Names:
-      <div v-if="submittedNames.length === 0">--</div>
-      <ul v-else class="mb-0 pl-3">
-        <li v-for="name in submittedNames">{{ name }}</li>
-      </ul>
-    </div> -->
+      <b-modal
+        id="modal-delete"
+        ref="modal"
+        title="정말로 삭제하실건가요?"
+        @show="resetModal"
+        @hidden="resetModal"
+        @ok="handleOk"
+        hide-footer
+      >
+        
+          <b-button
+          v-if="userId == form.userId || admin === 1"
+          v-on:click="deleteBoard"
+          variant="danger"
+        >삭제</b-button>
+        <b-button
+          @click="$bvModal.hide('modal-delete')"
+        >취소</b-button>
+      </b-modal>
+
 
       <b-modal
-        id="modal-prevent-closing"
+        id="modal-report"
         ref="modal"
         title="게시글이 이상한가요?"
         @show="resetModal"
@@ -131,7 +143,6 @@
           </b-form-group>
         </form>
       </b-modal>
-
    
 
     </v-flex>
@@ -144,16 +155,20 @@ export default {
   name: "boardView",
   data() {
     return {
-        name: '',
-        nameState: null,
-        submittedNames: [],
+      key :  this.$store.state.user_Email,
+      nickname :  this.$store.state.user_nickname,
+      lat : 0,
+      lng : 0,
+      name: '',
+      nameState: null,
+      submittedNames: [],
         
       form: {
         _id: this.$route.params.id,
         id: "",
         title: "",
         imageurl: "",
-        find_time: "",
+        lost_time: "",
         view_count: "",
         dog_type: "",
         dog_feature: "",
@@ -213,21 +228,31 @@ export default {
         });
     },
     deleteBoard() {
-      this.$http
-        .delete(`/api/board/posts/${this.$route.params.id}`)
+      
+      console.log("!@#")
+      console.log(this.form.user_nickname)
+      if(this.form.user_nickname==this.nickname){
+
+        this.$http
+        .post(`http://202.30.31.91:8000/api/ownerPosts/delete/${this.$route.params.id}`)
         .then(res => {
           const status = res.status;
-          if (status === 200) {
+          // if (status === 200) {
             alert("정상적으로 삭제되었습니다.");
-            this.$router.push("/board");
-          } else if (status === 203) {
-            alert("해당 권한이 존재하지 않습니다.");
-            this.$router.push("/board");
-          }
+            this.$router.push("/ownerboard");
+          // } else if (status === 203) {
+          //   alert("해당 권한이 존재하지 않습니다.");
+          //   this.$router.push("/board");
+          // }
         })
         .catch(err => {
           alert(err);
         });
+      }
+      else{
+        alert("해당 권한이 존재하지 않습니다.");
+        this.$router.push("/ownerboard");
+      }
     },
     toBoard() {
       this.$router.push("/ownerboard");
