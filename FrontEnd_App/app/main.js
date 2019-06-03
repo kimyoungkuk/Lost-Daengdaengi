@@ -11,7 +11,7 @@ import CardViewPlugin from 'nativescript-material-cardview/vue';
 import FabPlugin from "nativescript-vue-fab"
 import store_ from '~/store'
 import sideDrawer from '~/components/sideDrawer'
-import drawerContent from '~/components/drawerContent'  
+import drawerContent from '~/components/drawerContent'
 
 Vue.use(ButtonPlugin);
 Vue.use(CardViewPlugin);

@@ -35,6 +35,7 @@
 </template>
 
 <script>
+
 export default {
  data() {
       return {
@@ -48,16 +49,9 @@ export default {
       }
     },
     methods: {
-      clicked() {
-        this.counter = Math.random() * this.max
-        console.log('Change progress to ' + Math.round(this.counter * 100) / 100)
-      },
-      onSlideStart(slide) {
-        this.sliding = true
-      },
-      onSlideEnd(slide) {
-        this.sliding = false
-      }
+    },
+    created(){
+console.log(this.$store.state.API_BACKEND_URL)
     }
 }
 </script>
