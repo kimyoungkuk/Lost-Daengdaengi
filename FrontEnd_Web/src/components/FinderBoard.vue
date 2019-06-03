@@ -92,7 +92,7 @@ export default {
             console.log(this.lat)
             console.log(this.lng)
             if (this.lat!=null && this.lng!=null){
-              this.$http.get("http://202.30.31.91:8000/api/posts/filter/with?lat=" + this.lat + "&lng=" + this.lng)
+              this.$http.get("http://202.30.31.91:8000/api/posts/filter/with?key="+this.key+"&nickname="+this.nickname+"&lat=" + this.lat + "&lng=" + this.lng)
                 .then(res => {
                   this.posts = res.data
                   console.log(res.data)
