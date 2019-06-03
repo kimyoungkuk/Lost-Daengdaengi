@@ -48,7 +48,7 @@
                 <!-- <strong>찾은 날짜 : </strong>{{$moment(post.find_time).format('LLLL')}} -->
             </p>
             <div slot="footer">
-                <router-link :to="`/finderboard/view/${post.id}/#iii`"><b-btn variant="primary" block>상세보기</b-btn></router-link>
+                <router-link :to="`/finderboard/view/${post.id}`"><b-btn variant="primary" block>상세보기</b-btn></router-link>
             </div>
         </b-card>
     </b-card-group>
@@ -80,14 +80,16 @@ export default {
             this.posts = res.data
             let urlParams = new URLSearchParams(window.location.search);
             let lat = urlParams.get('lat');
-            let lng = urlParams.get('lng')
+            let lng = urlParams.get('lng');
             console.log(lat)
             console.log(lng)
-            this.$http.get("http://202.30.31.91:8000/api/posts/filter/with?lat=" + lat + "&lng=" + lng)
-        .then(res => {
-            this.posts = res.data
-            console.log(res.data)
-        })
+            if (lat==null || lng==null){
+              this.$http.get("http://202.30.31.91:8000/api/posts/filter/with?lat=" + lat + "&lng=" + lng)
+                .then(res => {
+                  this.posts = res.data
+                  console.log(res.data)
+                })
+            }
         })
     },
   computed: {
