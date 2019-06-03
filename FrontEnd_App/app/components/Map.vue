@@ -57,8 +57,8 @@
         mixins: [ sideDrawer ],
         data () {
             return { 
-                this : this.$store.state.API_WEBVIEW_URL + '/finderboard',
                 API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard',
+                temp : this.$store.state.API_WEBVIEW_URL + '/finderboard',
                 makerinfo : [],
                 map : null,
                 row_scale : "*, 100",
