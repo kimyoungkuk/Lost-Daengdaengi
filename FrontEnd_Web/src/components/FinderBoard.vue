@@ -83,7 +83,7 @@ export default {
             let lng = urlParams.get('lng');
             console.log(lat)
             console.log(lng)
-            if (lat==null || lng==null){
+            if (lat!=null && lng!=null){
               this.$http.get("http://202.30.31.91:8000/api/posts/filter/with?lat=" + lat + "&lng=" + lng)
                 .then(res => {
                   this.posts = res.data
