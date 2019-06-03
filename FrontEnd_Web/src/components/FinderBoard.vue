@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import 'url-search-params-polyfill';
 export default {
   // finder 게시글 제목(title), 견종(dog_type) , 잃어버린 날짜(lost_time), imgsrc(imageurl)
   // API (/api/finderPosts/list)
@@ -77,6 +78,16 @@ export default {
         .then(res => {
             console.log(res.data)
             this.posts = res.data
+            let urlParams = new URLSearchParams(window.location.search);
+            let lat = urlParams.get('lat');
+            let lng = urlParams.get('lng')
+            console.log(lat)
+            console.log(lng)
+            this.$http.get("http://202.30.31.91:8000/api/posts/filter/with?lat=" + lat + "&lng=" + lng)
+        .then(res => {
+            this.posts = res.data
+            console.log(res.data)
+        })
         })
     },
   computed: {

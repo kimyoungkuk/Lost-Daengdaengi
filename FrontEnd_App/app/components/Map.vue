@@ -57,6 +57,10 @@
         mixins: [ sideDrawer ],
         data () {
             return { 
+<<<<<<< HEAD
+=======
+                temp : this.$store.state.API_WEBVIEW_URL + '/finderboard',
+>>>>>>> 618441605b43157dba8a3d73e863290526c64c98
                 API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard',
                 temp : this.$store.state.API_WEBVIEW_URL + '/finderboard',
                 makerinfo : [],
@@ -64,7 +68,6 @@
                 row_scale : "*, 100",
                 ischecked : false,
                 count : 0,
-                hhh : "15"
             };
         },
         methods: {
@@ -124,10 +127,6 @@
                 this.map = args.map;
                  args.map.setOnMapClickListener((point) => {
                     console.log(`Map tapped: ${JSON.stringify(point)}`)
-                    this.hhh = "100"
-                    console.log(PercentLength.parse("100000"))
-                    // console.log(scrollableHeight)
-
                     this.API_WEBVIEW_URL_finder = this.temp + "?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname + "&lat=" + point.lat + "&lng=" + point.lng
                     console.log(this.API_WEBVIEW_URL_finder)
                  })
