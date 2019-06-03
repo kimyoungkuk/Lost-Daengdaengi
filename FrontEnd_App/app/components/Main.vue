@@ -7,12 +7,34 @@
                 <ScrollView>
           <StackLayout>     
             <!-- <Image class="logo" src="~/assets/images/DaengDaengi.png" horizontalAlignment="center" stretch="none"/> -->
-            <WebView row="0" @loadFinished="completeLoading" height="440" loaded="onWebViewLoaded" id="myWebView" :src="this.$store.state.API_WEBVIEW_URL"/>
+            <WebView row="0" @loadFinished="completeLoading" height="300" loaded="onWebViewLoaded" id="myWebView" :src="this.$store.state.API_WEBVIEW_URL"/>
             <Progress color="#4ba5fa" v-show="loadingComplete" :value="loadingValue" row ="0"/>
-            <Button class="btn btn-primary" text="시작하기" height="50" width="175" @tap="$goto('login')" />
+            <Button class="fab btn btn-active" :text="'\uf1a3' + ' 시작하기'" height="50" width="175" @tap="$goto('login')" />
             <!-- <Label class="message" :text="msg" col="0" row="0"/> -->
+                      <FlexboxLayout flexDirection="column" backgroundColor="#3c495e">
+                        <Label text="" height="100" backgroundColor="#FFFFFF"/>
+  
+  <Label class="fa" height="40" backgroundColor="#FFFFFF" textWrap="true" style="text-align:center">
+    <FormattedString>
+      
+      <Span class="fa" text="2019 Capstone Design" fontWeight="bold" fontStyle="italic" style="font-size: 24px;"/>
+    </FormattedString>
+  </Label>
+    <Label height="30" backgroundColor="#FFFFFF" textWrap="true" style="text-align:center">
+    <FormattedString>
+      <Span text="Team - Bohemian capsody" fontWeight="bold" style="font-size: 18px;"/>
+    </FormattedString>
+    </Label>
+      <Label height="30" backgroundColor="#FFFFFF" textWrap="true" style="text-align:center">
+    <FormattedString>
+      <Span text="김영국 | 박신혁 | 박찬영 | 최순원" style="font-size: 16px;"/>
+    </FormattedString>
+  </Label>
+  </FlexboxLayout>
           </StackLayout>
+
                </ScrollView>
+               
     </Page>
 </template>
 

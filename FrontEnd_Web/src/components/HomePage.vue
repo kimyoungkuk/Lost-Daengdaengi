@@ -21,6 +21,7 @@
           :img-src= "src2"
         ></b-carousel-slide>
 
+<<<<<<< HEAD
         <b-carousel-slide
           caption="Lost DaengDaengi"
           text="자동화된 시스템을 경험하세요"
@@ -39,10 +40,21 @@
       </b-card>
     </div>
     
+=======
+                  <b-carousel-slide
+        caption="Lost DaengDaengi"
+        text="자동화된 시스템을 경험하세요"
+        :img-src= "src3"
+  
+      ></b-carousel-slide>
+    </b-carousel>
+    </div>
+>>>>>>> e65086ff354e2f0822baa9e0da11362a12578b98
   </div>
 </template>
 
 <script>
+
 export default {
  data() {
       return {
@@ -56,21 +68,13 @@ export default {
       }
     },
     methods: {
-      clicked() {
-        this.counter = Math.random() * this.max
-        console.log('Change progress to ' + Math.round(this.counter * 100) / 100)
-      },
-      onSlideStart(slide) {
-        this.sliding = true
-      },
-      onSlideEnd(slide) {
-        this.sliding = false
-      }
+    },
+    created(){
+console.log(this.$store.state.API_BACKEND_URL)
     }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 ul {

@@ -30,7 +30,7 @@ class Finder_postSerializer(serializers.ModelSerializer):
     class Meta:
         model = Finder_post
         fields = '__all__'
-        
+
 class CommentSerializer(serializers.ModelSerializer):
     commented_time  =   serializers.DateTimeField(required=False)
     class Meta:
@@ -57,6 +57,10 @@ class FilteringSerializer(serializers.ModelSerializer):
     class Meta:
         model = Finder_post
         fields = ('dog_type',)
+
+class KeySerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ('key',)
 
 #class ReportSerializer(serializers.ModelSerializer):
 #    class Meta:

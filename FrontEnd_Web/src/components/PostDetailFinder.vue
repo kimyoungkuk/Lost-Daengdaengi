@@ -155,9 +155,13 @@ export default {
   name: "boardView",
   data() {
     return {
-        name: '',
-        nameState: null,
-        submittedNames: [],
+      key : '',
+      nickname : '',
+      lat : 0,
+      lng : 0,
+      name: '',
+      nameState: null,
+      submittedNames: [],
 
       form: {
         _id: this.$route.params.id,
@@ -170,6 +174,7 @@ export default {
         dog_feature: "",
         phone_num: "",
         shelter_name: "",
+        user_nickname:"",
       },
       comments: [
           {
@@ -190,6 +195,17 @@ export default {
     };
   },
   created() {
+    let urlParams = new URLSearchParams(window.location.search);
+    this.key = urlParams.get('key');
+    this.nickname = urlParams.get('nickname');
+    this.lat = urlParams.get('lat');
+    this.lng = urlParams.get('lng');
+    console.log(this.key)
+    console.log(this.nickname)
+    console.log(this.lat)
+    console.log(this.lng)
+            
+    console.log("QWERTYUIOP");
     this.getBoardDetail();
     this.getUserId();
   },
@@ -224,21 +240,31 @@ export default {
         });
     },
     deleteBoard() {
-      this.$http
-        .delete(`/api/board/posts/${this.$route.params.id}`)
+
+      console.log("!@#")
+      console.log(this.form.user_nickname)
+      if(this.form.user_nickname==this.nickname){
+
+        this.$http
+        .post(`http://202.30.31.91:8000/api/finderPosts/delete/${this.$route.params.id}`)
         .then(res => {
           const status = res.status;
-          if (status === 200) {
+          // if (status === 200) {
             alert("정상적으로 삭제되었습니다.");
-            this.$router.push("/board");
-          } else if (status === 203) {
-            alert("해당 권한이 존재하지 않습니다.");
-            this.$router.push("/board");
-          }
+            this.$router.push("/finderboard");
+          // } else if (status === 203) {
+          //   alert("해당 권한이 존재하지 않습니다.");
+          //   this.$router.push("/board");
+          // }
         })
         .catch(err => {
           alert(err);
         });
+      }
+      else{
+        alert("해당 권한이 존재하지 않습니다.");
+        this.$router.push("/finderboard");
+      }
     },
     toBoard() {
       this.$router.push("/finderboard");
@@ -271,15 +297,15 @@ export default {
         commented_post: Number,
         commented_post_type: ""
       };
-      comment.user_key = "pgd0919@gmail.com"
-      comment.user_nickname = "ChanYoung"
+      comment.user_key = this.key;
+      comment.user_nickname = this.nickname;
       comment.contents = this.contents;
       comment.commented_post = this.form.id;
       comment.commented_post_type = "finder"
       // this.$http.post(`http://202.30.31.91:8000/api/comments/create`, {
       axios.post(`http://202.30.31.91:8000/api/comments/create`, {
-      user_key : "pgd0919@gmail.com",
-      user_nickname : "ChanYoung",
+      user_key : comment.user_key,
+      user_nickname : comment.user_nickname,
       contents : comment.contents,
       commented_post : comment.commented_post,
       commented_post_type : "finder"
