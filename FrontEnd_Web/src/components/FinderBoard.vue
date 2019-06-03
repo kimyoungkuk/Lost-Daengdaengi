@@ -2,8 +2,8 @@
 <div>
     <div>
       <b-button-group>
-      <b-button router-link to='/finderboard' variant="outline-primary">발견인 게시판{{this.key}}</b-button>
-      <b-button router-link to='/ownerboard' variant="outline-primary">유기견주 게시판{{this.nickname}}</b-button>
+      <b-button router-link to='/finderboard' variant="outline-primary">발견인 게시판</b-button>
+      <b-button router-link to='/ownerboard' variant="outline-primary">유기견주 게시판</b-button>
     </b-button-group>
     </div>
      <div>
@@ -26,8 +26,8 @@
           required
         ></b-form-select>
       </b-form-group>
-      <b-button type="submit" variant="primary">Submit{{this.lat}}</b-button>
-      <b-button type="reset" variant="danger">Reset{{this.lng}}</b-button>
+      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
   </div>
     <div>

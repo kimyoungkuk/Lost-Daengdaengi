@@ -78,23 +78,23 @@
             v-model="contents"
           ></b-form-textarea>
           <v-flex> 
-            <b-button class="comment" type="submit" variant="primary" size="sm">댓글 작성(Enter){{this.lat}}</b-button>
+            <b-button class="comment" type="submit" variant="primary" size="sm">댓글 작성(Enter)</b-button>
           </v-flex>
         </b-form>
       </v-flex>
       <v-flex>
       <b-button-group size="sm">
-        <b-button v-on:click="toBoard" class="view_button" variant="primary">목록{{this.lng}}</b-button>
+        <b-button v-on:click="toBoard" class="view_button" variant="primary">목록</b-button>
         <b-button
           v-if="userId == form.userId || admin === 1"
           v-on:click="updateBoard"
           variant="primary"
-        >수정{{this.nickname}}</b-button>
+        >수정</b-button>
         <b-button
           v-if="userId == form.userId || admin === 1"
           v-on:click="deleteBoard"
           variant="danger"
-        >삭제{{this.key}}</b-button>
+        >삭제</b-button>
         <!-- <b-button v-b-modal.modal-prevent-closing>신고</b-button> -->
       </b-button-group>
       </v-flex>
