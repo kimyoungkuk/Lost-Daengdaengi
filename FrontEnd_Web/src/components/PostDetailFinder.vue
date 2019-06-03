@@ -178,6 +178,7 @@ export default {
     };
   },
   created() {
+    console.log("QWERTYUIOP");
     this.getBoardDetail();
     this.getUserId();
   },

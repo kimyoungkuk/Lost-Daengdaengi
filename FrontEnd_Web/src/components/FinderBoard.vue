@@ -80,14 +80,16 @@ export default {
             this.posts = res.data
             let urlParams = new URLSearchParams(window.location.search);
             let lat = urlParams.get('lat');
-            let lng = urlParams.get('lng')
+            let lng = urlParams.get('lng');
             console.log(lat)
             console.log(lng)
-            this.$http.get("http://202.30.31.91:8000/api/posts/filter/with?lat=" + lat + "&lng=" + lng)
-        .then(res => {
-            this.posts = res.data
-            console.log(res.data)
-        })
+            if (lat!=null && lng!=null){
+              this.$http.get("http://202.30.31.91:8000/api/posts/filter/with?lat=" + lat + "&lng=" + lng)
+                .then(res => {
+                  this.posts = res.data
+                  console.log(res.data)
+                })
+            }
         })
     },
   computed: {
