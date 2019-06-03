@@ -78,19 +78,20 @@ export default {
     }
   },
   created(){
+    let urlParams = new URLSearchParams(window.location.search);
+    this.key = urlParams.get('key');
+    this.nickname = urlParams.get('nickname');
+    this.lat = urlParams.get('lat');
+    this.lng = urlParams.get('lng');
+    console.log(this.key)
+    console.log(this.nickname)
+    console.log(this.lat)
+    console.log(this.lng)
       this.$http.get('http://202.30.31.91:8000/api/finderPosts/list')
         .then(res => {
             console.log(res.data)
             this.posts = res.data
-            let urlParams = new URLSearchParams(window.location.search);
-            this.key = urlParams.get('key');
-            this.nickname = urlParams.get('nickname');
-            this.lat = urlParams.get('lat');
-            this.lng = urlParams.get('lng');
-            console.log(this.key)
-            console.log(this.nickname)
-            console.log(this.lat)
-            console.log(this.lng)
+            
             if (this.lat!=null && this.lng!=null){
               this.$http.get("http://202.30.31.91:8000/api/posts/filter/with?key="+this.key+"&nickname="+this.nickname+"&lat=" + this.lat + "&lng=" + this.lng)
                 .then(res => {
