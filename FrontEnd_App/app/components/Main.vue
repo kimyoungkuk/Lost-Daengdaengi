@@ -11,8 +11,28 @@
             <Progress color="#4ba5fa" v-show="loadingComplete" :value="loadingValue" row ="0"/>
             <Button class="btn btn-primary" text="시작하기" height="50" width="175" @tap="$goto('login')" />
             <!-- <Label class="message" :text="msg" col="0" row="0"/> -->
+                      <FlexboxLayout flexDirection="column" backgroundColor="#3c495e">
+                        <Label text="" height="70" backgroundColor="#FFFFFF"/>
+  <Label height="40" backgroundColor="#FFFFFF" textWrap="true" style="text-align:center">
+    <FormattedString>
+      <Span text="2019 Capstone Design" fontWeight="bold" fontStyle="italic" style="font-size: 24px;"/>
+    </FormattedString>
+  </Label>
+    <Label height="30" backgroundColor="#FFFFFF" textWrap="true" style="text-align:center">
+    <FormattedString>
+      <Span text="Team. Bohemian capsody" fontWeight="bold" style="font-size: 20px;"/>
+    </FormattedString>
+    </Label>
+      <Label height="30" backgroundColor="#FFFFFF" textWrap="true" style="text-align:center">
+    <FormattedString>
+      <Span text="김영국 | 박신혁 | 박찬영 | 최순원" style="font-size: 16px;"/>
+    </FormattedString>
+  </Label>
+  </FlexboxLayout>
           </StackLayout>
+
                </ScrollView>
+               
     </Page>
 </template>
 
