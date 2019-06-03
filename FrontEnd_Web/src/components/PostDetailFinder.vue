@@ -228,24 +228,31 @@ export default {
         });
     },
     deleteBoard() {
+
       console.log("!@#")
-      console.log(this.form)
-      console.log("QWE")
-      this.$http
-        .delete(`/api/board/posts/${this.$route.params.id}`)
+      console.log(this.form.user_nickname)
+      if(this.form.user_nickname==this.nickname){
+
+        this.$http
+        .post(`/api/finderPosts/delete/${this.$route.params.id}`)
         .then(res => {
           const status = res.status;
-          if (status === 200) {
+          // if (status === 200) {
             alert("정상적으로 삭제되었습니다.");
             this.$router.push("/board");
-          } else if (status === 203) {
-            alert("해당 권한이 존재하지 않습니다.");
-            this.$router.push("/board");
-          }
+          // } else if (status === 203) {
+          //   alert("해당 권한이 존재하지 않습니다.");
+          //   this.$router.push("/board");
+          // }
         })
         .catch(err => {
           alert(err);
         });
+      }
+      else{
+        alert("해당 권한이 존재하지 않습니다.");
+        this.$router.push("/board");
+      }
     },
     toBoard() {
       this.$router.push("/finderboard");

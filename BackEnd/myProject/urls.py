@@ -43,6 +43,8 @@ urlpatterns = [
     path('api/finderPosts/create', myApp.views.finder_post_create, name="finderPosts/create"),
     path('api/ownerPosts/detail/<int:pk>', myApp.views.owner_post_detail, name="ownerPosts/detail"),
     path('api/finderPosts/detail/<int:pk>', myApp.views.finder_post_detail, name="finderPosts/detail"),
+    path('api/ownerPosts/delete/<int:pk>', myApp.views.owner_post_delete, name="ownerPosts/delete"),
+    path('api/finderPosts/delete/<int:pk>', myApp.views.finder_post_delete, name="finderPosts/delete"),
     
     path('api/comments/create', myApp.views.comment_create, name="comments/create"),
     

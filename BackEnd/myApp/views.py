@@ -208,23 +208,15 @@ def finder_post_create(request):
 
 @api_view(['POST'])
 def owner_post_delete(request,pk):
-    serializer = KeySerializer(data = request.data)
-    if serializer.is_valid():
-        serializer.data['key']
-
-        
-        return Response(serializer.data, status = status.HTTP_201_CREATED)
-    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-@api_view(['POST'])
+    owner_post = Owner_post.objects.get(id=pk)
+    owner_post.delete()
+    return Response(1, status = status.HTTP_201_CREATED)
+    @api_view(['POST'])
 def finder_post_delete(request,pk):
-    serializer = KeySerializer(data = request.data)
-    if serializer.is_valid():
-        serializer.data['key']
-        
-
-        return Response(serializer.data, status = status.HTTP_201_CREATED)
-    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-
+    finder_post = Finder_post.objects.get(id=pk)
+    finder_post.delete()
+    return Response(1, status = status.HTTP_201_CREATED)
+    
 
 
 @api_view(['GET','POST'])
