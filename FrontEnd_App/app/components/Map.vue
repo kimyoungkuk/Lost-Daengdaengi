@@ -54,6 +54,7 @@
         mixins: [ sideDrawer ],
         data () {
             return { 
+                temp : this.$store.state.API_WEBVIEW_URL + '/finderboard',
                 API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard',
                 makerinfo : [],
                 map : null,
@@ -119,7 +120,8 @@
                 this.map = args.map;
                  args.map.setOnMapClickListener((point) => {
                     console.log(`Map tapped: ${JSON.stringify(point)}`)
-                    this.API_WEBVIEW_URL_finder = this.API_WEBVIEW_URL_finder + "?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname + "&lat=" + point.lat + "&lng=" + point.lng
+    
+                    this.API_WEBVIEW_URL_finder = this.temp + "?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname + "&lat=" + point.lat + "&lng=" + point.lng
                     console.log(this.API_WEBVIEW_URL_finder)
                  })
                 //map.setLayoutProperty('country-label', 'text-field', ['get', 'name_ko']);
