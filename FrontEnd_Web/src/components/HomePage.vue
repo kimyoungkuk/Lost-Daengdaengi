@@ -21,27 +21,7 @@
           :img-src= "src2"
         ></b-carousel-slide>
 
-<<<<<<< HEAD
         <b-carousel-slide
-          caption="Lost DaengDaengi"
-          text="자동화된 시스템을 경험하세요"
-          :img-src= "src3"
-        ></b-carousel-slide>
-      </b-carousel>
-    </div>
-
-    <div>
-      <b-card
-        class="flex"
-        title="2019 Capstone Design">
-        <b-card-text>
-          <strong>Team Bohemian Capsody <br/> AJOU Univ.<br/></strong>&copy; 2019 김영국 | 박신혁 | 박찬영 | 최순원 
-        </b-card-text>
-      </b-card>
-    </div>
-    
-=======
-                  <b-carousel-slide
         caption="Lost DaengDaengi"
         text="자동화된 시스템을 경험하세요"
         :img-src= "src3"
@@ -49,7 +29,6 @@
       ></b-carousel-slide>
     </b-carousel>
     </div>
->>>>>>> e65086ff354e2f0822baa9e0da11362a12578b98
   </div>
 </template>
 
