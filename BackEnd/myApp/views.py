@@ -434,7 +434,7 @@ def classificationImage(request):
 
 
 
-model = torch.load('media/modeldir/flower_70.pth', map_location='cpu')
+# model = torch.load('media/modeldir/flower_70.pth', map_location='cpu')
     
 
 @api_view(['GET'])
@@ -446,31 +446,31 @@ def o2f_recommend(request,pk):
 @api_view(['GET'])
 def f2o_recommend(request,pk):
 
-    # Classification
-    image = image_loader('media/finder/'+pk+'/profile.jpg')
-    outputs = model(image)
+    # # Classification
+    # image = image_loader('media/finder/'+pk+'/profile.jpg')
+    # outputs = model(image)
             
-    sm = nn.Softmax()
+    # sm = nn.Softmax()
             
-    k = 3
-    one,labelarr = torch.topk(outputs,k)
-    problarr,two = torch.topk(sm(outputs),k)
-    candi = []
+    # k = 3
+    # one,labelarr = torch.topk(outputs,k)
+    # problarr,two = torch.topk(sm(outputs),k)
+    # candi = []
 
-    for i in range(k):
-        x = problarr[0][i].__float__()
-        candi.append([labelarr[0][i].__int__(),float("{0:.2f}".format(x)),dirnames[labelarr[0][i].__int__()]])
+    # for i in range(k):
+    #     x = problarr[0][i].__float__()
+    #     candi.append([labelarr[0][i].__int__(),float("{0:.2f}".format(x)),dirnames[labelarr[0][i].__int__()]])
 
-	#print(candi[0][2])
+	# #print(candi[0][2])
 
-    dogType = "abc"
-    dogType = candi[0][2]
+    # dogType = "abc"
+    # dogType = candi[0][2]
 
-    owner_posts = Owner_post.objects.filter(dog_type=dogType).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    # owner_posts = Owner_post.objects.filter(dog_type=dogType).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
 
-    return Response(owner_posts, status = status.HTTP_201_CREATED)
+    # return Response(owner_posts, status = status.HTTP_201_CREATED)
 
-    # owner_posts = Owner_post.objects.all().values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    owner_posts = Owner_post.objects.all().values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
 
-    # return Response(owner_posts)
+    return Response(owner_posts)
 
