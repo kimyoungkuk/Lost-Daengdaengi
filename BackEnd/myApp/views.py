@@ -390,6 +390,18 @@ def classificationImage(request):
             output.write(base64.b64decode(getImage.data['image']))
             output.close()
 
+
+
+            # Classification
+            Resnet50_model = load_model('media/modeldir/weights.best.ResNet50.hdf5')##추후 개선안 생각할부분
+            bottleneck_feature = extract_Resnet50(path_to_tensor('media/classification.jpg'))
+            bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
+            bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
+            predicted_vector = Resnet50_model.predict(bottleneck_feature) #shape error occurs hers
+            outputs = dog_names[np.argmax(predicted_vector)]
+            
+            return Response(outputs, status = status.HTTP_201_CREATED)
+
             # # Classification
             # model = torch.load('media/modeldir/flower_70.pth', map_location='cpu')
             # image = image_loader('media/classification.jpg')
@@ -413,17 +425,6 @@ def classificationImage(request):
 
             # return Response(dogType, status = status.HTTP_201_CREATED)
 
-            
-
-            # Classification
-            Resnet50_model = load_model('media/modeldir/weights.best.ResNet50.hdf5')##추후 개선안 생각할부분
-            bottleneck_feature = extract_Resnet50(path_to_tensor('media/classification.jpg'))
-            bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
-            bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
-            predicted_vector = Resnet50_model.predict(bottleneck_feature) #shape error occurs hers
-            outputs = dog_names[np.argmax(predicted_vector)]
-            
-            return Response(outputs, status = status.HTTP_201_CREATED)
         else :
             logging.error("getImage.data['image'] is empty!!!!!")
     return Response(getImage.errors, status = status.HTTP_400_BAD_REQUEST)
@@ -431,13 +432,13 @@ def classificationImage(request):
 
 @api_view(['GET'])
 def o2f_recommend(request,pk):
-    finder_posts = Finder_post.objects.all()
+    finder_posts = Finder_post.objects.all().values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
 
     return Response(finder_posts)
 
 @api_view(['GET'])
 def f2o_recommend(request,pk):
-    owner_posts = Owner_post.objects.all()
+    owner_posts = Owner_post.objects.all().values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
 
     return Response(owner_posts)
 
