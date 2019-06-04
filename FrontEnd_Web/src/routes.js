@@ -68,12 +68,12 @@ export default [
     component: parent
   },
   { //
-    path: '/finderboard/recommend/:id',
+    path: '/finderboard/recommend/:query',
     name: 'f2o_recommend',
     component: f2o_recommend
   },
   { //
-    path: '/Ownerboard/recommend/:id',
+    path: '/Ownerboard/recommend/:query',
     name: 'o2f_recommend',
     component: o2f_recommend
   },

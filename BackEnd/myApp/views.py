@@ -409,7 +409,7 @@ def classificationImage(request):
 	    #print(candi[0][2])
 
 
-            dogType = "abc";
+            dogType = "abc"
             dogType = candi[0][2]
 
             return Response(dogType, status = status.HTTP_201_CREATED)
@@ -418,11 +418,13 @@ def classificationImage(request):
     return Response(getImage.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET'])
 def o2f_recommend(request,pk):
     finder_posts = Finder_post.objects.all()
 
     return Response(finder_posts)
 
+@api_view(['GET'])
 def f2o_recommend(request,pk):
     owner_posts = Owner_post.objects.all()
 
