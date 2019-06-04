@@ -277,7 +277,7 @@ export default {
       });
     },
     reportBoard() {
-      console.log("ASDASD");
+      this.$router.push("/finderboard");
     },
     addComment() {
       let comment = {
@@ -325,8 +325,9 @@ export default {
         });
     },
     recommend(){
+      this.$router.push(`/finderboard/recommend/${this.$route.params.id}`);
 
-      
+
     },
     createReport() {
       let report = {
