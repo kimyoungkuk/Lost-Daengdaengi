@@ -23,8 +23,10 @@
         loadingValue: 0,
         loadingComplete: true,
         src: ' ',
-        lat: ' ',
-        lng: ' ',
+        user_key: this.$store.state.user_Email,
+        user_nickname: this.$store.state.user_nickname,
+        lat: this.$store.state.FinderPost.lat,
+        lng: this.$store.state.FinderPost.lng,
       }
     },
     methods:{
@@ -32,9 +34,7 @@
         this.loadingComplete=false
       },
       OnInit() {
-          this.lat = this.$store.state.FinderPost.lat
-          this.lng = this.$store.state.FinderPost.lng
-          this.src = this.$store.state.API_WEBVIEW_URL + "?lat=" + this.lat +"&lng=" + this.lng
+          this.src = this.$store.state.API_WEBVIEW_URL + "?user_key=" + this.user_key +"&user_nickname=" +this.user_nickname + "&lat=" + this.lat +"&lng=" + this.lng
           console.log(this.src)
     var d = setInterval(() => {
       this.loadingValue += 1
