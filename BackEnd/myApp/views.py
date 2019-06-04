@@ -441,7 +441,7 @@ def classificationImage(request):
 
 @api_view(['GET'])
 def o2f_recommend(request,pk):
-    owner_post = owner_post.objects.get(id=pk)
+    owner_post = Owner_post.objects.get(id=pk)
 
 
     finder_posts1 = Finder_post.objects.filter(dog_type=owner_post.dog_type).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
@@ -461,7 +461,7 @@ def o2f_recommend(request,pk):
 
 @api_view(['GET'])
 def f2o_recommend(request,pk):
-    finder_post = finder_post.objects.get(id=pk)
+    finder_post = Finder_post.objects.get(id=pk)
     
 
     owner_posts1 = Owner_post.objects.filter(dog_type=finder_post.dog_type).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
