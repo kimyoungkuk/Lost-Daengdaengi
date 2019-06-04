@@ -445,7 +445,7 @@ def o2f_recommend(request,pk):
 
 
     finder_posts1 = Finder_post.objects.filter(dog_type=owner_post.dog_type).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
-    finder_posts2 = Finder_post.objects.filter(find_time__gte=owner_post.lost_time-datetime(0, 0, 7, 0, 0, 0)).filter(find_time__lte=owner_post.lost_time+datetime(0, 0, 7, 0, 0, 0)).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    finder_posts2 = Finder_post.objects.filter(find_time__gte=owner_post.lost_time+timedelta(days=-7)).filter(find_time__lte=owner_post.lost_time+timedelta(days=7)).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
     finder_posts3 = Finder_post.objects.filter(
         lat__gte = owner_post.lat - 0.005,
         lat__lte = owner_post.lat + 0.005,
@@ -465,7 +465,7 @@ def f2o_recommend(request,pk):
     
 
     owner_posts1 = Owner_post.objects.filter(dog_type=finder_post.dog_type).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
-    owner_posts2 = Owner_post.objects.filter(lost_time__gte=finder_post.find_time-datetime(0, 0, 7, 0, 0, 0)).filter(lost_time__lte=finder_post.find_time+datetime(0, 0, 7, 0, 0, 0)).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    owner_posts2 = Owner_post.objects.filter(lost_time__gte=finder_post.find_time+timedelta(days=-7)).filter(lost_time__lte=finder_post.find_time+timedelta(days=7)).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
     owner_posts3 = Owner_post.objects.filter(
         lat__gte = finder_post.lat - 0.005,
         lat__lte = finder_post.lat + 0.005,
