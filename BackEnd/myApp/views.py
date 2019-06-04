@@ -309,7 +309,7 @@ def filteringFinder(request):
     filtering = FilteringSerializer(data = request.data)
     if filtering.is_valid():
         pass
-    if (filtering.data['starttime']=='' or filtering.data['finaltime']==''):
+    if (filtering.data['starttime']==None or filtering.data['finaltime']==None):
 
         if(filtering.data['category']=='견종' and filtering.data['value']!=''):
             finder_posts = Finder_post.objects.filter(dog_type = filtering.data['value'])
