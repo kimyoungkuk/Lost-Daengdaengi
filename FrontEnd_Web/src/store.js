@@ -30,16 +30,16 @@ export default new Vuex.Store({
       posted_due:" ",
   },
     FinderPost: {
-    title : "a",      // 입력 : FinderForm1
+    title : "",      // 입력 : FinderForm1
     dog_type :"a",    
-    dog_feature:"a",  // 입력 : FinderForm5
-    phone_num:"a",    // 입력 : FinderForm2
-    image:"a",         // 입력 : FinderForm6
+    dog_feature:"",  // 입력 : FinderForm5
+    phone_num:"",    // 입력 : FinderForm2
+    image:"",         // 입력 : FinderForm6
     lat: 0,
     lng: 0,
-    find_time :"1970-01-01 00:00:00.000000",   // 입력 : FinderForm3
+    find_time :"",   // 입력 : FinderForm3
     posted_time:"1980-01-01 00:00:00.000000",
-    posted_due:"1981-01-01",   // 입력 : FinderForm4
+    posted_due:"",   // 입력 : FinderForm4
     shelter_name:"대전광역시 동물보호센터"  // 입력 : FinderForm7
   },
 },

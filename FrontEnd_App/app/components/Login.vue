@@ -5,10 +5,10 @@
 			<StackLayout class="form">
 				<Image class="logo" src="~/assets/images/DaengDaengi.png" />
 				<Label class="header" text="Lost DaengDaengi" />
-                <Button v-show="isLoggingIn" :text="'\uf1a0' + ' Google login'" :isEnabled="!processing" @tap="loginGoogle" class="fab btn btn-active" />
+                <Button v-show="isLoggingIn" :text="'\uf1a0' + ' Google login'" :isEnabled="!processing" @tap="loginGoogle" class="fab mybtn btn-active" />
 			</StackLayout>
 		</FlexboxLayout>
-        <ActivityIndicator rowSpan="3" height="50" :busy="processing"></ActivityIndicator>
+        <ActivityIndicator rowSpan="3" height="50" color="#FA7268" :busy="processing"></ActivityIndicator>
         </GridLayout>
 	</Page>
 </template>
@@ -105,28 +105,6 @@ export default {
           this.alert(error)
         });
     },
-    goToNext(){
-        console.log('--------gotonext------')
-        console.log(this.isUser)
-    },
-        toggleForm() {
-            this.isLoggingIn = !this.isLoggingIn;
-        },
-
-        submit() {
-            this.processing = true;
-            if (!this.user.email || !this.user.password) {
-                this.alert(
-                    "Please provide both an email address and password."
-                );
-                return;
-            }
-            if (this.isLoggingIn) {
-                this.login();
-            } else {
-                this.register();
-            }
-        },
 
         login() {
             userService
@@ -140,37 +118,6 @@ export default {
                     this.alert("Unfortunately we could not find your account.");
                 });
         },
-
-        register() {
-            var validator = require("email-validator");
-      if (!validator.validate(this.user.email)) {
-        this.alert("Please enter a valid email address.");
-        return;
-      }
-            if (this.user.password != this.user.confirmPassword) {
-                this.alert("Your passwords do not match.");
-                return;
-            }
-
-            userService
-                .register(this.user)
-                .then(() => {
-                    this.alert("Your account was successfully created.");
-                    this.isLoggingIn = true;
-                })
-                .catch(() => {
-                    this.alert(
-                        "Unfortunately we were unable to create your account."
-                    );
-                });
-        },
-        alert(message) {
-            return alert({
-                title: "APP NAME",
-                okButtonText: "OK",
-                message: message
-            });
-        }
     }
 };
 </script>
@@ -182,6 +129,10 @@ export default {
 		flex-direction: column;
 	}
 
+      .mybtn{
+      color: #ffffff;
+      background-color: #FA7268;
+    }
 	.form {
 		margin-left: 30;
 		margin-right: 30;
@@ -199,9 +150,9 @@ export default {
 		horizontal-align: center;
 		font-size: 25;
 		font-weight: 600;
-		margin-bottom: 70;
+		margin-bottom: 50;
 		text-align: center;
-		color: #4ba5fa;
+		color: #FA7268;
 	}
 
 	.input-field {

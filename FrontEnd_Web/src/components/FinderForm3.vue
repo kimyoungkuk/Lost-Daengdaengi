@@ -5,12 +5,8 @@
         <h1 class="googleFont">3. 발견 시간을 입력하세요.</h1>
         <b-form @submit="onClickNext" @reset="onClickPrev">
             <b-form-group id="input-group-2">
-                <b-form-input
-                id="input-2"
-                v-model="find_time"
-                required
-                placeholder="Enter finding time."
-                ></b-form-input>
+                <b-form-input id="date-1" v-model="date" required type="date"></b-form-input>
+                <b-form-input id="time-1" v-model="time" required type="time"></b-form-input>
             </b-form-group>
             <b-button type="reset">이전</b-button>
             <b-button type="submit">다음</b-button>
@@ -24,18 +20,22 @@ export default {
     data() {
         return {
             img1: require('../assets/formBackgroundImg.jpg'),
-            find_time : ''
+            find_time: '',
+            date: '',
+            time: ''
         }
     },
     methods: {
        onClickNext(evt){
            evt.preventDefault()
+           this.find_time = this.date + ' ' + this.time;
            this.$store.state.FinderPost.find_time  =   this.find_time;
            console.log(this.$store.state.FinderPost);
            this.toNext()
         },
         onClickPrev(evt){
            evt.preventDefault()
+           this.find_time = this.date + ' ' + this.time;
            this.$store.state.FinderPost.find_time   =   this.find_time;
            console.log(this.$store.state.FinderPost);
            this.toPrev()

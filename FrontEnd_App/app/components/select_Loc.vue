@@ -87,10 +87,11 @@
                 this.map.destroy();
                 console.log(this.$store.state.CurrentPostType);
                 if(this.$store.state.CurrentPostType == true){
-                    this.$goto('makePost');
+                    this.$goto('makeOwnerPostWeb');
                 }
                 else{
-                    this.$goto('makePost_Finder');
+                    // this.$goto('makePost_Finder');
+                    this.$goto('makeFinderPostWeb')
                 }
             },
 
