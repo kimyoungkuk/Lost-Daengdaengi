@@ -7,6 +7,13 @@ import Login from './components/Login'
 import AboutUs from './components/AboutUs'
 import PostDetailFinder from './components/PostDetailFinder'
 import PostDetailOwner from './components/PostDetailOwner'
+import FinderForm1 from './components/FinderForm1'
+import FinderForm2 from './components/FinderForm2'
+import FinderForm3 from './components/FinderForm3'
+import FinderForm4 from './components/FinderForm4'
+import FinderForm5 from './components/FinderForm5'
+import FinderForm6 from './components/FinderForm6'
+import FinderForm7 from './components/FinderForm7'
 import test from './components/test'
 
 export default [
@@ -64,6 +71,41 @@ export default [
     path: '/mp',
     name: 'parent',
     component: parent
+  },
+  {
+    path: '/finderForm1',
+    name: 'finderForm1',
+    component: FinderForm1
+  },
+  {
+    path: '/finderForm2',
+    name: 'finderForm2',
+    component: FinderForm2
+  },
+  {
+    path: '/finderForm3',
+    name: 'finderForm3',
+    component: FinderForm3
+  },
+  {
+    path: '/finderForm4',
+    name: 'finderForm4',
+    component: FinderForm4
+  },
+  {
+    path: '/finderForm5',
+    name: 'finderForm5',
+    component: FinderForm5
+  },
+  {
+    path: '/finderForm6',
+    name: 'finderForm6',
+    component: FinderForm6
+  },
+  {
+    path: '/finderForm7',
+    name: 'finderForm7',
+    component: FinderForm7
   },
   {
     path: '*',
