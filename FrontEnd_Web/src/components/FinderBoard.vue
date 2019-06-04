@@ -11,21 +11,35 @@
     <div>
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
         <!-- 검색 내용 입력 -->
-        <b-form-group id="input-group-2" label="검색 내용" label-for="input-2">
+        <b-form-group id="input-group-1" label="검색 시작시간" label-for="input-1">
+          <b-form-input
+            id="input-1"
+            type="datetime-local"
+            v-model="form.starttime"
+          ></b-form-input>
+        </b-form-group>
+        <!-- 검색 내용 입력 -->
+        <b-form-group id="input-group-2" label="검색 최종시간" label-for="input-2">
           <b-form-input
             id="input-2"
+            type="datetime-local"
+            v-model="form.finaltime"
+          ></b-form-input>
+        </b-form-group>
+        <!-- 검색 내용 입력 -->
+        <b-form-group id="input-group-3" label="검색 내용" label-for="input-3">
+          <b-form-input
+            id="input-3"
             v-model="form.value"
-            required
             placeholder="검색 내용을 입력하세요."
           ></b-form-input>
         </b-form-group>
         <!-- 검색 카테고리 -->
-        <b-form-group id="input-group-3" label="검색 카테고리" label-for="input-3">
+        <b-form-group id="input-group-4" label="검색 카테고리" label-for="input-4">
           <b-form-select
-            id="input-3"
+            id="input-4"
             v-model="form.category"
             :options="categories"
-            required
           ></b-form-select>
         </b-form-group>
         <!-- 제출 및 리셋 버튼 -->
@@ -74,10 +88,12 @@ export default {
       lng : 0,
       posts: [{title:'', dog_type:'', find_time:'', imageurl:''}],
       form: {
+          starttime: null,
+          finaltime: null,
+          category: '',
           value: '',
-          category: null,
         },
-        categories: [{ text: '선택하세요.', value: null }, '견종', '작성자', '내용'],
+        categories: [{ text: '선택하세요.', value: '' }, '견종', '작성자', '내용'],
         show: true
     }
   },
@@ -126,6 +142,8 @@ export default {
     onSubmit(evt) {
       evt.preventDefault()
       this.$http.post('http://202.30.31.91:8000/api/finderPosts/filter', {
+        starttime : this.form.starttime,
+        finaltime : this.form.finaltime,
         category : this.form.category,
         value : this.form.value
       }).then(res => {
@@ -138,8 +156,10 @@ export default {
     onReset(evt) {
       evt.preventDefault()
       // Reset our form values
+      this.form.starttime = null
+      this.form.finaltime = null
+      this.form.category = ''
       this.form.value = ''
-      this.form.category = null
       // Trick to reset/clear native browser form validation state
       this.show = false
       this.$nextTick(() => {

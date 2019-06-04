@@ -53,6 +53,10 @@ class GetImageSerializer(serializers.ModelSerializer):
         fields = ('image',)
 
 class FilteringSerializer(serializers.ModelSerializer):
+    starttime      =   serializers.DateTimeField(required=False)
+    finaltime      =   serializers.DateTimeField(required=False)
+    category       =   serializers.CharField(required=False)
+    value          =   serializers.CharField(required=False)
     class Meta:
         model = Filtering
         fields = '__all__'

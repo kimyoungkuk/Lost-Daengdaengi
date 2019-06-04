@@ -118,7 +118,9 @@ class Adopt_post(models.Model):
 
 
 class Filtering(models.Model):
-    category           =   models.CharField(max_length = 100)
+    starttime       =   models.models.DateTimeField()
+    finaltime       =   models.models.DateTimeField()
+    category        =   models.CharField(max_length = 100)
     value           =   models.CharField(max_length = 100)
 #class Report(models.Model):
 #    reason          =   models.CharField(max_length = 10)
