@@ -430,6 +430,13 @@ def classificationImage(request):
     return Response(getImage.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
+
+
+
+
+# model = torch.load('media/modeldir/flower_70.pth', map_location='cpu')
+            
+
 @api_view(['GET'])
 def o2f_recommend(request,pk):
     finder_posts = Finder_post.objects.all().values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
@@ -438,7 +445,44 @@ def o2f_recommend(request,pk):
 
 @api_view(['GET'])
 def f2o_recommend(request,pk):
-    owner_posts = Owner_post.objects.all().values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    logging.error("AAA")
+    Resnet50_model = load_model('media/modeldir/weights.best.ResNet50.hdf5')##추후 개선안 생각할부분
+    logging.error("BBB")
+    bottleneck_feature = extract_Resnet50(path_to_tensor('media/finder/'+str(pk)+'/profile.jpg'))
+    logging.error("CCC")
+    bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
+    logging.error("DDD")
+    bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
+    logging.error("EEE")
+    predicted_vector = Resnet50_model.predict(bottleneck_feature) #shape error occurs hers
+    logging.error("FFF")
+    outputs = dog_names[np.argmax(predicted_vector)]
+    logging.error("GGG")      
+    # # Classification
+    # image = image_loader('media/finder/'+pk+'/profile.jpg')
+    # outputs = model(image)
+            
+    # sm = nn.Softmax()
+            
+    # k = 3
+    # one,labelarr = torch.topk(outputs,k)
+    # problarr,two = torch.topk(sm(outputs),k)
+    # candi = []
 
-    return Response(owner_posts)
+    # for i in range(k):
+    #     x = problarr[0][i].__float__()
+    #     candi.append([labelarr[0][i].__int__(),float("{0:.2f}".format(x)),dirnames[labelarr[0][i].__int__()]])
+
+	# #print(candi[0][2])
+
+    # dogType = "abc"
+    # dogType = candi[0][2]
+
+    owner_posts = Owner_post.objects.filter(dog_type=outputs).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+
+    return Response(owner_posts, status = status.HTTP_201_CREATED)
+
+    # owner_posts = Owner_post.objects.all().values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+
+    # return Response(owner_posts)
 

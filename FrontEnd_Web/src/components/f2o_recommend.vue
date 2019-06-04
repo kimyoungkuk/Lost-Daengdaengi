@@ -66,7 +66,6 @@ export default {
     this.lng = urlParams.get('lng');
     console.log(this.lat)
     console.log(this.lng)
-    console.log(this.$route.params.query)
     this.$http.get(`http://202.30.31.91:8000/api/finderPosts/recommend/${this.$route.params.query}`)
       .then(res => {
           console.log(res.data)
