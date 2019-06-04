@@ -338,18 +338,31 @@ def filteringFinder(request):
 def filteringOwner(request):
     filtering = FilteringSerializer(data = request.data)
     if filtering.is_valid():
-        if(filtering.data['category']==''):
-            owner_posts = Owner_post.objects.filter(lost_gte = filtering.data['starttime']).filter(lost_lte = filtering.data['finaltime'])
-            serializerOwner = Owner_postSerializer(owner_posts, many = True)
-        elif(filtering.data['category']=='견종'):
+        pass
+    if (filtering.data['starttime']==None or filtering.data['finaltime']==None):
+
+        if(filtering.data['category']=='견종' and filtering.data['value']!=''):
             owner_posts = Owner_post.objects.filter(dog_type = filtering.data['value'])
             serializerOwner = Owner_postSerializer(owner_posts, many = True)
-        elif(filtering.data['category']=='작성자'):
+        elif(filtering.data['category']=='작성자' and filtering.data['value']!=''):
             owner_posts = Owner_post.objects.filter(user_nickname = filtering.data['value'])
             serializerOwner = Owner_postSerializer(owner_posts, many = True)
+        else:
+            owner_posts = Owner_post.objects.all()
+            serializerOwner = Owner_postSerializer(owner_posts, many = True)
+    else: 
+        if(filtering.data['category']=='견종' and filtering.data['value']!=''):
+            owner_posts = Owner_post.objects.filter(dog_type = filtering.data['value']).filter(lost_time__gte = filtering.data['starttime']).filter(lost_time__lte = filtering.data['finaltime'])
+            serializerOwner = Owner_postSerializer(owner_posts, many = True)
+        elif(filtering.data['category']=='작성자' and filtering.data['value']!=''):
+            owner_posts = Owner_post.objects.filter(user_nickname = filtering.data['value']).filter(lost_time__gte = filtering.data['starttime']).filter(lost_time__lte = filtering.data['finaltime'])
+            serializerOwner = Owner_postSerializer(owner_posts, many = True)
+        else:
+            owner_posts = Owner_post.objects.filter(lost_time__gte = filtering.data['starttime']).filter(lost_time__lte = filtering.data['finaltime'])
+            serializerOwner = Owner_postSerializer(owner_posts, many = True)
         
-        return Response(serializerOwner.data, status = status.HTTP_201_CREATED)
-    return Response(filtering.errors, status = status.HTTP_400_BAD_REQUEST)
+    return Response(serializerOwner.data, status = status.HTTP_201_CREATED)
+    # return Response(filtering.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
 
