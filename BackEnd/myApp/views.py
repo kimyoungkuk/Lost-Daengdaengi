@@ -312,10 +312,10 @@ def filteringFinder(request):
             finder_posts = Finder_post.objects.filter(lost_gte = filtering.data['starttime']).filter(lost_lte = filtering.data['finaltime'])
             serializerFinder = Finder_postSerializer(finder_posts, many = True)
         elif(filtering.data['category']=='견종'):
-            finder_posts = Finder_post.objects.filter(dog_type = filtering.data['value'])
+            finder_posts = Finder_post.objects.filter(dog_type = filtering.data['value']).filter(lost_gte = filtering.data['starttime']).filter(lost_lte = filtering.data['finaltime'])
             serializerFinder = Finder_postSerializer(finder_posts, many = True)
         elif(filtering.data['category']=='작성자'):
-            finder_posts = Finder_post.objects.filter(user_nickname = filtering.data['value'])
+            finder_posts = Finder_post.objects.filter(user_nickname = filtering.data['value']).filter(lost_gte = filtering.data['starttime']).filter(lost_lte = filtering.data['finaltime'])
             serializerFinder = Finder_postSerializer(finder_posts, many = True)
         
         return Response(serializerFinder.data, status = status.HTTP_201_CREATED)
