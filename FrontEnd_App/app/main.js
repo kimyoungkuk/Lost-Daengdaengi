@@ -3,13 +3,13 @@ import Vue from 'nativescript-vue'
 import VueDevtools from 'nativescript-vue-devtools'
 import router from './router'
 import store from './store'
+import store_ from '~/store'
 import axios from 'axios'
 import RadDataForm from 'nativescript-ui-dataform/vue'
 import { TNSFontIcon, fonticon } from './nativescript-fonticon';
 import ButtonPlugin from 'nativescript-material-button/vue';
 import CardViewPlugin from 'nativescript-material-cardview/vue';
 import FabPlugin from "nativescript-vue-fab"
-import store_ from '~/store'
 import sideDrawer from '~/components/sideDrawer'
 import drawerContent from '~/components/drawerContent'  
 
@@ -48,6 +48,7 @@ TNSFontIcon.loadCss();
 
 Vue.filter('fonticon', fonticon);
 Vue.registerElement("Mapbox", () => require("nativescript-mapbox").MapboxView)
+Vue.registerElement("MapView", () => require("nativescript-google-maps-sdk").MapView)
 
 if(TNS_ENV !== 'production') {
   Vue.use(VueDevtools)

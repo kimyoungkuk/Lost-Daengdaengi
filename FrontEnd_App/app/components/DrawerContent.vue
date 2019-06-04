@@ -11,7 +11,7 @@
         :key="i"
       />
 
-      <Button class="drawer-close-button" @tap="closeDrawer()">Close Drawer</Button>
+      <Button class="drawer-close-button" @tap="$goto('googlemap_t')">Close Drawer</Button>
     </StackLayout>
   </ScrollView>
   
@@ -30,7 +30,7 @@ export default {
       pages: [
         { name: '마이 페이지', component: this.$router.mypage },
         { name: '내가 쓴 게시물', component: this.$router.PageOne },
-//{ name: '로그아웃', component: this.$router.PageTwo }
+        { name: '구글맵 테스트', component: this.$router.googlemap_t }
       ]
     }
   },
