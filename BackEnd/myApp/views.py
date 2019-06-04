@@ -444,14 +444,14 @@ def o2f_recommend(request,pk):
     owner_post = Owner_post.objects.get(id=pk)
 
 
-    finder_posts1 = Finder_post.objects.filter(dog_type=owner_post.dog_type).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
-    finder_posts2 = Finder_post.objects.filter(find_time__gte=owner_post.lost_time+timedelta(days=-7)).filter(find_time__lte=owner_post.lost_time+timedelta(days=7)).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    finder_posts1 = Finder_post.objects.filter(dog_type=owner_post.dog_type).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
+    finder_posts2 = Finder_post.objects.filter(find_time__gte=owner_post.lost_time+timedelta(days=-7)).filter(find_time__lte=owner_post.lost_time+timedelta(days=7)).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
     finder_posts3 = Finder_post.objects.filter(
         lat__gte = owner_post.lat - 0.005,
         lat__lte = owner_post.lat + 0.005,
         lng__gte = owner_post.lng - 0.005,
         lng__lte = owner_post.lng + 0.005
-        ).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+        ).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
     serializerFinder1 = Finder_postSerializer(finder_posts1, many = True)
     serializerFinder2 = Finder_postSerializer(finder_posts2, many = True)
     serializerFinder3 = Finder_postSerializer(finder_posts3, many = True)
@@ -461,7 +461,7 @@ def o2f_recommend(request,pk):
         lat__lte = owner_post.lat + 0.005,
         lng__gte = owner_post.lng - 0.005,
         lng__lte = owner_post.lng + 0.005
-        ).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+        ).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
     serializerFinder = Finder_postSerializer(finder_posts, many = True)
     
     return Response({'recommend' : finder_posts}, status = status.HTTP_201_CREATED)  
