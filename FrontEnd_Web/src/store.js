@@ -5,8 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user_Email: "",
-    user_nickname: "",
+    user_key: " ",
+    user_nickname: "a",
     user_nick_visible : "로그인이 필요합니다.",
     API_BACKEND_URL: "http://202.30.31.91:8000",
     API_WEBVIEW_URL: "http://202.30.31.91",
@@ -17,11 +17,10 @@ export default new Vuex.Store({
       title : " ",
       dog_name : " ",
       lost_time : " ",
-      lost_time1 : " ",
       dog_sex : 1,
       dog_type :" ",
       dog_age : 0,
-      dog_feature:"",
+      dog_feature:" ",
       remark:" ",
       phone_num:" ",
       image:" ",
@@ -31,18 +30,17 @@ export default new Vuex.Store({
       posted_due:" ",
   },
     FinderPost: {
-    title : " ",
-    dog_type :" ",
-    dog_feature:" ",
-    phone_num:" ",
-    image:"",
+    title : "",      // 입력 : FinderForm1
+    dog_type :"a",    
+    dog_feature:"",  // 입력 : FinderForm5
+    phone_num:"",    // 입력 : FinderForm2
+    image:"",         // 입력 : FinderForm6
     lat: 0,
     lng: 0,
-    find_time :" ",
-    find_time1 : " ",
-    posted_time:" ",
-    posted_due:" ",
-    shelter_name:"대전광역시 동물보호센터"
+    find_time :"",   // 입력 : FinderForm3
+    posted_time:"1980-01-01 00:00:00.000000",
+    posted_due:"",   // 입력 : FinderForm4
+    shelter_name:"대전광역시 동물보호센터"  // 입력 : FinderForm7
   },
 },
 });
