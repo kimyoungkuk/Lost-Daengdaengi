@@ -456,8 +456,9 @@ def o2f_recommend(request,pk):
     serializerFinder2 = Finder_postSerializer(finder_posts2, many = True)
     serializerFinder3 = Finder_postSerializer(finder_posts3, many = True)
         
+    return Response({'recommend1' : finder_posts1,'recommend2' : finder_posts2,'recommend3' : finder_posts3}, status = status.HTTP_201_CREATED)
     # return Response({'recommend1' : serializerFinder1.data,'recommend2' : serializerFinder2.data,'recommend3' : serializerFinder3.data}, status = status.HTTP_201_CREATED)
-    return Response(serializerFinder1.data+serializerFinder2.data+serializerFinder3.data, status = status.HTTP_201_CREATED)
+    # return Response(serializerFinder1.data+serializerFinder2.data+serializerFinder3.data, status = status.HTTP_201_CREATED)
 
 @api_view(['GET'])
 def f2o_recommend(request,pk):
@@ -476,7 +477,8 @@ def f2o_recommend(request,pk):
     serializerOwner2 = Owner_postSerializer(owner_posts2, many = True)
     serializerOwner3 = Owner_postSerializer(owner_posts3, many = True)
     
+    return Response({'recommend1' : owner_posts1,'recommend2' : owner_posts2,'recommend3' : owner_posts3}, status = status.HTTP_201_CREATED)
     # return Response({'recommend1' : serializerOwner1.data,'recommend2' : serializerOwner2.data,'recommend3' : serializerOwner3.data}, status = status.HTTP_201_CREATED)
-    return Response(serializerOwner1.data+serializerOwner2.data+serializerOwner3.data, status = status.HTTP_201_CREATED)
+    # return Response(serializerOwner1.data+serializerOwner2.data+serializerOwner3.data, status = status.HTTP_201_CREATED)
 
 
