@@ -12,19 +12,11 @@
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
         <!-- 검색 내용 입력 -->
         <b-form-group id="input-group-1" label="검색 시작시간" label-for="input-1">
-          <b-form-input
-            id="input-1"
-            type="datetime-local"
-            v-model="form.starttime"
-          ></b-form-input>
+          <datepicker id="input-1" placeholder="Select Date" v-model="form.starttime"></datepicker>
         </b-form-group>
         <!-- 검색 내용 입력 -->
         <b-form-group id="input-group-2" label="검색 최종시간" label-for="input-2">
-          <b-form-input
-            id="input-2"
-            type="datetime-local"
-            v-model="form.finaltime"
-          ></b-form-input>
+          <datepicker id="input-2" placeholder="Select Date" v-model="form.finaltime"></datepicker>
         </b-form-group>
         <!-- 검색 내용 입력 -->
         <b-form-group id="input-group-3" label="검색 내용" label-for="input-3">
@@ -76,7 +68,11 @@
 
 <script>
 import 'url-search-params-polyfill';
+import Datepicker from 'vuejs-datepicker';
 export default {
+  components: {
+    Datepicker
+  },
   // finder 게시글 제목(title), 견종(dog_type) , 잃어버린 날짜(lost_time), imgsrc(imageurl)
   // API (/api/finderPosts/list)
   // API (/api/ownerPosts/list)

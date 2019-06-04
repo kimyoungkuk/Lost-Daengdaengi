@@ -308,7 +308,7 @@ def finder_post_filter_with(request):
 def filteringFinder(request):
     filtering = FilteringSerializer(data = request.data)
     if filtering.is_valid():
-        if(filtering.data['category']==''):
+        if(filtering.data['category']==None):
             finder_posts = Finder_post.objects.filter(find_time__gte = filtering.data['starttime']).filter(find_time__lte = filtering.data['finaltime'])
             serializerFinder = Finder_postSerializer(finder_posts, many = True)
         elif(filtering.data['category']=='견종'):
