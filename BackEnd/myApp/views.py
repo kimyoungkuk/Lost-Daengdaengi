@@ -435,7 +435,8 @@ def classificationImage(request):
 
 
 # model = torch.load('media/modeldir/flower_70.pth', map_location='cpu')
-    
+Resnet50_model = load_model('media/modeldir/weights.best.ResNet50.hdf5')##추후 개선안 생각할부분
+            
 
 @api_view(['GET'])
 def o2f_recommend(request,pk):
@@ -445,7 +446,12 @@ def o2f_recommend(request,pk):
 
 @api_view(['GET'])
 def f2o_recommend(request,pk):
-
+    bottleneck_feature = extract_Resnet50(path_to_tensor('media/finder/'+pk+'/profile.jpg'))
+    bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
+    bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
+    predicted_vector = Resnet50_model.predict(bottleneck_feature) #shape error occurs hers
+    outputs = dog_names[np.argmax(predicted_vector)]
+            
     # # Classification
     # image = image_loader('media/finder/'+pk+'/profile.jpg')
     # outputs = model(image)
@@ -466,11 +472,11 @@ def f2o_recommend(request,pk):
     # dogType = "abc"
     # dogType = candi[0][2]
 
-    # owner_posts = Owner_post.objects.filter(dog_type=dogType).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    owner_posts = Owner_post.objects.filter(dog_type=outputs).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
 
-    # return Response(owner_posts, status = status.HTTP_201_CREATED)
+    return Response(owner_posts, status = status.HTTP_201_CREATED)
 
-    owner_posts = Owner_post.objects.all().values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    # owner_posts = Owner_post.objects.all().values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
 
-    return Response(owner_posts)
+    # return Response(owner_posts)
 
