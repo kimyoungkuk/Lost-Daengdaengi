@@ -432,13 +432,13 @@ def classificationImage(request):
 
 @api_view(['GET'])
 def o2f_recommend(request,pk):
-    finder_posts = Finder_post.objects.all().values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    finder_posts = Finder_post.objects.all().values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
 
     return Response(finder_posts)
 
 @api_view(['GET'])
 def f2o_recommend(request,pk):
-    owner_posts = Owner_post.objects.all().values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
+    owner_posts = Owner_post.objects.all().values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
 
     return Response(owner_posts)
 
