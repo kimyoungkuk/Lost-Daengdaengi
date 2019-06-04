@@ -5,12 +5,7 @@
         <h1 class="googleFont">4. 게시 기간을 입력하세요.</h1>
         <b-form @submit="onClickNext" @reset="onClickPrev">
             <b-form-group id="input-group-2">
-                <b-form-input
-                id="input-2"
-                v-model="posted_due"
-                required
-                placeholder="Enter finding time."
-                ></b-form-input>
+                <b-form-input id="date-1" v-model="posted_due" required type="date"></b-form-input>
             </b-form-group>
             <b-button type="reset">이전</b-button>
             <b-button type="submit">다음</b-button>
