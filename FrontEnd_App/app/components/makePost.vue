@@ -209,7 +209,7 @@
                 this.$store.state.ownerPost.image = this.imgStr;
                 this.$store.state.ownerPost.posted_time = this.$refs.dataform.getPropertyByName('posted_time').valueCandidate;
                 this.$store.state.ownerPost.posted_due = this.$refs.dataform.getPropertyByName('posted_due').valueCandidate;
-                axios.post(this.$store.state.API_BACKEND_URL + 'api/ownerPosts/create',{
+                axios.post(this.$store.state.API_BACKEND_URL + '/api/ownerPosts/create',{
                     user_nickname : this.$store.state.user_nickname,
                     title : this.$store.state.ownerPost.title,
                     dog_name : this.$store.state.ownerPost.dog_name,

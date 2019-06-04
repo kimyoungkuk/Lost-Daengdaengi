@@ -2,9 +2,9 @@
     <v-flex class="in_board-view">
       <b-card-group deck>
         <b-card header-tag="header" footer-tag="footer">
-          <!-- <h6 slot="header" class="mb-0">
+          <h6 slot="header" class="mb-0">
             <b-badge variant="dark">작성자</b-badge>
-            {{this.form.writer}}
+            {{this.form.user_nickname}}
             <b-badge variant="dark">찾은 날짜</b-badge>
             {{this.form.find_time}}
             <b-badge variant="dark">조회수</b-badge>
@@ -14,16 +14,11 @@
             {{this.form.title}}
             <b-badge variant="dark">견종</b-badge>
             {{this.form.dog_type}}
-          </h6> -->
-          <div class="div_header" slot="header">
-            <b>Lost-Daengdaengi</b><b style="float:right;">조회:{{this.form.view_count}}</b>
-          </div>
-
+          </h6>
           <div>
             <v-layout>
               <v-flex xs12 sm6 offset-sm3>
                 <v-card>
-                  <!-- 이미지 불러오기 -->
                   <v-img class="white--text" height="300px" :src="this.form.imageurl">
                     <v-container fill-height fluid>
                       <v-layout fill-height>
@@ -33,31 +28,24 @@
                       </v-layout>
                     </v-container>
                   </v-img>
-                  <!-- 유기견 정보 출력 -->
                   <v-card-title>
                     <div>
-                      <p>
-                        <b-button id="button1" variant="danger"><b>발견</b></b-button>
-                        <span>&nbsp&nbsp&nbsp<b>{{this.form.title}}</b></span><br>
-                      </p>
-                      <span><b>&middot</b>&nbsp날&nbsp&nbsp&nbsp&nbsp짜 : {{this.form.find_time}}</span><br>
-                      <span><b>&middot</b>&nbsp연락처 : {{this.form.phone_num}}</span><br>
-                      <span><b>&middot</b>&nbsp아이디 : {{this.user_nickname}}</span><br>
-                      <span><b>&middot</b>&nbsp보호소 : {{this.form.shelter_name}}</span><br>
-                      <span><b>&middot</b>&nbsp특&nbsp&nbsp&nbsp&nbsp징 : {{this.form.dog_feature}}</span>
+                      <span class="grey--text">연락처 : {{this.form.phone_num}}</span>
+                      <br>
+                      <span>특징 : {{this.form.dog_feature}}</span>
+                      <br>
+                      <span>보호소 : {{this.form.shelter_name}}</span>
                     </div>
                   </v-card-title>
-                  <!-- SHARE, EXPLORE, REPORT 버튼 -->
                   <v-card-actions>
                     <v-btn flat color="orange">Share</v-btn>
-                    <v-btn flat color="orange">Explore</v-btn>
-                    <v-btn flat color="orange" v-b-modal.modal-prevent-closing v-on:click="reportBoard">report</v-btn>
+                    <v-btn flat color="orange" v-on:click="recommend">Explore</v-btn>
+                    <v-btn flat color="orange" v-b-modal.modal-report v-on:click="reportBoard">report</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
             </v-layout>
           </div>
-
           <h6 slot="footer" v-for="item in comments" v-bind:key="item.id">
             <p class="comment_name">{{item.user_nickname}}</p>&emsp;
             <p class="comment_date">{{item.commented_date}}</p>
@@ -103,24 +91,35 @@
           variant="primary"
         >수정</b-button>
         <b-button
+          v-b-modal.modal-delete
+          variant="danger"
+        >삭제</b-button>
+      </b-button-group>
+      </v-flex>
+
+      <b-modal
+        id="modal-delete"
+        ref="modal"
+        title="정말로 삭제하실건가요?"
+        @show="resetModal"
+        @hidden="resetModal"
+        @ok="handleOk"
+        hide-footer
+      >
+        
+          <b-button
           v-if="userId == form.userId || admin === 1"
           v-on:click="deleteBoard"
           variant="danger"
         >삭제</b-button>
-        <!-- <b-button v-b-modal.modal-prevent-closing>신고</b-button> -->
-      </b-button-group>
-      </v-flex>
+        <b-button
+          @click="$bvModal.hide('modal-delete')"
+        >취소</b-button>
+      </b-modal>
 
-    <!-- <div class="mt-3">
-      Submitted Names:
-      <div v-if="submittedNames.length === 0">--</div>
-      <ul v-else class="mb-0 pl-3">
-        <li v-for="name in submittedNames">{{ name }}</li>
-      </ul>
-    </div> -->
 
       <b-modal
-        id="modal-prevent-closing"
+        id="modal-report"
         ref="modal"
         title="게시글이 이상한가요?"
         @show="resetModal"
@@ -155,8 +154,8 @@ export default {
   name: "boardView",
   data() {
     return {
-      key : '',
-      nickname : '',
+      key :  this.$store.state.user_Email,
+      nickname :  this.$store.state.user_nickname,
       lat : 0,
       lng : 0,
       name: '',
@@ -195,15 +194,6 @@ export default {
     };
   },
   created() {
-    let urlParams = new URLSearchParams(window.location.search);
-    this.key = urlParams.get('key');
-    this.nickname = urlParams.get('nickname');
-    this.lat = urlParams.get('lat');
-    this.lng = urlParams.get('lng');
-    console.log(this.key)
-    console.log(this.nickname)
-    console.log(this.lat)
-    console.log(this.lng)
             
     console.log("QWERTYUIOP");
     this.getBoardDetail();
@@ -287,7 +277,7 @@ export default {
       });
     },
     reportBoard() {
-      console.log("ASDASD");
+      this.$router.push("/finderboard");
     },
     addComment() {
       let comment = {
@@ -333,6 +323,11 @@ export default {
             this.$router.push("/board");
           }
         });
+    },
+    recommend(){
+      this.$router.push(`/finderboard/recommend/${this.$route.params.id}`);
+
+
     },
     createReport() {
       let report = {
@@ -389,15 +384,17 @@ export default {
           this.$refs.modal.hide()
           this.createReport()
         })
+    },
+    hd(){
+      this.$nextTick(() => {
+        this.$refs.modal.hide()
+      })
     }
   }
 };
 </script>
 
 <style>
-.div_header {
-  text-align: center;
-}
 div.board_back_color {
   display: inline-block;
   background-color: white;

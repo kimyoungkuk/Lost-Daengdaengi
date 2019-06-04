@@ -116,6 +116,12 @@ class Adopt_post(models.Model):
     def __str__(self):
         return self.title
 
+
+class Filtering(models.Model):
+    starttime       =   models.DateTimeField()
+    finaltime       =   models.DateTimeField()
+    category        =   models.CharField(max_length = 100)
+    value           =   models.CharField(max_length = 100)
 #class Report(models.Model):
 #    reason          =   models.CharField(max_length = 10)
 #    detail          =   models.TextField()
@@ -126,3 +132,4 @@ class Adopt_post(models.Model):
 #class Matching(models.Model):
 #    userMatching    =   models.ForeignKey(User, on_delete = models.CASCADE, null = True)
 #    postMatching    =   models.ForeignKey(Post, on_delete = models.CASCADE, null = True)
+

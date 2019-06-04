@@ -23,6 +23,7 @@
     "nativescript-floatingactionbutton": "^5.0.3",
     "nativescript-fonticon": "^2.0.0",
     "nativescript-geolocation": "^5.1.0",
+    "nativescript-google-maps-sdk": "^2.7.0",
     "nativescript-gps": "^1.2.12",
     "nativescript-imagepicker": "^6.2.0",
     "nativescript-mapbox": "^4.4.1",
