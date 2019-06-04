@@ -33,20 +33,18 @@ export default {
            this.$store.state.FinderPost.shelter_name  =   this.shelter_name;
            console.log(this.$store.state.FinderPost);
            this.$http.post('http://202.30.31.91:8000/api/finderPosts/create',{
-               "title"          : this.$store.state.FinderPost.title,
-               "phone_num"      : this.$store.state.FinderPost.phone_num,
-               "lat"            : this.$store.state.FinderPost.lat,
-               "lng"            : this.$store.state.FinderPost.lng,
-               "posted_time"    : this.$store.state.FinderPost.posted_time,
-               "posted_due"     : this.$store.state.FinderPost.posted_due,
-               "image"          : this.$store.state.FinderPost.image,
-               "imageurl"       : "",
-               "find_time"      : this.$store.state.FinderPost.find_time,
-               "dog_feature"    : this.$store.state.FinderPost.dog_feature,
-               "dog_type"       : this.$store.state.FinderPost.dog_type,
-               "shelter_name"   : this.$store.state.FinderPost.shelter_name,
-               "shelter"        : "",
-               "is_finished"    : 0
+               title          : this.$store.state.FinderPost.title,
+               phone_num      : this.$store.state.FinderPost.phone_num,
+               lat            : this.$store.state.FinderPost.lat,
+               lng            : this.$store.state.FinderPost.lng,
+               posted_time    : this.$store.state.FinderPost.posted_time,
+               posted_due     : this.$store.state.FinderPost.posted_due,
+               image          : this.$store.state.FinderPost.image,
+               find_time      : this.$store.state.FinderPost.find_time,
+               dog_feature    : this.$store.state.FinderPost.dog_feature,
+               dog_type       : this.$store.state.FinderPost.dog_type,
+               shelter_name   : this.$store.state.FinderPost.shelter_name,
+               user_nickname  : this.$store.state.user_nickname
            }).then(res => {
                console.log(res.data)
                this.posts = res.data
