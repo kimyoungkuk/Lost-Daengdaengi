@@ -1,28 +1,27 @@
 <template>
-  <div >
-    <div >
-    <b-carousel
-      :interval="4000"
-      controls
-      indicators
-      fade
-      style="text-shadow: 1px 1px 2px #333; img-width:10px;"
-    >
-      <!-- Text slides with image -->
-      <b-carousel-slide
-        caption="대한민국 최강 유기견 플랫폼"
-        text="지금 당장 시작하세요"
-        :img-src= "src1"
-      ></b-carousel-slide>
+  <div>
+    <div>
+      <b-carousel
+        :interval="3000"
+        controls
+        indicators
+        fade
+        style="text-shadow: 1px 1px 2px #333; img-width:10px;">
+        <!-- Text slides with image -->
+        <b-carousel-slide
+          caption="대한민국 최강 유기견 플랫폼"
+          text="지금 당장 시작하세요"
+          :img-src= "src1"
+        ></b-carousel-slide>
 
-      <!-- Slides with custom text -->
-            <b-carousel-slide
-        caption="Lost DaengDaengi"
-        text="여러분의 반려견을 지켜주세요"
-        :img-src= "src2"
-      ></b-carousel-slide>
+        <!-- Slides with custom text -->
+        <b-carousel-slide
+          caption="반려견을 위한 시작"
+          text="여러분의 반려견을 지켜주세요"
+          :img-src= "src2"
+        ></b-carousel-slide>
 
-                  <b-carousel-slide
+        <b-carousel-slide
         caption="Lost DaengDaengi"
         text="자동화된 시스템을 경험하세요"
         :img-src= "src3"
@@ -31,10 +30,10 @@
     </b-carousel>
     </div>
   </div>
-  
 </template>
 
 <script>
+
 export default {
  data() {
       return {
@@ -48,16 +47,9 @@ export default {
       }
     },
     methods: {
-      clicked() {
-        this.counter = Math.random() * this.max
-        console.log('Change progress to ' + Math.round(this.counter * 100) / 100)
-      },
-      onSlideStart(slide) {
-        this.sliding = true
-      },
-      onSlideEnd(slide) {
-        this.sliding = false
-      }
+    },
+    created(){
+console.log(this.$store.state.API_BACKEND_URL)
     }
 }
 </script>

@@ -10,6 +10,7 @@ import moment from 'moment'
 import VueMomentJS from 'vue-momentjs'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import store from './store'
 
 Vue.prototype.$http = axios
 Vue.use(VueMomentJS, moment)
@@ -26,6 +27,7 @@ const router = new Router({
 })
 
 new Vue({
+  store,
   router,
   render: h => h(App),
   

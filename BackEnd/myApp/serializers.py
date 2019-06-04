@@ -11,7 +11,6 @@ class Owner_postSerializer(serializers.ModelSerializer):
     user_nickname   =   serializers.CharField(required=False)
     user_key        =   serializers.CharField(required=False)
     report_count    =   serializers.IntegerField(required=False)
-    
     class Meta:
         model = Owner_post
         fields = '__all__'
@@ -30,7 +29,7 @@ class Finder_postSerializer(serializers.ModelSerializer):
     class Meta:
         model = Finder_post
         fields = '__all__'
-        
+
 class CommentSerializer(serializers.ModelSerializer):
     commented_time  =   serializers.DateTimeField(required=False)
     class Meta:
@@ -54,9 +53,17 @@ class GetImageSerializer(serializers.ModelSerializer):
         fields = ('image',)
 
 class FilteringSerializer(serializers.ModelSerializer):
+    starttime      =   serializers.DateTimeField(required=False)
+    finaltime      =   serializers.DateTimeField(required=False)
+    category       =   serializers.CharField(required=False, default='')
+    value          =   serializers.CharField(required=False, default='')
     class Meta:
-        model = Finder_post
-        fields = ('dog_type',)
+        model = Filtering
+        fields = '__all__'
+
+# class KeySerializer(serializers.ModelSerializer):
+#     class Meta:
+#         fields = ('key',)
 
 #class ReportSerializer(serializers.ModelSerializer):
 #    class Meta:

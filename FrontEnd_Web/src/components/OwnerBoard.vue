@@ -12,7 +12,7 @@
      <b-form-group id="input-group-2" label="검색 내용" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.input"
+          v-model="form.value"
           required
           placeholder="검색 내용을 입력하세요."
         ></b-form-input>
@@ -61,9 +61,13 @@ export default {
   // finder 게시글 제목(title), 견종(dog_type) , 잃어버린 날짜(lost_time), imgsrc(imageurl)
   data: function () {
     return {
+      key : this.$store.state.user_Email,
+      nickname : this.$store.state.user_nickname,
+      lat : 0,
+      lng : 0,
       posts: [{title:'', dog_type:'', lost_time:'', imageurl:''}],
             form: {
-          input: '',
+          value: '',
           category: null,
         },
         categories: [{ text: '선택하세요.', value: null }, '견종', '작성자', '내용'],
@@ -71,11 +75,33 @@ export default {
     }
   },
   created(){
-      this.$http.get('http://202.30.31.91:8000/api/ownerPosts/list')
-        .then(res => {
-            console.log(res.data)
-            this.posts = res.data
-        })
+    let urlParams = new URLSearchParams(window.location.search);
+    if(this.$store.state.user_Email=="" || this.$store.state.user_nickname=="")
+    {
+      this.$store.state.user_Email = urlParams.get('key');
+      this.key = urlParams.get('key');
+      this.$store.state.user_nickname = urlParams.get('nickname');
+      this.nickname = urlParams.get('nickname');
+      console.log(this.key)
+      console.log(this.nickname)
+    }
+    this.lat = urlParams.get('lat');
+    this.lng = urlParams.get('lng');
+    console.log(this.lat)
+    console.log(this.lng)
+    this.$http.get('http://202.30.31.91:8000/api/ownerPosts/list')
+      .then(res => {
+          console.log(res.data)
+          this.posts = res.data
+
+          if (this.lat!=null && this.lng!=null){
+          this.$http.get("http://202.30.31.91:8000/api/ownerPosts/filter/with?key="+this.key+"&nickname="+this.nickname+"&lat=" + this.lat + "&lng=" + this.lng)
+            .then(res => {
+              this.posts = res.data
+              console.log(res.data)
+            })
+          }
+      })
     },
   computed: {
             formattedPosts() {
@@ -89,28 +115,29 @@ export default {
       
   },
   methods:{
-          onSubmit(evt) {
-        evt.preventDefault()
-        this.$http.post('http://202.30.31.91:8000/api/ownerPosts/filter/dogType', {
-            dog_type: this.form.input 
-        }).then(res => {
-            console.log(res.data)
-            this.posts = res.data
-        })
-        alert(JSON.stringify(this.form))
-        console.log(this.form)
-      },
-      onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        this.form.input = ''
-        this.form.category = null
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
-      },
+    onSubmit(evt) {
+      evt.preventDefault()
+      this.$http.post('http://202.30.31.91:8000/api/ownerPosts/filter', {
+        category : this.form.category,
+        value : this.form.value
+      }).then(res => {
+          console.log(res.data)
+          this.posts = res.data
+      })
+      alert(JSON.stringify(this.form))
+      console.log(this.form)
+    },
+    onReset(evt) {
+      evt.preventDefault()
+      // Reset our form values
+      this.form.value = ''
+      this.form.category = null
+      // Trick to reset/clear native browser form validation state
+      this.show = false
+      this.$nextTick(() => {
+        this.show = true
+      })
+    },
   },
 
 }

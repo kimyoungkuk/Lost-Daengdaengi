@@ -43,16 +43,23 @@ urlpatterns = [
     path('api/finderPosts/create', myApp.views.finder_post_create, name="finderPosts/create"),
     path('api/ownerPosts/detail/<int:pk>', myApp.views.owner_post_detail, name="ownerPosts/detail"),
     path('api/finderPosts/detail/<int:pk>', myApp.views.finder_post_detail, name="finderPosts/detail"),
+    path('api/ownerPosts/delete/<int:pk>', myApp.views.owner_post_delete, name="ownerPosts/delete"),
+    path('api/finderPosts/delete/<int:pk>', myApp.views.finder_post_delete, name="finderPosts/delete"),
     
     path('api/comments/create', myApp.views.comment_create, name="comments/create"),
     
     path('api/reports/create', myApp.views.report_create, name="reports/create"),
     
-    path('api/posts/filter', myApp.views.post_filter, name="posts/filter"),
-    path('api/posts/filter/with', myApp.views.post_filter_with, name="posts/filter/with"),
+    # path('api/posts/filter', myApp.views.post_filter, name="posts/filter"),
+    
+    path('api/ownerPosts/filter/with', myApp.views.owner_post_filter_with, name="ownerPosts/filter/with"),
+    path('api/finderPosts/filter/with', myApp.views.finder_post_filter_with, name="finderPosts/filter/with"),
+    
+    path('api/ownerPosts/recommend/<int:pk>', myApp.views.recommend_o2f, name="ownerPosts/recommend"),
+    path('api/finderPosts/recommend/<int:pk>', myApp.views.recommend_f2o, name="finderPosts/recommend"),
     
     path('api/classification', myApp.views.classificationImage, name="classification"),
     path('api/dogShelter/near', myApp.views.FindNearShelter, name = "dogShelter/near"),
-    path('api/ownerPosts/filter/dogType', myApp.views.filteringOwner, name = "ownerPosts/filter/dogType"),
-    path('api/finderPosts/filter/dogType', myApp.views.filteringFinder, name = "finderPosts/filter/dogType"),
+    path('api/ownerPosts/filter', myApp.views.filteringOwner, name = "ownerPosts/filter"),
+    path('api/finderPosts/filter', myApp.views.filteringFinder, name = "finderPosts/filter"),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

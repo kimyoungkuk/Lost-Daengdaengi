@@ -4,7 +4,7 @@
         <b-card header-tag="header" footer-tag="footer">
           <h6 slot="header" class="mb-0">
             <b-badge variant="dark">작성자</b-badge>
-            {{this.form.writer}}
+            {{this.form.user_nickname}}
             <b-badge variant="dark">찾은 날짜</b-badge>
             {{this.form.find_time}}
             <b-badge variant="dark">조회수</b-badge>
@@ -39,8 +39,8 @@
                   </v-card-title>
                   <v-card-actions>
                     <v-btn flat color="orange">Share</v-btn>
-                    <v-btn flat color="orange">Explore</v-btn>
-                    <v-btn flat color="orange" v-b-modal.modal-prevent-closing v-on:click="reportBoard">report</v-btn>
+                    <v-btn flat color="orange" v-on:click="recommend">Explore</v-btn>
+                    <v-btn flat color="orange" v-b-modal.modal-report v-on:click="reportBoard">report</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -91,24 +91,35 @@
           variant="primary"
         >수정</b-button>
         <b-button
+          v-b-modal.modal-delete
+          variant="danger"
+        >삭제</b-button>
+      </b-button-group>
+      </v-flex>
+
+      <b-modal
+        id="modal-delete"
+        ref="modal"
+        title="정말로 삭제하실건가요?"
+        @show="resetModal"
+        @hidden="resetModal"
+        @ok="handleOk"
+        hide-footer
+      >
+        
+          <b-button
           v-if="userId == form.userId || admin === 1"
           v-on:click="deleteBoard"
           variant="danger"
         >삭제</b-button>
-        <!-- <b-button v-b-modal.modal-prevent-closing>신고</b-button> -->
-      </b-button-group>
-      </v-flex>
+        <b-button
+          @click="$bvModal.hide('modal-delete')"
+        >취소</b-button>
+      </b-modal>
 
-    <!-- <div class="mt-3">
-      Submitted Names:
-      <div v-if="submittedNames.length === 0">--</div>
-      <ul v-else class="mb-0 pl-3">
-        <li v-for="name in submittedNames">{{ name }}</li>
-      </ul>
-    </div> -->
 
       <b-modal
-        id="modal-prevent-closing"
+        id="modal-report"
         ref="modal"
         title="게시글이 이상한가요?"
         @show="resetModal"
@@ -143,8 +154,8 @@ export default {
   name: "boardView",
   data() {
     return {
-      key : '',
-      nickname : '',
+      key :  this.$store.state.user_Email,
+      nickname :  this.$store.state.user_nickname,
       lat : 0,
       lng : 0,
       name: '',
@@ -162,6 +173,7 @@ export default {
         dog_feature: "",
         phone_num: "",
         shelter_name: "",
+        user_nickname:"",
       },
       comments: [
           {
@@ -182,15 +194,6 @@ export default {
     };
   },
   created() {
-    let urlParams = new URLSearchParams(window.location.search);
-    this.key = urlParams.get('key');
-    this.nickname = urlParams.get('nickname');
-    this.lat = urlParams.get('lat');
-    this.lng = urlParams.get('lng');
-    console.log(this.key)
-    console.log(this.nickname)
-    console.log(this.lat)
-    console.log(this.lng)
             
     console.log("QWERTYUIOP");
     this.getBoardDetail();
@@ -227,21 +230,31 @@ export default {
         });
     },
     deleteBoard() {
-      this.$http
-        .delete(`/api/board/posts/${this.$route.params.id}`)
+
+      console.log("!@#")
+      console.log(this.form.user_nickname)
+      if(this.form.user_nickname==this.nickname){
+
+        this.$http
+        .post(`http://202.30.31.91:8000/api/finderPosts/delete/${this.$route.params.id}`)
         .then(res => {
           const status = res.status;
-          if (status === 200) {
+          // if (status === 200) {
             alert("정상적으로 삭제되었습니다.");
-            this.$router.push("/board");
-          } else if (status === 203) {
-            alert("해당 권한이 존재하지 않습니다.");
-            this.$router.push("/board");
-          }
+            this.$router.push("/finderboard");
+          // } else if (status === 203) {
+          //   alert("해당 권한이 존재하지 않습니다.");
+          //   this.$router.push("/board");
+          // }
         })
         .catch(err => {
           alert(err);
         });
+      }
+      else{
+        alert("해당 권한이 존재하지 않습니다.");
+        this.$router.push("/finderboard");
+      }
     },
     toBoard() {
       this.$router.push("/finderboard");
@@ -311,6 +324,10 @@ export default {
           }
         });
     },
+    recommend(){
+
+      
+    },
     createReport() {
       let report = {
         user_nickname: "",
@@ -366,6 +383,11 @@ export default {
           this.$refs.modal.hide()
           this.createReport()
         })
+    },
+    hd(){
+      this.$nextTick(() => {
+        this.$refs.modal.hide()
+      })
     }
   }
 };
