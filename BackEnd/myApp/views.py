@@ -309,15 +309,27 @@ def filteringFinder(request):
     filtering = FilteringSerializer(data = request.data)
     if filtering.is_valid():
         pass
-    if(filtering.data['category']=='견종'):
-        finder_posts = Finder_post.objects.filter(dog_type = filtering.data['value']).filter(find_time__gte = filtering.data['starttime']).filter(find_time__lte = filtering.data['finaltime'])
-        serializerFinder = Finder_postSerializer(finder_posts, many = True)
-    elif(filtering.data['category']=='작성자'):
-        finder_posts = Finder_post.objects.filter(user_nickname = filtering.data['value']).filter(find_time__gte = filtering.data['starttime']).filter(find_time__lte = filtering.data['finaltime'])
-        serializerFinder = Finder_postSerializer(finder_posts, many = True)
-    else:
-        finder_posts = Finder_post.objects.filter(find_time__gte = filtering.data['starttime']).filter(find_time__lte = filtering.data['finaltime'])
-        serializerFinder = Finder_postSerializer(finder_posts, many = True)
+    if (filtering.data['starttime']=='' or filtering.data['finaltime']==''):
+
+        if(filtering.data['category']=='견종' and filtering.data['value']!=''):
+            finder_posts = Finder_post.objects.filter(dog_type = filtering.data['value'])
+            serializerFinder = Finder_postSerializer(finder_posts, many = True)
+        elif(filtering.data['category']=='작성자' and filtering.data['value']!=''):
+            finder_posts = Finder_post.objects.filter(user_nickname = filtering.data['value'])
+            serializerFinder = Finder_postSerializer(finder_posts, many = True)
+        else:
+            finder_posts = Finder_post.objects.all()
+            serializerFinder = Finder_postSerializer(finder_posts, many = True)
+    else: 
+        if(filtering.data['category']=='견종' and filtering.data['value']!=''):
+            finder_posts = Finder_post.objects.filter(dog_type = filtering.data['value']).filter(find_time__gte = filtering.data['starttime']).filter(find_time__lte = filtering.data['finaltime'])
+            serializerFinder = Finder_postSerializer(finder_posts, many = True)
+        elif(filtering.data['category']=='작성자' and filtering.data['value']!=''):
+            finder_posts = Finder_post.objects.filter(user_nickname = filtering.data['value']).filter(find_time__gte = filtering.data['starttime']).filter(find_time__lte = filtering.data['finaltime'])
+            serializerFinder = Finder_postSerializer(finder_posts, many = True)
+        else:
+            finder_posts = Finder_post.objects.filter(find_time__gte = filtering.data['starttime']).filter(find_time__lte = filtering.data['finaltime'])
+            serializerFinder = Finder_postSerializer(finder_posts, many = True)
         
     return Response(serializerFinder.data, status = status.HTTP_201_CREATED)
     # return Response(filtering.errors, status = status.HTTP_400_BAD_REQUEST)

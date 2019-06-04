@@ -86,10 +86,10 @@ export default {
       form: {
           starttime: null,
           finaltime: null,
-          category: ' ',
+          category: null,
           value: '',
         },
-        categories: [{ text: '선택하세요.', value: ' ' }, '견종', '작성자', '내용'],
+        categories: [{ text: '선택하세요.', value: null }, '견종', '작성자', '내용'],
         show: true
     }
   },
@@ -156,7 +156,7 @@ export default {
       // Reset our form values
       this.form.starttime = null
       this.form.finaltime = null
-      this.form.category = ' '
+      this.form.category = null
       this.form.value = ''
       // Trick to reset/clear native browser form validation state
       this.show = false
