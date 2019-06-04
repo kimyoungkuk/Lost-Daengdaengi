@@ -118,8 +118,8 @@ class Adopt_post(models.Model):
 
 
 class Filtering(models.Model):
-    starttime       =   models.models.DateTimeField()
-    finaltime       =   models.models.DateTimeField()
+    starttime       =   models.DateTimeField()
+    finaltime       =   models.DateTimeField()
     category        =   models.CharField(max_length = 100)
     value           =   models.CharField(max_length = 100)
 #class Report(models.Model):
