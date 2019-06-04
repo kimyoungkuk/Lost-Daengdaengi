@@ -22,18 +22,16 @@
         ></b-carousel-slide>
 
         <b-carousel-slide
-        caption="Lost DaengDaengi"
-        text="자동화된 시스템을 경험하세요"
-        :img-src= "src3"
-  
-      ></b-carousel-slide>
-    </b-carousel>
+          caption="Lost DaengDaengi"
+          text="자동화된 시스템을 경험하세요"
+          :img-src= "src3"
+        ></b-carousel-slide>
+      </b-carousel>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
  data() {
       return {
@@ -47,15 +45,13 @@ export default {
       }
     },
     methods: {
-    },
-    created(){
-console.log(this.$store.state.API_BACKEND_URL)
+
     }
 }
 </script>
 
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 ul {
   list-style-type: none;
   padding: 0;
