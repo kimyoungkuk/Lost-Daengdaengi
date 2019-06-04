@@ -30,9 +30,11 @@
             </GridLayout>
             <GridLayout row = "1" rows = "auto,*">
                 <Label row = "0" backgroundColor = "#4ba5fa" @swipe = "onSwipe" padding = "10"></Label>
+
                 <ScrollView row="1" :scrollableHeight="hhh">
                     <WebView ref = "webview" loaded="onWebViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
                 </ScrollView>
+
             </GridLayout>
         </GridLayout>     
 
