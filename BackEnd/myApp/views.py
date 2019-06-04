@@ -307,18 +307,19 @@ def finder_post_filter_with(request):
 @api_view(['POST'])
 def filteringFinder(request):
     filtering = FilteringSerializer(data = request.data)
-    if(filtering.data['category']=='견종'):
-        finder_posts = Finder_post.objects.filter(dog_type = filtering.data['value']).filter(find_time__gte = filtering.data['starttime']).filter(find_time__lte = filtering.data['finaltime'])
-        serializerFinder = Finder_postSerializer(finder_posts, many = True)
-    elif(filtering.data['category']=='작성자'):
-        finder_posts = Finder_post.objects.filter(user_nickname = filtering.data['value']).filter(find_time__gte = filtering.data['starttime']).filter(find_time__lte = filtering.data['finaltime'])
-        serializerFinder = Finder_postSerializer(finder_posts, many = True)
-    else:
-        finder_posts = Finder_post.objects.filter(find_time__gte = filtering.data['starttime']).filter(find_time__lte = filtering.data['finaltime'])
-        serializerFinder = Finder_postSerializer(finder_posts, many = True)
+    if filtering.is_valid():
+        if(filtering.data['category']=='견종'):
+            finder_posts = Finder_post.objects.filter(dog_type = filtering.data['value']).filter(find_time__gte = filtering.data['starttime']).filter(find_time__lte = filtering.data['finaltime'])
+            serializerFinder = Finder_postSerializer(finder_posts, many = True)
+        elif(filtering.data['category']=='작성자'):
+            finder_posts = Finder_post.objects.filter(user_nickname = filtering.data['value']).filter(find_time__gte = filtering.data['starttime']).filter(find_time__lte = filtering.data['finaltime'])
+            serializerFinder = Finder_postSerializer(finder_posts, many = True)
+        else:
+            finder_posts = Finder_post.objects.filter(find_time__gte = filtering.data['starttime']).filter(find_time__lte = filtering.data['finaltime'])
+            serializerFinder = Finder_postSerializer(finder_posts, many = True)
         
-    return Response(serializerFinder.data, status = status.HTTP_201_CREATED)
-    # return Response(filtering.errors, status = status.HTTP_400_BAD_REQUEST)
+        return Response(serializerFinder.data, status = status.HTTP_201_CREATED)
+    return Response(filtering.errors, status = status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def filteringOwner(request):
