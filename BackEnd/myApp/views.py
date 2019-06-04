@@ -418,10 +418,13 @@ def classificationImage(request):
     return Response(getImage.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
+def recommend_o2f(request,pk):
+    finder_posts = Finder_post.objects.all()
 
+    return Response(finder_posts)
 
+def recommend_f2o(request,pk):
+    owner_posts = Owner_post.objects.all()
 
-
-
-
+    return Response(owner_posts)
 
