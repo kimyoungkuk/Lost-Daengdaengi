@@ -1,5 +1,5 @@
 <template>
-    <Page>
+  <Page>
         <ActionBar class="font-weight-bold" title="Lost Daengdaengi">
           <NavigationButton icon = "~/assets/images/baseline_menu_black_18dp.png"/>
         </ActionBar>
@@ -10,7 +10,6 @@
             <Button class="fab mybtn btn-active" :text="'\uf1a3' + ' 시작하기'" height="50" width="175" @tap="$goto('login')" />
                       <FlexboxLayout flexDirection="column" backgroundColor="#3c495e">
                         <Label text="" height="100" backgroundColor="#FFFFFF"/>
-  
   <Label class="fa" height="40" backgroundColor="#FFFFFF" textWrap="true" style="text-align:center">
     <FormattedString>
       <Span class="font-italic font-weight-bold" text="2019 Capstone Design" style="font-size: 24px; color: #FA7268; "/>
@@ -28,19 +27,19 @@
   </Label>
   </FlexboxLayout>
           </StackLayout>
-
                </ScrollView>
-               
     </Page>
 </template>
 
-<script >
+<script>
+import sideDrawer from '~/mixins/sideDrawer'
+
   export default {
+    mixins: [ sideDrawer ],
     data() {
       return {
         loadingValue: 0,
         loadingComplete: true
-        // msg: 'Lost Daengdaengi!'
       }
     },
     methods:{

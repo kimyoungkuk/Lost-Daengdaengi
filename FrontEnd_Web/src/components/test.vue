@@ -1,6 +1,8 @@
 <template>
   <div>
-    <b-table stacked :items="items"></b-table>
+    <b-form-select v-model="selected" :options="options"></b-form-select>
+
+    
   </div>
 </template>
 
@@ -8,10 +10,13 @@
   export default {
     data() {
       return {
-        items: [
-          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { age: 89, first_name: 'Geneva', last_name: 'Wilson' }
+        selected: null,
+        options: [
+          { value: null, text: 'Please select an option' },
+          { value: 'a', text: 'This is First option' },
+          { value: 'b', text: 'Selected Option' },
+          { value: 'c', text: 'This is an option with object value' },
+          { value: 'd', text: 'This one is disabled'}
         ]
       }
     }

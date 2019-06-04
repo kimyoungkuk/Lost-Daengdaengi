@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Lost DaengDaengi</string>
     <string name="title_activity_kimera">Lost DaengDaengi</string>
+    <!-- <string name="nativescript_google_maps_api_key">AIzaSyDPB6OwsqEOaDHyO8GxlT6aS7RhMKIHb64</string> -->
 </resources>
