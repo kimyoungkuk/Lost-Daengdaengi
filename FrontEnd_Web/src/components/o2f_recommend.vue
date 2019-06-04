@@ -72,8 +72,8 @@ export default {
     console.log(this.lng)
     this.$http.get(`http://202.30.31.91:8000/api/ownerPosts/recommend/${this.$route.params.query}`)
       .then(res => {
-          console.log(res.data)
-          this.posts = res.data
+          console.log(res.data.recommend)
+          this.posts = res.data.recommend
            
           
       })

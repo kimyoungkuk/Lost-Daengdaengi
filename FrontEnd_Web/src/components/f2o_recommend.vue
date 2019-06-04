@@ -40,7 +40,7 @@ export default {
       nickname : this.$store.state.user_nickname,
       lat : 0,
       lng : 0,
-      posts: [{title:'', dog_type:'', lost_time:'', imageurl:''}],
+      posts1: [{title:'', dog_type:'', lost_time:'', imageurl:''}],
       form: {
           starttime: null,
           finaltime: null,
@@ -68,14 +68,27 @@ export default {
     console.log(this.lng)
     this.$http.get(`http://202.30.31.91:8000/api/finderPosts/recommend/${this.$route.params.query}`)
       .then(res => {
-          console.log(res.data)
-          this.posts = res.data
-          
+          console.log(res.data.recommend)
+          this.posts = res.data.recommend
       })
     },
   computed: {
-            formattedPosts() {
-          return this.posts.reduce((c, n, i) => {
+            formattedPosts1() {
+          return this.posts1.reduce((c, n, i) => {
+              if (i % 4 === 0) c.push([]);
+              c[c.length - 1].push(n);
+              return c;
+          }, []);
+      },
+      formattedPosts2() {
+          return this.posts2.reduce((c, n, i) => {
+              if (i % 4 === 0) c.push([]);
+              c[c.length - 1].push(n);
+              return c;
+          }, []);
+      },
+      formattedPosts3() {
+          return this.posts3.reduce((c, n, i) => {
               if (i % 4 === 0) c.push([]);
               c[c.length - 1].push(n);
               return c;

@@ -456,7 +456,16 @@ def o2f_recommend(request,pk):
     serializerFinder2 = Finder_postSerializer(finder_posts2, many = True)
     serializerFinder3 = Finder_postSerializer(finder_posts3, many = True)
         
-    return Response({'recommend1' : finder_posts1,'recommend2' : finder_posts2,'recommend3' : finder_posts3}, status = status.HTTP_201_CREATED)
+    finder_posts = Finder_post.objects.filter(dog_type=owner_post.dog_type).filter(find_time__gte=owner_post.lost_time+timedelta(days=-7)).filter(find_time__lte=owner_post.lost_time+timedelta(days=7)).filter(
+        lat__gte = owner_post.lat - 0.005,
+        lat__lte = owner_post.lat + 0.005,
+        lng__gte = owner_post.lng - 0.005,
+        lng__lte = owner_post.lng + 0.005
+        ).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    serializerFinder = Finder_postSerializer(finder_posts, many = True)
+    
+    return Response({'recommend' : finder_posts}, status = status.HTTP_201_CREATED)  
+    # return Response({'recommend1' : finder_posts1,'recommend2' : finder_posts2,'recommend3' : finder_posts3}, status = status.HTTP_201_CREATED)
     # return Response({'recommend1' : serializerFinder1.data,'recommend2' : serializerFinder2.data,'recommend3' : serializerFinder3.data}, status = status.HTTP_201_CREATED)
     # return Response(serializerFinder1.data+serializerFinder2.data+serializerFinder3.data, status = status.HTTP_201_CREATED)
 
@@ -477,7 +486,16 @@ def f2o_recommend(request,pk):
     serializerOwner2 = Owner_postSerializer(owner_posts2, many = True)
     serializerOwner3 = Owner_postSerializer(owner_posts3, many = True)
     
-    return Response({'recommend1' : owner_posts1,'recommend2' : owner_posts2,'recommend3' : owner_posts3}, status = status.HTTP_201_CREATED)
+    owner_posts = Owner_post.objects.filter(dog_type=finder_post.dog_type).filter(lost_time__gte=finder_post.find_time+timedelta(days=-7)).filter(lost_time__lte=finder_post.find_time+timedelta(days=7)).filter(
+        lat__gte = finder_post.lat - 0.005,
+        lat__lte = finder_post.lat + 0.005,
+        lng__gte = finder_post.lng - 0.005,
+        lng__lte = finder_post.lng + 0.005
+        ).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    serializerOwner = Owner_postSerializer(owner_posts, many = True)
+
+    return Response({'recommend' : owner_posts}, status = status.HTTP_201_CREATED)
+    # return Response({'recommend1' : owner_posts1,'recommend2' : owner_posts2,'recommend3' : owner_posts3}, status = status.HTTP_201_CREATED)
     # return Response({'recommend1' : serializerOwner1.data,'recommend2' : serializerOwner2.data,'recommend3' : serializerOwner3.data}, status = status.HTTP_201_CREATED)
     # return Response(serializerOwner1.data+serializerOwner2.data+serializerOwner3.data, status = status.HTTP_201_CREATED)
 
