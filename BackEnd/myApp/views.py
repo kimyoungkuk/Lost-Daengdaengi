@@ -445,13 +445,19 @@ def o2f_recommend(request,pk):
 
 @api_view(['GET'])
 def f2o_recommend(request,pk):
+    logging.error("AAA")
     Resnet50_model = load_model('media/modeldir/weights.best.ResNet50.hdf5')##추후 개선안 생각할부분
+    logging.error("BBB")
     bottleneck_feature = extract_Resnet50(path_to_tensor('media/finder/'+str(pk)+'/profile.jpg'))
+    logging.error("CCC")
     bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
+    logging.error("DDD")
     bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
+    logging.error("EEE")
     predicted_vector = Resnet50_model.predict(bottleneck_feature) #shape error occurs hers
+    logging.error("FFF")
     outputs = dog_names[np.argmax(predicted_vector)]
-            
+    logging.error("GGG")      
     # # Classification
     # image = image_loader('media/finder/'+pk+'/profile.jpg')
     # outputs = model(image)
