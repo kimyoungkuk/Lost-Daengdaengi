@@ -435,7 +435,6 @@ def classificationImage(request):
 
 
 # model = torch.load('media/modeldir/flower_70.pth', map_location='cpu')
-Resnet50_model = load_model('media/modeldir/weights.best.ResNet50.hdf5')##추후 개선안 생각할부분
             
 
 @api_view(['GET'])
@@ -446,7 +445,8 @@ def o2f_recommend(request,pk):
 
 @api_view(['GET'])
 def f2o_recommend(request,pk):
-    bottleneck_feature = extract_Resnet50(path_to_tensor('media/finder/'+pk+'/profile.jpg'))
+    Resnet50_model = load_model('media/modeldir/weights.best.ResNet50.hdf5')##추후 개선안 생각할부분
+    bottleneck_feature = extract_Resnet50(path_to_tensor('media/finder/'+str(pk)+'/profile.jpg'))
     bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
     bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
     predicted_vector = Resnet50_model.predict(bottleneck_feature) #shape error occurs hers
