@@ -8,7 +8,7 @@
                 <button text="찾았어요" class="btn btn-primary" android:horizontalAlignment="right" >/>
                 </button>
             </ActionItem>
-            <ActionItem @tap="$goto('makePost')" >
+            <ActionItem @tap="$goto('makeOwnerPost')" >
                 <button text="찾아주세요" class="btn btn-primary" android:horizontalAlignment="right">/>
                 </button>
             </ActionItem>
@@ -117,7 +117,8 @@
     // webview.src = "~/www/index.html";
     // reloadWebview(page, webview);
             onTapFinder(args){
-                this.$goto('makePost_Finder');
+                // this.$goto('makePost_Finder');
+                this.$goto('makeFinderPost');
             },
             onMapReady(args) {
                 this.map = args.map;
