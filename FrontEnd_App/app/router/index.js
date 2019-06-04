@@ -10,6 +10,10 @@ import OwnerBoard_ from '../components/OwnerBoard'
 import select_Loc_ from '../components/select_Loc'
 import makePost_Finder_ from '../components/makePost_Finder'
 import Mypage_ from '../components/mypage'
+import makeFinderPost_ from '../components/makeFinderPost'
+import makeFinderPostWeb_ from '../components/makeFinderPostWeb'
+import makeOwnerPost_ from '../components/makeOwnerPost'
+import makeOwnerPostWeb_ from '../components/makeOwnerPostWeb'
 import googlemap_t_ from '../components/googlemap_t'
 
 const router = { 
@@ -25,6 +29,10 @@ const router = {
    imgPick : imgPick_,
    makePost_Finder :makePost_Finder_,
    ownerBoard: OwnerBoard_,
+   makeFinderPost: makeFinderPost_,
+   makeFinderPostWeb: makeFinderPostWeb_,
+   makeOwnerPost: makeOwnerPost_,
+   makeOwnerPostWeb: makeOwnerPostWeb_,
    googlemap_t : googlemap_t_
 }
 export default router

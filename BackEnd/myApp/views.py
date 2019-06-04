@@ -10,6 +10,8 @@ from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework import viewsets
 
+from datetime import datetime, timedelta
+
 import logging
 import base64
 from PIL import Image
@@ -439,50 +441,62 @@ def classificationImage(request):
 
 @api_view(['GET'])
 def o2f_recommend(request,pk):
-    finder_posts = Finder_post.objects.all().values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
+    owner_post = Owner_post.objects.get(id=pk)
 
-    return Response(finder_posts)
+
+    finder_posts1 = Finder_post.objects.filter(dog_type=owner_post.dog_type).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    finder_posts2 = Finder_post.objects.filter(find_time__gte=owner_post.lost_time+timedelta(days=-7)).filter(find_time__lte=owner_post.lost_time+timedelta(days=7)).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    finder_posts3 = Finder_post.objects.filter(
+        lat__gte = owner_post.lat - 0.005,
+        lat__lte = owner_post.lat + 0.005,
+        lng__gte = owner_post.lng - 0.005,
+        lng__lte = owner_post.lng + 0.005
+        ).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    serializerFinder1 = Finder_postSerializer(finder_posts1, many = True)
+    serializerFinder2 = Finder_postSerializer(finder_posts2, many = True)
+    serializerFinder3 = Finder_postSerializer(finder_posts3, many = True)
+        
+    finder_posts = Finder_post.objects.filter(dog_type=owner_post.dog_type).filter(find_time__gte=owner_post.lost_time+timedelta(days=-7)).filter(find_time__lte=owner_post.lost_time+timedelta(days=7)).filter(
+        lat__gte = owner_post.lat - 0.005,
+        lat__lte = owner_post.lat + 0.005,
+        lng__gte = owner_post.lng - 0.005,
+        lng__lte = owner_post.lng + 0.005
+        ).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    serializerFinder = Finder_postSerializer(finder_posts, many = True)
+    
+    return Response({'recommend' : finder_posts}, status = status.HTTP_201_CREATED)  
+    # return Response({'recommend1' : finder_posts1,'recommend2' : finder_posts2,'recommend3' : finder_posts3}, status = status.HTTP_201_CREATED)
+    # return Response({'recommend1' : serializerFinder1.data,'recommend2' : serializerFinder2.data,'recommend3' : serializerFinder3.data}, status = status.HTTP_201_CREATED)
+    # return Response(serializerFinder1.data+serializerFinder2.data+serializerFinder3.data, status = status.HTTP_201_CREATED)
 
 @api_view(['GET'])
 def f2o_recommend(request,pk):
-    logging.error("AAA")
-    Resnet50_model = load_model('media/modeldir/weights.best.ResNet50.hdf5')##추후 개선안 생각할부분
-    logging.error("BBB")
-    bottleneck_feature = extract_Resnet50(path_to_tensor('media/finder/'+str(pk)+'/profile.jpg'))
-    logging.error("CCC")
-    bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
-    logging.error("DDD")
-    bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
-    logging.error("EEE")
-    predicted_vector = Resnet50_model.predict(bottleneck_feature) #shape error occurs hers
-    logging.error("FFF")
-    outputs = dog_names[np.argmax(predicted_vector)]
-    logging.error("GGG")      
-    # # Classification
-    # image = image_loader('media/finder/'+pk+'/profile.jpg')
-    # outputs = model(image)
-            
-    # sm = nn.Softmax()
-            
-    # k = 3
-    # one,labelarr = torch.topk(outputs,k)
-    # problarr,two = torch.topk(sm(outputs),k)
-    # candi = []
+    finder_post = Finder_post.objects.get(id=pk)
+    
 
-    # for i in range(k):
-    #     x = problarr[0][i].__float__()
-    #     candi.append([labelarr[0][i].__int__(),float("{0:.2f}".format(x)),dirnames[labelarr[0][i].__int__()]])
+    owner_posts1 = Owner_post.objects.filter(dog_type=finder_post.dog_type).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    owner_posts2 = Owner_post.objects.filter(lost_time__gte=finder_post.find_time+timedelta(days=-7)).filter(lost_time__lte=finder_post.find_time+timedelta(days=7)).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    owner_posts3 = Owner_post.objects.filter(
+        lat__gte = finder_post.lat - 0.005,
+        lat__lte = finder_post.lat + 0.005,
+        lng__gte = finder_post.lng - 0.005,
+        lng__lte = finder_post.lng + 0.005
+        ).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    serializerOwner1 = Owner_postSerializer(owner_posts1, many = True)
+    serializerOwner2 = Owner_postSerializer(owner_posts2, many = True)
+    serializerOwner3 = Owner_postSerializer(owner_posts3, many = True)
+    
+    owner_posts = Owner_post.objects.filter(dog_type=finder_post.dog_type).filter(lost_time__gte=finder_post.find_time+timedelta(days=-7)).filter(lost_time__lte=finder_post.find_time+timedelta(days=7)).filter(
+        lat__gte = finder_post.lat - 0.005,
+        lat__lte = finder_post.lat + 0.005,
+        lng__gte = finder_post.lng - 0.005,
+        lng__lte = finder_post.lng + 0.005
+        ).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    serializerOwner = Owner_postSerializer(owner_posts, many = True)
 
-	# #print(candi[0][2])
+    return Response({'recommend' : owner_posts}, status = status.HTTP_201_CREATED)
+    # return Response({'recommend1' : owner_posts1,'recommend2' : owner_posts2,'recommend3' : owner_posts3}, status = status.HTTP_201_CREATED)
+    # return Response({'recommend1' : serializerOwner1.data,'recommend2' : serializerOwner2.data,'recommend3' : serializerOwner3.data}, status = status.HTTP_201_CREATED)
+    # return Response(serializerOwner1.data+serializerOwner2.data+serializerOwner3.data, status = status.HTTP_201_CREATED)
 
-    # dogType = "abc"
-    # dogType = candi[0][2]
-
-    owner_posts = Owner_post.objects.filter(dog_type=outputs).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
-
-    return Response(owner_posts, status = status.HTTP_201_CREATED)
-
-    # owner_posts = Owner_post.objects.all().values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
-
-    # return Response(owner_posts)
 

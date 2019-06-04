@@ -3,12 +3,12 @@
      <ActionBar class="action-bar" title="map">
             <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="openDrawer"/>
 
-            <ActionItem @tap="onTapFinder">
+            <ActionItem @tap="$goto('makeFinderPost')">
 
                 <button text="찾았어요" class="btn btn-primary" android:horizontalAlignment="right" >/>
                 </button>
             </ActionItem>
-            <ActionItem @tap="$goto('makePost')" >
+            <ActionItem @tap="$goto('makeOwnerPost')" >
                 <button text="찾아주세요" class="btn btn-primary" android:horizontalAlignment="right">/>
                 </button>
             </ActionItem>
