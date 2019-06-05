@@ -49,7 +49,7 @@ export default {
     return {
       key : this.$store.state.user_key,
       nickname : this.$store.state.user_nickname,
-      mop : true,
+      mob : true,
       lap : false,
       posts: [{title:'', dog_type:'', imageurl:''}],
       form: {
@@ -75,9 +75,9 @@ export default {
     }
     console.log(this.key)
     if(this.key=='admin'){
-        console.log("QWE")
+        console.log("ZCX")
         console.log(this.key)
-        this.mob=true
+        this.mob=false
         this.lap=true
     }
     this.$http.get('http://202.30.31.91:8000/adopt/post/list')
