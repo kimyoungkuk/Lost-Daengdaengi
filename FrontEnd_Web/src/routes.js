@@ -126,7 +126,7 @@ export default [
     component: adoptPostList
   },
   {
-    path: '/adopt/post/create/:id',
+    path: '/adopt/post/create',
     name: 'adoptPostCreate',
     component: adoptPostCreate
   },

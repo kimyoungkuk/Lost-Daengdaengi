@@ -5,7 +5,7 @@
           <h6 slot="header" class="mb-0">
             <b-badge variant="dark">작성자</b-badge>
             {{this.form.user_nickname}}
-            <b-badge variant="dark">잃어버린 날짜</b-badge>
+            <b-badge variant="dark">게시 날짜</b-badge>
             {{this.form.posted_time}}
             <b-badge variant="dark">조회수</b-badge>
             {{this.form.view_count}}
@@ -32,9 +32,15 @@
                     <div>
                       <span class="grey--text">연락처 : {{this.form.phone_num}}</span>
                       <br>
-                      <span>특징 : {{this.form.dog_feature}}</span>
+                      <span>연령 : {{this.form.dog_age}}</span>
                       <br>
-                      <span>비고 : {{this.form.remark}}</span>
+                      <span>성별 : {{this.form.dog_sex}}</span>
+                      <br>
+                      <span>중성화 : {{this.form.is_neu}}</span>
+                      <br>
+                      <span>예방접종 : {{this.form.is_vac}}</span>
+                      <br>
+                      <span>내용 : {{this.form.contents}}</span>
                     </div>
                   </v-card-title>
                   
