@@ -1,6 +1,6 @@
 <template>
-<v-flex>
-    <div class="backgroundImage" v-bind:style="{ 'background-image': 'url(' + img1 + ')'}">
+    <div>
+        <v-flex class="backgroundImage" v-bind:style="{ 'background-image': 'url(' + img1 + ')'}">
         <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
         <!-- 1. title -->
         <transition appear name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
@@ -213,8 +213,8 @@
             </transition>
         </div>
         </transition>
+        </v-flex>
     </div>
-</v-flex>
 </template>
 
 <script>
@@ -416,7 +416,7 @@ export default {
 .backgroundImage {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     background-size: cover;
     background-position: center;
     top: 0;
