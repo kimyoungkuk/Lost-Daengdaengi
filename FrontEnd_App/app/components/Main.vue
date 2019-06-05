@@ -5,7 +5,7 @@
         </ActionBar>
                 <ScrollView>
           <StackLayout>     
-            <WebView scaleY="1" row="0" @loadFinished="completeLoading" height="300" loaded="onWebViewLoaded" id="myWebView" :src="this.$store.state.API_WEBVIEW_URL"/>
+            <WebView id="myWebView" scaleY="1" row="0" @loadFinished="completeLoading" height="300" loaded="onWebViewLoaded" :src="this.$store.state.API_WEBVIEW_URL"/>
             <Progress color="#FA7268" v-show="loadingComplete" :value="loadingValue" row ="0"/>
             <Button class="fab mybtn btn-active" :text="'\uf1a3' + ' 시작하기'" height="50" width="175" @tap="$goto('login')" />
                       <FlexboxLayout flexDirection="column" backgroundColor="#3c495e">
@@ -43,8 +43,8 @@ import * as wViewModule from "ui/web-view";
       }
     },
     methods:{
-      
-      completeLoading(){
+      completeLoading(args){
+        args.object.android.getSettings().setBuiltInZoomControls(false);
         this.loadingComplete=false
       },
       OnInit() {
@@ -53,10 +53,8 @@ import * as wViewModule from "ui/web-view";
       if(this.loadingValue==90){
         clearInterval(d)
       }
-    }, 20);
-
-}
-
+    }, 20)
+  },
     },
     created(){
       this.OnInit()

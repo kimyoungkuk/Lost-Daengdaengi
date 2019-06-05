@@ -1,15 +1,12 @@
 <template>
-	 <Page>
-     <ActionBar class="action-bar" title="map">
-            <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="openDrawer"/>
-
+	 <Page @loaded="loaded" ref="page">
+     <ActionBar class="action-bar" title=''>
             <ActionItem @tap="$goto('makeFinderPost')">
-
-                <button text="찾았어요" class="btn btn-primary" android:horizontalAlignment="right" >/>
+                <button text="찾았어요" class="btn mybtn font-weight-bold" android:horizontalAlignment="left" >/>
                 </button>
             </ActionItem>
             <ActionItem @tap="$goto('makeOwnerPost')" >
-                <button text="찾아주세요" class="btn btn-primary" android:horizontalAlignment="right">/>
+                <button text="찾아주세요" class="btn mybtn font-weight-bold" android:horizontalAlignment="right">/>
                 </button>
             </ActionItem>
         </ActionBar>
@@ -29,12 +26,10 @@
           <fab @tap="myLocTap" row="0" rippleColor="#ffffff" icon = "ic_menu_mylocation" class="fab-button"></fab>
       </GridLayout>
       <GridLayout row = "1" rows = "auto,*">
-                <Label row = "0" backgroundColor = "#4ba5fa" @swipe = "onSwipe" padding = "10"></Label>
-
-                <ScrollView row="1" :scrollableHeight="hhh">
-                    <WebView ref = "webview" loaded="onWebViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
+                <Label row = "0" backgroundColor = "#FA7268" @swipe = "onSwipe" padding = "10"></Label>
+                <ScrollView row="1">
+                    <WebView height="500" ref = "webview" @loadFinished="completeLoading" loaded="onWebViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
                 </ScrollView>
-
       </GridLayout>
         </GridLayout>
     </Page>
@@ -45,6 +40,8 @@ import * as utils from "utils/utils";
 import * as Gmap from "nativescript-google-maps-sdk";
 import * as geolocation from "nativescript-geolocation";
 import { Accuracy } from "tns-core-modules/ui/enums";
+
+var webViewModule = require('ui/web-view');
 const SwipeDirection = require("tns-core-modules/ui/gestures").SwipeDirection;
 export default {
   
@@ -52,6 +49,7 @@ export default {
       return {
         //ChangedNickName : this.$store.state.user_nickname,
         map : null,
+        webView : null,
         lat :37,
         lng :127,
         padd : [40,40,40,40],
@@ -62,6 +60,20 @@ export default {
       }
     },
   methods: {
+         completeLoading(args){
+        this.loadingComplete=false
+        args.object.android.getSettings().setJavaScriptEnabled(true);
+        args.object.android.getSettings().setBuiltInZoomControls(false);
+      },
+      loaded(args) {
+    const page = args.object;
+    this.webView = page.getViewById('myWebView')
+    debugger;
+    //webView.url = 
+    this.webView.on(webViewModule.WebView.loadFinishedEvent, function (args) {
+        console.log(JSON.stringify(args.url));
+    });
+},
       onMapReady(args){
         var mView = args.object;  
         var gMap = mView.gMap;
@@ -132,4 +144,14 @@ export default {
   horizontal-align: right;
   vertical-align: bottom;
 }
+.mybtn{
+  color: #FA7268;
+  background-color: #FFFFFF;
+}
+
+ActionBar {
+        background-color: #FA7268;
+        color: #ffffff;
+    }
 </style>
+
