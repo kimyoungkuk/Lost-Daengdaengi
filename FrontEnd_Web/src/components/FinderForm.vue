@@ -3,8 +3,8 @@
     <div class="backgroundImage" v-bind:style="{ 'background-image': 'url(' + img1 + ')'}">
         <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">        
         <!-- 1. title-->
-        <transition name="router-anim" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==1">
+        <transition appear name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+            <div v-if="page_num==1" class="mainForm">
                 <h1 class="googleFont">1. 제목을 입력하세요.</h1>
                 <b-form>
                     <b-form-group id="input-group-2">
@@ -17,12 +17,14 @@
                     </b-form-group>
                     <b-button v-on:click="emptyHandler">다음</b-button>
                 </b-form>
-                <h3 v-if="empty_check==1" class="googleFont">"정보를 입력해주세요 ! "</h3>
+                <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
+                <h3 v-if="empty_check==1" class="googleFont"> 정보를 입력해주세요 ! "</h3>
+                </transition>
             </div>
         </transition>
         <!-- 2. phone_num -->
-        <transition name="router-anim" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==2">
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+            <div v-if="page_num==2" class="mainForm">
                 <h1 class="googleFont">2. 전화번호를 입력하세요.</h1>
                 <b-form>
                     <b-form-group id="input-group-2">
@@ -36,12 +38,14 @@
                     <b-button v-on:click="toPrev">이전</b-button>
                     <b-button v-on:click="emptyHandler">다음</b-button>
                 </b-form>
-                <h3 v-if="empty_check==1" class="googleFont">"정보를 입력해주세요 ! "</h3>
+                <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
+                <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+                </transition>
             </div>
         </transition>
         <!-- 3. find_time-->
-        <transition name="router-anim" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==3">
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+            <div v-if="page_num==3" class="mainForm">
                 <h1 class="googleFont">3. 발견 시간을 입력하세요.</h1>
                 <b-form>
                     <b-form-group id="input-group-2">
@@ -51,12 +55,14 @@
                     <b-button v-on:click="toPrev">이전</b-button>
                     <b-button v-on:click="emptyHandler">다음</b-button>
                 </b-form>
-                <h3 v-if="empty_check==1" class="googleFont">"정보를 입력해주세요 ! "</h3>
+                <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
+                <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+                </transition>
             </div>
         </transition>
         <!-- 4. posted_due-->
-        <transition name="router-anim" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==4">
+        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+            <div v-if="page_num==4" class="mainForm">
                 <h1 class="googleFont">4. 게시 기간을 입력하세요.</h1>
                 <b-form>
                     <b-form-group id="input-group-2">
@@ -65,12 +71,14 @@
                     <b-button v-on:click="toPrev">이전</b-button>
                     <b-button v-on:click="emptyHandler">다음</b-button>
                 </b-form>
-                <h3 v-if="empty_check==1" class="googleFont">"정보를 입력해주세요 ! "</h3>
+                <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
+                <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+                </transition>
             </div>
         </transition>
         <!-- 5. dog_feature-->
-        <transition name="router-anim" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==5">
+        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+            <div v-if="page_num==5" class="mainForm">
                 <h1 class="googleFont">5. 특징을 입력하세요.</h1>
                 <b-form>
                     <b-form-group id="input-group-2">
@@ -84,12 +92,14 @@
                     <b-button v-on:click="toPrev">이전</b-button>
                     <b-button v-on:click="emptyHandler">다음</b-button>
                 </b-form>
-                <h3 v-if="empty_check==1" class="googleFont">"정보를 입력해주세요 ! "</h3>
+                <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
+                <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+                </transition>
             </div>
         </transition>
         <!-- 6. image -->
-        <transition name="router-anim" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==6">
+        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+            <div v-if="page_num==6" class="mainForm">
                 <h1 class="googleFont">6. 사진을 입력하세요.</h1>
                 <b-form>
                     <b-form-group id="input-group-2">
@@ -103,12 +113,14 @@
                     <b-button v-on:click="toPrev">이전</b-button>
                     <b-button v-on:click="emptyHandler">다음</b-button>
                 </b-form>
-                <h3 v-if="empty_check==1" class="googleFont">"정보를 입력해주세요 ! "</h3>
+                <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
+                <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+                </transition>
             </div>
         </transition>
         <!-- 7. shelter_name -->
-        <transition name="router-anim" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==7">
+        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+            <div v-if="page_num==7" class="mainForm">
                 <h1 class="googleFont">7. 유기견 보호소를 선택하세요.</h1>
                 <b-form @submit="onSubmit">
                     <b-form-group id="input-group-2">
@@ -117,7 +129,9 @@
                     <b-button v-on:click="toPrev">이전</b-button>
                     <b-button v-on:click="emptyHandler">제출</b-button>
                 </b-form>
-                <h3 v-if="empty_check==1" class="googleFont">"정보를 입력해주세요 ! "</h3>
+                <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
+                <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+                </transition>
             </div>
         </transition>
     </div>
@@ -201,10 +215,14 @@ export default {
                 console.log(res.data)
                 this.posts = res.data
             })
+            this.toReload()
         },
         toPrev(){
             this.page_num--;
             this.empty_check = 0;
+        },
+        toReload(){
+            this.$router.push("/ownerBoard");
         },
         emptyHandler(){
             switch(this.page_num){
@@ -293,8 +311,19 @@ export default {
     top: 0;
     left: 0;
     }
+
 .googleFont {
     font-family: 'Jua', sans-serif;
     color:cornsilk;
 }
+
+/* .mainForm {
+    position: relative;
+    left: 300px;
+    top: 50px;
+} */
+
+/* .fixed-pos transition{
+    position: absolute;
+} */
 </style>
