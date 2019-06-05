@@ -110,12 +110,7 @@ class Adopt_post(models.Model):
     image           =   models.TextField(default = "", blank=True, null=True)
     imageurl        =   models.CharField(max_length = 2000, default = "http://202.30.31.91/media/default_image.jpg", blank=True, null=True)
 
-    shelter         =   models.ForeignKey(
-            Dog_shelter,
-            on_delete = models.CASCADE,
-            blank = True,
-            null = True
-            )
+    shelter         =   models.CharField(max_length = 200)
     def __str__(self):
         return self.title
 
