@@ -18,6 +18,7 @@ import test2 from './components/test2'
 import adoptHome from './components/adoptHome'
 import adoptPostList from './components/adoptPostList'
 import adoptPostCreate from './components/adoptPostCreate'
+import adoptPostDetail from './components/adoptPostDetail'
 
 
 export default [
@@ -125,8 +126,13 @@ export default [
     component: adoptPostList
   },
   {
-    path: '/adopt/post/create',
+    path: '/adopt/post/create/:id',
     name: 'adoptPostCreate',
     component: adoptPostCreate
+  },
+  {
+    path: '/adopt/post/detail/:id',
+    name: 'adoptPostDetail',
+    component: adoptPostDetail
   },
 ]
