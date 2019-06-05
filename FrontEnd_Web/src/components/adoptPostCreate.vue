@@ -163,7 +163,7 @@
             fd.append('contents',this.contents)
             fd.append('image',this.selectedFile,this.selectedFile.name)
             fd.append('shelter',this.shelter)
-            this.$http.post('http://202.30.31.91/adopt/post/create', {
+            this.$http.post('http://202.30.31.91:8000/adopt/post/create', {
             starttime : this.fd,
             
         }).then(res => {
