@@ -4,7 +4,7 @@
             <!-- <Image class="logo" src="~/assets/images/DaengDaengi.png" horizontalAlignment="center" stretch="none"/> -->
             <GridLayout rows = "*,auto">
             <WebView row="0" @loadFinished="completeLoading" loaded="onWebViewLoaded" id="myWebView" :src="this.src"/>
-            <Progress row="1" color="#4ba5fa" v-show="loadingComplete" :value="loadingValue"/>
+            <Progress row="1" color="#FA7268" v-show="loadingComplete" :value="loadingValue"/>
             </GridLayout>
             <!-- <Label class="message" :text="msg" col="0" row="0"/> -->      
   <!-- </FlexboxLayout> -->
@@ -58,10 +58,6 @@
 		align-items: center;
 		flex-direction: column;
   }
-    ActionBar {
-        background-color: #4ba5fa;
-        color: #ffffff;
-    }
 
     .message {
         vertical-align: center;

@@ -14,20 +14,20 @@ export default new Vuex.Store({
     shelter_List_Near :[],
     CurrentPostType : true,
     ownerPost: {
-      title : " ",
-      dog_name : " ",
-      lost_time : " ",
-      dog_sex : 1,
-      dog_type :" ",
-      dog_age : 0,
-      dog_feature:" ",
-      remark:" ",
-      phone_num:" ",
-      image:" ",
+      title : " ",      // 입력 : OwnerForm1
+      dog_name : " ",   // 입력 : OwnerForm5
+      lost_time : " ",  // 입력 : OwnerForm3
+      dog_sex : 1,      // 입력 : OwnerForm6
+      dog_type :" ",    // 입력 : OwnerForm7
+      dog_age : 0,      // 입력 : OwnerForm8
+      dog_feature:" ",  // 입력 : OwnerForm9
+      remark:" ",       // 입력 : OwnerForm11
+      phone_num:" ",    // 입력 : OwnerForm2
+      image:" ",        // 입력 : OwnerForm10
       lat: 0,
       lng: 0,
-      posted_time:" ",
-      posted_due:" ",
+      posted_time:"1980-01-01 00:00:00.000000",
+      posted_due:" ",   // 입력 : OwnerForm4
   },
     FinderPost: {
     title : "",      // 입력 : FinderForm1

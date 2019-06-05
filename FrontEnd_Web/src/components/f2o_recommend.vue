@@ -1,6 +1,15 @@
 <template>
   <div>
-        
+    <div>
+      <b-button-group>
+      <b-button router-link to='/finderboard' variant="outline-primary">발견인 게시판</b-button>
+      <b-button router-link to='/ownerboard' variant="outline-primary">유기견주 게시판</b-button>
+      <b-button router-link to='/finishboard' variant="outline-primary">반환완료 게시판</b-button>
+    </b-button-group>
+    </div>
+    <div>
+      <h1>높은 유사도를 가지는 유기견들입니다.</h1>
+    </div>
     <div>
       <b-card-group deck deck v-for="row in formattedPosts">
         <b-card  v-for="post in row"
@@ -15,7 +24,7 @@
                 <strong>견종 : </strong>{{post.dog_type}}
             </p>
             <p class="card-text">
-              <strong>찾은 날짜 : </strong>{{$moment($moment(post.lost_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}
+              <strong>잃어버린 날짜 : </strong>{{$moment($moment(post.lost_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}
             </p>
             <div slot="footer">
                 <!-- <b-btn variant="primary" block>상세보기</b-btn> -->
@@ -68,9 +77,8 @@ export default {
     console.log(this.lng)
     this.$http.get(`http://202.30.31.91:8000/api/finderPosts/recommend/${this.$route.params.query}`)
       .then(res => {
-          console.log(res.data)
-          this.posts = res.data
-          
+          console.log(res.data.recommend)
+          this.posts = res.data.recommend
       })
     },
   computed: {

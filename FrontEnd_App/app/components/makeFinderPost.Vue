@@ -18,7 +18,7 @@
 					<Label textWrap="true" class="p-10" text="견주를 어떻게 찾을 수 있나요? 게시글 등록을 완료하면 Map 상에 게시글이 Marker로 표시되어 보다 쉽게 견주가 유기견을 찾아볼 수 있습니다."/>
                     <Label textWrap="true" class="p-10" text="주인을 찾지 못한 유기견은 한 달내로 안락사 처리됩니다. 여러분의 소중한 제보가 하루 빨리 유기견이 가족의 품에 돌아갈 수 있도록 도와줍니다."/>
                     <Label textWrap="true" text="먼저, 버튼을 눌러 유기견을 발견한 위치를 알려주세요." class="h2 description-label" />
-                    <Button class="btn btn-primary" row = "1" text = "유기견 제보" height="50" width="100" @tap = "onTap_Loc"></Button>
+                    <Button class="btn mybtn" row = "1" text = "유기견 제보" height="50" width="100" @tap = "onTap_Loc"></Button>
 				</StackLayout>
 			</StackLayout>
 		</ScrollView>
@@ -52,3 +52,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+      .mybtn{
+      color: #ffffff;
+      background-color: #FA7268;
+    }
+</style>
