@@ -1,20 +1,21 @@
-<template lang="html">
-  <ScrollView @swipe = "onSwipe">
-    <StackLayout width="100%">
-      <Label class="drawer-header" :text="this.$store.state.user_nick_visible"/>
+<template>
+    <page actionBarHidden="true">
+        <GridLayout rows="200,*">
+            <WebView scaleY="1" row="0" @loadFinished="completeLoading" height="300" loaded="onWebViewLoaded" id="myWebView" :src="this.$store.state.API_WEBVIEW_URL"/>
+            <ScrollView row="2">
+                <StackLayout width="100%">
 
-      <Label
-        v-for="(page, i) in pages"
-        @tap="goToPage(page.component)"
-        class="drawer-item"
-        :text="page.name"
-        :key="i"
-      />
-
-      <Button class="drawer-close-button" @tap="$goto('googlemap_t')">Close Drawer</Button>
-    </StackLayout>
-  </ScrollView>
-  
+                <Button
+                    v-for="(page, i) in pages"
+                    @tap="goToPage(page.component)"
+                    class="drawer-item"
+                    :text="page.name"
+                    :key="i"
+                />
+                </StackLayout>
+            </ScrollView>
+        </GridLayout>
+    </page>
 </template>
 
 <script>
@@ -30,7 +31,7 @@ export default {
       pages: [
         { name: '마이 페이지', component: this.$router.mypage },
         { name: '내가 쓴 게시물', component: this.$router.PageOne },
-        { name: '포탈 테스트', component: this.$router.portal }
+        { name: '구글맵 테스트', component: this.$router.googlemap_t }
       ]
     }
   },
