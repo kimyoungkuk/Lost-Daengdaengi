@@ -1,7 +1,7 @@
 <template>
-  <Page @loaded = "loaded">
+  <Page>
         <ActionBar class="font-weight-bold" title="Lost Daengdaengi">
-          <NavigationButton icon = "~/assets/images/baseline_menu_black_18dp.png"/>
+          <NavigationButton icon = "~/assets/images/baseline_menu_black_18dp.png" @tap="openDrawer"/>
         </ActionBar>
                 <ScrollView>
           <StackLayout>     
@@ -43,7 +43,7 @@ import * as wViewModule from "ui/web-view";
       }
     },
     methods:{
-
+      
       completeLoading(){
         this.loadingComplete=false
       },

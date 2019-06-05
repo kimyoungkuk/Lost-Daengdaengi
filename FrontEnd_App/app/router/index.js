@@ -15,6 +15,7 @@ import makeFinderPostWeb_ from '../components/makeFinderPostWeb'
 import makeOwnerPost_ from '../components/makeOwnerPost'
 import makeOwnerPostWeb_ from '../components/makeOwnerPostWeb'
 import googlemap_t_ from '../components/googlemap_t'
+import portal_ from '../components/Portal'
 
 const router = { 
    mypage : Mypage_,
@@ -33,6 +34,7 @@ const router = {
    makeFinderPostWeb: makeFinderPostWeb_,
    makeOwnerPost: makeOwnerPost_,
    makeOwnerPostWeb: makeOwnerPostWeb_,
-   googlemap_t : googlemap_t_
+   googlemap_t : googlemap_t_,
+   portal : portal_
 }
 export default router
