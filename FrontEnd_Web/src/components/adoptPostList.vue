@@ -103,7 +103,9 @@ export default {
     console.log(this.lng)
     this.$http.get('http://202.30.31.91:8000/adopt/post/list')
       .then(res => {
+          console.log("QWE")
           console.log(res.data)
+          console.log("QWE")
           this.posts = res.data
 
           
