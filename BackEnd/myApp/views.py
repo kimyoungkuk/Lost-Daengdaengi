@@ -523,3 +523,7 @@ def finish_post_list(request):
     finish_owner_posts = Owner_post.objects.filter(is_finished=1).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
     serializer = Owner_postSerializer(finish_owner_posts, many = True)
     return Response(finish_finder_posts.data+finish_owner_posts.data)
+
+def home(request):
+    t="qwe"
+    return render(request, 'home.html',{'t':t})
