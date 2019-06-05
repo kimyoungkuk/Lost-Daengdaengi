@@ -63,10 +63,10 @@
                     this.mapView.addMarker(this.marker)
                     // GmapUtils.setupMarkerCluster(this.mapView,this.markerinfo)
                     // console.log(this.lat)
-                    this.$store.state.ownerPost.lat = this.lat;
-                    this.$store.state.ownerPost.lng = this.lng;
-                    this.$store.state.FinderPost.lat = this.lat;
-                    this.$store.state.FinderPost.lng = this.lng;
+                    this.$store.state.ownerPost.lat = loc.latitude;
+                    this.$store.state.ownerPost.lng = loc.longitude;
+                    this.$store.state.FinderPost.lat = loc.latitude;
+                    this.$store.state.FinderPost.lng = loc.longitude;
                 })
                 
                 //console.log(selected_loc.lat,selected_loc.lng)
@@ -87,11 +87,11 @@
                 this.marker.title = ""
                
                 this.mapView.addMarker(this.marker)
-            //     console.log(this.lat)
-            //     this.$store.state.ownerPost.lat = this.lat;
-            //     this.$store.state.ownerPost.lng = this.lng;
-            //     this.$store.state.FinderPost.lat = this.lat;
-            //     this.$store.state.FinderPost.lng = this.lng;
+                console.log(this.lat)
+                this.$store.state.ownerPost.lat = args.position.latitude;
+                this.$store.state.ownerPost.lng = args.position.longitude;
+                this.$store.state.FinderPost.lat = args.position.latitude;
+                this.$store.state.FinderPost.lng = args.position.longitude;
             },
             onTap(args) {
                 //makePost_.lat = this.lat;
