@@ -69,6 +69,6 @@ urlpatterns = [
     path('api/finderPosts/filter', myApp.views.filteringFinder, name = "finderPosts/filter"),
 
 
-    path('/home',myApp.views.home,name="home")
+    path('home/',myApp.views.home,name="home")
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
