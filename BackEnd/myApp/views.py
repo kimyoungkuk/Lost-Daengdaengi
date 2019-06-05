@@ -541,8 +541,10 @@ def adopt_post_create(request):
         if serializer.data['image'] != "":
             os.makedirs('./media/adopt/'+str(serializer.data['id']))
             output = open('media/adopt/'+str(serializer.data['id'])+'/profile.jpg', 'wb+')
-            logging.error(serializer.data['image'][24:])
-            output.write(base64.b64decode(serializer.data['image'][24:]))
+            logging.error(serializer.data['image'][22:])
+            x = serializer.data['image'][22:]
+            x += "=" * ((4 - len(x) % 4) % 4)
+            output.write(base64.b64decode(serializer.data['image'][22:]))
             output.close()
 
             post = Adopt_post.objects.get(id=serializer.data['id'])
