@@ -1,6 +1,6 @@
 <template>
-<v-flex>
-    <div class="backgroundImage" v-bind:style="{ 'background-image': 'url(' + img1 + ')'}">
+    <div>
+        <v-flex class="backgroundImage" v-bind:style="{ 'background-image': 'url(' + img1 + ')'}">
         <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">        
         <!-- 1. title-->
         <transition appear name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
@@ -18,7 +18,7 @@
                     <b-button v-on:click="emptyHandler">다음</b-button>
                 </b-form>
                 <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-                <h3 v-if="empty_check==1" class="googleFont"> 정보를 입력해주세요 ! "</h3>
+                <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
                 </transition>
             </div>
         </transition>
@@ -134,8 +134,8 @@
                 </transition>
             </div>
         </transition>
+        </v-flex>
     </div>
-</v-flex>
 </template>
 
 
@@ -302,7 +302,7 @@ export default {
 .backgroundImage {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     background-size: cover;
     background-position: center;
     top: 0;
@@ -320,5 +320,6 @@ export default {
     margin-top: 90%;
     margin-left: 10%;
     margin-right: 10%;
+    position:
 }
 </style>

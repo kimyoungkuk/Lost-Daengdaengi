@@ -2,7 +2,7 @@
     <v-flex class="in_board-view">
       <b-card-group deck>
         <b-card header-tag="header" footer-tag="footer">
-          <h6 slot="header" class="mb-0">
+          <!-- <h6 slot="header" class="mb-0">
             <b-badge variant="dark">작성자</b-badge>
             {{this.form.user_nickname}}
             <b-badge variant="dark">찾은 날짜</b-badge>
@@ -14,7 +14,8 @@
             {{this.form.title}}
             <b-badge variant="dark">견종</b-badge>
             {{this.form.dog_type}}
-          </h6>
+          </h6> -->
+          <h4 slot="header">Lost-Daengdaengi</h4>
           <div>
             <v-layout>
               <v-flex xs12 sm6 offset-sm3>
