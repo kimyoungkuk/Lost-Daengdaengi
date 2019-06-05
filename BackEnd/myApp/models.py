@@ -113,12 +113,14 @@ class Adopt_post(models.Model):
     shelter         =   models.CharField(max_length = 200,default = "")
     
     user_nickname   =   models.CharField(max_length = 1000, blank=True, default = "")
-    user_key        =   models.CharField(max_length = 1000, blank=True, default = "")
     view_count      =   models.IntegerField(blank=True, default = 0)
     
     def __str__(self):
         return self.title
 
+class Adopt_admin(models.Model):
+    account         =   models.CharField(max_length = 200,default = "")
+    pwd             =   models.CharField(max_length = 200,default = "")
 
 class Filtering(models.Model):
     starttime       =   models.DateTimeField()

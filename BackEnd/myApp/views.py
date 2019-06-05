@@ -524,7 +524,15 @@ def finish_post_list(request):
     serializer = Owner_postSerializer(finish_owner_posts, many = True)
     return Response(finish_finder_posts.data+finish_owner_posts.data)
 
-
+@api_view(['POST'])
+def adopt_login(request):
+    serializer = Adopt_adminSerializer(data = request.data)
+    if serializer.is_valid():
+        adopt_admin = Adopt_post.objects.get(account=serializer.data['account'])
+        if adopt_admin.pwd==serializer.data['pwd']:
+            return Response(1)
+        else:
+            return Response(0)
 
 @api_view(['GET'])
 def adopt_post_list(request):
