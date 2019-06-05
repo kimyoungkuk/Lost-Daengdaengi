@@ -175,7 +175,7 @@ def owner_post_create(request):
             output.close()
 
             post = Owner_post.objects.get(id=serializer.data['id'])
-            post.image = ""
+            # post.image = ""
             post.imageurl = 'http://202.30.31.91:8000/' + 'media/owner/' + str(serializer.data['id']) + '/profile.jpg'
             post.save()
         else:
