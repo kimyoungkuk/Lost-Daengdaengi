@@ -98,22 +98,20 @@ class Report(models.Model):
 
 
 class Adopt_post(models.Model):
-    title           =   models.CharField(max_length = 1000)
-    phone_num       =   models.CharField(max_length = 1000)
+    title           =   models.CharField(max_length = 1000,default = "")
+    phone_num       =   models.CharField(max_length = 1000,default = "")
     posted_time     =   models.DateTimeField(auto_now_add = True)
-    dog_type        =   models.CharField(max_length = 200)
-    dog_age         =   models.CharField(max_length = 200)
-    dog_sex         =   models.CharField(max_length = 200)
-    is_neu          =   models.CharField(max_length = 200)
-    is_vac          =   models.CharField(max_length = 200)
-    contents        =   models.TextField(max_length = 200)
-    image           =   models.ImageField(default="media/defaut_image.jpg")
-    shelter         =   models.ForeignKey(
-            Dog_shelter,
-            on_delete = models.CASCADE,
-            blank = True,
-            null = True
-            )
+    dog_type        =   models.CharField(max_length = 200,default = "")
+    dog_age         =   models.CharField(max_length = 200,default = "")
+    dog_sex         =   models.CharField(max_length = 200,default = "")
+    is_neu          =   models.CharField(max_length = 200,default = "")
+    is_vac          =   models.CharField(max_length = 200,default = "")
+    contents        =   models.TextField(max_length = 200,default = "")
+    image           =   models.TextField(default = "", blank=True, null=True)
+    imageurl        =   models.CharField(max_length = 2000, default = "http://202.30.31.91/media/default_image.jpg", blank=True, null=True)
+
+    shelter         =   models.CharField(max_length = 200,default = "")
+    
     def __str__(self):
         return self.title
 

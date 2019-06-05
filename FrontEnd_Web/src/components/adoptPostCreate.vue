@@ -1,8 +1,8 @@
 <template>
 <div>
   <b-card bg-variant="light">
+    <b-form @submit="onSubmit">
     <b-form-group
-      @submit="onSubmit"
       label-cols-lg="3"
       label="Adopt Dog Post"
       label-size="lg"
@@ -123,7 +123,9 @@
         <b-form-input id="nested-shelter" v-model="shelter"></b-form-input>
       </b-form-group>
       
+      <b-button type="submit" variant="primary">Submit</b-button>
     </b-form-group>
+    </b-form>
   </b-card>
 </div>
 </template>
@@ -132,6 +134,7 @@
   export default {
     data() {
       return {
+        selectedFile:null,
         title:'',
         phone_num:'',
         dog_type:'',
@@ -140,36 +143,61 @@
         is_neu:'',
         is_vac:'',
         contents:'',
-        selectedFile:null,
+        image:'',
+        imageurl:'',
         shelter:'',
       }
     },
-    
     methods:{
         onFileSelected(evt){
             this.selectedFile = event.target.files[0]
+            let temp=encodeBase64ImageFile(this.selectedFile)
+            temp.then((data)=>{
+                console.log(data)
+                this.image=data
+            })
         },
         onSubmit(evt) {
-            const fd = new FormData();
-            fd.append('title',this.title)
-            fd.append('phone_num',this.phone_num)
-            fd.append('dog_type',this.dog_type)
-            fd.append('dog_age',this.dog_age)
-            fd.append('dog_sex',this.dog_sex)
-            fd.append('is_neu',this.is_neu)
-            fd.append('is_vac',this.is_vac)
-            fd.append('contents',this.contents)
-            fd.append('image',this.selectedFile,this.selectedFile.name)
-            fd.append('shelter',this.shelter)
-            this.$http.post('http://202.30.31.91:8000/adopt/post/create', {
-            fd
+            evt.preventDefault()
             
+            this.$http.post('http://202.30.31.91:8000/adopt/post/create', {
+            title:this.title,
+            phone_num:this.phone_num,
+            dog_type:this.dog_type,
+            dog_age:this.dog_age,
+            dog_sex:this.dog_sex,
+            is_neu:this.is_neu,
+            is_vac:this.is_vac,
+            contents:this.contents,
+            image:this.image,
+            imageurl:this.imageurl,
+            shelter:this.shelter,
+
         }).then(res => {
+            
+            
+            console.log("QWE")
             console.log(res.data)
-            this.posts = res.data
+            console.log("QWE")
+            // this.posts = res.data
         })
 
         }
     }
   }
+
+function encodeBase64ImageFile (image) {
+  return new Promise((resolve, reject) => {
+    let reader = new FileReader()
+    // convert the file to base64 text
+    reader.readAsDataURL(image)
+    // on reader load somthing...
+    reader.onload = (event) => {
+      resolve(event.target.result)
+    }
+    reader.onerror = (error) => {
+      reject(error)
+    }
+  })
+}
 </script>

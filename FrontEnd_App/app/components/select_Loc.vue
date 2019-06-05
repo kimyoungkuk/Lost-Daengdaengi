@@ -14,7 +14,7 @@
                 >
                 </mapView>
             </GridLayout>
-                <Button text = "선택" row = "1" backgroundColor = "#ffffff" @tap = "onTap" padding = "10"></Button>
+                <Button class="mybtn" text = "선택" row = "1" @tap = "onTap" padding = "10"></Button>
         </GridLayout>     
         
     </Page>
@@ -113,11 +113,11 @@
 </script>
 
 <style scoped>
-    ActionBar {
-        background-color: #4ba5fa;
-        color: #ffffff;
-    }
 
+      .mybtn{
+      color: #ffffff;
+      background-color: #FA7268;
+    }
     .message {
         vertical-align: center;
         text-align: center;
