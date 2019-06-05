@@ -123,6 +123,7 @@
         <b-form-input id="nested-shelter" v-model="shelter"></b-form-input>
       </b-form-group>
       
+      <b-button type="submit" variant="primary">Submit</b-button>
     </b-form-group>
   </b-card>
 </div>
@@ -150,6 +151,7 @@
             this.selectedFile = event.target.files[0]
         },
         onSubmit(evt) {
+            evt.preventDefault()
             const fd = new FormData();
             fd.append('title',this.title)
             fd.append('phone_num',this.phone_num)
@@ -161,8 +163,8 @@
             fd.append('contents',this.contents)
             fd.append('image',this.selectedFile,this.selectedFile.name)
             fd.append('shelter',this.shelter)
-            this.$http.post('http://202.30.31.91:8000/adopt/post/create', {
-            fd
+            this.$http.post('http://202.30.31.91/adopt/post/create', {
+            starttime : this.fd,
             
         }).then(res => {
             console.log(res.data)
