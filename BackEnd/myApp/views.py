@@ -533,6 +533,7 @@ def adopt_login(request):
             return Response(1)
         else:
             return Response(0)
+        return Response(0)
 
 @api_view(['GET'])
 def adopt_post_list(request):
