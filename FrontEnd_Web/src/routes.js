@@ -15,6 +15,11 @@ import FinishBoard from './components/FinishBoard'
 
 import test1 from './components/test1'
 import test2 from './components/test2'
+import adoptHome from './components/adoptHome'
+import adoptPostList from './components/adoptPostList'
+import adoptPostCreate from './components/adoptPostCreate'
+import adoptPostDetail from './components/adoptPostDetail'
+import adoptLogin from './components/adoptLogin'
 
 
 export default [
@@ -106,5 +111,34 @@ export default [
   {
     path: '*',
     redirect: '/'
+  },
+  {
+    path: '*',
+    redirect: '/'
+  },
+  {
+    path: '/adopt/home',
+    name: 'adoptHome',
+    component: adoptHome
+  },
+  {
+    path: '/adopt/post/list',
+    name: 'adoptPostList',
+    component: adoptPostList
+  },
+  {
+    path: '/adopt/post/create',
+    name: 'adoptPostCreate',
+    component: adoptPostCreate
+  },
+  {
+    path: '/adopt/post/detail/:id',
+    name: 'adoptPostDetail',
+    component: adoptPostDetail
+  },
+  {
+    path: '/adopt/login',
+    name: 'adoptLogin',
+    component: adoptLogin
   },
 ]

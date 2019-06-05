@@ -1,13 +1,13 @@
 <template>
-<v-flex>
-    <div class="backgroundImage" v-bind:style="{ 'background-image': 'url(' + img1 + ')'}">
+    <div>
+        <v-flex class="backgroundImage" v-bind:style="{ 'background-image': 'url(' + img1 + ')'}">
         <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">        
         <!-- 1. title-->
         <transition appear name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==1" class="mainForm">
+            <div v-if="page_num==1" class="mainFinerForm">
                 <h1 class="googleFont">1. 제목을 입력하세요.</h1>
                 <b-form>
-                    <b-form-group id="input-group-2">
+                    <b-form-group id="input-group-1">
                         <b-form-input
                         id="input-2"
                         v-model="title"
@@ -18,13 +18,13 @@
                     <b-button v-on:click="emptyHandler">다음</b-button>
                 </b-form>
                 <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-                <h3 v-if="empty_check==1" class="googleFont"> 정보를 입력해주세요 ! "</h3>
+                <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
                 </transition>
             </div>
         </transition>
         <!-- 2. phone_num -->
         <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==2" class="mainForm">
+            <div v-if="page_num==2" class="mainFinerForm">
                 <h1 class="googleFont">2. 전화번호를 입력하세요.</h1>
                 <b-form>
                     <b-form-group id="input-group-2">
@@ -45,10 +45,10 @@
         </transition>
         <!-- 3. find_time-->
         <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==3" class="mainForm">
+            <div v-if="page_num==3" class="mainFinerForm">
                 <h1 class="googleFont">3. 발견 시간을 입력하세요.</h1>
                 <b-form>
-                    <b-form-group id="input-group-2">
+                    <b-form-group id="input-group-3">
                         <b-form-input id="date-1" v-model="date" required type="date"></b-form-input>
                         <b-form-input id="time-1" v-model="time" required type="time"></b-form-input>
                     </b-form-group>
@@ -61,11 +61,11 @@
             </div>
         </transition>
         <!-- 4. posted_due-->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==4" class="mainForm">
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+            <div v-if="page_num==4" class="mainFinerForm">
                 <h1 class="googleFont">4. 게시 기간을 입력하세요.</h1>
                 <b-form>
-                    <b-form-group id="input-group-2">
+                    <b-form-group id="input-group-4">
                         <b-form-input id="date-1" v-model="posted_due" required type="date"></b-form-input>
                     </b-form-group>
                     <b-button v-on:click="toPrev">이전</b-button>
@@ -77,11 +77,11 @@
             </div>
         </transition>
         <!-- 5. dog_feature-->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==5" class="mainForm">
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+            <div v-if="page_num==5" class="mainFinerForm">
                 <h1 class="googleFont">5. 특징을 입력하세요.</h1>
                 <b-form>
-                    <b-form-group id="input-group-2">
+                    <b-form-group id="input-group-5">
                         <b-form-input
                         id="input-2"
                         v-model="dog_feature"
@@ -98,11 +98,11 @@
             </div>
         </transition>
         <!-- 6. image -->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==6" class="mainForm">
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+            <div v-if="page_num==6" class="mainFinerForm">
                 <h1 class="googleFont">6. 사진을 입력하세요.</h1>
                 <b-form>
-                    <b-form-group id="input-group-2">
+                    <b-form-group id="input-group-6">
                         <b-form-input
                         id="input-2"
                         v-model="image"
@@ -119,11 +119,11 @@
             </div>
         </transition>
         <!-- 7. shelter_name -->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==7" class="mainForm">
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+            <div v-if="page_num==7" class="mainFinerForm">
                 <h1 class="googleFont">7. 유기견 보호소를 선택하세요.</h1>
                 <b-form @submit="onSubmit">
-                    <b-form-group id="input-group-2">
+                    <b-form-group id="input-group-7">
                         <b-form-select v-model="shelter_name" :options="options"></b-form-select>
                     </b-form-group>
                     <b-button v-on:click="toPrev">이전</b-button>
@@ -134,8 +134,8 @@
                 </transition>
             </div>
         </transition>
+        </v-flex>
     </div>
-</v-flex>
 </template>
 
 
@@ -146,7 +146,7 @@ import 'url-search-params-polyfill';
 export default {
     data() {
         return {
-            img1: require('../assets/formBackgroundImg.jpg'),
+            img1: require('../assets/formBackgroundImg2.jpg'),
             page_num: 1,
             empty_check: 0,
             user_key: '',
@@ -215,14 +215,11 @@ export default {
                 console.log(res.data)
                 this.posts = res.data
             })
-            this.toReload()
+            // location.reload();  // 새로고침
         },
         toPrev(){
             this.page_num--;
             this.empty_check = 0;
-        },
-        toReload(){
-            this.$router.push("/ownerBoard");
         },
         emptyHandler(){
             switch(this.page_num){
@@ -305,7 +302,7 @@ export default {
 .backgroundImage {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     background-size: cover;
     background-position: center;
     top: 0;
@@ -317,13 +314,12 @@ export default {
     color:cornsilk;
 }
 
-/* .mainForm {
+.mainFinerForm {
     position: relative;
-    left: 300px;
-    top: 50px;
-} */
-
-/* .fixed-pos transition{
-    position: absolute;
-} */
+    /* left: 50px; */
+    margin-top: 90%;
+    margin-left: 10%;
+    margin-right: 10%;
+    position:
+}
 </style>

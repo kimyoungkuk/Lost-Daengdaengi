@@ -2,11 +2,11 @@
     <v-flex class="in_board-view">
       <b-card-group deck>
         <b-card header-tag="header" footer-tag="footer">
-          <!-- <h6 slot="header" class="mb-0">
+          <h6 slot="header" class="mb-0">
             <b-badge variant="dark">작성자</b-badge>
             {{this.form.user_nickname}}
-            <b-badge variant="dark">찾은 날짜</b-badge>
-            {{this.form.find_time}}
+            <b-badge variant="dark">게시 날짜</b-badge>
+            {{this.form.posted_time}}
             <b-badge variant="dark">조회수</b-badge>
             {{this.form.view_count}}
             <br>
@@ -14,8 +14,7 @@
             {{this.form.title}}
             <b-badge variant="dark">견종</b-badge>
             {{this.form.dog_type}}
-          </h6> -->
-          <h4 slot="header">Lost-Daengdaengi</h4>
+          </h6>
           <div>
             <v-layout>
               <v-flex xs12 sm6 offset-sm3>
@@ -33,16 +32,18 @@
                     <div>
                       <span class="grey--text">연락처 : {{this.form.phone_num}}</span>
                       <br>
-                      <span>특징 : {{this.form.dog_feature}}</span>
+                      <span>연령 : {{this.form.dog_age}}</span>
                       <br>
-                      <span>보호소 : {{this.form.shelter_name}}</span>
+                      <span>성별 : {{this.form.dog_sex}}</span>
+                      <br>
+                      <span>중성화 : {{this.form.is_neu}}</span>
+                      <br>
+                      <span>예방접종 : {{this.form.is_vac}}</span>
+                      <br>
+                      <span>내용 : {{this.form.contents}}</span>
                     </div>
                   </v-card-title>
-                  <v-card-actions>
-                    <v-btn flat color="orange" v-b-modal.modal-finish>Finish</v-btn>
-                    <v-btn flat color="orange" v-on:click="recommend">Explore</v-btn>
-                    <v-btn flat color="orange" v-b-modal.modal-report v-on:click="reportBoard">report</v-btn>
-                  </v-card-actions>
+                  
                 </v-card>
               </v-flex>
             </v-layout>
@@ -98,6 +99,7 @@
       </b-button-group>
       </v-flex>
 
+
       <b-modal
         id="modal-delete"
         ref="modal"
@@ -107,6 +109,7 @@
         @ok="handleOk"
         hide-footer
       >
+        
           <b-button
           v-if="userId == form.userId || admin === 1"
           v-on:click="deleteBoard"
@@ -136,6 +139,7 @@
         >아니요</b-button>
       </b-modal>
 
+
       <b-modal
         id="modal-report"
         ref="modal"
@@ -160,10 +164,10 @@
           </b-form-group>
         </form>
       </b-modal>
-
+   
 
     </v-flex>
-  
+
 </template>
 
 <script>
@@ -179,19 +183,18 @@ export default {
       name: '',
       nameState: null,
       submittedNames: [],
-
+        
       form: {
         _id: this.$route.params.id,
         id: "",
         title: "",
         imageurl: "",
-        find_time: "",
+        lost_time: "",
         view_count: "",
         dog_type: "",
         dog_feature: "",
         phone_num: "",
         shelter_name: "",
-        user_nickname:"",
       },
       comments: [
           {
@@ -212,8 +215,6 @@ export default {
     };
   },
   created() {
-            
-    console.log("QWERTYUIOP");
     this.getBoardDetail();
     this.getUserId();
   },
@@ -227,39 +228,40 @@ export default {
     getBoardDetail() {
       this.$http
         .get(
-          `http://202.30.31.91:8000/api/finderPosts/detail/${
+          `http://202.30.31.91:8000/adopt/post/detail/${
             this.$route.params.id
           }`
         )
         .then(res => {
-          console.log(res.data.post[0]);
-          console.log(res.data.comments)
-          this.form = res.data.post[0];
-          this.comments = res.data.comments
-          console.log(this.form);
-          this.form.find_time = this.$moment(this.form.find_time).format(
-            "LLLL"
-          );
-          for (var i = 0; i < this.form.comments.length; i++) {
-            this.form.comments[i].createAt = this.$moment(
-              this.form.comments[i].createAt
-            ).format("LLLL");
-          }
+            console.log("QWE");
+            console.log(res.data.post[0]);
+            console.log(res.data.comments)
+            this.form = res.data.post[0];
+            this.comments = res.data.comments
+            console.log(this.form);
+            this.form.lost_time = this.$moment(this.form.lost_time).format(
+                "LLLL"
+            );
+            for (var i = 0; i < this.form.comments.length; i++) {
+                this.form.comments[i].createAt = this.$moment(
+                this.form.comments[i].createAt
+                ).format("LLLL");
+            }
         });
     },
     deleteBoard() {
-
+      
       console.log("!@#")
       console.log(this.form.user_nickname)
       if(this.form.user_nickname==this.nickname){
 
         this.$http
-        .post(`http://202.30.31.91:8000/api/finderPosts/delete/${this.$route.params.id}`)
+        .post(`http://202.30.31.91:8000/adopt/post/delete/${this.$route.params.id}`)
         .then(res => {
           const status = res.status;
           // if (status === 200) {
             alert("정상적으로 삭제되었습니다.");
-            this.$router.push("/finderboard");
+            this.$router.push("/adopt/post/list");
           // } else if (status === 203) {
           //   alert("해당 권한이 존재하지 않습니다.");
           //   this.$router.push("/board");
@@ -271,31 +273,11 @@ export default {
       }
       else{
         alert("해당 권한이 존재하지 않습니다.");
-        this.$router.push("/finderboard");
+        this.$router.push("/adopt/post/list");
       }
-    },
-    finishBoard(){
-      this.$router.push(`/finderboard/finish/${this.$route.params.id}`);
-      if(this.form.user_nickname==this.nickname){
-
-        this.$http
-        .post(`http://202.30.31.91:8000/api/finderPosts/finish/${this.$route.params.id}`)
-        .then(res => {
-          const status = res.status;
-            this.$router.push("/finderboard");
-        })
-        .catch(err => {
-          alert(err);
-        });
-      }
-      else{
-        alert("해당 권한이 존재하지 않습니다.");
-        this.$router.push("/finderboard");
-      }
-
     },
     toBoard() {
-      this.$router.push("/finderboard");
+      this.$router.push("/adopt/post/list");
     },
     updateBoard() {
       this.$http.get(`/api/board/posts/${this.$route.params.id}`).then(res => {
@@ -314,9 +296,6 @@ export default {
         }
       });
     },
-    reportBoard() {
-      this.$router.push("/finderboard");
-    },
     addComment() {
       let comment = {
         user_key: "",
@@ -329,22 +308,21 @@ export default {
       comment.user_nickname = this.nickname;
       comment.contents = this.contents;
       comment.commented_post = this.form.id;
-      comment.commented_post_type = "finder"
+      comment.commented_post_type = "adopt"
       // this.$http.post(`http://202.30.31.91:8000/api/comments/create`, {
       axios.post(`http://202.30.31.91:8000/api/comments/create`, {
       user_key : comment.user_key,
       user_nickname : comment.user_nickname,
       contents : comment.contents,
       commented_post : comment.commented_post,
-      commented_post_type : "finder"
+      commented_post_type : "adopt"
       })
       .then(res => {
         console.log(res.data);
         console.log("QWEQWE");
+        this.contents = "";
+        this.getBoardDetail();
       });
-      this.contents = "";
-  
-      this.getBoardDetail();
     },
     deleteComment(_id) {
       this.$http
@@ -361,37 +339,6 @@ export default {
             this.$router.push("/board");
           }
         });
-    },
-    recommend(){
-      this.$router.push(`/finderboard/recommend/${this.$route.params.id}`);
-
-
-    },
-    createReport() {
-      let report = {
-        user_nickname: "",
-        report_contents: "",
-        reported_post: Number,
-        reported_post_type: ""
-      };
-      report.user_nickname = "ChanYoung"
-      report.report_contents = this.report_contents;
-      report.reported_post = this.form.id;
-      report.reported_post_type = "owner"
-      // this.$http.post(`http://202.30.31.91:8000/api/reports/create`, {
-      axios.post(`http://202.30.31.91:8000/api/reports/create`, {
-      user_nickname : report.user_nickname,
-      report_contents : report.report_contents,
-      reported_post : report.reported_post,
-      reported_post_type : report.reported_post_type
-      })
-      .then(res => {
-        console.log(res.data);
-        console.log("ZXCZXC");
-
-      });
-      this.contents = "";
-      this.getBoardDetail();
     },
 
 
@@ -422,12 +369,9 @@ export default {
           this.$refs.modal.hide()
           this.createReport()
         })
-    },
-    hd(){
-      this.$nextTick(() => {
-        this.$refs.modal.hide()
-      })
     }
+
+    
   }
 };
 </script>

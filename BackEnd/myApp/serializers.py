@@ -11,6 +11,7 @@ class Owner_postSerializer(serializers.ModelSerializer):
     user_nickname   =   serializers.CharField(required=False)
     user_key        =   serializers.CharField(required=False)
     report_count    =   serializers.IntegerField(required=False)
+    is_finished    =   serializers.IntegerField(required=False)
     class Meta:
         model = Owner_post
         fields = '__all__'
@@ -26,6 +27,7 @@ class Finder_postSerializer(serializers.ModelSerializer):
     user_nickname   =   serializers.CharField(required=False)
     user_key        =   serializers.CharField(required=False)
     report_count    =   serializers.IntegerField(required=False)
+    is_finished    =   serializers.IntegerField(required=False)
     class Meta:
         model = Finder_post
         fields = '__all__'
@@ -60,6 +62,20 @@ class FilteringSerializer(serializers.ModelSerializer):
     class Meta:
         model = Filtering
         fields = '__all__'
+
+class Adopt_postSerializer(serializers.ModelSerializer):
+    view_count      =   serializers.IntegerField(required=False)
+    user_nickname   =   serializers.CharField(required=False)
+    user_key        =   serializers.CharField(required=False)
+    class Meta:
+        model = Adopt_post
+        fields = '__all__'
+
+class Adopt_adminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Adopt_admin
+        fields = '__all__'
+
 
 # class KeySerializer(serializers.ModelSerializer):
 #     class Meta:

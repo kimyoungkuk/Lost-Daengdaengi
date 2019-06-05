@@ -524,6 +524,64 @@ def finish_post_list(request):
     serializer = Owner_postSerializer(finish_owner_posts, many = True)
     return Response(finish_finder_posts.data+finish_owner_posts.data)
 
-def home(request):
-    t="qwe"
-    return render(request, 'home.html',{'t':t})
+@api_view(['POST'])
+def adopt_login(request):
+    serializer = Adopt_adminSerializer(data = request.data)
+    if serializer.is_valid():
+        try:
+            adopt_admin = Adopt_admin.objects.get(account=serializer.data['account'])
+        except:
+            return Response(0)
+        if adopt_admin.pwd==serializer.data['pwd']:
+            return Response(1)
+        else:
+            return Response(0)
+
+@api_view(['GET'])
+def adopt_post_list(request):
+    adopt_posts = Adopt_post.objects.all().values('title','id','dog_type','imageurl','posted_time')
+    serializer = Adopt_postSerializer(adopt_posts, many = True)
+    return Response(adopt_posts)
+
+@api_view(['POST'])
+def adopt_post_create(request):
+    serializer = Adopt_postSerializer(data = request.data)
+    if serializer.is_valid():
+        serializer.save()
+        
+        if serializer.data['image'] != "":
+            os.makedirs('./media/adopt/'+str(serializer.data['id']))
+            output = open('media/adopt/'+str(serializer.data['id'])+'/profile.jpg', 'wb+')
+            
+            # x = serializer.data['image'][22:]
+            # x += "=" * ((4 - len(x) % 4) % 4)
+            output.write(base64.b64decode(serializer.data['image'][22:]))
+            output.close()
+
+            post = Adopt_post.objects.get(id=serializer.data['id'])
+            post.image = ""
+            post.imageurl = 'http://202.30.31.91:8000/' + 'media/adopt/' + str(serializer.data['id']) + '/profile.jpg'
+            post.save()
+        else:
+            pass
+
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def adopt_post_detail(request,pk):
+    adopt_posts = Adopt_post.objects.filter(id=pk)
+    post_serializer = Adopt_postSerializer(adopt_posts, many = True)
+    adopt_post = Adopt_post.objects.get(id=pk)
+    # post_serializer = Adopt_postSerializer(adopt_post, many = True)
+    adopt_post.view_count = adopt_post.view_count+1
+    adopt_post.save()
+    comments = Comment.objects.filter(commented_post_type="adopt").filter(commented_post=adopt_post.id)
+    comments_serializer = CommentSerializer(comments, many = True)
+    
+    return Response({'post':post_serializer.data,'comments':comments_serializer.data})
+
+@api_view(['POST'])
+def adopt_post_delete(request,pk):
+    adopt_post = Adopt_post.objects.get(id=pk)
+    adopt_post.delete()
+    return Response(1, status = status.HTTP_201_CREATED)
