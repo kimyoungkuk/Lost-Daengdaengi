@@ -24,11 +24,23 @@
           >
           </mapView>
           <fab @tap="myLocTap" row="0" rippleColor="#ffffff" icon = "ic_menu_mylocation" class="fab-button"></fab>
+          <SegmentedBar @selectedIndexChange="onSelectedIndexChange">
+            <SegmentedBarItem title="찾았어요"/>
+            <SegmentedBarItem title="찾아주세요"/>
+          </SegmentedBar>
+      
       </GridLayout>
       <GridLayout row = "1" rows = "auto,*">
+<<<<<<< HEAD
+                <Label row = "0" backgroundColor = "#4ba5fa" @swipe = "onSwipe" padding = "10"></Label>
+
+                <ScrollView row="1">
+                    <WebView ref = "webview" loaded="onWebViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
+=======
                 <Label row = "0" backgroundColor = "#FA7268" @swipe = "onSwipe" padding = "10"></Label>
                 <ScrollView row="1">
                     <WebView height="500" ref = "webview" @loadFinished="completeLoading" loaded="onWebViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
+>>>>>>> d6a1a01ddf69278fc6e4ebc326ab6246e499842d
                 </ScrollView>
       </GridLayout>
         </GridLayout>
@@ -37,19 +49,28 @@
 
 <script>
 import * as utils from "utils/utils";
-import * as Gmap from "nativescript-google-maps-sdk";
+import * as mapsModule from "nativescript-google-maps-sdk";
 import * as geolocation from "nativescript-geolocation";
 import { Accuracy } from "tns-core-modules/ui/enums";
 
 var webViewModule = require('ui/web-view');
 const SwipeDirection = require("tns-core-modules/ui/gestures").SwipeDirection;
+import * as http from "http";
+import { Image } from 'tns-core-modules/ui/image/image';
+
 export default {
   
     data() {
       return {
+        marker_Finder :[],
+        marker_Owner :[],
         //ChangedNickName : this.$store.state.user_nickname,
+<<<<<<< HEAD
+        mapView : null,
+=======
         map : null,
         webView : null,
+>>>>>>> d6a1a01ddf69278fc6e4ebc326ab6246e499842d
         lat :37,
         lng :127,
         padd : [40,40,40,40],
@@ -57,6 +78,7 @@ export default {
         count : 0,
         API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname,
         API_WEBVIEW_URL_finder_temp : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname,
+        selected :0
       }
     },
   methods: {
@@ -75,8 +97,10 @@ export default {
     });
 },
       onMapReady(args){
-        var mView = args.object;  
+        var mView = args.object;
+        this.mapView = mView;  
         var gMap = mView.gMap;
+        var marker_T;
         geolocation.getCurrentLocation({
                     desiredAccuracy: Accuracy.high,
                     maximumAge: 2000,
@@ -85,12 +109,8 @@ export default {
            this.lat = loc.latitude
            this.lng = loc.longitude
         })
+  
         gMap.myLocationEnabled=true
-        console.log(gMap.myLocation)
-        console.log(args.object._observers)
-        console.log(mView.settings.myLocationButtonEnabled);
-       // this.map.settings.setCenter({lat : 11,lng : 21})
-      //  this.map.settings.setZoom(12)
       },
       myLocTap(args){
         geolocation.getCurrentLocation({
@@ -101,6 +121,51 @@ export default {
            this.lat = loc.latitude
            this.lng = loc.longitude
         })
+      },
+      onSelectedIndexChange(args){
+          var marker_T;
+          if(this.mapView){
+            this.mapView.clear();
+            this.marker_Finder = [];
+            this.marker_Owner = [];
+          }
+          if(this.selected == 0){
+            this.$http.get(this.$store.state.API_BACKEND_URL + '/api/finderPosts/list',{
+                  })
+                  .then(res => {
+                      for(var i =0; i<res.data.length;i++){
+                          marker_T = new mapsModule.Marker();
+                          marker_T.position = mapsModule.Position.positionFromLatLng(res.data[i].lat,res.data[i].lng);
+                          marker_T.title = res.data[i].title;
+                          marker_T.userData = res.data[i];
+                          this.marker_Finder.push(marker_T);
+                        }
+                      for(var i =0;i<this.marker_Finder.length;i++){
+                          this.mapView.addMarker(this.marker_Finder[i]);
+                        }
+                      })
+                  .catch(error => {console.log(error)});
+            this.selected = 1;
+          }
+          else{
+            this.$http.get(this.$store.state.API_BACKEND_URL + '/api/ownerPosts/list',{
+                })
+                .then(res => {
+                    for(var i =0; i<res.data.length;i++){
+                      marker_T = new mapsModule.Marker();
+                      marker_T.position = mapsModule.Position.positionFromLatLng(res.data[i].lat,res.data[i].lng);
+                      marker_T.title = res.data[i].title;
+                      marker_T.userData = res.data[i];
+                      this.marker_Owner.push(marker_T);
+                    }
+                    for(var i =0;i<this.marker_Owner.length;i++){
+                      this.mapView.addMarker(this.marker_Owner[i]);
+                    }
+                    })
+                .catch(error => {console.log(error)});
+                this.selected = 0;
+          }
+
       },
       onSwipe(args) {
                 let direction =
