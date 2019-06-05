@@ -528,7 +528,7 @@ def finish_post_list(request):
 
 @api_view(['GET'])
 def adopt_post_list(request):
-    adopt_posts = Adopt_post.objects.all()
+    adopt_posts = Adopt_post.objects.all().values('title','id','dog_type','imageurl')
     serializer = Adopt_postSerializer(adopt_posts, many = True)
     return Response(adopt_posts)
 
@@ -541,8 +541,10 @@ def adopt_post_create(request):
         if serializer.data['image'] != "":
             os.makedirs('./media/adopt/'+str(serializer.data['id']))
             output = open('media/adopt/'+str(serializer.data['id'])+'/profile.jpg', 'wb+')
-            logging.error(serializer.data['image'])
-            output.write(base64.b64decode(serializer.data['image']))
+            
+            # x = serializer.data['image'][22:]
+            # x += "=" * ((4 - len(x) % 4) % 4)
+            output.write(base64.b64decode(serializer.data['image'][22:]))
             output.close()
 
             post = Adopt_post.objects.get(id=serializer.data['id'])

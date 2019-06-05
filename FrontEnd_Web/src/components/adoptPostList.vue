@@ -75,7 +75,7 @@ export default {
       nickname : this.$store.state.user_nickname,
       lat : 0,
       lng : 0,
-      posts: [{title:'', dog_type:'', lost_time:'', imageurl:''}],
+      posts: [{title:'', dog_type:'', imageurl:''}],
       form: {
           starttime: null,
           finaltime: null,
