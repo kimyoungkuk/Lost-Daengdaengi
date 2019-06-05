@@ -528,7 +528,7 @@ def finish_post_list(request):
 
 @api_view(['GET'])
 def adopt_post_list(request):
-    adopt_posts = Adopt_post.objects.all()
+    adopt_posts = Adopt_post.objects.all().values('title','id','dog_type','imageurl')
     serializer = Adopt_postSerializer(adopt_posts, many = True)
     return Response(adopt_posts)
 
