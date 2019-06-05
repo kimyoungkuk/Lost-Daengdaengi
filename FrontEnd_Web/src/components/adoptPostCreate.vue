@@ -4,14 +4,14 @@
     <b-form @submit="onSubmit">
     <b-form-group
       label-cols-lg="3"
-      label="Adopt Dog Post"
+      label="유기견 분양글"
       label-size="lg"
       label-class="font-weight-bold pt-0"
       class="mb-0"
     >
       <b-form-group
         label-cols-sm="3"
-        label="Title:"
+        label="제목:"
         label-align-sm="right"
         label-for="nested-title"
       >
@@ -20,7 +20,7 @@
 
       <b-form-group
         label-cols-sm="3"
-        label="Phone number:"
+        label="연락처:"
         label-align-sm="right"
         label-for="nested-phone-number"
       >
@@ -29,7 +29,7 @@
 
       <b-form-group
         label-cols-sm="3"
-        label="Dog Type:"
+        label="견종:"
         label-align-sm="right"
         label-for="nested-dog-type"
       >
@@ -38,7 +38,7 @@
 
       <b-form-group
         label-cols-sm="3"
-        label="Dog age:"
+        label="연령:"
         label-align-sm="right"
         label-for="nested-dog-age"
       >
@@ -47,7 +47,7 @@
 
       <b-form-group
         label-cols-sm="3"
-        label="Dog sex:"
+        label="성별:"
         label-align-sm="right"
         label-for="nested-dog-sex"
       >
@@ -55,13 +55,13 @@
           id="dog-sex"
           v-model="dog_sex"
           class="pt-2"
-          :options="['Male', 'Female']"
+          :options="['수컷', '암컷']"
         ></b-form-radio-group>
       </b-form-group>
 
       <b-form-group
         label-cols-sm="3"
-        label="Neutralizer:"
+        label="중성화:"
         label-align-sm="right"
         label-for="nested-neutralizer"
       >
@@ -69,13 +69,13 @@
           id="nested-neutralizer"
           v-model="is_neu"
           class="pt-2"
-          :options="['Yes', 'No']"
+          :options="['O', 'X']"
         ></b-form-radio-group>
       </b-form-group>
 
       <b-form-group
         label-cols-sm="3"
-        label="Vaccine:"
+        label="예방접종:"
         label-align-sm="right"
         label-for="nested-vaccine"
       >
@@ -83,20 +83,20 @@
           id="nested-vaccine"
           v-model="is_vac"
           class="pt-2"
-          :options="['Yes', 'No']"
+          :options="['O', 'X']"
         ></b-form-radio-group>
       </b-form-group>
 
       <b-form-group
         label-cols-sm="3"
-        label="Contents:"
+        label="내용:"
         label-align-sm="right"
         label-for="nested-contents"
       >
         <b-form-textarea
           id="textarea"
           v-model="contents"
-          placeholder="Enter something..."
+          placeholder="소개글을 적어주세요"
           rows="6"
           max-rows="9"
         ></b-form-textarea>
@@ -106,17 +106,17 @@
 
       <b-form-group
         label-cols-sm="3"
-        label="Image:"
+        label="이미지:"
         label-align-sm="right"
         label-for="nested-contents"
       >
         <b-form-file @change="onFileSelected" v-model="selectedFile" class="mt-3" plain></b-form-file>
-        <div class="mt-3">Selected file: {{ selectedFile ? selectedFile.name : '' }}</div>
+        <div class="mt-3">선택된 이미지: {{ selectedFile ? selectedFile.name : '' }}</div>
 
       </b-form-group>
       <b-form-group
         label-cols-sm="3"
-        label="Shelter:"
+        label="보호소:"
         label-align-sm="right"
         label-for="nested-shelter"
       >
