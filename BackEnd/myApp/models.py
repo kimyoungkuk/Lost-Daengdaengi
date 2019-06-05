@@ -107,7 +107,9 @@ class Adopt_post(models.Model):
     is_neu          =   models.CharField(max_length = 200)
     is_vac          =   models.CharField(max_length = 200)
     contents        =   models.TextField(max_length = 200)
-    image           =   models.ImageField(default="media/defaut_image.jpg")
+    image           =   models.TextField(default = "", blank=True, null=True)
+    imageurl        =   models.CharField(max_length = 2000, default = "http://202.30.31.91/media/default_image.jpg", blank=True, null=True)
+
     shelter         =   models.ForeignKey(
             Dog_shelter,
             on_delete = models.CASCADE,
