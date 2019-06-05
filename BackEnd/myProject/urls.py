@@ -72,5 +72,6 @@ urlpatterns = [
     path('adopt/home',myApp.views.adopt_home,name="adopt_home"),
     path('adopt/post/list',myApp.views.adopt_post_list,name="adopt_post_list"),
     path('adopt/post/create',myApp.views.adopt_post_create,name="adopt_post_create"),
+    path('adopt/post/detail/<int:pk>',myApp.views.adopt_post_detail,name="adopt_post_detail"),
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

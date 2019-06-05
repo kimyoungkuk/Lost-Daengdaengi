@@ -568,3 +568,9 @@ def adopt_post_detail(request,pk):
     comments_serializer = CommentSerializer(comments, many = True)
     
     return Response({'post':post_serializer.data,'comments':comments_serializer.data})
+
+@api_view(['POST'])
+def adopt_post_delete(request,pk):
+    adopt_post = Adopt_post.objects.get(id=pk)
+    adopt_post.delete()
+    return Response(1, status = status.HTTP_201_CREATED)

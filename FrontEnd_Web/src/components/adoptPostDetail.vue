@@ -6,7 +6,7 @@
             <b-badge variant="dark">작성자</b-badge>
             {{this.form.user_nickname}}
             <b-badge variant="dark">잃어버린 날짜</b-badge>
-            {{this.form.lost_time}}
+            {{this.form.posted_time}}
             <b-badge variant="dark">조회수</b-badge>
             {{this.form.view_count}}
             <br>
@@ -37,11 +37,7 @@
                       <span>비고 : {{this.form.remark}}</span>
                     </div>
                   </v-card-title>
-                  <v-card-actions>
-                    <v-btn flat color="orange" v-b-modal.modal-finish>Finish</v-btn>
-                    <v-btn flat color="orange" v-on:click="recommend">Explore</v-btn>
-                    <v-btn flat color="orange" v-b-modal.modal-report v-on:click="reportBoard">report</v-btn>
-                  </v-card-actions>
+                  
                 </v-card>
               </v-flex>
             </v-layout>
@@ -226,24 +222,25 @@ export default {
     getBoardDetail() {
       this.$http
         .get(
-          `http://202.30.31.91:8000/api/ownerPosts/detail/${
+          `http://202.30.31.91:8000/adopt/post/detail/${
             this.$route.params.id
           }`
         )
         .then(res => {
-          console.log(res.data.post[0]);
-          console.log(res.data.comments)
-          this.form = res.data.post[0];
-          this.comments = res.data.comments
-          console.log(this.form);
-          this.form.lost_time = this.$moment(this.form.lost_time).format(
-            "LLLL"
-          );
-          for (var i = 0; i < this.form.comments.length; i++) {
-            this.form.comments[i].createAt = this.$moment(
-              this.form.comments[i].createAt
-            ).format("LLLL");
-          }
+            console.log("QWE");
+            console.log(res.data.post[0]);
+            console.log(res.data.comments)
+            this.form = res.data.post[0];
+            this.comments = res.data.comments
+            console.log(this.form);
+            this.form.lost_time = this.$moment(this.form.lost_time).format(
+                "LLLL"
+            );
+            for (var i = 0; i < this.form.comments.length; i++) {
+                this.form.comments[i].createAt = this.$moment(
+                this.form.comments[i].createAt
+                ).format("LLLL");
+            }
         });
     },
     deleteBoard() {
@@ -253,12 +250,12 @@ export default {
       if(this.form.user_nickname==this.nickname){
 
         this.$http
-        .post(`http://202.30.31.91:8000/api/ownerPosts/delete/${this.$route.params.id}`)
+        .post(`http://202.30.31.91:8000/adopt/post/delete/${this.$route.params.id}`)
         .then(res => {
           const status = res.status;
           // if (status === 200) {
             alert("정상적으로 삭제되었습니다.");
-            this.$router.push("/ownerboard");
+            this.$router.push("/adopt/post/list");
           // } else if (status === 203) {
           //   alert("해당 권한이 존재하지 않습니다.");
           //   this.$router.push("/board");
@@ -270,31 +267,11 @@ export default {
       }
       else{
         alert("해당 권한이 존재하지 않습니다.");
-        this.$router.push("/ownerboard");
+        this.$router.push("/adopt/post/list");
       }
-    },
-    finishBoard(){
-      this.$router.push(`/ownerboard/finish/${this.$route.params.id}`);
-      if(this.form.user_nickname==this.nickname){
-
-        this.$http
-        .post(`http://202.30.31.91:8000/api/ownerPosts/finish/${this.$route.params.id}`)
-        .then(res => {
-          const status = res.status;
-            this.$router.push("/ownerboard");
-        })
-        .catch(err => {
-          alert(err);
-        });
-      }
-      else{
-        alert("해당 권한이 존재하지 않습니다.");
-        this.$router.push("/ownerboard");
-      }
-
     },
     toBoard() {
-      this.$router.push("/ownerboard");
+      this.$router.push("/adopt/post/list");
     },
     updateBoard() {
       this.$http.get(`/api/board/posts/${this.$route.params.id}`).then(res => {
@@ -325,14 +302,14 @@ export default {
       comment.user_nickname = "ChanYoung"
       comment.contents = this.contents;
       comment.commented_post = this.form.id;
-      comment.commented_post_type = "owner"
+      comment.commented_post_type = "adopt"
       // this.$http.post(`http://202.30.31.91:8000/api/comments/create`, {
       axios.post(`http://202.30.31.91:8000/api/comments/create`, {
       user_key : "pgd0919@gmail.com",
       user_nickname : "ChanYoung",
       contents : comment.contents,
       commented_post : comment.commented_post,
-      commented_post_type : "owner"
+      commented_post_type : "adopt"
       })
       .then(res => {
         console.log(res.data);
@@ -356,37 +333,6 @@ export default {
             this.$router.push("/board");
           }
         });
-    },
-    recommend(){
-      this.$router.push(`/ownerboard/recommend/${this.$route.params.id}`);
-
-
-    },
-    createReport() {
-      let report = {
-        user_nickname: "",
-        report_contents: "",
-        reported_post: Number,
-        reported_post_type: ""
-      };
-      report.user_nickname = "ChanYoung"
-      report.report_contents = this.report_contents;
-      report.reported_post = this.form.id;
-      report.reported_post_type = "owner"
-      // this.$http.post(`http://202.30.31.91:8000/api/reports/create`, {
-      axios.post(`http://202.30.31.91:8000/api/reports/create`, {
-      user_nickname : report.user_nickname,
-      report_contents : report.report_contents,
-      reported_post : report.reported_post,
-      reported_post_type : report.reported_post_type
-      })
-      .then(res => {
-        console.log(res.data);
-        console.log("ZXCZXC");
-
-      });
-      this.contents = "";
-      this.getBoardDetail();
     },
 
 
