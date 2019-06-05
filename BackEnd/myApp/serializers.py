@@ -61,6 +61,12 @@ class FilteringSerializer(serializers.ModelSerializer):
         model = Filtering
         fields = '__all__'
 
+class Adopt_postSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(use_url=True)
+    class Meta:
+        model = Adopt_post
+        fields = '__all__'
+
 # class KeySerializer(serializers.ModelSerializer):
 #     class Meta:
 #         fields = ('key',)
