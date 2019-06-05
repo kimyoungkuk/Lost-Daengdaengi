@@ -528,12 +528,14 @@ def finish_post_list(request):
 def adopt_login(request):
     serializer = Adopt_adminSerializer(data = request.data)
     if serializer.is_valid():
-        adopt_admin = Adopt_admin.objects.get(account=serializer.data['account'])
+        try:
+            adopt_admin = Adopt_admin.objects.get(account=serializer.data['account'])
+        except:
+            return Response(0)
         if adopt_admin.pwd==serializer.data['pwd']:
             return Response(1)
         else:
             return Response(0)
-        return Response(0)
 
 @api_view(['GET'])
 def adopt_post_list(request):
