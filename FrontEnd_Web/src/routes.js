@@ -11,8 +11,11 @@ import FinderForm from './components/FinderForm'
 import OwnerForm from './components/OwnerForm'
 import f2o_recommend from './components/f2o_recommend'
 import o2f_recommend from './components/o2f_recommend'
+import FinishBoard from './components/FinishBoard'
+
 import test1 from './components/test1'
 import test2 from './components/test2'
+
 
 export default [
   { // Test Page
@@ -81,9 +84,14 @@ export default [
     component: f2o_recommend
   },
   { //
-    path: '/Ownerboard/recommend/:query',
+    path: '/ownerboard/recommend/:query',
     name: 'o2f_recommend',
     component: o2f_recommend
+  },
+  { //
+    path: '/finishboard',
+    name: 'finishboard',
+    component: FinishBoard
   },
   {
     path: '/finderForm',
