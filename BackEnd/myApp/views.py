@@ -477,20 +477,20 @@ def f2o_recommend(request,pk):
     owner_posts1 = Owner_post.objects.filter(dog_type=finder_post.dog_type).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
     owner_posts2 = Owner_post.objects.filter(lost_time__gte=finder_post.find_time+timedelta(days=-7)).filter(lost_time__lte=finder_post.find_time+timedelta(days=7)).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
     owner_posts3 = Owner_post.objects.filter(
-        lat__gte = finder_post.lat - 0.005,
-        lat__lte = finder_post.lat + 0.005,
-        lng__gte = finder_post.lng - 0.005,
-        lng__lte = finder_post.lng + 0.005
+        lat__gte = finder_post.lat - 0.01,
+        lat__lte = finder_post.lat + 0.01,
+        lng__gte = finder_post.lng - 0.01,
+        lng__lte = finder_post.lng + 0.01
         ).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
     serializerOwner1 = Owner_postSerializer(owner_posts1, many = True)
     serializerOwner2 = Owner_postSerializer(owner_posts2, many = True)
     serializerOwner3 = Owner_postSerializer(owner_posts3, many = True)
     
     owner_posts = Owner_post.objects.filter(dog_type=finder_post.dog_type).filter(lost_time__gte=finder_post.find_time+timedelta(days=-7)).filter(lost_time__lte=finder_post.find_time+timedelta(days=7)).filter(
-        lat__gte = finder_post.lat - 0.005,
-        lat__lte = finder_post.lat + 0.005,
-        lng__gte = finder_post.lng - 0.005,
-        lng__lte = finder_post.lng + 0.005
+        lat__gte = finder_post.lat - 0.01,
+        lat__lte = finder_post.lat + 0.01,
+        lng__gte = finder_post.lng - 0.01,
+        lng__lte = finder_post.lng + 0.01
         ).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
     serializerOwner = Owner_postSerializer(owner_posts, many = True)
 

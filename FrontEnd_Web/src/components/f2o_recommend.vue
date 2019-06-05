@@ -1,6 +1,8 @@
 <template>
   <div>
-        
+    <div>
+      <h1>높은 유사도를 가지는 유기견들입니다.</h1>
+    </div>
     <div>
       <b-card-group deck deck v-for="row in formattedPosts">
         <b-card  v-for="post in row"
@@ -40,7 +42,7 @@ export default {
       nickname : this.$store.state.user_nickname,
       lat : 0,
       lng : 0,
-      posts1: [{title:'', dog_type:'', lost_time:'', imageurl:''}],
+      posts: [{title:'', dog_type:'', lost_time:'', imageurl:''}],
       form: {
           starttime: null,
           finaltime: null,
@@ -73,22 +75,8 @@ export default {
       })
     },
   computed: {
-            formattedPosts1() {
-          return this.posts1.reduce((c, n, i) => {
-              if (i % 4 === 0) c.push([]);
-              c[c.length - 1].push(n);
-              return c;
-          }, []);
-      },
-      formattedPosts2() {
-          return this.posts2.reduce((c, n, i) => {
-              if (i % 4 === 0) c.push([]);
-              c[c.length - 1].push(n);
-              return c;
-          }, []);
-      },
-      formattedPosts3() {
-          return this.posts3.reduce((c, n, i) => {
+            formattedPosts() {
+          return this.posts.reduce((c, n, i) => {
               if (i % 4 === 0) c.push([]);
               c[c.length - 1].push(n);
               return c;
