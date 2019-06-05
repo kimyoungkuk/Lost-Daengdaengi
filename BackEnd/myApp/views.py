@@ -536,6 +536,6 @@ def adopt_post_list(request):
 def adopt_post_create(request):
     serializer = Adopt_postSerializer(data = request.data)
     if serializer.is_valid():
-        logging.error("QWE")
         serializer.save()
+        
     return Response(serializer.data)
