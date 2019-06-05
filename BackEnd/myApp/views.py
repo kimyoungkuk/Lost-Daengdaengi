@@ -555,3 +555,16 @@ def adopt_post_create(request):
             pass
 
     return Response(serializer.data)
+
+@api_view(['GET'])
+def adopt_post_detail(request,pk):
+    adopt_posts = Adopt_post.objects.filter(id=pk)
+    post_serializer = Adopt_postSerializer(adopt_posts, many = True)
+    adopt_post = Adopt_post.objects.get(id=pk)
+    # post_serializer = Adopt_postSerializer(adopt_post, many = True)
+    adopt_post.view_count = adopt_post.view_count+1
+    adopt_post.save()
+    comments = Comment.objects.filter(commented_post_type="adopt").filter(commented_post=adopt_post.id)
+    comments_serializer = CommentSerializer(comments, many = True)
+    
+    return Response({'post':post_serializer.data,'comments':comments_serializer.data})
