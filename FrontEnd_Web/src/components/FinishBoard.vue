@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div>
+        <div>
       <b-button-group>
       <b-button router-link to='/finderboard' variant="outline-primary">발견인 게시판</b-button>
       <b-button router-link to='/ownerboard' variant="outline-primary">유기견주 게시판</b-button>
@@ -51,7 +51,8 @@
                 <strong>견종 : </strong>{{post.dog_type}}
             </p>
             <p class="card-text">
-              <strong>잃어버린 날짜 : </strong>{{$moment($moment(post.lost_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}
+              <!-- <strong>찾은 날짜 : </strong>{{$moment($moment(post.lost_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}} -->
+              <strong>반환완료</strong>
             </p>
             <div slot="footer">
                 <!-- <b-btn variant="primary" block>상세보기</b-btn> -->
@@ -102,18 +103,18 @@ export default {
     this.lng = urlParams.get('lng');
     console.log(this.lat)
     console.log(this.lng)
-    this.$http.get('http://202.30.31.91:8000/api/ownerPosts/list')
+    this.$http.get('http://202.30.31.91:8000/api/finishPosts/list')
       .then(res => {
           console.log(res.data)
           this.posts = res.data
 
-          if (this.lat!=null && this.lng!=null){
-          this.$http.get("http://202.30.31.91:8000/api/ownerPosts/filter/with?key="+this.key+"&nickname="+this.nickname+"&lat=" + this.lat + "&lng=" + this.lng)
-            .then(res => {
-              this.posts = res.data
-              console.log(res.data)
-            })
-          }
+          // if (this.lat!=null && this.lng!=null){
+          // this.$http.get("http://202.30.31.91:8000/api/ownerPosts/filter/with?key="+this.key+"&nickname="+this.nickname+"&lat=" + this.lat + "&lng=" + this.lng)
+          //   .then(res => {
+          //     this.posts = res.data
+          //     console.log(res.data)
+          //   })
+          // }
       })
     },
   computed: {
