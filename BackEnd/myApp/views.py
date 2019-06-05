@@ -528,7 +528,7 @@ def finish_post_list(request):
 def adopt_login(request):
     serializer = Adopt_adminSerializer(data = request.data)
     if serializer.is_valid():
-        adopt_admin = Adopt_post.objects.get(account=serializer.data['account'])
+        adopt_admin = Adopt_admin.objects.get(account=serializer.data['account'])
         if adopt_admin.pwd==serializer.data['pwd']:
             return Response(1)
         else:
