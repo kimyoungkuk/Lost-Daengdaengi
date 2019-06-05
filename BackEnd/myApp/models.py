@@ -102,11 +102,12 @@ class Adopt_post(models.Model):
     phone_num       =   models.CharField(max_length = 1000)
     posted_time     =   models.DateTimeField(auto_now_add = True)
     dog_type        =   models.CharField(max_length = 200)
-    dog_age         =   models.IntegerField()
-    dog_sex         =   models.IntegerField()
-    is_neu          =   models.IntegerField()
-    is_vac          =   models.IntegerField()
-    contents        =   models.TextField()
+    dog_age         =   models.CharField(max_length = 200)
+    dog_sex         =   models.CharField(max_length = 200)
+    is_neu          =   models.CharField(max_length = 200)
+    is_vac          =   models.CharField(max_length = 200)
+    contents        =   models.TextField(max_length = 200)
+    image           =   models.ImageField(default="media/defaut_image.jpg")
     shelter         =   models.ForeignKey(
             Dog_shelter,
             on_delete = models.CASCADE,

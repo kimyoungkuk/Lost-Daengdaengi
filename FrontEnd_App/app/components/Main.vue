@@ -1,7 +1,7 @@
 <template>
   <Page>
         <ActionBar class="font-weight-bold" title="Lost Daengdaengi">
-          <NavigationButton icon = "~/assets/images/baseline_menu_black_18dp.png"/>
+          <NavigationButton icon = "~/assets/images/baseline_menu_black_18dp.png" @tap="openDrawer"/>
         </ActionBar>
                 <ScrollView>
           <StackLayout>     

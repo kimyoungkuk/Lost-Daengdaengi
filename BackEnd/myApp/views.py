@@ -524,6 +524,17 @@ def finish_post_list(request):
     serializer = Owner_postSerializer(finish_owner_posts, many = True)
     return Response(finish_finder_posts.data+finish_owner_posts.data)
 
-def home(request):
-    t="qwe"
-    return render(request, 'home.html',{'t':t})
+
+
+@api_view(['GET'])
+def adopt_post_list(request):
+    adopt_posts = Adopt_post.objects.all()
+    serializer = Adopt_postSerializer(adopt_posts, many = True)
+    return Response(adopt_posts)
+
+@api_view(['POST'])
+def adopt_post_create(request):
+    serializer = Adopt_postSerializer(data = request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)

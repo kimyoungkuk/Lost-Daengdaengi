@@ -34,3 +34,4 @@ admin.site.register(Dog_shelter, Dog_shelterAdmin)
 
 admin.site.register(Comment)
 admin.site.register(Report)
+admin.site.register(Adopt_post)
