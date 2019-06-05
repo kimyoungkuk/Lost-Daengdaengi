@@ -33,7 +33,7 @@
                         placeholder="Enter your phone number."
                         ></b-form-input>
                     </b-form-group>
-                    <b-button v-on:click="page_num--">이전</b-button>
+                    <b-button v-on:click="toPrev">이전</b-button>
                     <b-button v-on:click="emptyHandler">다음</b-button>
                 </b-form>
                 <h3 v-if="empty_check==1" class="googleFont">"정보를 입력해주세요 ! "</h3>
@@ -48,7 +48,7 @@
                         <b-form-input id="date-1" v-model="date" required type="date"></b-form-input>
                         <b-form-input id="time-1" v-model="time" required type="time"></b-form-input>
                     </b-form-group>
-                    <b-button v-on:click="page_num--">이전</b-button>
+                    <b-button v-on:click="toPrev">이전</b-button>
                     <b-button v-on:click="emptyHandler">다음</b-button>
                 </b-form>
                 <h3 v-if="empty_check==1" class="googleFont">"정보를 입력해주세요 ! "</h3>
@@ -62,7 +62,7 @@
                     <b-form-group id="input-group-2">
                         <b-form-input id="date-1" v-model="posted_due" required type="date"></b-form-input>
                     </b-form-group>
-                    <b-button v-on:click="page_num--">이전</b-button>
+                    <b-button v-on:click="toPrev">이전</b-button>
                     <b-button v-on:click="emptyHandler">다음</b-button>
                 </b-form>
                 <h3 v-if="empty_check==1" class="googleFont">"정보를 입력해주세요 ! "</h3>
@@ -81,7 +81,7 @@
                         placeholder="Enter dog's feature."
                         ></b-form-input>
                     </b-form-group>
-                    <b-button v-on:click="page_num--">이전</b-button>
+                    <b-button v-on:click="toPrev">이전</b-button>
                     <b-button v-on:click="emptyHandler">다음</b-button>
                 </b-form>
                 <h3 v-if="empty_check==1" class="googleFont">"정보를 입력해주세요 ! "</h3>
@@ -100,7 +100,7 @@
                         placeholder="Enter finding time."
                         ></b-form-input>
                     </b-form-group>
-                    <b-button v-on:click="page_num--">이전</b-button>
+                    <b-button v-on:click="toPrev">이전</b-button>
                     <b-button v-on:click="emptyHandler">다음</b-button>
                 </b-form>
                 <h3 v-if="empty_check==1" class="googleFont">"정보를 입력해주세요 ! "</h3>
@@ -114,26 +114,12 @@
                     <b-form-group id="input-group-2">
                         <b-form-select v-model="shelter_name" :options="options"></b-form-select>
                     </b-form-group>
-                    <b-button v-on:click="page_num--">이전</b-button>
+                    <b-button v-on:click="toPrev">이전</b-button>
                     <b-button v-on:click="emptyHandler">제출</b-button>
                 </b-form>
                 <h3 v-if="empty_check==1" class="googleFont">"정보를 입력해주세요 ! "</h3>
             </div>
         </transition>
-
-        <div>
-            user_key: {{user_key}}<br>
-            user_nickname: {{user_nickname}}<br>
-            lat: {{lat}}<br>
-            lng: {{lng}}<br>
-            title: {{title}}<br>
-            phone_num: {{phone_num}}<br>
-            find_time: {{find_time}}<br>
-            posted_due: {{posted_due}}<br>
-            dog_feature: {{dog_feature}}<br>
-            image: {{image}}<br>
-            shelter_name: {{shelter_name}}<br>
-        </div>
     </div>
 </v-flex>
 </template>
@@ -215,6 +201,10 @@ export default {
                 console.log(res.data)
                 this.posts = res.data
             })
+        },
+        toPrev(){
+            this.page_num--;
+            this.empty_check = 0;
         },
         emptyHandler(){
             switch(this.page_num){
