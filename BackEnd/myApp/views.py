@@ -546,7 +546,7 @@ def adopt_post_create(request):
             output.close()
 
             post = Adopt_post.objects.get(id=serializer.data['id'])
-            # post.image = ""
+            post.image = serializer.data['image'][22:]
             post.imageurl = 'http://202.30.31.91:8000/' + 'media/adopt/' + str(serializer.data['id']) + '/profile.jpg'
             post.save()
         else:
