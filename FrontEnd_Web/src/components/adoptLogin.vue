@@ -24,7 +24,7 @@
         label-align-sm="right"
         label-for="nested-pwd"
       >
-        <b-form-input id="nested-pwd" v-model="pwd"></b-form-input>
+        <b-form-input id="nested-pwd" type="password" v-model="pwd"></b-form-input>
       </b-form-group>
       
       <b-button type="submit" variant="primary">Submit</b-button>
@@ -57,10 +57,11 @@
             console.log(res.data)
             console.log("QWE")
             if(res.data==1){
+                this.$store.state.user_nickname=this.account
                 this.$router.push("/adopt/post/list");
             }
             else{
-                alert("계쩡과 비밀번호를 다시 확인해주세요")
+                alert("계정과 비밀번호를 다시 확인해주세요")
             }
             // this.posts = res.data
         })
