@@ -541,6 +541,7 @@ def adopt_post_create(request):
         if serializer.data['image'] != "":
             os.makedirs('./media/adopt/'+str(serializer.data['id']))
             output = open('media/adopt/'+str(serializer.data['id'])+'/profile.jpg', 'wb+')
+            logging.error(serializer.data['image'])
             output.write(base64.b64decode(serializer.data['image']))
             output.close()
 
