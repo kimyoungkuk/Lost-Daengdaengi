@@ -7,13 +7,7 @@ import Login from './components/Login'
 import AboutUs from './components/AboutUs'
 import PostDetailFinder from './components/PostDetailFinder'
 import PostDetailOwner from './components/PostDetailOwner'
-import FinderForm1 from './components/FinderForm1'
-import FinderForm2 from './components/FinderForm2'
-import FinderForm3 from './components/FinderForm3'
-import FinderForm4 from './components/FinderForm4'
-import FinderForm5 from './components/FinderForm5'
-import FinderForm6 from './components/FinderForm6'
-import FinderForm7 from './components/FinderForm7'
+import FinderForm from './components/FinderForm'
 import OwnerForm1 from './components/OwnerForm1'
 import OwnerForm2 from './components/OwnerForm2'
 import OwnerForm3 from './components/OwnerForm3'
@@ -27,13 +21,19 @@ import OwnerForm10 from './components/OwnerForm10'
 import OwnerForm11 from './components/OwnerForm11'
 import f2o_recommend from './components/f2o_recommend'
 import o2f_recommend from './components/o2f_recommend'
-import test from './components/test'
+import test1 from './components/test1'
+import test2 from './components/test2'
 
 export default [
   { // Test Page
-    path: '/test',
-    name: 'test',
-    component: test
+    path: '/test1',
+    name: 'test1',
+    component: test1
+  },
+  { // Test Page
+    path: '/test2',
+    name: 'test2',
+    component: test2
   },
   { // 홈페이지
     path: '/',
@@ -96,39 +96,9 @@ export default [
     component: o2f_recommend
   },
   {
-    path: '/finderForm1',
-    name: 'finderForm1',
-    component: FinderForm1
-  },
-  {
-    path: '/finderForm2',
-    name: 'finderForm2',
-    component: FinderForm2
-  },
-  {
-    path: '/finderForm3',
-    name: 'finderForm3',
-    component: FinderForm3
-  },
-  {
-    path: '/finderForm4',
-    name: 'finderForm4',
-    component: FinderForm4
-  },
-  {
-    path: '/finderForm5',
-    name: 'finderForm5',
-    component: FinderForm5
-  },
-  {
-    path: '/finderForm6',
-    name: 'finderForm6',
-    component: FinderForm6
-  },
-  {
-    path: '/finderForm7',
-    name: 'finderForm7',
-    component: FinderForm7
+    path: '/finderForm',
+    name: 'finderForm',
+    component: FinderForm
   },
   {
     path: '/ownerForm1',
