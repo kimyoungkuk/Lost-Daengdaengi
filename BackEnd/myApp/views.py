@@ -536,7 +536,19 @@ def adopt_post_list(request):
 def adopt_post_create(request):
     serializer = Adopt_postSerializer(data = request.data)
     if serializer.is_valid():
-        logging.error("QWE")
         serializer.save()
         
+        if serializer.data['image'] != "":
+            os.makedirs('./media/adopt/'+str(serializer.data['id']))
+            output = open('media/adopt/'+str(serializer.data['id'])+'/profile.jpg', 'wb+')
+            output.write(base64.b64decode(serializer.data['image']))
+            output.close()
+
+            post = Adopt_post.objects.get(id=serializer.data['id'])
+            post.image = ""
+            post.imageurl = 'http://202.30.31.91:8000/' + 'media/adopt/' + str(serializer.data['id']) + '/profile.jpg'
+            post.save()
+        else:
+            pass
+
     return Response(serializer.data)
