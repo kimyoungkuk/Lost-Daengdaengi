@@ -215,14 +215,11 @@ export default {
                 console.log(res.data)
                 this.posts = res.data
             })
-            this.toReload()
+            location.reload();  // 새로고침
         },
         toPrev(){
             this.page_num--;
             this.empty_check = 0;
-        },
-        toReload(){
-            this.$router.push("/ownerBoard");
         },
         emptyHandler(){
             switch(this.page_num){
@@ -326,4 +323,5 @@ export default {
 /* .fixed-pos transition{
     position: absolute;
 } */
+
 </style>
