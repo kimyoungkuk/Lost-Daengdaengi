@@ -542,11 +542,11 @@ def adopt_post_create(request):
             os.makedirs('./media/adopt/'+str(serializer.data['id']))
             output = open('media/adopt/'+str(serializer.data['id'])+'/profile.jpg', 'wb+')
             logging.error(serializer.data['image'][23:])
-            output.write(base64.b64decode(serializer.data['image']))
+            output.write(base64.b64decode("b'"+serializer.data['image'][23:]+"'"))
             output.close()
 
             post = Adopt_post.objects.get(id=serializer.data['id'])
-            post.image = "b'"+serializer.data['image'][23:]+"'"
+            post.image = ""
             post.imageurl = 'http://202.30.31.91:8000/' + 'media/adopt/' + str(serializer.data['id']) + '/profile.jpg'
             post.save()
         else:
