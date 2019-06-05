@@ -1,5 +1,5 @@
 <template>
-  <Page>
+  <Page @loaded = "loaded">
         <ActionBar class="font-weight-bold" title="Lost Daengdaengi">
           <NavigationButton icon = "~/assets/images/baseline_menu_black_18dp.png"/>
         </ActionBar>
@@ -33,7 +33,7 @@
 
 <script>
 import sideDrawer from '~/mixins/sideDrawer'
-
+import * as wViewModule from "ui/web-view";
   export default {
     mixins: [ sideDrawer ],
     data() {
@@ -43,6 +43,7 @@ import sideDrawer from '~/mixins/sideDrawer'
       }
     },
     methods:{
+
       completeLoading(){
         this.loadingComplete=false
       },
