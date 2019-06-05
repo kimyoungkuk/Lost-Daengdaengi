@@ -64,6 +64,9 @@ class FilteringSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class Adopt_postSerializer(serializers.ModelSerializer):
+    view_count      =   serializers.IntegerField(required=False)
+    user_nickname   =   serializers.CharField(required=False)
+    user_key        =   serializers.CharField(required=False)
     class Meta:
         model = Adopt_post
         fields = '__all__'
