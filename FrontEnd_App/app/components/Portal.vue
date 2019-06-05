@@ -26,7 +26,7 @@ export default {
   data () {
     return {
       user_NickName : this.$store.state.user_nick_visible,
-      user_email :this.$store.state.user_Email,
+      user_key :this.$store.state.user_key,
       
       pages: [
         { name: '마이 페이지', component: this.$router.mypage },

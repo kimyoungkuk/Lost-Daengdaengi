@@ -23,7 +23,7 @@
         loadingValue: 0,
         loadingComplete: true,
         src: ' ',
-        user_key: this.$store.state.user_Email,
+        user_key: this.$store.state.user_key,
         user_nickname: this.$store.state.user_nickname,
         lat: this.$store.state.FinderPost.lat,
         lng: this.$store.state.FinderPost.lng,

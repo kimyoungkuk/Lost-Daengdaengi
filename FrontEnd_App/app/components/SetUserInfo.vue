@@ -29,7 +29,7 @@ export default {
         console.log("Dialog result: " + result.result);
         console.log("Text: " + result.text);
             this.$http.post(this.$store.state.API_BACKEND_URL + '/api/users/signUp',{
-              key: this.$store.state.user_Email,
+              key: this.$store.state.user_key,
               nickname: result.text
                 })
                 .then(function(response){

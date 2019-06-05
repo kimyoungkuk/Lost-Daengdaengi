@@ -65,19 +65,16 @@ export default {
         marker_Finder :[],
         marker_Owner :[],
         //ChangedNickName : this.$store.state.user_nickname,
-<<<<<<< HEAD
         mapView : null,
-=======
         map : null,
         webView : null,
->>>>>>> d6a1a01ddf69278fc6e4ebc326ab6246e499842d
         lat :37,
         lng :127,
         padd : [40,40,40,40],
         row_scale : "*, 100",
         count : 0,
-        API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname,
-        API_WEBVIEW_URL_finder_temp : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname,
+        API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_key + "&nickname=" + this.$store.state.user_nickname,
+        API_WEBVIEW_URL_finder_temp : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_key + "&nickname=" + this.$store.state.user_nickname,
         selected :0
       }
     },

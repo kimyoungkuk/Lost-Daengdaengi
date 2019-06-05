@@ -59,8 +59,8 @@
         mixins: [ sideDrawer ],
         data () {
             return { 
-                API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname,
-                API_WEBVIEW_URL_finder_temp : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname,
+                API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_key + "&nickname=" + this.$store.state.user_nickname,
+                API_WEBVIEW_URL_finder_temp : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_key + "&nickname=" + this.$store.state.user_nickname,
                 makerinfo : [],
                 map : null,
                 row_scale : "*, 100",
