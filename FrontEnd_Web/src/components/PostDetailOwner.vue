@@ -38,7 +38,7 @@
                     </div>
                   </v-card-title>
                   <v-card-actions>
-                    <v-btn flat color="orange">Share</v-btn>
+                    <v-btn flat color="orange" v-b-modal.modal-finish>Finish</v-btn>
                     <v-btn flat color="orange" v-on:click="recommend">Explore</v-btn>
                     <v-btn flat color="orange" v-b-modal.modal-report v-on:click="reportBoard">report</v-btn>
                   </v-card-actions>
@@ -116,6 +116,25 @@
         <b-button
           @click="$bvModal.hide('modal-delete')"
         >취소</b-button>
+      </b-modal>
+
+      <b-modal
+        id="modal-finish"
+        ref="modal"
+        title="정말로 유기견이 반환되었나요?"
+        @show="resetModal"
+        @hidden="resetModal"
+        @ok="handleOk"
+        hide-footer
+      >
+          <b-button
+          v-if="userId == form.userId || admin === 1"
+          v-on:click="finishBoard"
+          variant="danger"
+        >예</b-button>
+        <b-button
+          @click="$bvModal.hide('modal-finish')"
+        >아니요</b-button>
       </b-modal>
 
 
@@ -253,6 +272,26 @@ export default {
         alert("해당 권한이 존재하지 않습니다.");
         this.$router.push("/ownerboard");
       }
+    },
+    finishBoard(){
+      this.$router.push(`/ownerboard/finish/${this.$route.params.id}`);
+      if(this.form.user_nickname==this.nickname){
+
+        this.$http
+        .post(`http://202.30.31.91:8000/api/ownerPosts/finish/${this.$route.params.id}`)
+        .then(res => {
+          const status = res.status;
+            this.$router.push("/ownerboard");
+        })
+        .catch(err => {
+          alert(err);
+        });
+      }
+      else{
+        alert("해당 권한이 존재하지 않습니다.");
+        this.$router.push("/ownerboard");
+      }
+
     },
     toBoard() {
       this.$router.push("/ownerboard");

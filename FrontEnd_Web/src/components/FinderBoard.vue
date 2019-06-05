@@ -5,7 +5,8 @@
       <b-button-group>
         <b-button router-link to='/finderboard' variant="outline-primary">발견인 게시판</b-button>
         <b-button router-link to='/ownerboard' variant="outline-primary">유기견주 게시판</b-button>
-      </b-button-group>
+        <b-button router-link to='/finishboard' variant="outline-primary">반환완료 게시판</b-button>
+    </b-button-group>
     </div>
     <!-- 검색 관련 div -->
     <div>

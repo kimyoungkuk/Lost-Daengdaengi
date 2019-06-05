@@ -58,6 +58,11 @@ urlpatterns = [
     path('api/ownerPosts/recommend/<int:pk>', myApp.views.o2f_recommend, name="ownerPosts/recommend"),
     path('api/finderPosts/recommend/<int:pk>', myApp.views.f2o_recommend, name="finderPosts/recommend"),
     
+    path('api/ownerPosts/finish/<int:pk>', myApp.views.owner_post_finish, name="ownerPosts/recommend"),
+    path('api/finderPosts/finish/<int:pk>', myApp.views.finder_post_finish, name="finderPosts/recommend"),
+    
+    path('api/finishPosts/list', myApp.views.finish_post_list, name = "finishPosts/list"),
+    
     path('api/classification', myApp.views.classificationImage, name="classification"),
     path('api/dogShelter/near', myApp.views.FindNearShelter, name = "dogShelter/near"),
     path('api/ownerPosts/filter', myApp.views.filteringOwner, name = "ownerPosts/filter"),
