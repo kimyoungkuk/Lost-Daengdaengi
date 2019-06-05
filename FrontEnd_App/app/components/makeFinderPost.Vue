@@ -5,11 +5,11 @@
 				<StackLayout ref="topView" height="425" style="background-image: url('~/assets/images/finder.jpg'); background-repeat: no-repeat; background-position: center; background-size: cover;">
 					<!-- this is the header for collapsing --->
 					<!-- Note: this can be any type of layout you want -->
-					<Label text="유기견을 발견하셨나요?" color="black" textAlignment="center" fontSize="25" marginTop="25" />
+					<Label class="font-weight-bold" text="유기견을 발견하셨나요?" color="white" textAlignment="center" fontSize="25" marginTop="25" />
 				</StackLayout>
 				<StackLayout width="100%" backgroundColor="white" padding="10">
 					<!--Add your page content here-->
-                    <Label textWrap="true" text="이 앱을 통해 유기견을 신고합니다 ..." class="h2 description-label" />
+                    <Label textWrap="true" text="이 앱을 통해 유기견을 제보합니다 ..." class="h2 description-label" />
                     <Label textWrap="true" class="p-10" text="1. 유기견 보호소 추천"/>
 					<Label textWrap="true" class="p-10" text="발견한 유기견을 어디에 맡겨야 하나요? 유기견을 보호할 수 있는 가장 가까운 유기견 보호소를 추천해주고 해당 장소까지 안내합니다."/>
                     <Label textWrap="true" class="p-10" text="2. 머신 러닝을 이용한 견종 분류"/>
