@@ -2,14 +2,14 @@
 <v-flex>
     <div class="backgroundImage" v-bind:style="{ 'background-image': 'url(' + img1 + ')'}">
         <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
-        <h1 class="googleFont">2. 전화번호를 입력하세요.</h1>
+        <h1 class="googleFont">7. 견종을 입력하세요.</h1>
         <b-form @submit="onClickNext" @reset="onClickPrev">
             <b-form-group id="input-group-2">
                 <b-form-input
                 id="input-2"
-                v-model="phone_num"
+                v-model="dog_type"
                 required
-                placeholder="Enter your phone number."
+                placeholder="Enter your dog type."
                 ></b-form-input>
             </b-form-group>
             <b-button type="reset">이전</b-button>
@@ -24,27 +24,27 @@ export default {
     data() {
         return {
             img1: require('../assets/formBackgroundImg.jpg'),
-            phone_num : ''
+            dog_type : ''
         }
     },
     methods: {
        onClickNext(evt){
            evt.preventDefault()
-           this.$store.state.FinderPost.phone_num   =   this.phone_num;
-           console.log(this.$store.state.FinderPost);
+           this.$store.state.ownerPost.dog_type   =   this.dog_type;
+           console.log(this.$store.state.ownerPost);
            this.toNext()
         },
         onClickPrev(evt){
            evt.preventDefault()
-           this.$store.state.FinderPost.phone_num   =   this.phone_num;
-           console.log(this.$store.state.FinderPost);
+           this.$store.state.ownerPost.dog_type   =   this.dog_type;
+           console.log(this.$store.state.ownerPost);
            this.toPrev()
         },
         toNext() {
-            this.$router.push("/finderForm3");
+            this.$router.push("/ownerForm8");
         },
         toPrev() {
-            this.$router.push("/finderForm1");
+            this.$router.push("/ownerForm6");
         }
     }
 }

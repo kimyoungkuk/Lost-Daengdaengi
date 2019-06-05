@@ -41,16 +41,16 @@ export default {
     methods: {
        onClick(evt){
            evt.preventDefault()
-           this.$store.state.FinderPost.title   =   this.title;
-           this.$store.state.FinderPost.lat     =   this.lat;
-           this.$store.state.FinderPost.lng     =   this.lng;
+           this.$store.state.ownerPost.title    =   this.title;
+           this.$store.state.ownerPost.lat      =   this.lat;
+           this.$store.state.ownerPost.lng      =   this.lng;
            this.$store.state.user_nickname      =   this.user_nickname;
            this.$store.state.user_key           =   this.user_key;
            console.log(this.$store.state);
            this.toNext()
         },
         toNext() {
-            this.$router.push("/finderForm2");
+            this.$router.push("/ownerForm2");
         }
     }
 }

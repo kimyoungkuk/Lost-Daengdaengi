@@ -2,10 +2,15 @@
 <v-flex>
     <div class="backgroundImage" v-bind:style="{ 'background-image': 'url(' + img1 + ')'}">
         <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
-        <h1 class="googleFont">4. 게시 기간을 입력하세요.</h1>
+        <h1 class="googleFont">9. 반려견의 특징을 입력하세요.</h1>
         <b-form @submit="onClickNext" @reset="onClickPrev">
             <b-form-group id="input-group-2">
-                <b-form-input id="date-1" v-model="posted_due" required type="date"></b-form-input>
+                <b-form-input
+                id="input-2"
+                v-model="dog_feature"
+                required
+                placeholder="Enter your dog feature."
+                ></b-form-input>
             </b-form-group>
             <b-button type="reset">이전</b-button>
             <b-button type="submit">다음</b-button>
@@ -19,27 +24,27 @@ export default {
     data() {
         return {
             img1: require('../assets/formBackgroundImg.jpg'),
-            posted_due : ''
+            dog_feature : ''
         }
     },
     methods: {
        onClickNext(evt){
            evt.preventDefault()
-           this.$store.state.FinderPost.posted_due  =   this.posted_due;
-           console.log(this.$store.state.FinderPost);
+           this.$store.state.ownerPost.dog_feature   =   this.dog_feature;
+           console.log(this.$store.state.ownerPost);
            this.toNext()
         },
         onClickPrev(evt){
            evt.preventDefault()
-           this.$store.state.FinderPost.posted_due   =   this.posted_due;
-           console.log(this.$store.state.FinderPost);
+           this.$store.state.ownerPost.dog_feature   =   this.dog_feature;
+           console.log(this.$store.state.ownerPost);
            this.toPrev()
         },
         toNext() {
-            this.$router.push("/finderForm5");
+            this.$router.push("/ownerForm10");
         },
         toPrev() {
-            this.$router.push("/finderForm3");
+            this.$router.push("/ownerForm9");
         }
     }
 }
