@@ -602,7 +602,7 @@ def master_login(request):
         except:
             return render(request,"login.html")
         if master_admin.pwd == request.POST['pwd']:
-            return redirect("master_home",report_num=Report.objects.all().count())
+            return render("master_home.html",{'report_num':Report.objects.all().count()})
         else:
             return render(request,"login.html")
 
