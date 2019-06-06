@@ -37,8 +37,8 @@
           ></b-form-select>
         </b-form-group>
         <!-- 제출 및 리셋 버튼 -->
-        <b-button type="submit" variant="primary">Submit</b-button>
-        <b-button type="reset" variant="danger">Reset</b-button>
+        <b-button type="submit" variant="primary">Submit{{this.$store.state.user_key}}</b-button>
+        <b-button type="reset" variant="danger">Reset{{this.$store.state.user_nickname}}</b-button>
       </b-form>
     </div>
 
@@ -96,7 +96,15 @@ export default {
     }
   },
   created(){
+    console.log("TTT")
     let urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams.get('key'))
+    console.log(urlParams.get('nickname'))
+    console.log("TTT")
+    this.$store.state.user_key = urlParams.get('key');
+    this.key = urlParams.get('key');
+    this.$store.state.user_nickname = urlParams.get('nickname');
+    this.nickname = urlParams.get('nickname');
     if(this.$store.state.user_key=="" || this.$store.state.user_nickname=="")
     {
       this.$store.state.user_key = urlParams.get('key');

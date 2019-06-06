@@ -90,7 +90,15 @@ export default {
     }
   },
   created(){
+    console.log("TTT")
     let urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams.get('key'))
+    console.log(urlParams.get('nickname'))
+    console.log("TTT")
+    this.$store.state.user_key = urlParams.get('key');
+    this.key = urlParams.get('key');
+    this.$store.state.user_nickname = urlParams.get('nickname');
+    this.nickname = urlParams.get('nickname');
     if(this.$store.state.user_key=="" || this.$store.state.user_nickname=="")
     {
       this.$store.state.user_key = urlParams.get('key');

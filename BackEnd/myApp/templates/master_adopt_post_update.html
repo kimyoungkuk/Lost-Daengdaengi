@@ -51,7 +51,7 @@
           <div class="table-responsive">
                 <a id="home_btn" class="write_button" href="{% url 'master_home' %}">home</a>
 
-<div id="main">
+<div style="margin-top:16px" id="main">
     <div class="form-box">
         <form action="{{adopt_post.id}}" method="POST" enctype="multipart/form-data">{% csrf_token %}
             <!-- action 추가 필요 -->

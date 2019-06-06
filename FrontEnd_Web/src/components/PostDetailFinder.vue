@@ -213,6 +213,15 @@ export default {
     };
   },
   created() {
+    console.log("TTT")
+    let urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams.get('key'))
+    console.log(urlParams.get('nickname'))
+    console.log("TTT")
+    this.$store.state.user_key = urlParams.get('key');
+    this.key = urlParams.get('key');
+    this.$store.state.user_nickname = urlParams.get('nickname');
+    this.nickname = urlParams.get('nickname');
             
     console.log("QWERTYUIOP");
     this.getBoardDetail();
@@ -333,10 +342,10 @@ export default {
       comment.commented_post_type = "finder"
       // this.$http.post(`http://202.30.31.91:8000/api/comments/create`, {
       axios.post(`http://202.30.31.91:8000/api/comments/create`, {
-      user_key : comment.user_key,
-      user_nickname : comment.user_nickname,
-      contents : comment.contents,
-      commented_post : comment.commented_post,
+      user_key : this.key,
+      user_nickname : this.nickname,
+      contents : this.contents,
+      commented_post : this.form.id,
       commented_post_type : "finder"
       })
       .then(res => {
