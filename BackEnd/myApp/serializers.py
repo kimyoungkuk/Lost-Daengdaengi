@@ -76,6 +76,11 @@ class Adopt_adminSerializer(serializers.ModelSerializer):
         model = Adopt_admin
         fields = '__all__'
 
+class Master_adminSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Master_admin
+        fields = '__all__'
+
 
 # class KeySerializer(serializers.ModelSerializer):
 #     class Meta:

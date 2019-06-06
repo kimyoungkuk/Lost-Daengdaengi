@@ -74,7 +74,7 @@ export default {
       console.log(this.nickname)
     }
     console.log(this.key)
-    if(this.key=='admin'){
+    if(this.key=='adopt_admin'){
         console.log("ZCX")
         console.log(this.key)
         this.mob=false
@@ -102,7 +102,7 @@ export default {
   },
   methods:{
       createPost(){
-          if(this.key=='admin'){
+          if(this.key=='adopt_admin'){
 
             this.$router.push("/adopt/post/create");
           }

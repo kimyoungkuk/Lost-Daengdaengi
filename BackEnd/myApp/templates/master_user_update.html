@@ -1,0 +1,50 @@
+{% load staticfiles %}
+{{ user.title }}
+<style>
+.input_field {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 4px;
+	margin: 3px 0;
+	font-size: 14px;
+	width: 100%;
+}
+.form_box {
+	background-color: #ffffff;
+	margin: 10px;
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	padding: 10px;
+}
+.textarea_field {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 4px;
+	margin: 3px 0;
+	font-size: 14px;
+	width: 100%;
+	height: 160px;
+}
+.write_button {
+	background-color: #475d9f;
+	border: 1px solid #323f6b;
+	color: #ffffff;
+	border-radius: 4px;
+	padding: 2px 8px;
+	font-soze: 18px;
+}
+</style>
+<div id="main">
+    <div class="form-box">
+        <form action="{{post.id}}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <!-- action 추가 필요 -->
+            {% csrf_token %}
+            <h2>게시물 올리기</h3>
+                <input class="input_field" type="text" placeholder="{{user.is_admin}}" name="is_admin"><br>
+                <input class="input_field" type="text" placeholder="{{user.nickname}}" name="nickname"><br>
+                <input class="input_field" type="text" placeholder="{{user.key}}" name="key"><br>
+            <input type="file" name="picture" accept="image/x-png,image/gif,image/jpeg"><br>
+            <button class="write_button">게시</button>
+        </form>
+    </div>
+</div>

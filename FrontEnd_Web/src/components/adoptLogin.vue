@@ -58,7 +58,7 @@
             console.log("QWE")
             if(res.data==1){
                 this.$store.state.user_nickname=this.account
-                this.$store.state.user_key="admin"
+                this.$store.state.user_key="adopt_admin"
                 console.log(this.$store.state.user_key)
                 this.$router.push("/adopt/post/list");
             }

@@ -1,2 +1,29 @@
 {% load staticfiles %}
-{{ dog_shelter.shelter_name }}
+
+<!-- Custom fonts for this template-->
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+<!-- Page level plugin CSS-->
+<link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+
+
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Shelter Name</th>
+            <th>Phone Number</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="{%url 'master_dog_shelter_detail' pk=dog_shelter.id  %}">{{ dog_shelter.shelter_name }}</a></td>
+            <td>{{ dog_shelter.phone_num }}</td>
+            <td>{{ dog_shelter.description }}</td>
+        </tr>
+    </tbody>
+</table>
+
