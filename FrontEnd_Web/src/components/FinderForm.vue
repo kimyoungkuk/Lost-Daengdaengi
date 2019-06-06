@@ -4,7 +4,7 @@
         <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">        
         <!-- 1. title-->
         <transition appear name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==1" class="mainFinerForm">
+            <div v-if="page_num==1" class="mainFinderForm">
                 <h1 class="googleFont_finder">발견인의 글제목</h1>
                 <b-form>
                     <b-form-group id="input-group-2">
@@ -24,7 +24,7 @@
         </transition>
         <!-- 2. phone_num -->
         <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==2" class="mainFinerForm">
+            <div v-if="page_num==2" class="mainFinderForm">
                 <h1 class="googleFont_finder">전화번호</h1>
                 <b-form>
                     <b-form-group id="input-group-2">
@@ -46,7 +46,7 @@
         </transition>
         <!-- 3. find_time-->
         <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==3" class="mainFinerForm">
+            <div v-if="page_num==3" class="mainFinderForm">
                 <h1 class="googleFont_finder">발견 시간</h1>
                 <b-form>
                     <b-form-group id="input-group-2">
@@ -63,7 +63,7 @@
         </transition>
         <!-- 4. posted_due-->
         <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==4" class="mainFinerForm">
+            <div v-if="page_num==4" class="mainFinderForm">
                 <h1 class="googleFont_finder">게시 기간</h1>
                 <b-form>
                     <b-form-group id="input-group-2">
@@ -79,7 +79,7 @@
         </transition>
         <!-- 5. dog_feature-->
         <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==5" class="mainFinerForm">
+            <div v-if="page_num==5" class="mainFinderForm">
                 <h1 class="googleFont_finder">특징</h1>
                 <b-form>
                     <b-form-group id="input-group-2">
@@ -100,7 +100,9 @@
         </transition>
         <!-- 7. shelter_name -->
         <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==7" class="mainFinerForm">
+            <div v-if="page_num==7" class="mainFinderForm">
+                <h4 class="googleFont_finder">근처 유기견 보호소</h4>
+                <h5 class="googleFont_finder">{{nearestShelter}}({{shelterNumber}})</h5>
                 <h1 class="googleFont_finder">맡길 유기견 보호소</h1>
                 <b-form @submit="onSubmit">
                     <b-form-group id="input-group-2">
@@ -130,6 +132,7 @@ export default {
             page_num: 1,
             empty_check: 0,
             nearestShelter: '',
+            shelterNumber: '',
             user_key: '',
             user_nickname: '',
             lat: 0,
@@ -164,6 +167,7 @@ export default {
         this.user_nickname = urlParams.get('user_nickname');
         this.lat = urlParams.get('lat');
         this.lng = urlParams.get('lng');
+        this.getNearestDogShelter();
     },
     methods: {
         onSubmit(){
@@ -203,6 +207,16 @@ export default {
         toPrev(){
             this.page_num--;
             this.empty_check = 0;
+        },
+        getNearestDogShelter(){
+            this.$http.post('http://202.30.31.91:8000/api/dogShelter/near',{
+                lat : this.lat,
+                lng : this.lng
+            }).then(res => {
+                this.nearestShelter = res.data.shelter_name;
+                this.shelterNumber = res.data.phone_num;
+                console.log(res.data);
+            })
         },
         emptyHandler(){
             switch(this.page_num){
@@ -298,12 +312,12 @@ export default {
     color: #FA7268;
 }
 
-.mainFinerForm {
-    position: fixed;
+.mainFinderForm {
+    /* position: fixed; */
     /* 90 */
     margin-top: 90%;
-    margin-left: 25%;
-    margin-right: 25%;
+    margin-left: 20%;
+    margin-right: 20%;
     /* width: 250px; */
     /* margin: 0 auto; */
 }
