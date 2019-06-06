@@ -360,6 +360,7 @@ export default {
                     }
                     else{
                         this.page_num++;
+                        this.page_num++;
                         this.empty_check = 0;
                     }
                     break;
