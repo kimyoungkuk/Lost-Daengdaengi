@@ -186,7 +186,7 @@
                 this.$store.state.FinderPost.posted_time = this.$refs.dataform_f.getPropertyByName('posted_time').valueCandidate;
                 this.$store.state.FinderPost.posted_due = this.$refs.dataform_f.getPropertyByName('posted_due').valueCandidate;
                 this.$store.state.FinderPost.shelter_name = this.$refs.dataform_f.getPropertyByName('shelter_name').valueCandidate;
-                axios.post(this.$store.state.API_BACKEND_URL + '/api/finderPosts/create',{
+                axios.post(this.$store.state.API_BACKEND_URL + '/api/finderPosts/create/before',{
                     user_nickname : this.$store.state.user_nickname,
                     title : this.$store.state.FinderPost.title,
                     find_time : this.$store.state.FinderPost.find_time,
@@ -207,7 +207,7 @@
                         message: "감사합니다!",
                         okButtonText: "네!"
                         }).then(() => {
-                            this.$goto("map")
+                            this.$goto("makeFinderPostWeb")
                         console.log("Alert dialog closed");
                         });
                     //this.$goto('board');
@@ -225,7 +225,7 @@
 <style scoped>
 @import '~nativescript-theme-core/css/core.light.css';
     ActionBar {
-        background-color: #4ba5fa;
+        background-color: #FA7268;
         color: #ffffff;
     }
 </style>

@@ -34,7 +34,6 @@
       
       </GridLayout>
       <GridLayout row = "1" rows = "auto,*">
-
                 <Label row = "0" text = "X" backgroundColor = "#FA7268" @tap="onTapClose" textAlignment="right" padding = "10"></Label>
                 <ScrollView row="1">
                     <WebView height="500" ref = "webview" @loadFinished="completeLoading" @loaded="webViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
@@ -53,14 +52,14 @@ var webViewModule = require('ui/web-view');
 const SwipeDirection = require("tns-core-modules/ui/gestures").SwipeDirection;
 import * as http from "http";
 import { Image } from 'tns-core-modules/ui/image/image';
-
+import 'url-search-params-polyfill';
 export default {
   
     data() {
       return {
         marker_Finder :[],
         marker_Owner :[],
-       
+        action: '',
         //ChangedNickName : this.$store.state.user_nickname,
         mapView : null,
         map : null,

@@ -30,7 +30,7 @@ export default {
       pages: [
         { name: '마이 페이지', component: this.$router.mypage },
         { name: '내가 쓴 게시물', component: this.$router.PageOne },
-        { name: '포탈 테스트', component: this.$router.portal }
+        { name: '포탈 테스트', component: this.$router.camera }
       ]
     }
   },

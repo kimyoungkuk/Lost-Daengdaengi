@@ -35,7 +35,7 @@ webView.android.getSettings().setBuiltInZoomControls(false);
     //webView.url = 
     webView.on(webViewModule.WebView.loadFinishedEvent, function (args) {
         console.log(JSON.stringify(args.url));
-        alert("asd")
+        
     });
 },
       completeLoading(args){
