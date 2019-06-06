@@ -96,6 +96,11 @@ export default {
     }
   },
   created(){
+    console.log("TTT")
+    let urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams.get('key'))
+    console.log(urlParams.get('nickname'))
+    console.log("TTT")
     let urlParams = new URLSearchParams(window.location.search);
     if(this.$store.state.user_key=="" || this.$store.state.user_nickname=="")
     {
