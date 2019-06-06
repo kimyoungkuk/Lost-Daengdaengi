@@ -27,6 +27,7 @@
       <div class="card-header">Login</div>
       <div class="card-body">
         <form method="POST">
+          {% csrf_token %}
           <div class="form-group">
             <div class="form-label-group">
               <input type="text" id="inputAccount" name="account" class="form-control" placeholder="account" required="required" autofocus="autofocus">
