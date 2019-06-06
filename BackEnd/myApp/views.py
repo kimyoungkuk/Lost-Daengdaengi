@@ -232,11 +232,13 @@ def comment_create(request):
         return Response(serializer.data, status = status.HTTP_201_CREATED)
     else:
         serializer = CommentSerializer(data = request.data)
+        logging.error("IOP")
         if serializer.is_valid():
             logging.error("IOP")
             serializer.save()
             logging.error("JKL")
 
+        logging.error("JKL")
         return Response(serializer.data, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
