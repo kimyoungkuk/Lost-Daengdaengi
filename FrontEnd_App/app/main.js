@@ -49,6 +49,7 @@ TNSFontIcon.loadCss();
 Vue.filter('fonticon', fonticon);
 Vue.registerElement("Mapbox", () => require("nativescript-mapbox").MapboxView)
 Vue.registerElement("MapView", () => require("nativescript-google-maps-sdk").MapView)
+Vue.registerElement("infowindow", () => require("nativescript-google-maps-sdk").MapView.infoWindowTemplates)
 
 if(TNS_ENV !== 'production') {
   Vue.use(VueDevtools)
