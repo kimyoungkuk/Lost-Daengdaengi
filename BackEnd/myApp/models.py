@@ -122,6 +122,11 @@ class Adopt_admin(models.Model):
     account         =   models.CharField(max_length = 200,default = "")
     pwd             =   models.CharField(max_length = 200,default = "")
 
+class Master_admin(models.Model):
+    account         =   models.CharField(max_length = 200,default = "")
+    pwd             =   models.CharField(max_length = 200,default = "")
+
+
 class Filtering(models.Model):
     starttime       =   models.DateTimeField()
     finaltime       =   models.DateTimeField()

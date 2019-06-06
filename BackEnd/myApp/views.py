@@ -593,9 +593,23 @@ def adopt_post_delete(request,pk):
 
 
 def master_login(request):
+    
+    if request.method == "GET":
+        return render(request,"login.html")
+    else:
+        try:
+            master_admin=Master_admin.objects.get(account=request.POST['account'])
+        except:
+            return render(request,"login.html")
+        if master_admin.pwd == request.POST['pwd']:
+            return render(request,"master_home.html")
+        else:
+            return render(request,"login.html")
 
-    return render(request,"login.html")
 
+
+
+    
 
 
 def master_home(request):
