@@ -1,12 +1,34 @@
 {% load staticfiles %}
 
 
-{% for finder_post in finder_posts %}
-<div>
-    <img src="{% static finder_post.imageurl %}" style="width:auto; max-width: calc(100%); max-height: 300px;">
-    <a href="{%url 'master_finder_post_detail' pk=finder_post.id  %}">{{ finder_post.title }}</a>
-</div>
-{% endfor %}
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Phone Number</th>
+            <th>Posted Time</th>
+            <th>Dog Name</th>
+            <th>Dog Type</th>
+            <th>Find Time</th>
+            <th>Shelter</th>
+        </tr>
+    </thead>
+    {% for finder_post in finder_posts %}
+    <tbody>
+        <tr>
+            <td><img src="{% static finder_post.imageurl %}" style="width:auto; max-width: calc(100%); max-height: 300px;"></td>
+            <td><a href="{%url 'master_finder_post_detail' pk=finder_post.id  %}">{{ finder_post.title }}</a></td>
+            <td>{{ finder_post.phone_num }}</td>
+            <td>{{ finder_post.posted_time }}</td>
+            <td>{{ finder_post.dog_name }}</td>
+            <td>{{ finder_post.dog_type }}</td>
+            <td>{{ finder_post.find_time }}</td>
+            <td>{{ finder_post.shelter_name }}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
 
 <form method="POST">
     {% csrf_token %}
