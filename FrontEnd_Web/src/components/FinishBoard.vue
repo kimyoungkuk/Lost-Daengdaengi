@@ -90,7 +90,6 @@ export default {
     }
   },
   created(){
-    let urlParams = new URLSearchParams(window.location.search);
     if(this.$store.state.user_key=="" || this.$store.state.user_nickname=="")
     {
       this.$store.state.user_key = urlParams.get('key');
