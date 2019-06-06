@@ -51,6 +51,8 @@
     font-size: 18px;
 }
 </style>
+<a id="home_btn" class="write_button" href="{% url 'master_adopt_home' %}">home</a>
+
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
         <tr>
@@ -69,6 +71,9 @@
 </table>
 
 
+<a id="list_btn" class="write_button" href="{% url 'master_dog_shelter_list'%}">list</a>
+
 <a id="update_btn" class="write_button"  href="{% url 'master_dog_shelter_update' pk=dog_shelter.id  %}">update</a>
 
 <a id="delete_btn" class="red_button"  href="{% url 'master_dog_shelter_delete' pk=dog_shelter.id  %}">delete</a>
+

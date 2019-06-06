@@ -50,6 +50,9 @@
     font-size: 18px;
 }
 </style>
+
+<a id="home_btn" class="write_button" href="{% url 'master_adopt_home' %}">home</a>
+
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
         <tr>
@@ -81,9 +84,9 @@
     </tbody>
 </table>
 
+<a id="list_btn" class="write_button" href="{% url 'master_adopt_post_list'%}">list</a>
 
 <a id="update_btn" class="write_button" href="{% url 'master_adopt_post_update' pk=adopt_post.id  %}">update</a>
 
 <a id="delete_btn" class="red_button" href="{% url 'master_adopt_post_delete' pk=adopt_post.id  %}">delete</a>
-
 
