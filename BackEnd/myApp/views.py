@@ -594,7 +594,7 @@ def adopt_post_delete(request,pk):
 
 def master_login(request):
 
-    return render(request,"master_login.html")
+    return render(request,"login.html")
 
 
 
