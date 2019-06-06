@@ -1,0 +1,47 @@
+{% load staticfiles %}
+
+
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Writer</th>
+            <th>Phone Number</th>
+            <th>Posted Time</th>
+            <th>Dog Name</th>
+            <th>Dog Sex</th>
+            <th>Dog Type</th>
+            <th>Dog Age</th>
+            <th>Lost Time</th>
+            <th>Reported count</th>
+        </tr>
+    </thead>
+    {% for owner_post in owner_posts %}
+    <tbody>
+        <tr>
+            <td><img src="{{owner_post.imageurl}}" style="width:auto; max-width: calc(100%); max-height: 300px;"></td>
+            <td><a href="{%url 'master_owner_post_detail' pk=owner_post.id  %}">{{ owner_post.title }}</a></td>
+            <td>{{ owner_post.phone_num }}</td>
+            <td>{{ owner_post.user_nickname }}</td>
+            <td>{{ owner_post.posted_time }}</td>
+            <td>{{ owner_post.dog_name }}</td>
+            <td>{{ owner_post.dog_sex }}</td>
+            <td>{{ owner_post.dog_type }}</td>
+            <td>{{ owner_post.dog_age }}</td>
+            <td>{{ owner_post.lost_time }}</td>
+            <td>{{ owner_post.report_count }}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+
+<form method="POST">
+    {% csrf_token %}
+    제목 : <input type="text" placeholder="검색" name="title">
+    게시날짜 : <input type="date" placeholder="검색" name="posted_time_from"> ~ <input type="date" placeholder="검색" name="posted_time_to">
+
+    <input type="submit" value="submit" />
+</form>
+

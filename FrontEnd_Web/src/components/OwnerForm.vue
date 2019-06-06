@@ -1,220 +1,220 @@
 <template>
-<v-flex>
     <div class="backgroundImage" v-bind:style="{ 'background-image': 'url(' + img1 + ')'}">
+        <v-flex>
         <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
         <!-- 1. title -->
-        <transition appear name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-        <div v-if="page_num==1">
-            <h1 class="googleFont">1. 제목을 입력하세요.</h1>
+        <transition appear name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+        <div v-if="page_num==1" class="mainOwnerForm">
+            <h1 class="googleFont_owner">견주의 글제목</h1>
             <b-form>
                 <b-form-group id="input-group-2">
                     <b-form-input
                     id="input-2"
                     v-model="title"
                     required
-                    placeholder="Enter your title."
+                    placeholder="ex) OOO 찾아주세요 ㅜㅜ"
                     ></b-form-input>
                 </b-form-group>
-                <b-button v-on:click="emptyHandler">다음</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
             </b-form>
             <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-            <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+            <h3 v-if="empty_check==1" class="googleFont_owner">" 빈 칸은 안돼요 ! "</h3>
             </transition>
         </div>
         </transition>
         <!-- 2. phone_num -->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-        <div v-if="page_num==2">
-            <h1 class="googleFont">2. 전화번호를 입력하세요.</h1>
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+        <div v-if="page_num==2" class="mainOwnerForm">
+            <h1 class="googleFont_owner">전화번호</h1>
             <b-form>
                 <b-form-group id="input-group-2">
                     <b-form-input
                     id="input-2"
                     v-model="phone_num"
                     required
-                    placeholder="Enter your phone number."
+                    placeholder="ex) 01012345678"
                     ></b-form-input>
                 </b-form-group>
-                <b-button v-on:click="toPrev">이전</b-button>
-                <b-button v-on:click="emptyHandler">다음</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
             </b-form>
             <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-            <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+            <h3 v-if="empty_check==1" class="googleFont_owner">" 빈 칸은 안돼요 ! "</h3>
             </transition>
         </div>
         </transition>
         <!-- 3. lost_time -->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-        <div v-if="page_num==3">
-            <h1 class="googleFont">3. 잃어버린 시간을 입력하세요.</h1>
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+        <div v-if="page_num==3" class="mainOwnerForm">
+            <h1 class="googleFont_owner">잃어버린 시간</h1>
             <b-form>
                 <b-form-group id="input-group-2">
-                    <b-form-input id="date-1" v-model="date" required type="date"></b-form-input>
-                    <b-form-input id="time-1" v-model="time" required type="time"></b-form-input>
+                    <b-form-input id="date-1" v-model="date" required type="date" placeholder="DATE"></b-form-input>
+                    <b-form-input id="time-1" v-model="time" required type="time" placeholder="TIME"></b-form-input>
                 </b-form-group>
-                <b-button v-on:click="toPrev">이전</b-button>
-                <b-button v-on:click="emptyHandler">다음</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
             </b-form>
             <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-            <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+            <h3 v-if="empty_check==1" class="googleFont_owner">" 빈 칸은 안돼요 ! "</h3>
             </transition>
         </div>
         </transition>
         <!-- 4. posted_due -->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-        <div v-if="page_num==4">
-            <h1 class="googleFont">4. 게시 기간을 입력하세요.</h1>
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+        <div v-if="page_num==4" class="mainOwnerForm">
+            <h1 class="googleFont_owner">게시 기간</h1>
             <b-form>
                 <b-form-group id="input-group-2">
-                    <b-form-input id="date-1" v-model="posted_due" required type="date"></b-form-input>
+                    <b-form-input id="date-1" v-model="posted_due" required type="date" placeholder="DATE"></b-form-input>
                 </b-form-group>
-                <b-button v-on:click="toPrev">이전</b-button>
-                <b-button v-on:click="emptyHandler">다음</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
             </b-form>
             <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-            <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+            <h3 v-if="empty_check==1" class="googleFont_owner">" 빈 칸은 안돼요 ! "</h3>
             </transition>
         </div>
         </transition>
         <!-- 5. dog_name -->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-        <div v-if="page_num==5">
-            <h1 class="googleFont">5. 반려견의 이름을 입력하세요.</h1>
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+        <div v-if="page_num==5" class="mainOwnerForm">
+            <h1 class="googleFont_owner">반려견의 이름</h1>
             <b-form>
                 <b-form-group id="input-group-2">
                     <b-form-input
                     id="input-2"
                     v-model="dog_name"
                     required
-                    placeholder="Enter your dog's name."
+                    placeholder="ex) 초코"
                     ></b-form-input>
                 </b-form-group>
-                <b-button v-on:click="toPrev">이전</b-button>
-                <b-button v-on:click="emptyHandler">다음</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
             </b-form>
             <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-            <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+            <h3 v-if="empty_check==1" class="googleFont_owner">" 빈 칸은 안돼요 ! "</h3>
             </transition>
         </div>
         </transition>
         <!-- 6. dog_sex -->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-        <div v-if="page_num==6">
-            <h1 class="googleFont">6. 성별을 선택하세요.</h1>
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+        <div v-if="page_num==6" class="mainOwnerForm">
+            <h1 class="googleFont_owner">성별</h1>
             <b-form>
                 <b-form-group id="input-group-2">
                     <b-form-select v-model="dog_sex" :options="options"></b-form-select>
                 </b-form-group>
-                <b-button v-on:click="toPrev">이전</b-button>
-                <b-button v-on:click="emptyHandler">다음</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
             </b-form>
             <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-            <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+            <h3 v-if="empty_check==1" class="googleFont_owner">" 빈 칸은 안돼요 ! "</h3>
             </transition>
         </div>
         </transition>
         <!-- 7. dog_type -->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-        <div v-if="page_num==7">
-            <h1 class="googleFont">7. 견종을 입력하세요.</h1>
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+        <div v-if="page_num==7" class="mainOwnerForm">
+            <h1 class="googleFont_owner">견종</h1>
             <b-form>
                 <b-form-group id="input-group-2">
                     <b-form-input
                     id="input-2"
                     v-model="dog_type"
                     required
-                    placeholder="Enter your dog type."
+                    placeholder="ex) 말티즈, 푸들, ..."
                     ></b-form-input>
                 </b-form-group>
-                <b-button v-on:click="toPrev">이전</b-button>
-                <b-button v-on:click="emptyHandler">다음</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
             </b-form>
             <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-            <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+            <h3 v-if="empty_check==1" class="googleFont_owner">" 빈 칸은 안돼요 ! "</h3>
             </transition>
         </div>
         </transition>
         <!-- 8. dog_age -->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-        <div v-if="page_num==8">
-            <h1 class="googleFont">8. 반려견의 나이를 입력하세요.</h1>
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+        <div v-if="page_num==8" class="mainOwnerForm">
+            <h1 class="googleFont_owner">반려견 나이</h1>
             <b-form>
                 <b-form-group id="input-group-2">
                     <b-form-input id="age-1" v-model.number="dog_age" required type="number" placeholder="Enter your dog age."></b-form-input>
                 </b-form-group>
-                <b-button v-on:click="toPrev">이전</b-button>
-                <b-button v-on:click="emptyHandler">다음</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
             </b-form>
             <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-            <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+            <h3 v-if="empty_check==1" class="googleFont_owner">" 빈 칸은 안돼요 ! "</h3>
             </transition>
         </div>
         </transition>
         <!-- 9. dog_feature -->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-        <div v-if="page_num==9">
-            <h1 class="googleFont">9. 반려견의 특징을 입력하세요.</h1>
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+        <div v-if="page_num==9" class="mainOwnerForm">
+            <h1 class="googleFont_owner">반려견 특징</h1>
             <b-form>
                 <b-form-group id="input-group-2">
                     <b-form-input
                     id="input-2"
                     v-model="dog_feature"
                     required
-                    placeholder="Enter your dog feature."
+                    placeholder="ex) 사람보면 짖어요."
                     ></b-form-input>
                 </b-form-group>
-                <b-button v-on:click="toPrev">이전</b-button>
-                <b-button v-on:click="emptyHandler">다음</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
             </b-form>
             <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-            <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+            <h3 v-if="empty_check==1" class="googleFont_owner">" 빈 칸은 안돼요 ! "</h3>
             </transition>
         </div>
         </transition>
         <!-- 10. image -->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-        <div v-if="page_num==10">
-            <h1 class="googleFont">10. 사진을 입력하세요.</h1>
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+        <div v-if="page_num==10" class="mainOwnerForm">
+            <h1 class="googleFont_owner">사진</h1>
             <b-form>
                 <b-form-group id="input-group-2">
                     <b-form-input
                     id="input-2"
                     v-model="image"
                     required
-                    placeholder="Enter your dog's image."
+                    placeholder="가까이서 찍은 사진을 선택해주세요."
                     ></b-form-input>
                 </b-form-group>
-                <b-button v-on:click="toPrev">이전</b-button>
-                <b-button v-on:click="emptyHandler">다음</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
             </b-form>
             <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-            <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+            <h3 v-if="empty_check==1" class="googleFont_owner">" 빈 칸은 안돼요 ! "</h3>
             </transition>
         </div>
         </transition>
         <!-- 11. remark -->
-        <transition name="router-anim" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-        <div v-if="page_num==11">
-            <h1 class="googleFont">11. "비고 입력란"입니다.</h1>
+        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
+        <div v-if="page_num==11" class="mainOwnerForm">
+            <h1 class="googleFont_owner">비고</h1>
             <b-form>
                 <b-form-group id="input-group-2">
                     <b-form-input
                     id="input-2"
                     v-model="remark"
                     required
-                    placeholder="Enter remark."
+                    placeholder="ex) 사례하겠습니다 ㅜㅜ"
                     ></b-form-input>
                 </b-form-group>
-                <b-button v-on:click="toPrev">이전</b-button>
-                <b-button v-on:click="emptyHandler">제출</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
+                <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">제출</b-button>
             </b-form>
             <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-            <h3 v-if="empty_check==1" class="googleFont">" 정보를 입력해주세요 ! "</h3>
+            <h3 v-if="empty_check==1" class="googleFont_owner">" 빈 칸은 안돼요 ! "</h3>
             </transition>
         </div>
         </transition>
+        </v-flex>
     </div>
-</v-flex>
 </template>
 
 <script>
@@ -416,14 +416,29 @@ export default {
 .backgroundImage {
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
     background-size: cover;
     background-position: center;
     top: 0;
     left: 0;
     }
-.googleFont {
+    
+.googleFont_owner {
     font-family: 'Jua', sans-serif;
-    color:cornsilk;
+    color: #FA7268;
 }
+
+.mainOwnerForm {
+    position: fixed;
+    margin-top: 100%;
+    margin-left: 5%;
+    margin-right: 50%;
+    width: 250px;
+}
+
+.btn-primary.custom-btn {
+	background-color: #FA7268;
+	border-color: #FA7268;
+}
+
 </style>

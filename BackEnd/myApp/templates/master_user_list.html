@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>nickname</th>
+            <th>key</th>
+        </tr>
+    </thead>
+    {% for user in users %}
+
+    <tbody>
+        <tr>
+            <td><a href="{%url 'master_user_detail' pk=user.id %}">{{ user.nickname }}</a></td>
+            <td>{{ user.key }}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+{% for k in ks %}
+{{ k }}
+{% endfor %}
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" placeholder="검색" name="nickname"><br>
+
+    <input type="submit" value="submit" />
+</form>

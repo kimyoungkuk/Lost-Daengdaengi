@@ -1,0 +1,28 @@
+<html>
+    <div>
+    관리자페이지 홈
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<div>
+    <a href="{%url 'master_user_list' %}">유저 목록</a>
+    <a href="{%url 'master_owner_post_list' %}">유기견주게시글 목록</a>
+    <a href="{%url 'master_finder_post_list' %}">발견인게시글 목록</a>
+    <a href="{%url 'master_dog_shelter_list' %}">보호소 목록</a>
+</div>
+<button id="user_list_btn">asd</button>
+<script>
+    $('#user_list_btn').click(function () {
+        var search_key = $('#search_input').val()
+        $.ajax({
+            url: '/master_user_list/',
+            // data: { 'search_key': search_key },
+            success: function (data) {
+                $('#data_table').html(data)
+            }
+        })
+    })
+</script>
+<div id="data_table"></div>
+
+
+</html>

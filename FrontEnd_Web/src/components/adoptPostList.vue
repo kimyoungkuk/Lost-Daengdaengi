@@ -2,45 +2,21 @@
 <div>
     <div>
       <b-button-group>
-      <b-button router-link to='/adopt/post/create' variant="outline-primary">글쓰기</b-button>
+        <b-button v-if="this.mob" router-link to='/finderboard' variant="outline-primary">발견인 게시판</b-button>
+        <b-button v-if="this.mob" router-link to='/ownerboard' variant="outline-primary">유기견주 게시판</b-button>
+        <b-button v-if="this.mob" router-link to='/finishboard' variant="outline-primary">반환완료 게시판</b-button>
+        <b-button v-if="this.mob" router-link to='/adopt/post/list' variant="outline-primary">분양 게시판</b-button>
+      
+        <b-button v-if="this.lap" router-link to='/adopt/post/create' variant="outline-primary">유기견 분양글 작성</b-button>
       </b-button-group>
     </div>
-    <div>
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-        <!-- 검색 시작시간 입력 -->
-        <b-form-group id="input-group-1" label="검색 시작시간" label-for="input-1">
-          <datepicker id="input-1" placeholder="검색을 시작할 기간을 입력하세요" v-model="form.starttime"></datepicker>
-        </b-form-group>
-        <!-- 검색 최종시간 입력 -->
-        <b-form-group id="input-group-2" label="검색 최종시간" label-for="input-2">
-          <datepicker id="input-2" placeholder="검색을 끝낼 기간을 입력하세요" v-model="form.finaltime"></datepicker>
-        </b-form-group>
-        <!-- 검색 내용 입력 -->
-     <b-form-group id="input-group-3" label="검색 내용" label-for="input-3">
-        <b-form-input
-          id="input-3"
-          v-model="form.value"
-          placeholder="검색 내용을 입력하세요."
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-4" label="검색 카테고리" label-for="input-4">
-        <b-form-select
-          id="input-4"
-          v-model="form.category"
-          :options="categories"
-        ></b-form-select>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
-    </b-form>
-     </div>
+    
      <div>
     <b-card-group deck deck v-for="row in formattedPosts">
         <b-card  v-for="post in row"
                 :title="post.title"
                 :img-src=post.imageurl
-                style="max-width: 30rem;"
+                style="max-width: 30rem; max-height: 35rem;"
                 img-top>
             <p class="card-text">
                 <strong>ID : </strong> {{post.id}}
@@ -54,12 +30,12 @@
             </p>
             <div slot="footer">
                 <!-- <b-btn variant="primary" block>상세보기</b-btn> -->
-                <router-link :to="`/ownerboard/view/${post.id}`"><b-btn variant="primary" block>상세보기</b-btn></router-link>
+                <router-link :to="`/adopt/post/detail/${post.id}`"><b-btn variant="primary" block>상세보기</b-btn></router-link>
             </div>
         </b-card>
     </b-card-group>
     </div>
-    </div>
+</div>
 </template>
 
 <script>
@@ -71,11 +47,11 @@ export default {
   // finder 게시글 제목(title), 견종(dog_type) , 잃어버린 날짜(lost_time), imgsrc(imageurl)
   data: function () {
     return {
-      key : this.$store.state.user_Email,
+      key : this.$store.state.user_key,
       nickname : this.$store.state.user_nickname,
-      lat : 0,
-      lng : 0,
-      posts: [{title:'', dog_type:'', lost_time:'', imageurl:''}],
+      mob : true,
+      lap : false,
+      posts: [{title:'', dog_type:'', imageurl:''}],
       form: {
           starttime: null,
           finaltime: null,
@@ -88,24 +64,28 @@ export default {
   },
   created(){
     let urlParams = new URLSearchParams(window.location.search);
-    if(this.$store.state.user_Email=="" || this.$store.state.user_nickname=="")
+    if(this.$store.state.user_key=="" || this.$store.state.user_nickname=="")
     {
-      this.$store.state.user_Email = urlParams.get('key');
+      this.$store.state.user_key = urlParams.get('key');
       this.key = urlParams.get('key');
       this.$store.state.user_nickname = urlParams.get('nickname');
       this.nickname = urlParams.get('nickname');
       console.log(this.key)
       console.log(this.nickname)
     }
-    this.lat = urlParams.get('lat');
-    this.lng = urlParams.get('lng');
-    console.log(this.lat)
-    console.log(this.lng)
+    console.log(this.key)
+    if(this.key=='admin'){
+        console.log("ZCX")
+        console.log(this.key)
+        this.mob=false
+        this.lap=true
+    }
     this.$http.get('http://202.30.31.91:8000/adopt/post/list')
       .then(res => {
-          console.log(res.data)
           this.posts = res.data
-
+          console.log("QWE")
+          console.log(this.posts)
+          console.log("QWE")
           
       })
     },
@@ -121,6 +101,17 @@ export default {
       
   },
   methods:{
+      createPost(){
+          if(this.key=='admin'){
+
+            this.$router.push("/adopt/post/create");
+          }
+          else{
+              alert("권한이 없습니다.")
+              this.$router.push("/adopt/login");
+          }
+
+      }
     
 
   },
