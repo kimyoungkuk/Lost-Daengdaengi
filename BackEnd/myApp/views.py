@@ -239,6 +239,7 @@ def comment_create(request):
             logging.error("JKL")
 
         logging.error("JKL")
+        logging.error(serializer.data['key'])
         return Response(serializer.data, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
