@@ -1,5 +1,4 @@
 {% load staticfiles %}
-{{ report.title }}
 
 <!-- Custom fonts for this template-->
 <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -54,7 +53,7 @@
 
 <div id="main">
     <div class="form-box">
-        <form action="{{post.id}}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <form action="{{{report.id}}" method="POST" enctype="multipart/form-data">{% csrf_token %}
             <!-- action 추가 필요 -->
             {% csrf_token %}
             <h2>게시물 올리기</h3>
