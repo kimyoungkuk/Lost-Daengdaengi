@@ -61,6 +61,7 @@
             <th>Reported Post Type</th>
             <th>Reported Post Number</th>
             <th>Contents</th>
+            <th>confirm</th>
         </tr>
     </thead>
     <tbody>
@@ -70,6 +71,7 @@
             <td>{{ report.reported_post_type }}</td>
             <td>{{ report.reported_post }}</td>
             <td>{{ report.contents }}</td>
+            <td><a href="{%url 'master_{{ report.reported_post_type }}_post_detail' pk=report.reported_post %}">해당 게시물</a></td>
         </tr>
     </tbody>
 </table>
