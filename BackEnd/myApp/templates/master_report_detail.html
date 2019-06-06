@@ -71,11 +71,11 @@
             <td>{{ report.reported_post_type }}</td>
             <td>{{ report.reported_post }}</td>
             <td>{{ report.contents }}</td>
-            {% if report.reported_post_type=='owner' %}
+            {% ifequal report.reported_post_type 'owner' %}
             <td><a href="{%url 'master_owner_post_detail' pk=report.reported_post %}">해당 게시물</a></td>
             {% else %}
             <td><a href="{%url 'master_finder_post_detail' pk=report.reported_post %}">해당 게시물</a></td>
-            {% endif %}
+            {% endifequal %}
         </tr>
     </tbody>
 </table>
