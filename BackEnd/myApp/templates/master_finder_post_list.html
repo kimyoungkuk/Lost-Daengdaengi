@@ -6,12 +6,14 @@
         <tr>
             <th>Image</th>
             <th>Title</th>
+            <th>Writer</th>
             <th>Phone Number</th>
             <th>Posted Time</th>
             <th>Dog Name</th>
             <th>Dog Type</th>
             <th>Find Time</th>
             <th>Shelter</th>
+            <th>Reported count</th>
         </tr>
     </thead>
     {% for finder_post in finder_posts %}
@@ -20,11 +22,13 @@
             <td><img src="{% static finder_post.imageurl %}" style="width:auto; max-width: calc(100%); max-height: 300px;"></td>
             <td><a href="{%url 'master_finder_post_detail' pk=finder_post.id  %}">{{ finder_post.title }}</a></td>
             <td>{{ finder_post.phone_num }}</td>
+            <td>{{ finder_post.user_nickname }}</td>
             <td>{{ finder_post.posted_time }}</td>
             <td>{{ finder_post.dog_name }}</td>
             <td>{{ finder_post.dog_type }}</td>
             <td>{{ finder_post.find_time }}</td>
             <td>{{ finder_post.shelter_name }}</td>
+            <td>{{ finder_post.report_count }}</td>
         </tr>
     </tbody>
     {% endfor %}
