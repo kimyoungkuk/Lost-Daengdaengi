@@ -129,6 +129,7 @@ export default {
             img1: require('../assets/formBackgroundImg2.jpg'),
             page_num: 1,
             empty_check: 0,
+            nearestShelter: '',
             user_key: '',
             user_nickname: '',
             lat: 0,
@@ -246,6 +247,7 @@ export default {
                         this.empty_check = 1;
                     }
                     else{
+                        this.page_num++;
                         this.page_num++;
                         this.empty_check = 0;
                     }
