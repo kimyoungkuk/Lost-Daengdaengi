@@ -27,9 +27,9 @@
                 imgStr : "",
                 saveToGallery: false,
                 allowsEditing: false,
-                keepAspectRatio: true,
-                width: 160,
-                height: 120,
+                keepAspectRatio: false,
+                width: 224,
+                height: 224,
                 cameraImage: null,
                 labelText: ""
             }
@@ -44,17 +44,17 @@
                 let that = this;
                 requestPermissions().then(
                     () => {
-                        takePicture({ width: 160, height: 120, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
+                        takePicture({ width: 224, height: 224, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
                             then((imageAsset) => {
                                 that.cameraImage = imageAsset;
                                 fromAsset(imageAsset).then(imgSource=>{
-                                    this.$store.state.FinderPost.image = imgSource.toBase64String('png');
+                                    this.$store.state.FinderPost.image = imgSource.toBase64String('jpeg');
                                     // console.log(imgSource.toBase64String('png'));
                                     // console.log(typeof(imgSource.toBase64String('png')));
                                     // console.log(imgSource.toBase64String('png').length);
                                     //
                                     axios.post('http://202.30.31.91:8000/api/classification',{
-                                        image : imgSource.toBase64String('png'),
+                                        image : imgSource.toBase64String('jpeg'),
                                         
                                     }).then(res => {
                                         console.log("q보냄");
