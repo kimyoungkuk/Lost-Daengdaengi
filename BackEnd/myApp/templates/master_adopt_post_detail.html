@@ -50,7 +50,16 @@
     font-size: 18px;
 }
 </style>
-<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+<div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-table"></i>
+          Data Table</div>
+        <div class="card-body">
+          <div class="table-responsive">
+                
+<a id="home_btn" class="write_button" href="{% url 'master_home' %}">home</a>
+
+<table style="margin-top:16px" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
         <tr>
             <th>Image</th>
@@ -62,12 +71,13 @@
             <th>Dog Age</th>
             <th>Neutralizer</th>
             <th>Vaccine</th>
+            <th>Contents</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td><img src="{{adopt_post.imageurl}}" style="width: 150px; height: 150px;"></td>
-            <td><a href="{%url 'master_adopt_post_detail' pk=adopt_post.id  %}">{{ adopt_post.title }}</a></td>
+            <td>{{ adopt_post.title }}</td>
             <td>{{ adopt_post.phone_num }}</td>
             <td>{{ adopt_post.posted_time }}</td>
             <td>{{ adopt_post.dog_sex }}</td>
@@ -75,13 +85,19 @@
             <td>{{ adopt_post.dog_age }}</td>
             <td>{{ adopt_post.is_neu }}</td>
             <td>{{ adopt_post.is_vac }}</td>
+            <td>{{ adopt_post.contents }}</td>
         </tr>
     </tbody>
 </table>
 
+<a id="list_btn" class="write_button" href="{% url 'master_adopt_post_list'%}">list</a>
 
 <a id="update_btn" class="write_button" href="{% url 'master_adopt_post_update' pk=adopt_post.id  %}">update</a>
 
-<a id="delete_btn" class="red_button" href="{% url 'master_adopt_post_delete' pk=adopt_post.id  %}">delete</a>
+<a id="delete_btn" class="red_button float-right" href="{% url 'master_adopt_post_delete' pk=adopt_post.id  %}">delete</a>
 
 
+</div>
+</div>
+<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>

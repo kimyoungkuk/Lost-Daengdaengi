@@ -51,7 +51,7 @@
   },
             onSelect(args){
                 this.$store.state.FinderPost.dog_type = this.labelText;
-                this.$goto('makePost_Finder');
+                this.$goto('select_Loc');
             },
             onTakePictureTap: function(args) {
                 let page = (args.object).page;
@@ -62,9 +62,7 @@
                             then((imageAsset) => {
                                 that.cameraImage = imageAsset;
                                 fromAsset(imageAsset).then(imgSource=>{
-
                                     this.$store.state.FinderPost.image = imgSource.toBase64String('jpeg');
-
                                     // console.log(imgSource.toBase64String('png'));
                                     // console.log(typeof(imgSource.toBase64String('png')));
                                     // console.log(imgSource.toBase64String('png').length);
@@ -72,10 +70,7 @@
                                     this.loadingComplete= true
                                     this.OnInit()
                                     axios.post('http://202.30.31.91:8000/api/classification',{
-
                                         image : imgSource.toBase64String('jpeg'),
-                                        
-
                                     }).then(res => {
                                         console.log("보냄");
                                         this.loadingComplete=false

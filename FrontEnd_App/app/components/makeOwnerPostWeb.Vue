@@ -2,7 +2,7 @@
     <Page @loaded="loaded" actionBarHidden="true">
               <ScrollView>
                 <StackLayout>  
-            <WebView row="0" height="900" @loadFinished="completeLoading" id="myWebView" :src="this.src"/>
+            <WebView row="0" height="900" @loadFinished="completeLoading" loadStarted="" id="myWebView" :src="this.src"/>
             <Progress row="1" color="#FA7268" v-show="loadingComplete" :value="loadingValue"/>
             </StackLayout>  
             </ScrollView>
@@ -29,11 +29,6 @@ var webViewModule = require('ui/web-view');
     const webView = page.getViewById('myWebView')
     webView.android.getSettings().setDisplayZoomControls(false);
     webView.android.getSettings().setBuiltInZoomControls(false);
-    debugger;
-    //webView.url = 
-    webView.on(webViewModule.WebView.loadFinishedEvent, function (args) {
-        console.log(JSON.stringify(args.url));
-    });
 },
       completeLoading(){
         this.loadingComplete=false

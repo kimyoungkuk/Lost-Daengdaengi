@@ -51,8 +51,16 @@
     font-size: 18px;
 }
 </style>
+<div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-table"></i>
+          Data Table</div>
+        <div class="card-body">
+          <div class="table-responsive">
 
-<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+<a id="home_btn" class="write_button" href="{% url 'master_home' %}">home</a>
+
+<table style="margin-top:16px" class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
         <tr>
             <th>Image</th>
@@ -66,12 +74,14 @@
             <th>Dog Age</th>
             <th>Lost Time</th>
             <th>Reported count</th>
+            <th>Dog Feature</th>
+            <th>Remark</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td><img src="{{owner_post.imageurl}}" style="width: 150px; height: 150px;"></td>
-            <td><a href="{%url 'master_owner_post_detail' pk=owner_post.id  %}">{{ owner_post.title }}</a></td>
+            <td>{{ owner_post.title }}</td>
             <td>{{ owner_post.phone_num }}</td>
             <td>{{ owner_post.user_nickname }}</td>
             <td>{{ owner_post.posted_time }}</td>
@@ -81,12 +91,20 @@
             <td>{{ owner_post.dog_age }}</td>
             <td>{{ owner_post.lost_time }}</td>
             <td>{{ owner_post.report_count }}</td>
+            <td>{{ owner_post.dog_feature }}</td>
+            <td>{{ owner_post.remark }}</td>
         </tr>
     </tbody>
 </table>
 
 
+<a id="list_btn" class="write_button" href="{% url 'master_owner_post_list'%}">list</a>
 
 <a id="update_btn" class="write_button"  href="{% url 'master_owner_post_update'  pk=owner_post.id %}">update</a>
 
-<a id="delete_btn" class="red_button"  href="{% url 'master_owner_post_delete' pk=owner_post.id  %}">delete</a>
+<a id="delete_btn" class="red_button float-right"  href="{% url 'master_owner_post_delete' pk=owner_post.id  %}">delete</a>
+
+</div>
+</div>
+<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>

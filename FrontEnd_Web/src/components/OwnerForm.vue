@@ -173,7 +173,7 @@
         </transition>
         <!-- 11. remark -->
         <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
-        <div v-if="page_num==11" class="mainOwnerForm">
+        <div v-if="page_num==10" class="mainOwnerForm">
             <h1 class="googleFont_owner">비고</h1>
             <b-form>
                 <b-form-group id="input-group-2">
@@ -246,7 +246,6 @@ export default {
            this.$store.state.ownerPost.phone_num    = this.phone_num;
            this.$store.state.ownerPost.posted_time  = this.posted_time;
            this.$store.state.ownerPost.posted_due   = this.posted_due;
-           this.$store.state.ownerPost.image        = this.image;
            this.$store.state.ownerPost.lost_time    = this.date + ' ' + this.time;
            this.$store.state.ownerPost.dog_feature  = this.dog_feature;
            this.$store.state.ownerPost.dog_type     = this.dog_type;
@@ -273,7 +272,7 @@ export default {
                user_nickname  : this.$store.state.user_nickname
            }).then(res => {
                console.log(res.data)
-               this.posts = res.data
+               this.$router.push("/SubmitPage");
            })
         },
         toPrev(){
@@ -360,20 +359,10 @@ export default {
                     }
                     else{
                         this.page_num++;
-                        this.page_num++;
                         this.empty_check = 0;
                     }
                     break;
-                case 10: // image
-                    if(this.image==''){
-                        this.empty_check = 1;
-                    }
-                    else{
-                        this.page_num++;
-                        this.empty_check = 0;
-                    }
-                    break;
-                case 11: // remark
+                case 10: // remark
                     if(this.remark==''){
                         this.empty_check = 1;
                     }

@@ -100,9 +100,9 @@
         </transition>
         <!-- 7. shelter_name -->
         <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
-            <div v-if="page_num==7" class="mainFinderForm">
+            <div v-if="page_num==6" class="mainFinderForm">
                 <h4 class="googleFont_finder">근처 유기견 보호소</h4>
-                <h5 class="googleFont_finder">{{nearestShelter}}({{shelterNumber}})</h5>
+                <h5 class="googleFont_finder">{{nearestShelter}}<br>({{shelterNumber}})</h5>
                 <h1 class="googleFont_finder">맡길 유기견 보호소</h1>
                 <b-form @submit="onSubmit">
                     <b-form-group id="input-group-2">
@@ -180,7 +180,6 @@ export default {
             this.$store.state.FinderPost.find_time       = this.date + ' ' + this.time;
             this.$store.state.FinderPost.posted_due      = this.posted_due;
             this.$store.state.FinderPost.dog_feature     = this.dog_feature;
-            this.$store.state.FinderPost.image           = this.image;
             this.$store.state.FinderPost.shelter_name    = this.shelter_name;
             console.log(this.$store.state.FinderPost);
             this.$http.post('http://202.30.31.91:8000/api/finderPosts/create',{
@@ -198,11 +197,11 @@ export default {
                 user_nickname  : this.$store.state.user_nickname
             }).then(res => {
                 console.log(res.data)
-                this.posts = res.data
+                // location.replace('http://202.30.31.91/SubmitPage?action=done');
+                this.$router.push("/SubmitPage");
             })
             // location.reload();  // 새로고침
             // this.goAnotherPage();
-            location.replace("http://202.30.31.91/SubmitPage?action=done");
         },
         toPrev(){
             this.page_num--;
@@ -262,20 +261,10 @@ export default {
                     }
                     else{
                         this.page_num++;
-                        this.page_num++;
                         this.empty_check = 0;
                     }
                     break;
-                case 6: // image
-                    if(this.image==''){
-                        this.empty_check = 1;
-                    }
-                    else{
-                        this.page_num++;
-                        this.empty_check = 0;
-                    }
-                    break;
-                case 7: // shelter_name
+                case 6: // shelter_name
                     if(this.shelter_name==null){
                         this.empty_check = 1;
                     }
@@ -313,12 +302,12 @@ export default {
 }
 
 .mainFinderForm {
-    /* position: fixed; */
+    position: fixed;
     /* 90 */
     margin-top: 90%;
-    margin-left: 20%;
+    margin-left: 25%;
     margin-right: 20%;
-    /* width: 250px; */
+    width: 300px;
     /* margin: 0 auto; */
 }
 
