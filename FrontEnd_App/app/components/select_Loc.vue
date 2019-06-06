@@ -13,6 +13,7 @@
                 @coordinateTapped="mapTap($event)"
                 >
                 </mapView>
+                <label :text="address" row ="1"/>
             </GridLayout>
                 <Button class="mybtn" text = "선택" row = "1" @tap = "onTap" padding = "10"></Button>
         </GridLayout>     
@@ -40,7 +41,8 @@
                     lat : this.lat,
                     lng : this.lng
                 },
-                mapView :null
+                mapView :null,
+                address : ""
             };
         },
         methods: {
@@ -57,9 +59,17 @@
                     this.lng = loc.longitude;
                     // console.log(loc)
                     this.marker.position = mapsModule.Position.positionFromLatLng(loc.latitude,loc.longitude);
-                    this.marker.title = ""
-                    this.markerinfo.push(this.marker)
-                    this.mapView.addMarker(this.marker)
+                   
+                    
+                    this.$http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+loc.latitude+","+loc.longitude+"&language=ko&key=" + 'AIzaSyBKv9vTYUpMTBV_ororyGLcbpEAmsYzwNc',{
+
+                    }).then(res =>{
+                        this.address = res.data.results[0].formatted_address
+                        this.marker.title = this.address
+                        this.markerinfo.push(this.marker)
+                        this.mapView.addMarker(this.marker)
+                        // onsole.log(res.data.results[0])
+                    })
                     // GmapUtils.setupMarkerCluster(this.mapView,this.markerinfo)
                     // console.log(this.lat)
                     this.$store.state.ownerPost.lat = loc.latitude;
@@ -83,9 +93,17 @@
                 //console.log(this.mapView.marker)
                 this.marker = new mapsModule.Marker()
                 this.marker.position = mapsModule.Position.positionFromLatLng(args.position.latitude,args.position.longitude);
-                this.marker.title = ""
+                this.$http.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+args.position.latitude+","+args.position.longitude+"&language=ko&key=" + 'AIzaSyBKv9vTYUpMTBV_ororyGLcbpEAmsYzwNc',{
+
+                    }).then(res =>{
+                        this.address = res.data.results[0].formatted_address
+                        this.marker.title = this.address
+                        this.markerinfo.push(this.marker)
+                        this.mapView.addMarker(this.marker)
+                        // onsole.log(res.data.results[0])
+                    })
                
-                this.mapView.addMarker(this.marker)
+
                 console.log(this.lat)
                 this.$store.state.ownerPost.lat = args.position.latitude;
                 this.$store.state.ownerPost.lng = args.position.longitude;

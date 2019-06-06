@@ -30,10 +30,12 @@
                 saveToGallery: false,
                 allowsEditing: false,
                 keepAspectRatio: false,
-                width: 160,
-                height: 120,
-                cameraImage: '~/assets/images/DaengDaengi.png',
-                labelText: "-"
+
+                width: 224,
+                height: 224,
+                cameraImage: null,
+                labelText: ""
+
             }
         },
         methods: {

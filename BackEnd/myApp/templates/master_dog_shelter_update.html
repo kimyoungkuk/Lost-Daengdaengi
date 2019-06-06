@@ -1,5 +1,14 @@
 {% load staticfiles %}
-{{ dog_shelter.title }}
+
+<!-- Custom fonts for this template-->
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+<!-- Page level plugin CSS-->
+<link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+
 <style>
 .input_field {
 	border: 1px solid #ddd;
@@ -34,17 +43,29 @@
 	font-soze: 18px;
 }
 </style>
+<div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-table"></i>
+          Data Table</div>
+        <div class="card-body">
+          <div class="table-responsive">
+                <a id="home_btn" class="write_button" href="{% url 'master_home' %}">home</a>
+
 <div id="main">
     <div class="form-box">
-        <form action="{{post.id}}" method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <form action="{{dog_shelter.id}}" method="POST" enctype="multipart/form-data">{% csrf_token %}
             <!-- action 추가 필요 -->
             {% csrf_token %}
-            <h2>게시물 올리기</h3>
-            <input class="input_field" type="text" placeholder="{{dog_shelter.shelter_name}}" name="shelter_name"><br>
-            <input class="input_field" type="text" placeholder="{{dog_shelter.phone_num}}" name="phone_num"><br>
-            <textarea class="textarea_field" placeholder="{{dog_shelter.description}}" name="description"></textarea><br>
-            <input type="file" name="picture" accept="image/x-png,image/gif,image/jpeg"><br>
+            <h2>게시물 수정</h2>
+            보호소이름:<input class="input_field" type="text" placeholder="{{dog_shelter.shelter_name}}" name="shelter_name"><br>
+            전화번호:<input class="input_field" type="text" placeholder="{{dog_shelter.phone_num}}" name="phone_num"><br>
+            소개:<textarea class="textarea_field" placeholder="{{dog_shelter.description}}" name="description"></textarea><br>
             <button class="write_button">게시</button>
         </form>
     </div>
+</div>
+
+</div>
+</div>
+<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
