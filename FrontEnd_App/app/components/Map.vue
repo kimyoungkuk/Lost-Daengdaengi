@@ -34,11 +34,9 @@
       
       </GridLayout>
       <GridLayout row = "1" rows = "auto,*">
-
                 <Label row = "0" text = "X" backgroundColor = "#FA7268" @tap="onTapClose" textAlignment="right" padding = "10"></Label>
                 <ScrollView row="1">
-                    <WebView height="500" ref = "webview" @loadFinished="completeLoading" loaded="onWebViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
-
+                    <WebView height="500" ref = "webview" @loadFinished="completeLoading" @loaded="webViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
                 </ScrollView>
       </GridLayout>
         </GridLayout>
@@ -50,19 +48,18 @@ import * as utils from "utils/utils";
 import * as mapsModule from "nativescript-google-maps-sdk";
 import * as geolocation from "nativescript-geolocation";
 import { Accuracy } from "tns-core-modules/ui/enums";
-
 var webViewModule = require('ui/web-view');
 const SwipeDirection = require("tns-core-modules/ui/gestures").SwipeDirection;
 import * as http from "http";
 import { Image } from 'tns-core-modules/ui/image/image';
-
+import 'url-search-params-polyfill';
 export default {
   
     data() {
       return {
         marker_Finder :[],
         marker_Owner :[],
-       
+        action: '',
         //ChangedNickName : this.$store.state.user_nickname,
         mapView : null,
         map : null,
@@ -78,6 +75,21 @@ export default {
       }
     },
   methods: {
+
+//     viewLoaded(args){
+//     let webview = args.object;
+//     webview.on(WebViewExt.shouldOverrideUrlLoadingEvent, (args) => {
+//         console.log(args.url);
+//         console.log(args.httpMethod);
+//         if (args.url != null && args.url.startsWith("https://")) {
+//             console.log(args.url);
+//             utilityModule.openUrl(args.url);
+//             return true;
+//         }else {
+//             return false;
+//         }
+//     });
+// },
          completeLoading(args){
         this.loadingComplete=false
         args.object.android.getSettings().setJavaScriptEnabled(true);
@@ -85,13 +97,82 @@ export default {
       },
       loaded(args) {
     const page = args.object;
-    this.webView = page.getViewById('myWebView')
+    const webview = page.getViewById('myWebView')
+    
+
     debugger;
     //webView.url = 
-    this.webView.on(webViewModule.WebView.loadFinishedEvent, function (args) {
+    webview.on(webViewModule.WebView.loadFinishedEvent, function (args) {
         console.log(JSON.stringify(args.url));
     });
-},
+    webview.android.getSettings().setJavaScriptEnabled(true);
+    webview.android.getSettings().setDisplayZoomControls(false);
+    webview.android.getSettings().setBuiltInZoomControls(false);
+    webview.android.getSettings().setAllowFileAccessFromFileURLs(true);
+    webview.android.getSettings().setAllowUniversalAccessFromFileURLs(true);
+    webview.android.getSettings().setMediaPlaybackRequiresUserGesture(false);
+    webview.android.getSettings().setUseWideViewPort(true);
+    webview.android.getSettings().setDomStorageEnabled(true);
+  
+      },
+// loaded(args) {
+//   var page = args.object;
+//   const webview = page.getViewById('myWebView');
+//   var TNSWebViewClient =
+//     android.webkit.WebViewClient.extend({
+//       shouldOverrideUrlLoading: function (view, url) {
+//         if (url != null && url.startsWith("http://")) {
+//           console.log(url);
+//           // use openUrl form utils module to open the page in a browser
+//           return true;
+//         } else {
+//           return false;
+//         }
+//       }
+//     });
+//   var TNSWebChromeClient =
+//     android.webkit.WebChromeClient.extend({
+//       onPermissionRequest: function (request) {
+//         request.grant(request.getResources());
+//       }
+//     });
+//     webview.android.getSettings().setJavaScriptEnabled(true);
+//     webview.android.getSettings().setDisplayZoomControls(false);
+//     webview.android.getSettings().setBuiltInZoomControls(false);
+//     webview.android.getSettings().setAllowFileAccessFromFileURLs(true);
+//     webview.android.getSettings().setAllowUniversalAccessFromFileURLs(true);
+//     webview.android.getSettings().setMediaPlaybackRequiresUserGesture(false);
+//     webview.android.getSettings().setUseWideViewPort(true);
+//     webview.android.getSettings().setDomStorageEnabled(true);
+//     webview.android.setWebViewClient(new TNSWebViewClient());
+//     webview.android.setWebChromeClient(new TNSWebChromeClient());
+  
+// },
+
+
+//   loaded(webargs) {
+// const page = webargs.object
+
+// const webview = page.getViewById('myWebView');
+
+// webview.on(webViewModule.WebView.shouldOverrideUrlLoading, (args) => {
+//     let message = "Loading initiated, please wait....";
+//     if (!args.error) {
+//         message = `WebView is loaded: ${args.url}`;
+//     }
+//     else {
+//         message = `Error while loading: ${args.url} : ${args.error}`;
+//     }
+//     // vm.set("result", message);
+//     console.log(`WebView console log messages - ${message}`);
+//     if (args.url.indexOf('http://') === 0) {
+      
+     
+//     }
+// });
+// webview.android.getSettings().setDisplayZoomControls(false);
+//       webview.android.getSettings().setBuiltInZoomControls(false);
+// },  
       showDetail(args){
         if(this.selected == 1){
           this.API_WEBVIEW_URL_finder = this.$store.state.API_WEBVIEW_URL + '/finderboard/view/'+args.marker.userData.id+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname;

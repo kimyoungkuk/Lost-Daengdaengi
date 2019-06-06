@@ -1,6 +1,28 @@
 {% load staticfiles %}
 
-{{ user.nickname }}
-{{ user.key }}
+<!-- Custom fonts for this template-->
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+<!-- Page level plugin CSS-->
+<link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
 
 
+
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>nickname</th>
+            <th>key</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td><a href="{%url 'master_user_detail' pk=user.id %}">{{ user.nickname }}</a></td>
+            <td>{{ user.key }}</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,3 +1,46 @@
 {% load staticfiles %}
-{{ owner_post.title }}
+
+<!-- Custom fonts for this template-->
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+
+<!-- Page level plugin CSS-->
+<link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
+
+
+
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Writer</th>
+            <th>Phone Number</th>
+            <th>Posted Time</th>
+            <th>Dog Name</th>
+            <th>Dog Sex</th>
+            <th>Dog Type</th>
+            <th>Dog Age</th>
+            <th>Lost Time</th>
+            <th>Reported count</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><img src="{{owner_post.imageurl}}" style="width: 150px; height: 150px;"></td>
+            <td><a href="{%url 'master_owner_post_detail' pk=owner_post.id  %}">{{ owner_post.title }}</a></td>
+            <td>{{ owner_post.phone_num }}</td>
+            <td>{{ owner_post.user_nickname }}</td>
+            <td>{{ owner_post.posted_time }}</td>
+            <td>{{ owner_post.dog_name }}</td>
+            <td>{{ owner_post.dog_sex }}</td>
+            <td>{{ owner_post.dog_type }}</td>
+            <td>{{ owner_post.dog_age }}</td>
+            <td>{{ owner_post.lost_time }}</td>
+            <td>{{ owner_post.report_count }}</td>
+        </tr>
+    </tbody>
+</table>
 
