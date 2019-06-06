@@ -51,7 +51,7 @@
   },
             onSelect(args){
                 this.$store.state.FinderPost.dog_type = this.labelText;
-                this.$goto('makePost_Finder');
+                this.$goto('select_Loc');
             },
             onTakePictureTap: function(args) {
                 let page = (args.object).page;
