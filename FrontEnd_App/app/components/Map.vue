@@ -198,13 +198,19 @@ webViewLoaded(args){
 // },  
       showDetail(args){
         if(this.selected == 1){
-          this.API_WEBVIEW_URL_finder = this.$store.state.API_WEBVIEW_URL + '/finderboard/view/'+args.marker.userData.id+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname;
+          this.API_WEBVIEW_URL_finder = this.$store.state.API_WEBVIEW_URL + '/finderboard/view/'+args.marker.userData.id+"?key=" + this.$store.state.user_key + "&nickname=" + this.$store.state.user_nickname;
           this.row_scale = "70,*"
+          console.log("ZZZ")
+          console.log(this.API_WEBVIEW_URL_finder)
+          console.log("XXX")
        // console.dir(args.marker.userData.id)
         }
         else{
-          this.API_WEBVIEW_URL_finder = this.$store.state.API_WEBVIEW_URL + '/ownerboard/view/'+args.marker.userData.id+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname;
+          this.API_WEBVIEW_URL_finder = this.$store.state.API_WEBVIEW_URL + '/ownerboard/view/'+args.marker.userData.id+"?key=" + this.$store.state.user_key + "&nickname=" + this.$store.state.user_nickname;
           this.row_scale = "70,*"
+          console.log("ZZZ")
+          console.log(this.API_WEBVIEW_URL_finder)
+          console.log("XXX")
         }
       },
       onMapReady(args){
