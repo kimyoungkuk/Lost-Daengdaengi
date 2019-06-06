@@ -689,7 +689,7 @@ def master_report_list(request):
 
 def master_report_detail(request,pk):
 
-    report = report.objects.get(id=pk)
+    report = Report.objects.get(id=pk)
     return render(request,"master_report_detail.html",{'report':report})
 
 def master_adopt_post_list(request):
