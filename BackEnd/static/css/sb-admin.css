@@ -10873,6 +10873,14 @@ body {
   padding-bottom: calc(var(--input-padding-y) / 3);
 }
 
+
+
+
+
+
+
+
+
 .form-label-group input:not(:placeholder-shown) ~ label {
   padding-top: calc(var(--input-padding-y) / 3);
   padding-bottom: calc(var(--input-padding-y) / 3);
@@ -10912,3 +10920,4 @@ body.sidebar-toggled footer.sticky-footer {
     width: calc(100% - 90px);
   }
 }
+

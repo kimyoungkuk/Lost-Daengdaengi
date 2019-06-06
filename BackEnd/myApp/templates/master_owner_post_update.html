@@ -40,17 +40,17 @@
             <!-- action 추가 필요 -->
             {% csrf_token %}
             <h2>게시물 올리기</h3>
-            <input class="input_field" type="text" placeholder="{{owner_post.title}}" name="title"><br>
-            <input class="input_field" type="text" placeholder="{{owner_post.user_nickname}}" name="user_nickname"><br>
-            <input class="input_field" type="text" placeholder="{{owner_post.phone_num}}" name="phone_num"><br>
-            <input class="input_field" type="text" placeholder="{{owner_post.dog_name}}" name="dog_name"><br>
-            <input class="input_field" type="text" placeholder="{{owner_post.dog_type}}" name="dog_type"><br>
-            <input class="input_field" type="text" placeholder="{{owner_post.dog_sex}}" name="dog_sex"><br>
-            <input class="input_field" type="text" placeholder="{{owner_post.dog_age}}" name="dog_age"><br>
-            <input class="input_field" type="text" placeholder="{{owner_post.lost_time}}" name="lost_time"><br>
-            <textarea class="textarea_field" placeholder="{{owner_post.dog_feature}}" name="dog_feature"></textarea><br>
-            <textarea class="textarea_field" placeholder="{{owner_post.remark}}" name="remark"></textarea><br>
-            <input type="file" name="picture" accept="image/x-png,image/gif,image/jpeg"><br>
+            제목:<input class="input_field" type="text" placeholder="{{owner_post.title}}" name="title"><br>
+            작성자:<input class="input_field" type="text" placeholder="{{owner_post.user_nickname}}" name="user_nickname"><br>
+            전화번호:<input class="input_field" type="text" placeholder="{{owner_post.phone_num}}" name="phone_num"><br>
+            이름:<input class="input_field" type="text" placeholder="{{owner_post.dog_name}}" name="dog_name"><br>
+            견종:<input class="input_field" type="text" placeholder="{{owner_post.dog_type}}" name="dog_type"><br>
+            성별:<input class="input_field" type="text" placeholder="{{owner_post.dog_sex}}" name="dog_sex"><br>
+            연령:<input class="input_field" type="text" placeholder="{{owner_post.dog_age}}" name="dog_age"><br>
+            잃어버린 시간:<input class="input_field" type="text" placeholder="{{owner_post.lost_time}}" name="lost_time"><br>
+            특징:<textarea class="textarea_field" placeholder="{{owner_post.dog_feature}}" name="dog_feature"></textarea><br>
+            비고:<textarea class="textarea_field" placeholder="{{owner_post.remark}}" name="remark"></textarea><br>
+            이미지:<input type="file" name="picture" accept="image/x-png,image/gif,image/jpeg"><br>
             <button class="write_button">게시</button>
         </form>
     </div>

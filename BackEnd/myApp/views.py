@@ -602,7 +602,7 @@ def master_login(request):
         except:
             return render(request,"login.html")
         if master_admin.pwd == request.POST['pwd']:
-            return redirect("master_home",report_num=Report.objects.all().count())
+            return render(request,"master_home.html",{'report_num':Report.objects.all().count()})
         else:
             return render(request,"login.html")
 
@@ -642,6 +642,14 @@ def master_user_update(request,pk):
     return render(request,"master_user_update.html",{'user':user})
 
 
+def master_user_delete(request,pk):
+
+    user = User.objects.get(id=pk)
+    user.delete()
+    users = User.objects.all()
+    return render(request,"master_user_list.html",{'users':users})
+
+
 
 
 def master_owner_post_list(request):
@@ -673,6 +681,15 @@ def master_owner_post_update(request,pk):
     owner_post = Owner_post.objects.get(id=pk)
     return render(request,"master_owner_post_update.html",{'owner_post':owner_post})
 
+def master_owner_post_delete(request,pk):
+
+    owner_post = Owner_post.objects.get(id=pk)
+    owner_post.delete()
+    owner_posts = Owner_post.objects.all()
+    return render(request,"master_owner_post_list.html",{'owner_posts':owner_posts})
+
+
+
 def master_finder_post_list(request):
 
     if request.method == "GET":
@@ -702,6 +719,14 @@ def master_finder_post_update(request,pk):
     finder_post = Finder_post.objects.get(id=pk)
     return render(request,"master_finder_post_update.html",{'finder_post':finder_post})
 
+def master_finder_post_delete(request,pk):
+
+    finder_post = Finder_post.objects.get(id=pk)
+    finder_post.delete()
+    finder_posts = Finder_post.objects.all()
+    return render(request,"master_finder_post_list.html",{'finder_posts':finder_posts})
+
+
 
 def master_dog_shelter_list(request):
 
@@ -718,6 +743,15 @@ def master_dog_shelter_update(request,pk):
     dog_shelter = Dog_shelter.objects.get(id=pk)
     return render(request,"master_dog_shelter_update.html",{'dog_shelter':dog_shelter})
 
+def master_dog_shelter_delete(request,pk):
+
+    dog_shelter = Dog_shelter.objects.get(id=pk)
+    dog_shelter.delete()
+    dog_shelters = Dog_shelter.objects.all()
+    return render(request,"master_dog_shelter_list.html",{'dog_shelters':dog_shelters})
+
+
+
 def master_report_list(request):
 
     reports = Report.objects.all()
@@ -733,6 +767,14 @@ def master_report_update(request,pk):
     report = Report.objects.get(id=pk)
     return render(request,"master_report_update.html",{'report':report})
 
+def master_report_delete(request,pk):
+
+    report = Report.objects.get(id=pk)
+    report.delete()
+    reports = Report.objects.all()
+    return render(request,"master_report_list.html",{'reports':reports})
+
+
 def master_adopt_post_list(request):
 
     adopt_posts = Adopt_post.objects.all()
@@ -747,3 +789,11 @@ def master_adopt_post_update(request,pk):
 
     adopt_post = Adopt_post.objects.get(id=pk)
     return render(request,"master_adopt_post_update.html",{'adopt_post':adopt_post})
+
+def master_adopt_post_delete(request,pk):
+
+    adopt_post = Adopt_post.objects.get(id=pk)
+    adopt_post.delete()
+    adopt_posts = Adopt_post.objects.all()
+    return render(request,"master_adopt_post_list.html",{'adopt_posts':adopt_posts})
+
