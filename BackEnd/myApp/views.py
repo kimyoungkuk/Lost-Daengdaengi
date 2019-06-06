@@ -616,7 +616,7 @@ def master_login(request):
 
 def master_home(request):
 
-    return render(request,"master_home.html")
+    return render(request,"master_home.html",{'report_num':Report.objects.all().count()})
 
 
 
