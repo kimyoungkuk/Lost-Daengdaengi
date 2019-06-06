@@ -173,7 +173,7 @@
         </transition>
         <!-- 11. remark -->
         <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
-        <div v-if="page_num==11" class="mainOwnerForm">
+        <div v-if="page_num==10" class="mainOwnerForm">
             <h1 class="googleFont_owner">비고</h1>
             <b-form>
                 <b-form-group id="input-group-2">
@@ -360,20 +360,10 @@ export default {
                     }
                     else{
                         this.page_num++;
-                        this.page_num++;
                         this.empty_check = 0;
                     }
                     break;
-                case 10: // image
-                    if(this.image==''){
-                        this.empty_check = 1;
-                    }
-                    else{
-                        this.page_num++;
-                        this.empty_check = 0;
-                    }
-                    break;
-                case 11: // remark
+                case 10: // remark
                     if(this.remark==''){
                         this.empty_check = 1;
                     }
