@@ -43,6 +43,14 @@
     padding: 2px 8px;
     font-size: 18px;
 }
+.red_button {
+    background-color: rgb(255, 0, 0);
+    border: 1px solid rgb(200, 0, 0);
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 18px;
+}
 </style>
 
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -66,3 +74,5 @@
 
 
 <a id="update_btn" class="write_button"  href="{% url 'master_report_update' pk=report.id  %}">update</a>
+
+<a id="delete_btn" class="red_button"  href="{% url 'master_report_delete' pk=report.id  %}">delete</a>

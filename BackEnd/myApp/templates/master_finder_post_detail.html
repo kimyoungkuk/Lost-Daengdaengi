@@ -41,6 +41,14 @@
     padding: 2px 8px;
     font-size: 18px;
 }
+.red_button {
+    background-color: rgb(255, 0, 0);
+    border: 1px solid rgb(200, 0, 0);
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 18px;
+}
 </style>
 
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -73,4 +81,6 @@
 </table>
 
 
-<a id="update_btn"  class="write_button" href="{% url 'master_finder_post_update'  pk=finder_post.id %}">update</a>
+<a id="update_btn" class="write_button" href="{% url 'master_finder_post_update' pk=finder_post.id %}">update</a>
+
+<a id="delete_btn" class="red_button"  href="{% url 'master_finder_post_delete' pk=finder_post.id  %}">delete</a>
