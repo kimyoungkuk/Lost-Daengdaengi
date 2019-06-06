@@ -311,6 +311,9 @@ export default {
       comment.contents = this.contents;
       comment.commented_post = this.form.id;
       comment.commented_post_type = "adopt"
+      console.log("JKL")
+      console.log(comment.user_key)
+      console.log("IOP")
       // this.$http.post(`http://202.30.31.91:8000/api/comments/create`, {
       axios.post(`http://202.30.31.91:8000/api/comments/create`, {
       user_key : comment.user_key,
