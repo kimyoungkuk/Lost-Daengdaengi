@@ -18,7 +18,7 @@
     {% for adopt_post in adopt_posts %}
     <tbody>
         <tr>
-            <td><img src="{{adopt_post.imageurl}}" style="max-width: 150px; max-height: 150px;"></td>
+            <td><img src="{{adopt_post.imageurl}}" style="width: 150px; height: 150px;"></td>
             <td><a href="{%url 'master_adopt_post_detail' pk=adopt_post.id  %}">{{ adopt_post.title }}</a></td>
             <td>{{ adopt_post.phone_num }}</td>
             <td>{{ adopt_post.posted_time }}</td>

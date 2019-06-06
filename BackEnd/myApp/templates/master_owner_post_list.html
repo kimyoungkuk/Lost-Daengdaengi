@@ -20,7 +20,7 @@
     {% for owner_post in owner_posts %}
     <tbody>
         <tr>
-            <td><img src="{{owner_post.imageurl}}" style="max-width: 150px; max-height: 150px;"></td>
+            <td><img src="{{owner_post.imageurl}}" style="width: 150px; height: 150px;"></td>
             <td><a href="{%url 'master_owner_post_detail' pk=owner_post.id  %}">{{ owner_post.title }}</a></td>
             <td>{{ owner_post.phone_num }}</td>
             <td>{{ owner_post.user_nickname }}</td>
