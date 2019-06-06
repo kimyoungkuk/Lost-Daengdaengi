@@ -3,11 +3,11 @@
         <v-flex>
         <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">        
         <!-- 1. title-->
-        <transition appear name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==1" class="mainFinerForm">
+        <transition appear name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
+            <div v-if="page_num==1" class="mainFinderForm">
                 <h1 class="googleFont_finder">발견인의 글제목</h1>
                 <b-form>
-                    <b-form-group id="input-group-1">
+                    <b-form-group id="input-group-2">
                         <b-form-input
                         id="input-2"
                         v-model="title"
@@ -23,8 +23,8 @@
             </div>
         </transition>
         <!-- 2. phone_num -->
-        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==2" class="mainFinerForm">
+        <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
+            <div v-if="page_num==2" class="mainFinderForm">
                 <h1 class="googleFont_finder">전화번호</h1>
                 <b-form>
                     <b-form-group id="input-group-2">
@@ -32,6 +32,7 @@
                         id="input-2"
                         v-model="phone_num"
                         required
+                        type ="number"
                         placeholder="ex) 01012345678"
                         ></b-form-input>
                     </b-form-group>
@@ -44,11 +45,11 @@
             </div>
         </transition>
         <!-- 3. find_time-->
-        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==3" class="mainFinerForm">
+        <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
+            <div v-if="page_num==3" class="mainFinderForm">
                 <h1 class="googleFont_finder">발견 시간</h1>
                 <b-form>
-                    <b-form-group id="input-group-3">
+                    <b-form-group id="input-group-2">
                         <b-form-input id="date-1" v-model="date" required type="date" placeholder="DATE"></b-form-input>
                         <b-form-input id="time-1" v-model="time" required type="time" placeholder="TIME"></b-form-input>
                     </b-form-group>
@@ -61,11 +62,11 @@
             </div>
         </transition>
         <!-- 4. posted_due-->
-        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==4" class="mainFinerForm">
+        <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
+            <div v-if="page_num==4" class="mainFinderForm">
                 <h1 class="googleFont_finder">게시 기간</h1>
                 <b-form>
-                    <b-form-group id="input-group-4">
+                    <b-form-group id="input-group-2">
                         <b-form-input id="date-1" v-model="posted_due" required type="date" placeholder="DATE"></b-form-input>
                     </b-form-group>
                     <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
@@ -77,11 +78,11 @@
             </div>
         </transition>
         <!-- 5. dog_feature-->
-        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==5" class="mainFinerForm">
+        <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
+            <div v-if="page_num==5" class="mainFinderForm">
                 <h1 class="googleFont_finder">특징</h1>
                 <b-form>
-                    <b-form-group id="input-group-5">
+                    <b-form-group id="input-group-2">
                         <b-form-input
                         id="input-2"
                         v-model="dog_feature"
@@ -97,33 +98,14 @@
                 </transition>
             </div>
         </transition>
-        <!-- 6. image -->
-        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==6" class="mainFinerForm">
-                <h1 class="googleFont_finder">사진</h1>
-                <b-form>
-                    <b-form-group id="input-group-6">
-                        <b-form-input
-                        id="input-2"
-                        v-model="image"
-                        required
-                        placeholder="사진을 가까이서 찍어주세요 ^^"
-                        ></b-form-input>
-                    </b-form-group>
-                    <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
-                    <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
-                </b-form>
-                <transition name="alertMessage" enter-active-class="animated tada" leave-active-class="animated tada">
-                <h3 v-if="empty_check==1" class="googleFont_finder">" 빈 칸은 안돼요 ! "</h3>
-                </transition>
-            </div>
-        </transition>
         <!-- 7. shelter_name -->
-        <transition name="router-anim" mode="out-in" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
-            <div v-if="page_num==7" class="mainFinerForm">
+        <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
+            <div v-if="page_num==7" class="mainFinderForm">
+                <h4 class="googleFont_finder">근처 유기견 보호소</h4>
+                <h5 class="googleFont_finder">{{nearestShelter}}({{shelterNumber}})</h5>
                 <h1 class="googleFont_finder">맡길 유기견 보호소</h1>
                 <b-form @submit="onSubmit">
-                    <b-form-group id="input-group-7">
+                    <b-form-group id="input-group-2">
                         <b-form-select v-model="shelter_name" :options="options"></b-form-select>
                     </b-form-group>
                     <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
@@ -149,6 +131,8 @@ export default {
             img1: require('../assets/formBackgroundImg2.jpg'),
             page_num: 1,
             empty_check: 0,
+            nearestShelter: '',
+            shelterNumber: '',
             user_key: '',
             user_nickname: '',
             lat: 0,
@@ -183,6 +167,7 @@ export default {
         this.user_nickname = urlParams.get('user_nickname');
         this.lat = urlParams.get('lat');
         this.lng = urlParams.get('lng');
+        this.getNearestDogShelter();
     },
     methods: {
         onSubmit(){
@@ -216,10 +201,22 @@ export default {
                 this.posts = res.data
             })
             // location.reload();  // 새로고침
+            // this.goAnotherPage();
+            location.replace("http://202.30.31.91/SubmitPage?action=done");
         },
         toPrev(){
             this.page_num--;
             this.empty_check = 0;
+        },
+        getNearestDogShelter(){
+            this.$http.post('http://202.30.31.91:8000/api/dogShelter/near',{
+                lat : this.lat,
+                lng : this.lng
+            }).then(res => {
+                this.nearestShelter = res.data.shelter_name;
+                this.shelterNumber = res.data.phone_num;
+                console.log(res.data);
+            })
         },
         emptyHandler(){
             switch(this.page_num){
@@ -264,6 +261,7 @@ export default {
                         this.empty_check = 1;
                     }
                     else{
+                        this.page_num++;
                         this.page_num++;
                         this.empty_check = 0;
                     }
@@ -314,11 +312,12 @@ export default {
     color: #FA7268;
 }
 
-.mainFinerForm {
+.mainFinderForm {
     /* position: fixed; */
+    /* 90 */
     margin-top: 90%;
-    margin-left: 23%;
-    margin-right: 23%;
+    margin-left: 20%;
+    margin-right: 20%;
     /* width: 250px; */
     /* margin: 0 auto; */
 }
