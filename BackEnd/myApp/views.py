@@ -636,6 +636,13 @@ def master_user_detail(request,pk):
 
 
 
+def master_user_update(request,pk):
+
+    user = User.objects.get(id=pk)
+    return render(request,"master_user_update.html",{'user':user})
+
+
+
 
 def master_owner_post_list(request):
 
@@ -660,6 +667,11 @@ def master_owner_post_detail(request,pk):
 
     owner_post = Owner_post.objects.get(id=pk)
     return render(request,"master_owner_post_detail.html",{'owner_post':owner_post})
+    
+def master_owner_post_update(request,pk):
+
+    owner_post = Owner_post.objects.get(id=pk)
+    return render(request,"master_owner_post_update.html",{'owner_post':owner_post})
 
 def master_finder_post_list(request):
 
@@ -684,6 +696,11 @@ def master_finder_post_detail(request,pk):
 
     finder_post = Finder_post.objects.get(id=pk)
     return render(request,"master_finder_post_detail.html",{'finder_post':finder_post})
+    
+def master_finder_post_update(request,pk):
+
+    finder_post = Finder_post.objects.get(id=pk)
+    return render(request,"master_finder_post_update.html",{'finder_post':finder_post})
 
 
 def master_dog_shelter_list(request):
@@ -696,6 +713,11 @@ def master_dog_shelter_detail(request,pk):
     dog_shelter = Dog_shelter.objects.get(id=pk)
     return render(request,"master_dog_shelter_detail.html",{'dog_shelter':dog_shelter})
 
+def master_dog_shelter_update(request,pk):
+
+    dog_shelter = Dog_shelter.objects.get(id=pk)
+    return render(request,"master_dog_shelter_update.html",{'dog_shelter':dog_shelter})
+
 def master_report_list(request):
 
     reports = Report.objects.all()
@@ -706,6 +728,11 @@ def master_report_detail(request,pk):
     report = Report.objects.get(id=pk)
     return render(request,"master_report_detail.html",{'report':report})
 
+def master_report_update(request,pk):
+
+    report = Report.objects.get(id=pk)
+    return render(request,"master_report_update.html",{'report':report})
+
 def master_adopt_post_list(request):
 
     adopt_posts = Adopt_post.objects.all()
@@ -715,3 +742,8 @@ def master_adopt_post_detail(request,pk):
 
     adopt_post = Adopt_post.objects.get(id=pk)
     return render(request,"master_adopt_post_detail.html",{'adopt_post':adopt_post})
+
+def master_adopt_post_update(request,pk):
+
+    adopt_post = Adopt_post.objects.get(id=pk)
+    return render(request,"master_adopt_post_update.html",{'adopt_post':adopt_post})
