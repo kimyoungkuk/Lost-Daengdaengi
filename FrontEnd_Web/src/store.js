@@ -23,7 +23,7 @@ export default new Vuex.Store({
       dog_feature:" ",  // 입력 : OwnerForm9
       remark:" ",       // 입력 : OwnerForm11
       phone_num:" ",    // 입력 : OwnerForm2
-      image:" ",        // 입력 : OwnerForm10
+      image:"default",        // 입력 : OwnerForm10
       lat: 0,
       lng: 0,
       posted_time:"1980-01-01 00:00:00.000000",
@@ -34,7 +34,7 @@ export default new Vuex.Store({
     dog_type :"a",    
     dog_feature:"",  // 입력 : FinderForm5
     phone_num:"",    // 입력 : FinderForm2
-    image:"",         // 입력 : FinderForm6
+    image:"default",         // 입력 : FinderForm6
     lat: 0,
     lng: 0,
     find_time :"",   // 입력 : FinderForm3

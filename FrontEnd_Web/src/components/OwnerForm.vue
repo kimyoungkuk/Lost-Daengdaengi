@@ -246,7 +246,6 @@ export default {
            this.$store.state.ownerPost.phone_num    = this.phone_num;
            this.$store.state.ownerPost.posted_time  = this.posted_time;
            this.$store.state.ownerPost.posted_due   = this.posted_due;
-           this.$store.state.ownerPost.image        = this.image;
            this.$store.state.ownerPost.lost_time    = this.date + ' ' + this.time;
            this.$store.state.ownerPost.dog_feature  = this.dog_feature;
            this.$store.state.ownerPost.dog_type     = this.dog_type;
@@ -273,8 +272,8 @@ export default {
                user_nickname  : this.$store.state.user_nickname
            }).then(res => {
                console.log(res.data)
-               this.$router.push('/SubmitPage');
            })
+           this.$router.push("/SubmitPage");
         },
         toPrev(){
             this.page_num--;

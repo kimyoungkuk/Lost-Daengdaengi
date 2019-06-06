@@ -180,7 +180,6 @@ export default {
             this.$store.state.FinderPost.find_time       = this.date + ' ' + this.time;
             this.$store.state.FinderPost.posted_due      = this.posted_due;
             this.$store.state.FinderPost.dog_feature     = this.dog_feature;
-            this.$store.state.FinderPost.image           = this.image;
             this.$store.state.FinderPost.shelter_name    = this.shelter_name;
             console.log(this.$store.state.FinderPost);
             this.$http.post('http://202.30.31.91:8000/api/finderPosts/create',{
@@ -198,9 +197,9 @@ export default {
                 user_nickname  : this.$store.state.user_nickname
             }).then(res => {
                 console.log(res.data)
-                this.$router.push('/SubmitPage');
                 // location.replace('http://202.30.31.91/SubmitPage?action=done');
             })
+            this.$router.push("/SubmitPage");
             // location.reload();  // 새로고침
             // this.goAnotherPage();
         },
