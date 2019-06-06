@@ -272,8 +272,8 @@ export default {
                user_nickname  : this.$store.state.user_nickname
            }).then(res => {
                console.log(res.data)
+               this.$router.push("/SubmitPage");
            })
-           this.$router.push("/SubmitPage");
         },
         toPrev(){
             this.page_num--;
