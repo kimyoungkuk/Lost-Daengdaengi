@@ -34,6 +34,14 @@
 	font-soze: 18px;
 }
 </style>
+<div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-table"></i>
+          Data Table</div>
+        <div class="card-body">
+          <div class="table-responsive">
+                <a id="home_btn" class="write_button" href="{% url 'master_home' %}">home</a>
+
 <div id="main">
     <div class="form-box">
         <form action="{{post.id}}" method="POST" enctype="multipart/form-data">{% csrf_token %}
@@ -46,4 +54,9 @@
             <button class="write_button">게시</button>
         </form>
     </div>
+</div>
+
+</div>
+</div>
+<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>

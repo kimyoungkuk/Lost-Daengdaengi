@@ -51,6 +51,13 @@
     font-size: 18px;
 }
 </style>
+<div class="card mb-3">
+        <div class="card-header">
+          <i class="fas fa-table"></i>
+          Data Table</div>
+        <div class="card-body">
+          <div class="table-responsive">
+                <a id="home_btn" class="write_button" href="{% url 'master_home' %}">home</a>
 
 <a id="home_btn" class="write_button" href="{% url 'master_home' %}">home</a>
 
@@ -76,3 +83,8 @@
 <a id="update_btn" class="write_button"  href="{% url 'master_user_update' pk=user.id  %}">update</a>
 
 <a id="delete_btn" class="red_button"  href="{% url 'master_user_delete' pk=user.id  %}">delete</a>
+
+</div>
+</div>
+<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
