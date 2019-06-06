@@ -1,0 +1,7 @@
+{% load staticfiles %}
+
+{% for dog_shelter in dog_shelters %}
+<div>
+    <a href="{%url 'master_dog_shelter_detail' pk=dog_shelter.id  %}">{{ dog_shelter.shelter_name }}</a>
+</div>
+{% endfor %}

@@ -74,4 +74,17 @@ urlpatterns = [
     path('adopt/post/create',myApp.views.adopt_post_create,name="adopt_post_create"),
     path('adopt/post/detail/<int:pk>',myApp.views.adopt_post_detail,name="adopt_post_detail"),
 
+
+    path('master_login/',myApp.views.master_login, name = "master_login"),
+    path('master_home/',myApp.views.master_home, name = "master_home"),
+    path('master_user_list/',myApp.views.master_user_list, name = "master_user_list"),
+    path('master_user_detail/<int:pk>',myApp.views.master_user_detail, name = "master_user_detail"),
+    path('master_owner_post_list/',myApp.views.master_owner_post_list, name = "master_owner_post_list"),
+    path('master_owner_post_detail/<int:pk>',myApp.views.master_owner_post_detail, name = "master_owner_post_detail"),
+    path('master_finder_post_list/',myApp.views.master_finder_post_list, name = "master_finder_post_list"),
+    path('master_finder_post_detail/<int:pk>',myApp.views.master_finder_post_detail, name = "master_finder_post_detail"),
+    path('master_dog_shelter_list/',myApp.views.master_dog_shelter_list, name = "master_dog_shelter_list"),
+    path('master_dog_shelter_detail/<int:pk>',myApp.views.master_dog_shelter_detail, name = "master_dog_shelter_detail"),
+
+
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

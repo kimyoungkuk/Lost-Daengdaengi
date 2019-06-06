@@ -1,0 +1,16 @@
+{% load staticfiles %}
+
+
+{% for finder_post in finder_posts %}
+<div>
+    <img src="{% static finder_post.imageurl %}" style="width:auto; max-width: calc(100%); max-height: 300px;">
+    <a href="{%url 'master_finder_post_detail' pk=finder_post.id  %}">{{ finder_post.title }}</a>
+</div>
+{% endfor %}
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" placeholder="검색" name="title"><br>
+
+    <input type="submit" value="submit" />
+</form>
