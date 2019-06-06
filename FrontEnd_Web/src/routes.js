@@ -12,7 +12,7 @@ import OwnerForm from './components/OwnerForm'
 import f2o_recommend from './components/f2o_recommend'
 import o2f_recommend from './components/o2f_recommend'
 import FinishBoard from './components/FinishBoard'
-
+import SubmitPage from './components/SubmitPage'
 import test1 from './components/test1'
 import test2 from './components/test2'
 import adoptHome from './components/adoptHome'
@@ -62,6 +62,11 @@ export default [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  { //
+    path: '/SubmitPage',
+    name: 'SubmitPage',
+    component: SubmitPage
   },
   { //
     path: '/aboutus',
