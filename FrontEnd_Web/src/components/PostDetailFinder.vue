@@ -69,7 +69,7 @@
       </b-card-group>
       <v-flex>
         <h4>
-          <b-badge variant="dark">댓글</b-badge>
+          <b-badge variant="dark">댓글{{this.$store.state.user_key}}</b-badge>
         </h4>
         <b-form @submit.prevent="addComment" v-on:keyup.enter="addComment">
           <b-form-textarea
@@ -222,7 +222,7 @@ export default {
     this.key = urlParams.get('key');
     this.$store.state.user_nickname = urlParams.get('nickname');
     this.nickname = urlParams.get('nickname');
-            
+
     console.log("QWERTYUIOP");
     this.getBoardDetail();
     this.getUserId();
