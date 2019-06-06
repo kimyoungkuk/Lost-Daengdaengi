@@ -36,7 +36,7 @@
       <GridLayout row = "1" rows = "auto,*">
                 <Label row = "0" text = "X" backgroundColor = "#FA7268" @tap="onTapClose" textAlignment="right" padding = "10"></Label>
                 <ScrollView row="1">
-                    <WebView height="500" ref = "webview" @loadFinished="completeLoading" @loaded="webViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
+                    <WebView height="500" ref = "webview" @loadFinished="completeLoading" @loadStarted="webViewLoaded($event)" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
                 </ScrollView>
       </GridLayout>
         </GridLayout>
@@ -52,15 +52,22 @@ var webViewModule = require('ui/web-view');
 const SwipeDirection = require("tns-core-modules/ui/gestures").SwipeDirection;
 import * as http from "http";
 import { Image } from 'tns-core-modules/ui/image/image';
-import 'url-search-params-polyfill';
+
+function gup( name, url ) {
+    if (!url) url = location.href;
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( url );
+    return results == null ? null : results[1];
+}
+
 export default {
   
     data() {
       return {
         marker_Finder :[],
         marker_Owner :[],
-        action: '',
-        //ChangedNickName : this.$store.state.user_nickname,
         mapView : null,
         map : null,
         webView : null,
@@ -94,17 +101,27 @@ export default {
         this.loadingComplete=false
         args.object.android.getSettings().setJavaScriptEnabled(true);
         args.object.android.getSettings().setBuiltInZoomControls(false);
+          console.log("--------------------------")
+  var query = gup('key', args.url)
+  console.log(args.object)
+  console.log(args.object.src)
+  console.log("query" + query)
+
       },
       loaded(args) {
     const page = args.object;
     const webview = page.getViewById('myWebView')
-    
-
     debugger;
     //webView.url = 
+    console.log(this.action)
     webview.on(webViewModule.WebView.loadFinishedEvent, function (args) {
-        console.log(JSON.stringify(args.url));
+        // console.log(JSON.stringify(args.url));
+        var query = gup('key', args.url)
+        
+      
+      
     });
+ 
     webview.android.getSettings().setJavaScriptEnabled(true);
     webview.android.getSettings().setDisplayZoomControls(false);
     webview.android.getSettings().setBuiltInZoomControls(false);
@@ -115,6 +132,12 @@ export default {
     webview.android.getSettings().setDomStorageEnabled(true);
   
       },
+webViewLoaded(args){
+
+},
+  
+
+
 // loaded(args) {
 //   var page = args.object;
 //   const webview = page.getViewById('myWebView');
