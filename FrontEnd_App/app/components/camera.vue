@@ -3,11 +3,12 @@
         <ActionBar class="action-bar">
             <Label class="action-bar-title" text="댕댕이 사진을 지정 합니다"></Label>
         </ActionBar>
-        <GridLayout rows=" *, auto, auto,auto">
+        <GridLayout rows=" *, auto, auto,auto,auto">
             <Image row="0" :src="cameraImage" id="image" stretch="aspectFit"/>
             <TextView row="1" :text="labelText" editable="false"></TextView>>
-            <Button class="btn mybtn" row="2"  text="댕댕이 촬영" @tap="onTakePictureTap"  padding="10"/>
-            <Button class="btn mybtn" row ="3" text = "추천된 견종을 사용합니다." @tap="onSelect" paddin="10"/>
+            <Progress color="#FA7268" v-show="loadingComplete" :value="loadingValue" row ="2"/>
+            <Button class="btn mybtn" row="3"  text="댕댕이 촬영" @tap="onTakePictureTap" padding="10"/>
+            <Button class="btn mybtn" row ="4" text = "추천된 견종을 사용합니다." :isEnabled="!processing" @tap="onSelect" padding="10"/>
         </GridLayout>
     </Page>
 </template>
@@ -22,17 +23,30 @@
     export default {
         data() {
             return {
+                processing: true,
+                loadingValue: 0,
+                loadingComplete: false,
                 imgStr : "",
                 saveToGallery: false,
                 allowsEditing: false,
-                keepAspectRatio: true,
+                keepAspectRatio: false,
                 width: 160,
                 height: 120,
-                cameraImage: null,
-                labelText: ""
+                cameraImage: '~/assets/images/DaengDaengi.png',
+                labelText: "-"
             }
         },
         methods: {
+            OnInit() {
+                this.labelText = "-"
+                this.loadingValue = 0;
+    var d = setInterval(() => {
+      this.loadingValue += 1
+      if(this.loadingValue==90){
+        clearInterval(d)
+      }
+    }, 60)
+  },
             onSelect(args){
                 this.$store.state.FinderPost.dog_type = this.labelText;
                 this.$goto('makePost_Finder');
@@ -42,20 +56,23 @@
                 let that = this;
                 requestPermissions().then(
                     () => {
-                        takePicture({ width: 160, height: 120, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
+                        takePicture({ width: 224, height: 224, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
                             then((imageAsset) => {
                                 that.cameraImage = imageAsset;
                                 fromAsset(imageAsset).then(imgSource=>{
-                                    this.$store.state.FinderPost.image = imgSource.toBase64String('png');
+                                    this.$store.state.FinderPost.image = imgSource.toBase64String('jpg');
                                     // console.log(imgSource.toBase64String('png'));
                                     // console.log(typeof(imgSource.toBase64String('png')));
                                     // console.log(imgSource.toBase64String('png').length);
                                     //
+                                    this.loadingComplete= true
+                                    this.OnInit()
                                     axios.post('http://202.30.31.91:8000/api/classification',{
-                                        image : imgSource.toBase64String('png'),
-                                        
+                                        image : imgSource.toBase64String('jpg'),
                                     }).then(res => {
-                                        console.log("q보냄");
+                                        console.log("보냄");
+                                        this.loadingComplete=false
+                                        this.processing = false
                                         console.log(res.data);
                                         this.labelText = res.data;
                                         

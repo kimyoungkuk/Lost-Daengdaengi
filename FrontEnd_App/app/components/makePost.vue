@@ -11,9 +11,7 @@
             <Button row="2" text="사진 선택" @tap="onSelectSingleTap" horizontalAlignment="center" />
             <Button row = "3" @tap = "onTap_sub" text = "제출"></Button>
         </GridLayout>
-        <!-- <ScrollView>
-            <RadDataForm :source="source" :metadata="meta" :groups="groups"></RadDataForm>
-        </ScrollView> -->
+
     </Page>
 </template>
 
