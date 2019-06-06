@@ -1,15 +1,13 @@
 <template>
     <Page class="page">
         <ActionBar class="action-bar">
-            <Label class="action-bar-title" text="카메라"></Label>
+            <Label class="action-bar-title" text="댕댕이 사진을 지정 합니다"></Label>
         </ActionBar>
-
         <GridLayout rows=" *, auto, auto,auto">
-            
-            <Image row="0" :src="cameraImage" id="image" stretch="aspectFit" margin="10"/>
+            <Image row="0" :src="cameraImage" id="image" stretch="aspectFit"/>
             <TextView row="1" :text="labelText" editable="false"></TextView>>
-            <Button class="btn btn-primary" row="2"  text="사진찍기" @tap="onTakePictureTap"  padding="10"/>
-            <Button class="btn btn-primary" row ="3" text = "맞습니다" @tap="onSelect" paddin="10"/>
+            <Button class="btn mybtn" row="2"  text="댕댕이 촬영" @tap="onTakePictureTap"  padding="10"/>
+            <Button class="btn mybtn" row ="3" text = "추천된 견종을 사용합니다." @tap="onSelect" paddin="10"/>
         </GridLayout>
     </Page>
 </template>
@@ -79,17 +77,11 @@
 <style scoped lang="scss">
 @import '~nativescript-theme-core/css/core.light.css';
     ActionBar {
-        background-color: #4ba5fa;
+        background-color: #FA7268;
         color: #ffffff;
     }
-    // // Start custom common variables
-    // @import '../app-variables';
-    // // End custom common variables
-    // // Custom styles
-    // .fa {
-    //     color: $accent-dark;
-    // }
-    // .info {
-    //     font-size: 20;
-    // }
+          .mybtn{
+      color: #ffffff;
+      background-color: #FA7268;
+    }
 </style>

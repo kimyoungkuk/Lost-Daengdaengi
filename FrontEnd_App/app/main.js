@@ -6,7 +6,7 @@ import store from './store'
 import store_ from '~/store'
 import axios from 'axios'
 import RadDataForm from 'nativescript-ui-dataform/vue'
-import { TNSFontIcon, fonticon } from './nativescript-fonticon';
+import { TNSFontIcon, fonticon } from './nativescript-fonticon/nativescript-fonticon';
 import ButtonPlugin from 'nativescript-material-button/vue';
 import CardViewPlugin from 'nativescript-material-cardview/vue';
 import FabPlugin from "nativescript-vue-fab"
@@ -73,9 +73,11 @@ firebase
   );
 
   new Vue({
+    
     store,
     store_,
     render (h) {
+      
       return h(
         sideDrawer,
         [
