@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
@@ -602,7 +602,7 @@ def master_login(request):
         except:
             return render(request,"login.html")
         if master_admin.pwd == request.POST['pwd']:
-            return render(request,"master_home.html")
+            return redirect("master_home",report_num=Report.objects.all().count())
         else:
             return render(request,"login.html")
 
