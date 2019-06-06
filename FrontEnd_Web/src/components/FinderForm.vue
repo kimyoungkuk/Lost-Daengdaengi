@@ -198,8 +198,8 @@ export default {
             }).then(res => {
                 console.log(res.data)
                 // location.replace('http://202.30.31.91/SubmitPage?action=done');
+                this.$router.push("/SubmitPage");
             })
-            this.$router.push("/SubmitPage");
             // location.reload();  // 새로고침
             // this.goAnotherPage();
         },
