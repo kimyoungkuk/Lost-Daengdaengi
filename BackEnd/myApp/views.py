@@ -672,8 +672,6 @@ def master_finder_post_detail(request,pk):
     return render(request,"master_finder_post_detail.html",{'finder_post':finder_post})
 
 
-
-
 def master_dog_shelter_list(request):
 
     dog_shelters = Dog_shelter.objects.all()
@@ -683,3 +681,23 @@ def master_dog_shelter_detail(request,pk):
 
     dog_shelter = Dog_shelter.objects.get(id=pk)
     return render(request,"master_dog_shelter_detail.html",{'dog_shelter':dog_shelter})
+
+def master_report_list(request):
+
+    reports = Report.objects.all()
+    return render(request,"master_report_list.html",{'reports':reports})
+
+def master_report_detail(request,pk):
+
+    report = report.objects.get(id=pk)
+    return render(request,"master_report_detail.html",{'report':report})
+
+def master_adopt_post_list(request):
+
+    adopt_posts = Adopt_post.objects.all()
+    return render(request,"master_adopt_post_list.html",{'adopt_posts':adopt_posts})
+
+def master_adopt_post_detail(request,pk):
+
+    adopt_post = Adopt_post.objects.get(id=pk)
+    return render(request,"master_adopt_post_detail.html",{'adopt_post':adopt_post})

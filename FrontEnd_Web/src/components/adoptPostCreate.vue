@@ -172,6 +172,7 @@
             image:this.image,
             imageurl:this.imageurl,
             shelter:this.shelter,
+            user_nickname:this.$store.state.user_nickname,
 
         }).then(res => {
             

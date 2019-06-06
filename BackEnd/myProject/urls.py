@@ -85,6 +85,10 @@ urlpatterns = [
     path('master_finder_post_detail/<int:pk>',myApp.views.master_finder_post_detail, name = "master_finder_post_detail"),
     path('master_dog_shelter_list/',myApp.views.master_dog_shelter_list, name = "master_dog_shelter_list"),
     path('master_dog_shelter_detail/<int:pk>',myApp.views.master_dog_shelter_detail, name = "master_dog_shelter_detail"),
+    path('master_report_list/',myApp.views.master_report_list, name = "master_report_list"),
+    path('master_report_detail/<int:pk>',myApp.views.master_report_detail, name = "master_report_detail"),
+    path('master_adopt_post_list/',myApp.views.master_adopt_post_list, name = "master_adopt_post_list"),
+    path('master_adopt_post_detail/<int:pk>',myApp.views.master_adopt_post_detail, name = "master_adopt_post_detail"),
 
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
