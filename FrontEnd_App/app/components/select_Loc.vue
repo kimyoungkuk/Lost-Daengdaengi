@@ -31,7 +31,6 @@
     export default {
 
         data () {
-            
             return { 
                 markerinfo : [],
                 lat : 0,

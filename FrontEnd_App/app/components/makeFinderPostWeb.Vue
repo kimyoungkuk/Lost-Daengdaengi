@@ -1,47 +1,45 @@
 <template>
-    <Page actionBarHidden="true">
-           <!-- <FlexboxLayout flexDirection="column" backgroundColor="#3c495e"> -->
-            <!-- <Image class="logo" src="~/assets/images/DaengDaengi.png" horizontalAlignment="center" stretch="none"/> -->
-            <GridLayout rows = "*,auto">
-            <WebView row="0" @loadFinished="completeLoading" loaded="onWebViewLoaded" id="myWebView" :src="this.src"/>
+    <Page @loaded="loaded" actionBarHidden="true">
+              <ScrollView>
+                <StackLayout>  
+            <WebView id="myWebView" row="0" height="900" @loadFinished="completeLoading"  :src="this.src"/>
+            
             <Progress row="1" color="#FA7268" v-show="loadingComplete" :value="loadingValue"/>
-            </GridLayout>
-            <!-- <Label class="message" :text="msg" col="0" row="0"/> -->      
-  <!-- </FlexboxLayout> -->
-          
-
-               
-               
+            </StackLayout>  
+            </ScrollView>
     </Page>
 </template>
 
 <script >
 var webViewModule = require('ui/web-view');
+
   export default {
     data() {
       return {
         loadingValue: 0,
         loadingComplete: true,
         src: ' ',
-        user_key: this.$store.state.user_Email,
+        user_key: this.$store.state.user_key,
         user_nickname: this.$store.state.user_nickname,
         lat: this.$store.state.FinderPost.lat,
         lng: this.$store.state.FinderPost.lng,
       }
     },
-    methods:{
+    methods:{      
             loaded(args) {
     const page = args.object;
-    this.webView = page.getViewById('myWebView')
+    const webView = page.getViewById('myWebView')
+    webView.android.getSettings().setDisplayZoomControls(false);
+webView.android.getSettings().setBuiltInZoomControls(false);
     debugger;
     //webView.url = 
-    this.webView.on(webViewModule.WebView.loadFinishedEvent, function (args) {
+    webView.on(webViewModule.WebView.loadFinishedEvent, function (args) {
         console.log(JSON.stringify(args.url));
+        alert("asd")
     });
 },
       completeLoading(args){
         this.loadingComplete=false
-        args.object.android.getSettings().setBuiltInZoomControls(false);
       },
       OnInit() {
           this.src = this.$store.state.API_WEBVIEW_URL + "/finderForm"+ "?user_key=" + this.user_key +"&user_nickname=" +this.user_nickname + "&lat=" + this.lat +"&lng=" + this.lng

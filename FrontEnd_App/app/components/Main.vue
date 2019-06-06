@@ -1,11 +1,11 @@
 <template>
-  <Page>
+  <Page @loaded="loaded">
         <ActionBar class="font-weight-bold" title="Lost Daengdaengi">
           <NavigationButton icon = "~/assets/images/baseline_menu_black_18dp.png" @tap="openDrawer"/>
         </ActionBar>
                 <ScrollView>
           <StackLayout>     
-            <WebView id="myWebView" scaleY="1" row="0" @loadFinished="completeLoading" height="300" loaded="onWebViewLoaded" :src="this.$store.state.API_WEBVIEW_URL"/>
+            <WebView id="myWebView" scaleY="1" row="0" @loadFinished="completeLoading" height="300" :src="this.$store.state.API_WEBVIEW_URL"/>
             <Progress color="#FA7268" v-show="loadingComplete" :value="loadingValue" row ="0"/>
             <Button class="fab mybtn btn-active" :text="'\uf1a3' + ' 시작하기'" height="50" width="175" @tap="$goto('login')" />
                       <FlexboxLayout flexDirection="column" backgroundColor="#3c495e">
@@ -34,6 +34,7 @@
 <script>
 import sideDrawer from '~/mixins/sideDrawer'
 import * as wViewModule from "ui/web-view";
+
   export default {
     mixins: [ sideDrawer ],
     data() {
@@ -43,8 +44,13 @@ import * as wViewModule from "ui/web-view";
       }
     },
     methods:{
+       loaded(webargs) {
+const page = webargs.object
+const webview = page.getViewById('myWebView');
+webview.android.getSettings().setDisplayZoomControls(false);
+webview.android.getSettings().setBuiltInZoomControls(false);
+},  
       completeLoading(args){
-        args.object.android.getSettings().setBuiltInZoomControls(false);
         this.loadingComplete=false
       },
       OnInit() {

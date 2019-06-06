@@ -81,7 +81,7 @@ export default {
           console.log('----Gmail 유저 이메일----')
           console.log(this.user.email)
           console.log(this.key)
-          this.$store.state.user_Email = this.key
+          this.$store.state.user_key = this.key
           this.$http.post(this.$store.state.API_BACKEND_URL + '/api/users/login',{
               key: this.key
                 })

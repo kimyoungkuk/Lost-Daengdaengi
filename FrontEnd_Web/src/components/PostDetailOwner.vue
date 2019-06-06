@@ -174,7 +174,7 @@ export default {
   name: "boardView",
   data() {
     return {
-      key :  this.$store.state.user_Email,
+      key :  this.$store.state.user_key,
       nickname :  this.$store.state.user_nickname,
       lat : 0,
       lng : 0,

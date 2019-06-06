@@ -585,3 +585,133 @@ def adopt_post_delete(request,pk):
     adopt_post = Adopt_post.objects.get(id=pk)
     adopt_post.delete()
     return Response(1, status = status.HTTP_201_CREATED)
+
+
+
+
+
+
+
+def master_login(request):
+    
+    if request.method == "GET":
+        return render(request,"login.html")
+    else:
+        try:
+            master_admin=Master_admin.objects.get(account=request.POST['account'])
+        except:
+            return render(request,"login.html")
+        if master_admin.pwd == request.POST['pwd']:
+            return render(request,"master_home.html")
+        else:
+            return render(request,"login.html")
+
+
+
+
+    
+
+
+def master_home(request):
+
+    return render(request,"master_home.html")
+
+
+
+def master_user_list(request):
+    
+    if request.method == "GET":
+        users = User.objects.all()
+        ks = User.objects.all().values('key','id')
+        return render(request,"master_user_list.html",{'users':users,'ks':ks})
+    else:
+        users = User.objects.filter(nickname=request.POST['nickname'])
+        return render(request,"master_user_list.html",{'users':users})
+    
+
+def master_user_detail(request,pk):
+
+    user = User.objects.get(id=pk)
+    return render(request,"master_user_detail.html",{'user':user})
+
+
+
+
+def master_owner_post_list(request):
+
+    if request.method == "GET":
+        owner_posts = Owner_post.objects.all()
+        return render(request,"master_owner_post_list.html",{'owner_posts':owner_posts})
+    else:
+        if request.POST['title']=="":
+            if request.POST['posted_time_from']=="" or request.POST['posted_time_to']=="":
+                owner_posts = Owner_post.objects.all()
+            else:
+                owner_posts = Owner_post.objects.filter(posted_time__gte=request.POST['posted_time_from'],posted_time__lte=request.POST['posted_time_to'])
+        else:
+            if request.POST['posted_time_from']=="" or request.POST['posted_time_to']=="":
+                owner_posts = Owner_post.objects.filter(title=request.POST['title'])
+            else:
+                owner_posts = Owner_post.objects.filter(title=request.POST['title'],posted_time__gte=request.POST['posted_time_from'],posted_time__lte=request.POST['posted_time_to'])
+            
+        return render(request,"master_owner_post_list.html",{'owner_posts':owner_posts})
+    
+def master_owner_post_detail(request,pk):
+
+    owner_post = Owner_post.objects.get(id=pk)
+    return render(request,"master_owner_post_detail.html",{'owner_post':owner_post})
+
+def master_finder_post_list(request):
+
+    if request.method == "GET":
+        finder_posts = Finder_post.objects.all()
+        return render(request,"master_finder_post_list.html",{'finder_posts':finder_posts})
+    else:
+        if request.POST['title']=="":
+            if request.POST['posted_time_from']=="" or request.POST['posted_time_to']=="":
+                finder_posts = Finder_post.objects.all()
+            else:
+                finder_posts = Finder_post.objects.filter(posted_time__gte=request.POST['posted_time_from'],posted_time__lte=request.POST['posted_time_to'])
+        else:
+            if request.POST['posted_time_from']=="" or request.POST['posted_time_to']=="":
+                finder_posts = Finder_post.objects.filter(title=request.POST['title'])
+            else:
+                finder_posts = Finder_post.objects.filter(title=request.POST['title'],posted_time__gte=request.POST['posted_time_from'],posted_time__lte=request.POST['posted_time_to'])
+          
+        return render(request,"master_finder_post_list.html",{'finder_posts':finder_posts})
+    
+def master_finder_post_detail(request,pk):
+
+    finder_post = Finder_post.objects.get(id=pk)
+    return render(request,"master_finder_post_detail.html",{'finder_post':finder_post})
+
+
+def master_dog_shelter_list(request):
+
+    dog_shelters = Dog_shelter.objects.all()
+    return render(request,"master_dog_shelter_list.html",{'dog_shelters':dog_shelters})
+
+def master_dog_shelter_detail(request,pk):
+
+    dog_shelter = Dog_shelter.objects.get(id=pk)
+    return render(request,"master_dog_shelter_detail.html",{'dog_shelter':dog_shelter})
+
+def master_report_list(request):
+
+    reports = Report.objects.all()
+    return render(request,"master_report_list.html",{'reports':reports})
+
+def master_report_detail(request,pk):
+
+    report = Report.objects.get(id=pk)
+    return render(request,"master_report_detail.html",{'report':report})
+
+def master_adopt_post_list(request):
+
+    adopt_posts = Adopt_post.objects.all()
+    return render(request,"master_adopt_post_list.html",{'adopt_posts':adopt_posts})
+
+def master_adopt_post_detail(request,pk):
+
+    adopt_post = Adopt_post.objects.get(id=pk)
+    return render(request,"master_adopt_post_detail.html",{'adopt_post':adopt_post})

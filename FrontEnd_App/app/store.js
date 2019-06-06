@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    user_Email: "",
+    user_key: "",
     user_nickname: "",
     user_nick_visible : "로그인이 필요합니다.",
     API_BACKEND_URL: "http://202.30.31.91:8000",

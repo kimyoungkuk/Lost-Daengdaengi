@@ -20,8 +20,11 @@
           :padding="padd"
           :mapAnimationsEnabled="true"
           :myLocationButtonEnabled="true"
+          :myloction="{lat,lng}"
           @mapReady="onMapReady($event)" 
-          >
+          @markerInfoWindowTapped="showDetail($event)"
+          @markerSelect="markerS($event)"
+          > 
           </mapView>
           <fab @tap="myLocTap" row="0" rippleColor="#ffffff" icon = "ic_menu_mylocation" class="fab-button"></fab>
           <SegmentedBar @selectedIndexChange="onSelectedIndexChange">
@@ -31,16 +34,10 @@
       
       </GridLayout>
       <GridLayout row = "1" rows = "auto,*">
-<<<<<<< HEAD
-                <Label row = "0" backgroundColor = "#4ba5fa" @swipe = "onSwipe" padding = "10"></Label>
 
+                <Label row = "0" text = "X" backgroundColor = "#FA7268" @tap="onTapClose" textAlignment="right" padding = "10"></Label>
                 <ScrollView row="1">
-                    <WebView ref = "webview" loaded="onWebViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
-=======
-                <Label row = "0" backgroundColor = "#FA7268" @swipe = "onSwipe" padding = "10"></Label>
-                <ScrollView row="1">
-                    <WebView height="500" ref = "webview" @loadFinished="completeLoading" loaded="onWebViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
->>>>>>> d6a1a01ddf69278fc6e4ebc326ab6246e499842d
+                    <WebView height="500" ref = "webview" @loadFinished="completeLoading" @loaded="webViewLoaded" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
                 </ScrollView>
       </GridLayout>
         </GridLayout>
@@ -52,7 +49,6 @@ import * as utils from "utils/utils";
 import * as mapsModule from "nativescript-google-maps-sdk";
 import * as geolocation from "nativescript-geolocation";
 import { Accuracy } from "tns-core-modules/ui/enums";
-
 var webViewModule = require('ui/web-view');
 const SwipeDirection = require("tns-core-modules/ui/gestures").SwipeDirection;
 import * as http from "http";
@@ -64,24 +60,37 @@ export default {
       return {
         marker_Finder :[],
         marker_Owner :[],
+       
         //ChangedNickName : this.$store.state.user_nickname,
-<<<<<<< HEAD
         mapView : null,
-=======
         map : null,
         webView : null,
->>>>>>> d6a1a01ddf69278fc6e4ebc326ab6246e499842d
         lat :37,
         lng :127,
         padd : [40,40,40,40],
-        row_scale : "*, 100",
+        row_scale : "*, 40",
         count : 0,
-        API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname,
-        API_WEBVIEW_URL_finder_temp : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname,
+        API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_key + "&nickname=" + this.$store.state.user_nickname,
+        API_WEBVIEW_URL_finder_temp : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_key + "&nickname=" + this.$store.state.user_nickname,
         selected :0
       }
     },
   methods: {
+
+//     viewLoaded(args){
+//     let webview = args.object;
+//     webview.on(WebViewExt.shouldOverrideUrlLoadingEvent, (args) => {
+//         console.log(args.url);
+//         console.log(args.httpMethod);
+//         if (args.url != null && args.url.startsWith("https://")) {
+//             console.log(args.url);
+//             utilityModule.openUrl(args.url);
+//             return true;
+//         }else {
+//             return false;
+//         }
+//     });
+// },
          completeLoading(args){
         this.loadingComplete=false
         args.object.android.getSettings().setJavaScriptEnabled(true);
@@ -89,18 +98,99 @@ export default {
       },
       loaded(args) {
     const page = args.object;
-    this.webView = page.getViewById('myWebView')
+    const webview = page.getViewById('myWebView')
+    
+
     debugger;
     //webView.url = 
-    this.webView.on(webViewModule.WebView.loadFinishedEvent, function (args) {
+    webview.on(webViewModule.WebView.loadFinishedEvent, function (args) {
         console.log(JSON.stringify(args.url));
     });
-},
+    webview.android.getSettings().setJavaScriptEnabled(true);
+    webview.android.getSettings().setDisplayZoomControls(false);
+    webview.android.getSettings().setBuiltInZoomControls(false);
+    webview.android.getSettings().setAllowFileAccessFromFileURLs(true);
+    webview.android.getSettings().setAllowUniversalAccessFromFileURLs(true);
+    webview.android.getSettings().setMediaPlaybackRequiresUserGesture(false);
+    webview.android.getSettings().setUseWideViewPort(true);
+    webview.android.getSettings().setDomStorageEnabled(true);
+  
+      },
+// loaded(args) {
+//   var page = args.object;
+//   const webview = page.getViewById('myWebView');
+//   var TNSWebViewClient =
+//     android.webkit.WebViewClient.extend({
+//       shouldOverrideUrlLoading: function (view, url) {
+//         if (url != null && url.startsWith("http://")) {
+//           console.log(url);
+//           // use openUrl form utils module to open the page in a browser
+//           return true;
+//         } else {
+//           return false;
+//         }
+//       }
+//     });
+//   var TNSWebChromeClient =
+//     android.webkit.WebChromeClient.extend({
+//       onPermissionRequest: function (request) {
+//         request.grant(request.getResources());
+//       }
+//     });
+//     webview.android.getSettings().setJavaScriptEnabled(true);
+//     webview.android.getSettings().setDisplayZoomControls(false);
+//     webview.android.getSettings().setBuiltInZoomControls(false);
+//     webview.android.getSettings().setAllowFileAccessFromFileURLs(true);
+//     webview.android.getSettings().setAllowUniversalAccessFromFileURLs(true);
+//     webview.android.getSettings().setMediaPlaybackRequiresUserGesture(false);
+//     webview.android.getSettings().setUseWideViewPort(true);
+//     webview.android.getSettings().setDomStorageEnabled(true);
+//     webview.android.setWebViewClient(new TNSWebViewClient());
+//     webview.android.setWebChromeClient(new TNSWebChromeClient());
+  
+// },
+
+
+//   loaded(webargs) {
+// const page = webargs.object
+
+// const webview = page.getViewById('myWebView');
+
+// webview.on(webViewModule.WebView.shouldOverrideUrlLoading, (args) => {
+//     let message = "Loading initiated, please wait....";
+//     if (!args.error) {
+//         message = `WebView is loaded: ${args.url}`;
+//     }
+//     else {
+//         message = `Error while loading: ${args.url} : ${args.error}`;
+//     }
+//     // vm.set("result", message);
+//     console.log(`WebView console log messages - ${message}`);
+//     if (args.url.indexOf('http://') === 0) {
+      
+     
+//     }
+// });
+// webview.android.getSettings().setDisplayZoomControls(false);
+//       webview.android.getSettings().setBuiltInZoomControls(false);
+// },  
+      showDetail(args){
+        if(this.selected == 1){
+          this.API_WEBVIEW_URL_finder = this.$store.state.API_WEBVIEW_URL + '/finderboard/view/'+args.marker.userData.id+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname;
+          this.row_scale = "70,*"
+       // console.dir(args.marker.userData.id)
+        }
+        else{
+          this.API_WEBVIEW_URL_finder = this.$store.state.API_WEBVIEW_URL + '/ownerboard/view/'+args.marker.userData.id+"?key=" + this.$store.state.user_Email + "&nickname=" + this.$store.state.user_nickname;
+          this.row_scale = "70,*"
+        }
+      },
       onMapReady(args){
         var mView = args.object;
         this.mapView = mView;  
         var gMap = mView.gMap;
         var marker_T;
+        console.log(this.mapView.selectedMarker)
         geolocation.getCurrentLocation({
                     desiredAccuracy: Accuracy.high,
                     maximumAge: 2000,
@@ -111,6 +201,9 @@ export default {
         })
   
         gMap.myLocationEnabled=true
+      },
+      markerS(args){
+        console.log(args.position)
       },
       myLocTap(args){
         geolocation.getCurrentLocation({
@@ -123,7 +216,7 @@ export default {
         })
       },
       onSelectedIndexChange(args){
-          var marker_T;
+        var marker_T;
           if(this.mapView){
             this.mapView.clear();
             this.marker_Finder = [];
@@ -136,11 +229,13 @@ export default {
                       for(var i =0; i<res.data.length;i++){
                           marker_T = new mapsModule.Marker();
                           marker_T.position = mapsModule.Position.positionFromLatLng(res.data[i].lat,res.data[i].lng);
-                          marker_T.title = res.data[i].title;
+                          marker_T.title = res.data[i].title +"\n(자세히 보려면 클릭)";
                           marker_T.userData = res.data[i];
+                    
                           this.marker_Finder.push(marker_T);
                         }
                       for(var i =0;i<this.marker_Finder.length;i++){
+                          console.log(this.marker_Finder[i].userData)
                           this.mapView.addMarker(this.marker_Finder[i]);
                         }
                       })
@@ -154,7 +249,7 @@ export default {
                     for(var i =0; i<res.data.length;i++){
                       marker_T = new mapsModule.Marker();
                       marker_T.position = mapsModule.Position.positionFromLatLng(res.data[i].lat,res.data[i].lng);
-                      marker_T.title = res.data[i].title;
+                      marker_T.title = res.data[i].title+"\n(자세히 보려면 클릭)";
                       marker_T.userData = res.data[i];
                       this.marker_Owner.push(marker_T);
                     }
@@ -167,36 +262,9 @@ export default {
           }
 
       },
-      onSwipe(args) {
-                let direction =
-                    args.direction == SwipeDirection.down
-                        ? "down"
-                        : args.direction == SwipeDirection.up
-                            ? "up"
-                            : args.direction == SwipeDirection.left
-                                ? "left"
-                                : "right";
-                console.log(direction);
-                if(direction == "up"){
-                    this.row_scale = "70,*"
-                    count = 0;
-                }if(direction == "down"){
-                    if(this.count == 0){
-                        this.row_scale = "*,100";
-                        this.count ++;
-                        console.log("100")
-                    }
-                    else{
-                        this.row_scale = "*,50";
-                        this.count--;
-                        console.log("50")
-                    }
-
-                }
-                console.log.unshift({
-                    text: "You performed a " + direction + " swipe"
-                });
-            },
+      onTapClose(args) {
+               this.row_scale = "*,40"
+      }
     }
 }
 </script>

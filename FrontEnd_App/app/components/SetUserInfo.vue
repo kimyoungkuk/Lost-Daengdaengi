@@ -1,11 +1,11 @@
 <template>
 	<Page class="page">
-		<ActionBar title="환영합니다." class="action-bar"/>
+		<ActionBar title="환영합니다!" class="action-bar"/>
 		<ScrollView>
 			<StackLayout class="home-panel">
 				<Label textWrap="true" class="body m-20" text="세계 최강 유기견 찾기 앱입니다."
 				/>
-				<Button class="btn btn-primary" text="닉네임 입력" @tap="prompt" />
+				<Button class="btn mybtn" text="닉네임 입력" @tap="prompt" />
 			</StackLayout>
 		</ScrollView>
 	</Page>
@@ -29,7 +29,7 @@ export default {
         console.log("Dialog result: " + result.result);
         console.log("Text: " + result.text);
             this.$http.post(this.$store.state.API_BACKEND_URL + '/api/users/signUp',{
-              key: this.$store.state.user_Email,
+              key: this.$store.state.user_key,
               nickname: result.text
                 })
                 .then(function(response){
@@ -67,4 +67,12 @@ export default {
     font-size: 20;
     margin: 15;
 }
+    .mybtn{
+      color: #ffffff;
+      background-color: #FA7268;
+    }
+        ActionBar {
+        background-color: #FA7268;
+        color: #ffffff;
+    }
 </style>

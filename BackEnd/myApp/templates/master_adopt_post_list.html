@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Phone Number</th>
+            <th>Posted Time</th>
+            <th>Dog Sex</th>
+            <th>Dog Type</th>
+            <th>Dog Age</th>
+            <th>Neutralizer</th>
+            <th>Vaccine</th>
+        </tr>
+    </thead>
+    {% for adopt_post in adopt_posts %}
+    <tbody>
+        <tr>
+            <td><img src="{{adopt_post.imageurl}}" style="width: 150px; height: 150px;"></td>
+            <td><a href="{%url 'master_adopt_post_detail' pk=adopt_post.id  %}">{{ adopt_post.title }}</a></td>
+            <td>{{ adopt_post.phone_num }}</td>
+            <td>{{ adopt_post.posted_time }}</td>
+            <td>{{ adopt_post.dog_sex }}</td>
+            <td>{{ adopt_post.dog_type }}</td>
+            <td>{{ adopt_post.dog_age }}</td>
+            <td>{{ adopt_post.is_neu }}</td>
+            <td>{{ adopt_post.is_vac }}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>

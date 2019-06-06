@@ -1,0 +1,40 @@
+{% load staticfiles %}
+
+
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Writer</th>
+            <th>Phone Number</th>
+            <th>Posted Time</th>
+            <th>Dog Type</th>
+            <th>Find Time</th>
+            <th>Shelter</th>
+            <th>Reported count</th>
+        </tr>
+    </thead>
+    {% for finder_post in finder_posts %}
+    <tbody>
+        <tr>
+            <td><img src="{{finder_post.imageurl}}" style="width: 150px; height: 150px;"></td>
+            <td><a href="{%url 'master_finder_post_detail' pk=finder_post.id  %}">{{ finder_post.title }}</a></td>
+            <td>{{ finder_post.phone_num }}</td>
+            <td>{{ finder_post.user_nickname }}</td>
+            <td>{{ finder_post.posted_time }}</td>
+            <td>{{ finder_post.dog_type }}</td>
+            <td>{{ finder_post.find_time }}</td>
+            <td>{{ finder_post.shelter_name }}</td>
+            <td>{{ finder_post.report_count }}</td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" placeholder="검색" name="title"><br>
+
+    <input type="submit" value="submit" />
+</form>

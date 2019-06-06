@@ -5,6 +5,7 @@
       <b-button router-link to='/finderboard' variant="outline-primary">발견인 게시판</b-button>
       <b-button router-link to='/ownerboard' variant="outline-primary">유기견주 게시판</b-button>
       <b-button router-link to='/finishboard' variant="outline-primary">반환완료 게시판</b-button>
+      <b-button router-link to='/adopt/post/list' variant="outline-primary">분양 게시판</b-button>
     </b-button-group>
     </div>
     <div>
@@ -72,7 +73,7 @@ export default {
   // finder 게시글 제목(title), 견종(dog_type) , 잃어버린 날짜(lost_time), imgsrc(imageurl)
   data: function () {
     return {
-      key : this.$store.state.user_Email,
+      key : this.$store.state.user_key,
       nickname : this.$store.state.user_nickname,
       lat : 0,
       lng : 0,
@@ -89,9 +90,9 @@ export default {
   },
   created(){
     let urlParams = new URLSearchParams(window.location.search);
-    if(this.$store.state.user_Email=="" || this.$store.state.user_nickname=="")
+    if(this.$store.state.user_key=="" || this.$store.state.user_nickname=="")
     {
-      this.$store.state.user_Email = urlParams.get('key');
+      this.$store.state.user_key = urlParams.get('key');
       this.key = urlParams.get('key');
       this.$store.state.user_nickname = urlParams.get('nickname');
       this.nickname = urlParams.get('nickname');
