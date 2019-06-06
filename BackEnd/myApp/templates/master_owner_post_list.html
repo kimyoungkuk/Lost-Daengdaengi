@@ -9,24 +9,7 @@
 <!-- Custom styles for this template-->
 <link href="{% static 'css/sb-admin.css' %}" rel="stylesheet">
 
-<!-- Bootstrap core JavaScript-->
-<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  
-<!-- Core plugin JavaScript-->
-<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
-  
-<!-- Page level plugin JavaScript-->
-<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
-<script src="{% static 'vendor/datatables/jquery.dataTables.js' %}"></script>
-<script src="{% static 'vendor/datatables/dataTables.bootstrap4.js' %}"></script>
-  
-<!-- Custom scripts for all pages-->
-<script src="{% static 'js/sb-admin.min.js' %}"></script>
-  
-<!-- Demo scripts for this page-->
-<script src="{% static 'js/demo/datatables-demo.js' %}"></script>
-<script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+
 
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
     <thead>
@@ -49,8 +32,8 @@
         <tr>
             <td><img src="{{owner_post.imageurl}}" style="width: 150px; height: 150px;"></td>
             <td><a href="{%url 'master_owner_post_detail' pk=owner_post.id  %}">{{ owner_post.title }}</a></td>
-            <td>{{ owner_post.phone_num }}</td>
             <td>{{ owner_post.user_nickname }}</td>
+            <td>{{ owner_post.phone_num }}</td>
             <td>{{ owner_post.posted_time }}</td>
             <td>{{ owner_post.dog_name }}</td>
             <td>{{ owner_post.dog_sex }}</td>
@@ -62,13 +45,4 @@
     </tbody>
     {% endfor %}
 </table>
-
-
-<form method="POST">
-    {% csrf_token %}
-    제목 : <input type="text" placeholder="검색" name="title">
-    게시날짜 : <input type="date" placeholder="검색" name="posted_time_from"> ~ <input type="date" placeholder="검색" name="posted_time_to">
-
-    <input type="submit" value="submit" />
-</form>
 

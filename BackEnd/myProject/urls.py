@@ -77,18 +77,30 @@ urlpatterns = [
 
     path('master_login/',myApp.views.master_login, name = "master_login"),
     path('master_home/',myApp.views.master_home, name = "master_home"),
+    
     path('master_user_list/',myApp.views.master_user_list, name = "master_user_list"),
     path('master_user_detail/<int:pk>',myApp.views.master_user_detail, name = "master_user_detail"),
+    path('master_user_update/<int:pk>',myApp.views.master_user_update, name = "master_user_update"),
+    
     path('master_owner_post_list/',myApp.views.master_owner_post_list, name = "master_owner_post_list"),
     path('master_owner_post_detail/<int:pk>',myApp.views.master_owner_post_detail, name = "master_owner_post_detail"),
+    path('master_owner_post_update/<int:pk>',myApp.views.master_owner_post_update, name = "master_owner_post_update"),
+    
     path('master_finder_post_list/',myApp.views.master_finder_post_list, name = "master_finder_post_list"),
     path('master_finder_post_detail/<int:pk>',myApp.views.master_finder_post_detail, name = "master_finder_post_detail"),
+    path('master_finder_post_update/<int:pk>',myApp.views.master_finder_post_update, name = "master_finder_post_update"),
+    
     path('master_dog_shelter_list/',myApp.views.master_dog_shelter_list, name = "master_dog_shelter_list"),
     path('master_dog_shelter_detail/<int:pk>',myApp.views.master_dog_shelter_detail, name = "master_dog_shelter_detail"),
+    path('master_dog_shelter_update/<int:pk>',myApp.views.master_dog_shelter_update, name = "master_dog_shelter_update"),
+    
     path('master_report_list/',myApp.views.master_report_list, name = "master_report_list"),
     path('master_report_detail/<int:pk>',myApp.views.master_report_detail, name = "master_report_detail"),
+    path('master_report_update/<int:pk>',myApp.views.master_report_update, name = "master_report_update"),
+    
     path('master_adopt_post_list/',myApp.views.master_adopt_post_list, name = "master_adopt_post_list"),
     path('master_adopt_post_detail/<int:pk>',myApp.views.master_adopt_post_detail, name = "master_adopt_post_detail"),
-
+    path('master_adopt_post_update/<int:pk>',myApp.views.master_adopt_post_update, name = "master_adopt_post_update"),
+    
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
