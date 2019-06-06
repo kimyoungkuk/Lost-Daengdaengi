@@ -30,17 +30,12 @@
                 saveToGallery: false,
                 allowsEditing: false,
                 keepAspectRatio: false,
-<<<<<<< HEAD
+
                 width: 224,
                 height: 224,
                 cameraImage: null,
                 labelText: ""
-=======
-                width: 160,
-                height: 120,
-                cameraImage: '~/assets/images/DaengDaengi.png',
-                labelText: "-"
->>>>>>> 3b45ef09c508fb106b23b971250aa27cde8d4dca
+
             }
         },
         methods: {
@@ -67,11 +62,7 @@
                             then((imageAsset) => {
                                 that.cameraImage = imageAsset;
                                 fromAsset(imageAsset).then(imgSource=>{
-<<<<<<< HEAD
                                     this.$store.state.FinderPost.image = imgSource.toBase64String('jpeg');
-=======
-                                    this.$store.state.FinderPost.image = imgSource.toBase64String('jpg');
->>>>>>> 3b45ef09c508fb106b23b971250aa27cde8d4dca
                                     // console.log(imgSource.toBase64String('png'));
                                     // console.log(typeof(imgSource.toBase64String('png')));
                                     // console.log(imgSource.toBase64String('png').length);
@@ -79,12 +70,7 @@
                                     this.loadingComplete= true
                                     this.OnInit()
                                     axios.post('http://202.30.31.91:8000/api/classification',{
-<<<<<<< HEAD
                                         image : imgSource.toBase64String('jpeg'),
-                                        
-=======
-                                        image : imgSource.toBase64String('jpg'),
->>>>>>> 3b45ef09c508fb106b23b971250aa27cde8d4dca
                                     }).then(res => {
                                         console.log("보냄");
                                         this.loadingComplete=false

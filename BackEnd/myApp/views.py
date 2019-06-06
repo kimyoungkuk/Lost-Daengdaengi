@@ -4,6 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from django.core.files.storage import FileSystemStorage
+
 from .models import *
 from .serializers import *
 
@@ -614,7 +616,7 @@ def master_login(request):
 
 def master_home(request):
 
-    return render(request,"master_home.html")
+    return render(request,"master_home.html",{'report_num':Report.objects.all().count()})
 
 
 
@@ -638,9 +640,15 @@ def master_user_detail(request,pk):
 
 def master_user_update(request,pk):
 
-    user = User.objects.get(id=pk)
-    return render(request,"master_user_update.html",{'user':user})
-
+    if request.method == "GET":
+        user = User.objects.get(id=pk)
+        return render(request,"master_user_update.html",{'user':user})
+    else:
+        user = User()
+        user.nickname = request.POST['nickname']
+        user.key = request.POST['key']
+        user.save()
+        return render(request,"master_user_detail.html",{'user':user})
 
 def master_user_delete(request,pk):
 
@@ -678,8 +686,26 @@ def master_owner_post_detail(request,pk):
     
 def master_owner_post_update(request,pk):
 
-    owner_post = Owner_post.objects.get(id=pk)
-    return render(request,"master_owner_post_update.html",{'owner_post':owner_post})
+    if request.method == "GET":
+        owner_post = Owner_post.objects.get(id=pk)
+        return render(request,"master_owner_post_update.html",{'owner_post':owner_post})
+    else:
+        owner_post = Owner_post()
+        owner_post.title = request.POST['title']
+        owner_post.user_nickname = request.POST['user_nickname']
+        owner_post.phone_num = request.POST['phone_num']
+        owner_post.dog_name = request.POST['dog_name']
+        owner_post.dog_type = request.POST['dog_type']
+        owner_post.dog_sex = request.POST['dog_sex']
+        owner_post.dog_age = request.POST['dog_age']
+        owner_post.lost_time = request.POST['lost_time']
+        owner_post.dog_feature = request.POST['dog_feature']
+        owner_post.remark = request.POST['remark']
+        owner_post.save()
+        a=request.FILES['picture']
+        fs=FileSystemStorage()
+        fn=fs.save(owner_post.imageurl,a)
+        return render(request,"master_owner_post_detail.html",{'owner_post':owner_post})
 
 def master_owner_post_delete(request,pk):
 
@@ -716,8 +742,23 @@ def master_finder_post_detail(request,pk):
     
 def master_finder_post_update(request,pk):
 
-    finder_post = Finder_post.objects.get(id=pk)
-    return render(request,"master_finder_post_update.html",{'finder_post':finder_post})
+    if request.method == "GET":
+        finder_post = Finder_post.objects.get(id=pk)
+        return render(request,"master_finder_post_update.html",{'finder_post':finder_post})
+    else:
+        finder_post = Finder_post()
+        finder_post.title = request.POST['title']
+        finder_post.user_nickname = request.POST['user_nickname']
+        finder_post.phone_num = request.POST['phone_num']
+        finder_post.dog_type = request.POST['dog_type']
+        finder_post.find_time = request.POST['find_time']
+        finder_post.shelter = request.POST['shelter']
+        finder_post.dog_feature = request.POST['dog_feature']
+        finder_post.save()
+        a=request.FILES['picture']
+        fs=FileSystemStorage()
+        fn=fs.save(finder_post.imageurl,a)
+        return render(request,"master_finder_post_detail.html",{'finder_post':finder_post})
 
 def master_finder_post_delete(request,pk):
 
@@ -739,9 +780,17 @@ def master_dog_shelter_detail(request,pk):
     return render(request,"master_dog_shelter_detail.html",{'dog_shelter':dog_shelter})
 
 def master_dog_shelter_update(request,pk):
-
-    dog_shelter = Dog_shelter.objects.get(id=pk)
-    return render(request,"master_dog_shelter_update.html",{'dog_shelter':dog_shelter})
+    
+    if request.method == "GET":
+        dog_shelter = Dog_shelter.objects.get(id=pk)
+        return render(request,"master_dog_shelter_update.html",{'dog_shelter':dog_shelter})
+    else:
+        dog_shelter = Dog_shelter()
+        dog_shelter.shelter_name = request.POST['shelter_name']
+        dog_shelter.phone_num = request.POST['phone_num']
+        dog_shelter.description = request.POST['description']
+        dog_shelter.save()
+        return render(request,"master_dog_shelter_detail.html",{'dog_shelter':dog_shelter})
 
 def master_dog_shelter_delete(request,pk):
 
@@ -764,8 +813,15 @@ def master_report_detail(request,pk):
 
 def master_report_update(request,pk):
 
-    report = Report.objects.get(id=pk)
-    return render(request,"master_report_update.html",{'report':report})
+    if request.method == "GET":
+        report = Report.objects.get(id=pk)
+        return render(request,"master_report_update.html",{'report':report})
+    else:
+        report = Report()
+        report.user_nickname = request.POST['user_nickname']
+        report.contents = request.POST['contents']
+        report.save()
+        return render(request,"master_report_detail.html",{'report':report})
 
 def master_report_delete(request,pk):
 
@@ -786,9 +842,28 @@ def master_adopt_post_detail(request,pk):
     return render(request,"master_adopt_post_detail.html",{'adopt_post':adopt_post})
 
 def master_adopt_post_update(request,pk):
+    
+    if request.method == "GET":
+        adopt_post = Adopt_post.objects.get(id=pk)
+        return render(request,"master_adopt_post_update.html",{'adopt_post':adopt_post})
+    else:
+        adopt_post = Adopt_post()
+        adopt_post.title = request.POST['title']
+        adopt_post.user_nickname = request.POST['user_nickname']
+        adopt_post.phone_num = request.POST['phone_num']
+        adopt_post.dog_sex = request.POST['dog_sex']
+        adopt_post.dog_type = request.POST['dog_type']
+        adopt_post.is_neu = request.POST['is_neu']
+        adopt_post.is_vac = request.POST['is_vac']
+        adopt_post.shelter = request.POST['shelter']
+        adopt_post.contents = request.POST['contents']
+        adopt_post.save()
+        a=request.FILES['picture']
+        fs=FileSystemStorage()
+        fn=fs.save(adopt_post.imageurl,a)
+        return render(request,"master_adopt_post_detail.html",{'adopt_post':adopt_post})
 
-    adopt_post = Adopt_post.objects.get(id=pk)
-    return render(request,"master_adopt_post_update.html",{'adopt_post':adopt_post})
+
 
 def master_adopt_post_delete(request,pk):
 
