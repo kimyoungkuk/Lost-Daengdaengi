@@ -39,10 +39,10 @@
         <form action="{{post.id}}" method="POST" enctype="multipart/form-data">{% csrf_token %}
             <!-- action 추가 필요 -->
             {% csrf_token %}
-            <h2>게시물 올리기</h3>
-            <input class="input_field" type="text" placeholder="{{dog_shelter.shelter_name}}" name="shelter_name"><br>
-            <input class="input_field" type="text" placeholder="{{dog_shelter.phone_num}}" name="phone_num"><br>
-            <textarea class="textarea_field" placeholder="{{dog_shelter.description}}" name="description"></textarea><br>
+            <h2>게시물 수정</h2>
+            보호소이름:<input class="input_field" type="text" placeholder="{{dog_shelter.shelter_name}}" name="shelter_name"><br>
+            전화번호:<input class="input_field" type="text" placeholder="{{dog_shelter.phone_num}}" name="phone_num"><br>
+            소개:<textarea class="textarea_field" placeholder="{{dog_shelter.description}}" name="description"></textarea><br>
             <button class="write_button">게시</button>
         </form>
     </div>

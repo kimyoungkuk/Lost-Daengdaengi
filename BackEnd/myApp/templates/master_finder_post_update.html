@@ -39,15 +39,15 @@
         <form action="{{post.id}}" method="POST" enctype="multipart/form-data">{% csrf_token %}
             <!-- action 추가 필요 -->
             {% csrf_token %}
-            <h2>게시물 올리기</h3>
-            <input class="input_field" type="text" placeholder="{{finder_post.title}}" name="title"><br>
-            <input class="input_field" type="text" placeholder="{{finder_post.user_nickname}}" name="user_nickname"><br>
-            <input class="input_field" type="text" placeholder="{{finder_post.phone_num}}" name="phone_num"><br>
-            <input class="input_field" type="text" placeholder="{{finder_post.dog_type}}" name="dog_type"><br>
-            <input class="input_field" type="text" placeholder="{{finder_post.find_time}}" name="find_time"><br>
-            <input class="input_field" type="text" placeholder="{{finder_post.shelter}}" name="shelter"><br>
-            <textarea class="textarea_field" placeholder="{{finder_post.dog_feature}}" name="dog_feature"></textarea><br>
-            <input type="file" name="picture" accept="image/x-png,image/gif,image/jpeg"><br>
+            <h2>게시물 수정</h2>
+            제목:<input class="input_field" type="text" placeholder="{{finder_post.title}}" name="title"><br>
+            작성자:<input class="input_field" type="text" placeholder="{{finder_post.user_nickname}}" name="user_nickname"><br>
+            전화번호:<input class="input_field" type="text" placeholder="{{finder_post.phone_num}}" name="phone_num"><br>
+            견종:<input class="input_field" type="text" placeholder="{{finder_post.dog_type}}" name="dog_type"><br>
+            발견된 시간:<input class="input_field" type="text" placeholder="{{finder_post.find_time}}" name="find_time"><br>
+            보호소:<input class="input_field" type="text" placeholder="{{finder_post.shelter}}" name="shelter"><br>
+            특징:<textarea class="textarea_field" placeholder="{{finder_post.dog_feature}}" name="dog_feature"></textarea><br>
+            이미지:<input type="file" name="picture" accept="image/x-png,image/gif,image/jpeg"><br>
             <button class="write_button">게시</button>
         </form>
     </div>

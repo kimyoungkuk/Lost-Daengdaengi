@@ -40,9 +40,8 @@
             <!-- action 추가 필요 -->
             {% csrf_token %}
             <h2>게시물 올리기</h3>
-                <input class="input_field" type="text" placeholder="{{user.is_admin}}" name="is_admin"><br>
-                <input class="input_field" type="text" placeholder="{{user.nickname}}" name="nickname"><br>
-                <input class="input_field" type="text" placeholder="{{user.key}}" name="key"><br>
+                닉네임:<input class="input_field" type="text" placeholder="{{user.nickname}}" name="nickname"><br>
+                키:<input class="input_field" type="text" placeholder="{{user.key}}" name="key"><br>
             <button class="write_button">게시</button>
         </form>
     </div>
