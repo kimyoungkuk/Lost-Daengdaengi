@@ -102,7 +102,7 @@
         <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
             <div v-if="page_num==7" class="mainFinderForm">
                 <h4 class="googleFont_finder">근처 유기견 보호소</h4>
-                <h5 class="googleFont_finder">{{nearestShelter}}({{shelterNumber}})</h5>
+                <h5 class="googleFont_finder">{{nearestShelter}}<br>({{shelterNumber}})</h5>
                 <h1 class="googleFont_finder">맡길 유기견 보호소</h1>
                 <b-form @submit="onSubmit">
                     <b-form-group id="input-group-2">
@@ -198,11 +198,11 @@ export default {
                 user_nickname  : this.$store.state.user_nickname
             }).then(res => {
                 console.log(res.data)
-                this.posts = res.data
+                this.$router.push('/SubmitPage');
+                // location.replace('http://202.30.31.91/SubmitPage?action=done');
             })
             // location.reload();  // 새로고침
             // this.goAnotherPage();
-            location.replace("http://202.30.31.91/SubmitPage?action=done");
         },
         toPrev(){
             this.page_num--;
