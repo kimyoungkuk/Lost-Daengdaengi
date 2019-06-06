@@ -10873,6 +10873,45 @@ body {
   padding-bottom: calc(var(--input-padding-y) / 3);
 }
 
+
+
+.input_field {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 4px;
+	margin: 3px 0;
+	font-size: 14px;
+	width: 100%;
+}
+.form_box {
+	background-color: #ffffff;
+	margin: 10px;
+	border-radius: 4px;
+	border: 1px solid #ddd;
+	padding: 10px;
+}
+.textarea_field {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 4px;
+	margin: 3px 0;
+	font-size: 14px;
+	width: 100%;
+	height: 160px;
+}
+.write_button {
+	background-color: #475d9f;
+	border: 1px solid #323f6b;
+	color: #ffffff;
+	border-radius: 4px;
+	padding: 2px 8px;
+	font-soze: 18px;
+}
+
+
+
+
+
 .form-label-group input:not(:placeholder-shown) ~ label {
   padding-top: calc(var(--input-padding-y) / 3);
   padding-bottom: calc(var(--input-padding-y) / 3);
@@ -10913,35 +10952,3 @@ body.sidebar-toggled footer.sticky-footer {
   }
 }
 
-.input_field {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 4px;
-  margin: 3px 0;
-  font-size: 14px;
-  width: 100%;
-}
-.form_box {
-  background-color: #ffffff;
-  margin: 10px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  padding: 10px;
-}
-.textarea_field {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 4px;
-  margin: 3px 0;
-  font-size: 14px;
-  width: 100%;
-  height: 160px;
-}
-.write_button {
-  background-color: #475d9f;
-  border: 1px solid #323f6b;
-  color: #ffffff;
-  border-radius: 4px;
-  padding: 2px 8px;
-  font-soze: 18px;
-}
