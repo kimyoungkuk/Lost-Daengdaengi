@@ -1,5 +1,6 @@
 <template>
     <v-flex class="in_board-view">
+      <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
       <b-card-group deck>
         <b-card header-tag="header" footer-tag="footer">
           <!-- <h6 slot="header" class="mb-0">
@@ -15,7 +16,7 @@
             <b-badge variant="dark">견종</b-badge>
             {{this.form.dog_type}}
           </h6> -->
-          <h4 slot="header">Lost-Daengdaengi</h4>
+          <h4 slot="header" class="googleFont">Lost-Daengdaengi</h4>
           <div>
             <v-layout>
               <v-flex xs12 sm6 offset-sm3>
@@ -172,7 +173,7 @@ export default {
   name: "boardView",
   data() {
     return {
-      key :  this.$store.state.user_Email,
+      key :  this.$store.state.user_key,
       nickname :  this.$store.state.user_nickname,
       lat : 0,
       lng : 0,
@@ -505,4 +506,9 @@ div.report_submit {
 .report_input {
   width: 800px;
 }
+
+.detailTitle {
+  text-align:center;
+}
+
 </style>
