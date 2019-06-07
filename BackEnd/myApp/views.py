@@ -908,7 +908,7 @@ def master_adopt_post_delete(request,pk):
     return render(request,"master_adopt_post_list.html",{'adopt_posts':adopt_posts})
 
 
-def poster_mail():
+def poster_mail(request):
 
     t="QWE"
     return render(request,"home.html",{'t':t})
