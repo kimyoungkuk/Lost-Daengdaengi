@@ -74,26 +74,26 @@
             <hr class="horizontal">
           </h6>
           <p class="card-text">{{this.form.contents}}</p>
-
-          <v-flex class="googleFont_finder">
-            <h4>
-              <b-badge>댓글</b-badge>
-            </h4>
-            <b-form @submit.prevent="addComment" v-on:keyup.enter="addComment">
-              <b-form-textarea
-                class="comment_input"
-                placeholder="댓글을 입력하세요."
-                rows="2"
-                max-rows="6"
-                v-model="contents"
-              ></b-form-textarea>
-              <v-flex> 
-                <b-button class="comment" type="submit" size="sm">댓글 작성(Enter)</b-button>
-              </v-flex>
-            </b-form>
-          </v-flex>
         </b-card>
       </b-card-group>
+
+      <v-flex class="googleFont_finder">
+        <h4>
+          <b-badge>댓글</b-badge>
+        </h4>
+        <b-form @submit.prevent="addComment" v-on:keyup.enter="addComment">
+          <b-form-textarea
+            class="comment_input"
+            placeholder="댓글을 입력하세요."
+            rows="2"
+            max-rows="6"
+            v-model="contents"
+          ></b-form-textarea>
+          <v-flex> 
+            <b-button class="comment" type="submit" size="sm">댓글 작성(Enter)</b-button>
+          </v-flex>
+        </b-form>
+      </v-flex>
 
       <b-modal
         id="modal-delete"

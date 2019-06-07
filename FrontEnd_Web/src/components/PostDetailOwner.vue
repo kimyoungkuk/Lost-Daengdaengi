@@ -457,9 +457,16 @@ div.board_back_color {
   margin-top: 50px;
   padding: 20px 20px 50px;
 }
-div.in_board-view {
-  text-align: left;
-  display: inline-block;
+.in_board-view {
+  /* text-align: left; */
+  /* display: inline-block; */
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-size: cover;
+  background-position: center;
+  top: 0;
+  left: 0;
 }
 
 hr.horizontal {
@@ -493,7 +500,7 @@ div.comment_submit {
 }
 
 .comment_input {
-  width: 800px;
+  width: 80px;
 }
 
 p.report_date {
