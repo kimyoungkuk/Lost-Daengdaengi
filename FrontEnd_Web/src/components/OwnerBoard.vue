@@ -89,16 +89,16 @@ export default {
     }
   },
   created(){
+    console.log("TTT")
     let urlParams = new URLSearchParams(window.location.search);
-    if(this.$store.state.user_key=="" || this.$store.state.user_nickname=="")
-    {
+    console.log(urlParams.get('key'))
+    console.log(urlParams.get('nickname'))
+    console.log("TTT")
+    if(this.$store.state.user_nickname=="Guest"){
       this.$store.state.user_key = urlParams.get('key');
-      this.key = urlParams.get('key');
       this.$store.state.user_nickname = urlParams.get('nickname');
-      this.nickname = urlParams.get('nickname');
-      console.log(this.key)
-      console.log(this.nickname)
     }
+    this.key = this.$store.state.user_key
     this.lat = urlParams.get('lat');
     this.lng = urlParams.get('lng');
     console.log(this.lat)

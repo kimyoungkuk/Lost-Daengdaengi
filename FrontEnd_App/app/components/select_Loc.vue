@@ -15,7 +15,7 @@
                 </mapView>
                 <label :text="address" row ="1"/>
             </GridLayout>
-                <Button class="mybtn" text = "선택" row = "1" @tap = "onTap" padding = "10"></Button>
+                <Button class="mybtn" text = "위치 선택" row = "1" @tap = "onTap" padding = "10"></Button>
         </GridLayout>     
         
     </Page>
@@ -57,7 +57,6 @@
                 }).then(loc => {
                     this.lat = loc.latitude;
                     this.lng = loc.longitude;
-                    // console.log(loc)
                     this.marker.position = mapsModule.Position.positionFromLatLng(loc.latitude,loc.longitude);
                    
                     
@@ -68,18 +67,12 @@
                         this.marker.title = this.address
                         this.markerinfo.push(this.marker)
                         this.mapView.addMarker(this.marker)
-                        // onsole.log(res.data.results[0])
                     })
-                    // GmapUtils.setupMarkerCluster(this.mapView,this.markerinfo)
-                    // console.log(this.lat)
                     this.$store.state.ownerPost.lat = loc.latitude;
                     this.$store.state.ownerPost.lng = loc.longitude;
                     this.$store.state.FinderPost.lat = loc.latitude;
                     this.$store.state.FinderPost.lng = loc.longitude;
                 })
-                
-                //console.log(selected_loc.lat,selected_loc.lng)
-                // console.log(this.makerinfo)
             },
             mapTap(args){
                 this.lat = args.position.latitude;
@@ -111,26 +104,19 @@
                 this.$store.state.FinderPost.lng = args.position.longitude;
             },
             onTap(args) {
-                //makePost_.lat = this.lat;
-                //makePost_.lng = this.lng;
-                //this.map.destroy();
                 console.log(this.$store.state.CurrentPostType);
                 if(this.$store.state.CurrentPostType == true){
-                    this.$goto('makeOwnerPostWeb');
+                    this.$goto('makePost');
                 }
                 else{
-                    // this.$goto('makePost_Finder');
-                    this.$goto('makeFinderPostWeb')
+                    this.$goto('makePost_Finder')
                 }
             },
-
-
         }
     };
 </script>
 
 <style scoped>
-
       .mybtn{
       color: #ffffff;
       background-color: #FA7268;

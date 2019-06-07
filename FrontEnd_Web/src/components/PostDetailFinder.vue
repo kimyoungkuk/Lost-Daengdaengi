@@ -86,7 +86,7 @@
       </b-card-group>
       <v-flex class="googleFont_finder">
         <h4>
-          <b-badge>댓글</b-badge>
+          <b-badge variant="dark">댓글</b-badge>
         </h4>
         <b-form @submit.prevent="addComment" v-on:keyup.enter="addComment">
           <b-form-textarea
@@ -225,8 +225,17 @@ export default {
     };
   },
   created() {
-            
-    console.log("QWERTYUIOP");
+    console.log("TTT")
+    let urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams.get('key'))
+    console.log(urlParams.get('nickname'))
+    console.log("TTT")
+    if(this.$store.state.user_nickname=="Guest"){
+      this.$store.state.user_key = urlParams.get('key');
+      this.$store.state.user_nickname = urlParams.get('nickname');
+    }
+    this.key = this.$store.state.user_key
+    this.nickname = this.$store.state.user_nickname
     this.getBoardDetail();
     this.getUserId();
   },
@@ -327,9 +336,6 @@ export default {
         }
       });
     },
-    reportBoard() {
-      this.$router.push("/finderboard");
-    },
     addComment() {
       let comment = {
         user_key: "",
@@ -345,8 +351,8 @@ export default {
       comment.commented_post_type = "finder"
       // this.$http.post(`http://202.30.31.91:8000/api/comments/create`, {
       axios.post(`http://202.30.31.91:8000/api/comments/create`, {
-      user_key : this.key,
-      user_nickname : this.nickname,
+      user_key : this.$store.state.user_key,
+      user_nickname : this.$store.state.user_nickname,
       contents : this.contents,
       commented_post : this.form.id,
       commented_post_type : "finder"
@@ -356,7 +362,6 @@ export default {
         console.log("QWEQWE");
       });
       this.contents = "";
-  
       this.getBoardDetail();
     },
     deleteComment(_id) {
