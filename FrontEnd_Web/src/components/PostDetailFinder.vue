@@ -355,10 +355,9 @@ export default {
       .then(res => {
         console.log(res.data);
         console.log("QWEQWE");
+        this.contents = "";
+        this.getBoardDetail();
       });
-      this.contents = "";
-  
-      this.getBoardDetail();
     },
     deleteComment(_id) {
       this.$http
