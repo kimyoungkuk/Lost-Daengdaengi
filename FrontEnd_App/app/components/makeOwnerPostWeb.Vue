@@ -2,8 +2,7 @@
     <Page @loaded="loaded" actionBarHidden="true">
               <ScrollView>
                 <StackLayout>  
-            <WebView row="0" height="900" @loadFinished="completeLoading" loadStarted="" id="myWebView" :src="this.src"/>
-            <Progress row="1" color="#FA7268" v-show="loadingComplete" :value="loadingValue"/>
+            <WebView row="0" height="900" @loadFinished="completeLoading" id="myWebView" :src="this.src"/>
             </StackLayout>  
             </ScrollView>
     </Page>
@@ -11,6 +10,16 @@
 
 <script >
 var webViewModule = require('ui/web-view');
+
+function gup( name, url ) {
+    if (!url) url = location.href;
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( url );
+    return results == null ? null : results[1];
+}
+
   export default {
     data() {
       return {
@@ -30,8 +39,15 @@ var webViewModule = require('ui/web-view');
     webView.android.getSettings().setDisplayZoomControls(false);
     webView.android.getSettings().setBuiltInZoomControls(false);
 },
-      completeLoading(){
+      completeLoading(args){
         this.loadingComplete=false
+          console.log("--------------------------")
+       var query = gup('action', args.url)
+       console.log("query : " + query)
+        if(query == 'done'){
+          console.log("if ok")
+          this.$goto("map")
+        }
       },
       OnInit() {
           this.src = this.$store.state.API_WEBVIEW_URL + "/ownerForm" + "?user_key=" + this.user_key +"&user_nickname=" +this.user_nickname + "&lat=" + this.lat +"&lng=" + this.lng
@@ -44,7 +60,6 @@ var webViewModule = require('ui/web-view');
     }, 20);
 
 }
-
     },
     created(){
       this.OnInit()

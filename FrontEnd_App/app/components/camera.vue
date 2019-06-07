@@ -5,7 +5,7 @@
         </ActionBar>
         <GridLayout rows=" *, auto, auto,auto,auto">
             <Image row="0" :src="cameraImage" id="image" stretch="aspectFit"/>
-            <TextView row="1" :text="labelText" editable="false"></TextView>>
+            <TextView row="1" :text="labelText" editable="false" style="text-align: center; font-weight:bold; color:#FA7268;"></TextView>>
             <Progress color="#FA7268" v-show="loadingComplete" :value="loadingValue" row ="2"/>
             <Button class="btn mybtn" row="3"  text="댕댕이 촬영" @tap="onTakePictureTap" padding="10"/>
             <Button class="btn mybtn" row ="4" text = "추천된 견종을 사용합니다." :isEnabled="!processing" @tap="onSelect" padding="10"/>
@@ -33,15 +33,16 @@
 
                 width: 224,
                 height: 224,
-                cameraImage: null,
-                labelText: ""
+                cameraImage: "~/assets/images/DaengDaengi.png",
+                labelText: "사진을 촬영해주세요"
 
             }
         },
         methods: {
             OnInit() {
-                this.labelText = "-"
+                this.labelText = "이미지를 기반으로 견종을 추천하는 중입니다"
                 this.loadingValue = 0;
+                this.processing = true
     var d = setInterval(() => {
       this.loadingValue += 1
       if(this.loadingValue==90){
@@ -61,6 +62,7 @@
                         takePicture({ width: 224, height: 224, keepAspectRatio: that.keepAspectRatio, saveToGallery: that.saveToGallery, allowsEditing: that.allowsEditing }).
                             then((imageAsset) => {
                                 that.cameraImage = imageAsset;
+                                this.$store.state.imageAsset = imageAsset
                                 fromAsset(imageAsset).then(imgSource=>{
                                     this.$store.state.FinderPost.image = imgSource.toBase64String('jpeg');
                                     // console.log(imgSource.toBase64String('png'));

@@ -15,7 +15,7 @@
                 </mapView>
                 <label :text="address" row ="1"/>
             </GridLayout>
-                <Button class="mybtn" text = "선택" row = "1" @tap = "onTap" padding = "10"></Button>
+                <Button class="mybtn" text = "위치 선택" row = "1" @tap = "onTap" padding = "10"></Button>
         </GridLayout>     
         
     </Page>
