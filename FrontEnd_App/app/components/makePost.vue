@@ -1,15 +1,18 @@
 <template>
     <Page class="page">
-        <ActionBar title="Home" class="action-bar" />
+        <ActionBar title="사진과 위치를 확인합니다" class="action-bar" >
+            <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" @tap="$goto('map')"/>
+        </ActionBar>
         <GridLayout rows = "*,auto,auto,auto">
-            <GridLayout row = "0">
-                <ScrollView>
+            <GridLayout row = "0" rows = "*,auto">
+                <Image row= "0" :src="this.imageSrc" id="image" stretch="aspectFit"/>
+                <ScrollView row="1" >
                     <RadDataForm ref = "dataform" :source = "source" :metadata="meta" :groups="groups"></RadDataForm>
                 </ScrollView>
             </GridLayout>
-            <Button row = "1" text = "위치 보기" height="50" width="100" @tap = "onTap_Loc"></Button>
-            <Button row="2" text="사진 선택" @tap="onSelectSingleTap" horizontalAlignment="center" />
-            <Button row = "3" @tap = "onTap_sub" text = "제출"></Button>
+            <Button class="btn mybtn" row = "1" text = "위치 재설정" height="50" width="100" @tap = "onTap_Loc"></Button>
+            <Button class="btn mybtn" row="2" text="사진 선택" @tap="onSelectSingleTap" horizontalAlignment="center"/>
+            <Button class="btn mybtn" row = "3" @tap = "onTap_sub" text = "위 정보로 게시글 작성하기"></Button> 
         </GridLayout>
 
     </Page>
@@ -27,112 +30,28 @@
             return {
                 groups: [ 
                     Object.assign(new PropertyGroup(), { 
-                        name: "Owner_post",
                         collapsible: true,
                         collapsed: false 
                     }),
 
                 ],
-
                 meta: {
                     "commitMode": "Immediate",
                     "validationMode": "Immediate",
-                    "propertyAnnotations": [{
-                        "name": "title",
-                        "displayName": "제목",
-                        "groupName": "Owner_post",
-                        "index": 1
-                    },{
-                        "name": "dog_name",
-                        "displayName": "강아지 이름",
-                        "groupName": "Owner_post",
-                        "index": 2
-                    }, {
-                        "name": "lost_time",
-                        "displayName": "잃어버린 시간",
-                        "groupName": "Owner_post",
-                        "index": 3,
-                        "editor":"DatePicker",
-
-                    },{
-                        "name": "lost_time1",
-                        "displayName": "잃어버린 시간",
-                        "groupName": "Owner_post",
-                        "index": 4,
-                        "editor":"TimePicker",
-                    }, {
-                        "name": "dog_sex",
-                        "displayName": "성별",
-                        "groupName": "Owner_post",
-                        "index": 5,
-                    },{
-                        "name": "dog_type",
-                        "displayName": "견종",
-                        "groupName": "Owner_post",
-                        "index": 6,
-                        // "valueProvider" :["말티즈", "시츄", "슈나우져"]
-                    }, {
-                        "name": "dog_age",
-                        "displayName": "나이",
-                        "groupName": "Owner_post",
-                        "index": 7,
-                        // "editor" : "Stepper"
-                    }, {
-                        "name": "dog_feature",
-                        "displayName": "특징",
-                        "groupName": "Owner_post",
-                        "index": 8,
-                    }, {
-                        "name": "remark",
-                        "displayName": "비고",
-                        "groupName": "Owner_post",
-                        "index": 9,
-                    }, {
-                        "name": "phone_num",
-                        "displayName": "연락처",
-                        "groupName": "Owner_Post",
-                        "index": 10,
-                    }, {
+                    "propertyAnnotations": [ {
                         "name": "lat",
                         "displayName": "위도",
-                        "groupName": "Owner_Post",
-                        "index": 11,
+                        "index": 1,
                     },{
                         "name": "lng",
                         "displayName": "경도",
-                        "groupName": "Owner_Post",
-                        "index": 12,
-                    },{
-                        "name": "posted_time",
-                        "displayName": "게시 시간",
-                        "groupName": "Owner_Post",
-                        "index": 13,
-                        "editor":"DatePicker"
-                    },{
-                        "name": "posted_due",
-                        "displayName": "게시 기간",
-                        "groupName": "Owner_Post",
-                        "index": 14,
-                        "editor":"DatePicker",
-                    } ]
+                        "index": 2,
+                    }]
                 },
-
                 source: 
                     {
-                        title : this.$store.state.ownerPost.title,
-                        dog_name : this.$store.state.ownerPost.dog_name,
-                        lost_time : this.$store.state.ownerPost.lost_time,
-                        lost_time1 : this.$store.state.ownerPost.lost_time1,
-                        dog_sex :this.$store.state.ownerPost.dog_sex,
-                        dog_type :this.$store.state.ownerPost.dog_type,
-                        dog_age :this.$store.state.ownerPost.dog_age,
-                        dog_feature:this.$store.state.ownerPost.dog_age,
-                        remark:this.$store.state.ownerPost.remark,
-                        phone_num:this.$store.state.ownerPost.phone_num,
                         lat: this.$store.state.ownerPost.lat,
-                        lng: this.$store.state.ownerPost.lng,
-                        posted_time:this.$store.state.ownerPost.posted_time,
-                        posted_due:this.$store.state.ownerPost.posted_due,
+                        lng: this.$store.state.ownerPost.lng
                     },
                 isSingleMode: true,
                 imageAssets: [],
@@ -170,7 +89,6 @@
                         fromAsset(selection[0]).then(imgSource=>{
                            this.imgStr = imgSource.toBase64String('png');
                         })
-                        console.log((this.imageSrc).toBase64String('png'));
             
                     }).catch(function (e) {
                         console.log(e);
@@ -178,41 +96,16 @@
                     
             },
             onTap_Loc(args){
-                this.$store.state.ownerPost.title = this.$refs.dataform.getPropertyByName('title').valueCandidate;
-                this.$store.state.ownerPost.phone_num = this.$refs.dataform.getPropertyByName('phone_num').valueCandidate;
-                this.$store.state.ownerPost.dog_name = this.$refs.dataform.getPropertyByName('dog_name').valueCandidate;
-                this.$store.state.ownerPost.lost_time = this.$refs.dataform.getPropertyByName('lost_time').valueCandidate+" " +this.$refs.dataform.getPropertyByName('lost_time1').valueCandidate,
-                this.$store.state.ownerPost.dog_sex = this.$refs.dataform.getPropertyByName('dog_sex').valueCandidate;
-                this.$store.state.ownerPost.dog_type = this.$refs.dataform.getPropertyByName('dog_type').valueCandidate;
-                this.$store.state.ownerPost.dog_age = this.$refs.dataform.getPropertyByName('dog_age').valueCandidate;
-                this.$store.state.ownerPost.dog_feature = this.$refs.dataform.getPropertyByName('dog_feature').valueCandidate;
-                this.$store.state.ownerPost.remark = this.$refs.dataform.getPropertyByName('remark').valueCandidate;
-                this.$store.state.ownerPost.image = this.imgStr;
-                this.$store.state.ownerPost.posted_time = this.$refs.dataform.getPropertyByName('posted_time').valueCandidate;
-                this.$store.state.ownerPost.posted_due = this.$refs.dataform.getPropertyByName('posted_due').valueCandidate;
                 this.$store.state.CurrentPostType = true;
                 this.$goto('select_Loc');
             },
             onTap_sub(args){
-                console.log(this.$refs.dataform.getPropertyByName('phone_num').valueCandidate);
-                this.$store.state.ownerPost.title = this.$refs.dataform.getPropertyByName('title').valueCandidate;
-                this.$store.state.ownerPost.phone_num = this.$refs.dataform.getPropertyByName('phone_num').valueCandidate;
-                this.$store.state.ownerPost.dog_name = this.$refs.dataform.getPropertyByName('dog_name').valueCandidate;
-                this.$store.state.ownerPost.lost_time = this.$refs.dataform.getPropertyByName('lost_time').valueCandidate+" " +this.$refs.dataform.getPropertyByName('lost_time1').valueCandidate,
-                this.$store.state.ownerPost.dog_sex = this.$refs.dataform.getPropertyByName('dog_sex').valueCandidate;
-                this.$store.state.ownerPost.dog_type = this.$refs.dataform.getPropertyByName('dog_type').valueCandidate;
-                this.$store.state.ownerPost.dog_age = this.$refs.dataform.getPropertyByName('dog_age').valueCandidate;
-                this.$store.state.ownerPost.dog_feature = this.$refs.dataform.getPropertyByName('dog_feature').valueCandidate;
-                this.$store.state.ownerPost.remark = this.$refs.dataform.getPropertyByName('remark').valueCandidate;
                 this.$store.state.ownerPost.image = this.imgStr;
-                this.$store.state.ownerPost.posted_time = this.$refs.dataform.getPropertyByName('posted_time').valueCandidate;
-                this.$store.state.ownerPost.posted_due = this.$refs.dataform.getPropertyByName('posted_due').valueCandidate;
-                axios.post(this.$store.state.API_BACKEND_URL + '/api/ownerPosts/create',{
+                axios.post(this.$store.state.API_BACKEND_URL + '/api/ownerPosts/create/before',{
                     user_nickname : this.$store.state.user_nickname,
                     title : this.$store.state.ownerPost.title,
                     dog_name : this.$store.state.ownerPost.dog_name,
                     lost_time : this.$store.state.ownerPost.lost_time,
-                    lost_time1 : this.$store.state.ownerPost.lost_time1,
                     dog_sex :this.$store.state.ownerPost.dog_sex,
                     dog_type :this.$store.state.ownerPost.dog_type,
                     dog_age :this.$store.state.ownerPost.dog_age,
@@ -227,14 +120,29 @@
                 })
                 .then(res => {
                     console.log(res.data);
-                    //this.$goto('board');
-                    })
-                .catch(error => {console.log(error)});
-                console.log(this.makerinfo)
-                console.log(this.$refs.dataform.getPropertyByName('dog_age').valueCandidate);
+                    alert({
+                        title: "위 정보로 게시글을 작성합니다.",
+                        message: " ",
+                        okButtonText: "게시글 작성하기"
+                        }).then(() => {
+                        this.$goto('makeOwnerPostWeb');
+                        console.log("Alert dialog closed");
+                        });
+                    }).catch(error => {console.log(error)});
                 
             }
             
         }
     };
 </script>
+<style scoped>
+@import '~nativescript-theme-core/css/core.light.css';
+    ActionBar {
+        background-color: #FA7268;
+        color: #ffffff;
+    }
+    .mybtn{
+  color: #FA7268;
+  background-color: #FFFFFF;
+}
+</style>

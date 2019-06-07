@@ -18,7 +18,7 @@
 					<Label textWrap="true" class="p-10" text="반려견을 찾기 위해 당장 무엇부터 시작해야 하나요? LDAPP에서 제공하는 꿀팁을 참고하세요."/>
                     <Label textWrap="true" class="p-10" text="주인을 찾지 못한 유기견은 큰 사고를 당할 위험이 높으며 보호소에서 주인을 찾지 못한 반려견은 한 달내로 안락사 처리됩니다. LDAPP을 통해 여러분의 소중한 가족을 하루 빨리 찾으세요."/>
                     <Label textWrap="true" text="먼저, 버튼을 눌러 반려견을 잃어버린 위치를 알려주세요." class="h2 description-label" />
-                    <Button class="btn mybtn" row = "1" text = "반려견 등록" height="50" width="100" @tap ="onTap_Loc"></Button>
+                    <Button class="btn mybtn" row = "1" text = "위치 선택" height="50" width="100" @tap ="onTap_Loc"></Button>
 				</StackLayout>
 			</StackLayout>
 		</ScrollView>

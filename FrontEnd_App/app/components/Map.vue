@@ -105,7 +105,6 @@ export default {
     webview.android.getSettings().setMediaPlaybackRequiresUserGesture(false);
     webview.android.getSettings().setUseWideViewPort(true);
     webview.android.getSettings().setDomStorageEnabled(true);
-  
       },
       showDetail(args){
         if(this.selected == 1){
