@@ -132,9 +132,22 @@ def owner_post_list(request):
     serializer = Owner_postSerializer(owner_posts, many = True)
     return Response(owner_posts)
 @api_view(['GET'])
+def owner_post_list_portal(request):
+
+    owner_posts = Owner_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')[:4]
+    serializer = Owner_postSerializer(owner_posts, many = True)
+    return Response(owner_posts)
+
+@api_view(['GET'])
 def finder_post_list(request):
 
     finder_posts = Finder_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
+    serializer = Finder_postSerializer(finder_posts, many = True)
+    return Response(finder_posts)
+@api_view(['GET'])
+def finder_post_list_portal(request):
+
+    finder_posts = Finder_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')[:4]
     serializer = Finder_postSerializer(finder_posts, many = True)
     return Response(finder_posts)
 
@@ -532,6 +545,15 @@ def finish_post_list(request):
     serializer = Owner_postSerializer(finish_owner_posts, many = True)
     return Response(finish_owner_posts.data+finish_finder_posts.data)
 
+@api_view(['GET'])
+def finish_post_list_portal(request):
+    finish_finder_posts = Finder_post.objects.order_by('-id').filter(is_finished=1).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
+    serializer = Finder_postSerializer(finish_finder_posts, many = True)[:2]
+    finish_owner_posts = Owner_post.objects.order_by('-id').filter(is_finished=1).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    serializer = Owner_postSerializer(finish_owner_posts, many = True)[:2]
+    return Response(finish_owner_posts.data+finish_finder_posts.data)
+
+
 @api_view(['POST'])
 def adopt_login(request):
     serializer = Adopt_adminSerializer(data = request.data)
@@ -548,6 +570,12 @@ def adopt_login(request):
 @api_view(['GET'])
 def adopt_post_list(request):
     adopt_posts = Adopt_post.objects.order_by('-id').all().values('title','id','dog_type','imageurl','posted_time')
+    serializer = Adopt_postSerializer(adopt_posts, many = True)
+    return Response(adopt_posts)
+
+@api_view(['GET'])
+def adopt_post_list_portal(request):
+    adopt_posts = Adopt_post.objects.order_by('-id').all().values('title','id','dog_type','imageurl','posted_time')[:4]
     serializer = Adopt_postSerializer(adopt_posts, many = True)
     return Response(adopt_posts)
 
