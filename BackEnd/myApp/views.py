@@ -885,7 +885,7 @@ def poster_mail(request):
     
     msg="ASD"
     mail_msg = EmailMultiAlternatives("test",msg,"kyk@ld.com",[member_id])
-    mail_msg = attach_alternative("<h1>ASD</h>","text/html")
+    mail_msg.attach_alternative("<h1>ASD</h>","text/html")
     mail_msg.send()
 
     t="qwe"
