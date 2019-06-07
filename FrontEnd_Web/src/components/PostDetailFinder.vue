@@ -218,16 +218,12 @@ export default {
     console.log(urlParams.get('key'))
     console.log(urlParams.get('nickname'))
     console.log("TTT")
-    this.$store.state.user_key = urlParams.get('key');
-    this.key = urlParams.get('key');
-    this.$store.state.user_nickname = urlParams.get('nickname');
-    this.nickname = urlParams.get('nickname');
-    console.log(this.$store.state.user_key)
-    console.log(this.key)
-    console.log(this.$store.state.user_nickname)
-    console.log(this.nickname)
-
-    console.log("QWERTYUIOP");
+    if(this.$store.state.user_nickname=="Guest"){
+      this.$store.state.user_key = urlParams.get('key');
+      this.$store.state.user_nickname = urlParams.get('nickname');
+    }
+    this.key = this.$store.state.user_key
+    this.nickname = this.$store.state.user_nickname
     this.getBoardDetail();
     this.getUserId();
   },
