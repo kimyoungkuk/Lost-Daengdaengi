@@ -3,46 +3,63 @@
       <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
       <b-card-group deck>
         <b-card header-tag="header" footer-tag="footer">
-          <!-- <h6 slot="header" class="mb-0">
-            <b-badge variant="dark">작성자</b-badge>
-            {{this.form.user_nickname}}
-            <b-badge variant="dark">찾은 날짜</b-badge>
-            {{this.form.find_time}}
-            <b-badge variant="dark">조회수</b-badge>
-            {{this.form.view_count}}
-            <br>
-            <b-badge variant="dark">제목</b-badge>
-            {{this.form.title}}
-            <b-badge variant="dark">견종</b-badge>
-            {{this.form.dog_type}}
-          </h6> -->
-          <h4 slot="header" class="googleFont">Lost-Daengdaengi</h4>
-          <div>
+          <div class="detailTitle googleFont_finder" slot="header">
+            <div id="detailTitle-left">
+              <v-btn
+              small
+              depressed
+              right
+              router-link to="/finderBoard">
+                <v-icon color="#FA7268" left>arrow_back</v-icon>
+              </v-btn>
+            </div>
+            <div id="datailTitle-center"><h5 id="detailTitle1">Lost-Daengdaengi</h5></div>
+            <div id="detailTitle-right">조회 : {{this.form.view_count}}</div>
+          </div>
+          <div class="googleFont_finder">
             <v-layout>
               <v-flex xs12 sm6 offset-sm3>
                 <v-card>
-                  <v-img class="white--text" height="300px" :src="this.form.imageurl">
-                    <v-container fill-height fluid>
-                      <v-layout fill-height>
-                        <v-flex xs12 align-end flexbox>
-                          <span class="headline">{{this.form.dog_type}}</span>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                  </v-img>
+                  <v-img class="white--text" height="300px" :src="this.form.imageurl"></v-img>
                   <v-card-title>
                     <div>
-                      <span class="grey--text">연락처 : {{this.form.phone_num}}</span>
-                      <br>
-                      <span>특징 : {{this.form.dog_feature}}</span>
-                      <br>
-                      <span>보호소 : {{this.form.shelter_name}}</span>
+                      <h3>
+                        <p>
+                          <b-badge variant="danger">실종</b-badge>
+                          [{{this.form.dog_type}}]
+                          {{this.form.title}}
+                        </p>
+                      </h3>
+                      <div style="line-height:2em;">
+                        <div class="detailFront">
+                          <li>날짜</li>
+                          <li>특징</li>
+                          <li>닉네임</li>
+                          <li>연락처</li>
+                        </div>
+                        <div class="detailLast">
+                           : {{this.form.find_time}}<br>
+                           : {{this.form.dog_feature}}<br>
+                           : {{this.form.user_nickname}}<br>
+                           : {{this.form.phone_num}}
+                        </div>
+                      </div>
                     </div>
                   </v-card-title>
                   <v-card-actions>
-                    <v-btn flat color="orange" v-b-modal.modal-finish>Finish</v-btn>
-                    <v-btn flat color="orange" v-on:click="recommend">Explore</v-btn>
-                    <v-btn flat color="orange" v-b-modal.modal-report v-on:click="reportBoard">report</v-btn>
+                    <v-btn class="btn btn-primary custom-btn" color="white" flat v-b-modal.modal-finish>반환 완료</v-btn>
+                    <v-btn class="btn btn-primary custom-btn" color="white" flat v-on:click="recommend">유기견 찾기</v-btn>
+                    <v-btn class="btn btn-primary custom-btn" color="white" flat v-b-modal.modal-report v-on:click="reportBoard">신고</v-btn>
+                    <div class="detailDelete-icon" align="right">
+                      <v-btn
+                      small
+                      depressed
+                      flat
+                      v-b-modal.modal-delete
+                      >
+                        <i class="material-icons">delete</i>
+                      </v-btn>
+                    </div>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -67,9 +84,9 @@
           <p class="card-text">{{this.form.contents}}</p>
         </b-card>
       </b-card-group>
-      <v-flex>
+      <v-flex class="googleFont_finder">
         <h4>
-          <b-badge variant="dark">댓글</b-badge>
+          <b-badge>댓글</b-badge>
         </h4>
         <b-form @submit.prevent="addComment" v-on:keyup.enter="addComment">
           <b-form-textarea
@@ -80,22 +97,17 @@
             v-model="contents"
           ></b-form-textarea>
           <v-flex> 
-            <b-button class="comment" type="submit" variant="primary" size="sm">댓글 작성(Enter)</b-button>
+            <b-button class="comment" type="submit" size="sm">댓글 작성(Enter)</b-button>
           </v-flex>
         </b-form>
       </v-flex>
       <v-flex>
-      <b-button-group size="sm">
-        <b-button v-on:click="toBoard" class="view_button" variant="primary">목록</b-button>
-        <b-button
+      <b-button-group class="googleFont_finder" size="sm">
+        <!-- <b-button
           v-if="userId == form.userId || admin === 1"
           v-on:click="updateBoard"
           variant="primary"
-        >수정</b-button>
-        <b-button
-          v-b-modal.modal-delete
-          variant="danger"
-        >삭제</b-button>
+        >수정</b-button> -->
       </b-button-group>
       </v-flex>
 
@@ -508,7 +520,51 @@ div.report_submit {
 }
 
 .detailTitle {
-  text-align:center;
+  display: flex;
+  /* line-height: %; */
+}
+#detailTitle1 {
+  line-height: 190%;
 }
 
+#detailTitle-left {
+  flex: 1;
+}
+
+#detailTitle-center {
+  flex: 3;
+  text-align: center;
+  line-height: 300%;
+}
+
+#detailTitle-right {
+  flex: 1;
+  text-align: right;
+  line-height: 275%;
+}
+
+.detailFront{
+  float: left;
+  width: 100%;
+  margin-right: -300px;
+  padding-right: 330px;
+  box-sizing: border-box;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.detailLast{
+  float: right;
+  width: 300px;
+}
+
+.material-icons {
+  color: grey;
+  flex: 1;
+  text-align: right;
+}
+
+.detailDelete-icon {
+  flex: 1;
+}
 </style>
