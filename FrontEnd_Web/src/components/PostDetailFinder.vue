@@ -324,9 +324,6 @@ export default {
         }
       });
     },
-    reportBoard() {
-      this.$router.push("/finderboard");
-    },
     addComment() {
       let comment = {
         user_key: "",
