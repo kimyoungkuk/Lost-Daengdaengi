@@ -25,24 +25,16 @@
                     <div>
                       <h3>
                         <p>
-                          <b-badge variant="danger">실종</b-badge>
+                          <b-badge variant="primary">발견</b-badge>
                           [{{this.form.dog_type}}]
                           {{this.form.title}}
                         </p>
                       </h3>
                       <div style="line-height:2em;">
-                        <div class="detailFront">
-                          <li>날짜</li>
-                          <li>특징</li>
-                          <li>닉네임</li>
-                          <li>연락처</li>
-                        </div>
-                        <div class="detailLast">
-                           : {{this.form.find_time}}<br>
-                           : {{this.form.dog_feature}}<br>
-                           : {{this.form.user_nickname}}<br>
-                           : {{this.form.phone_num}}
-                        </div>
+                        <li>날&nbsp&nbsp짜 : {{this.form.find_time}}</li>
+                        <li>특&nbsp&nbsp징 : {{this.form.dog_feature}}</li>
+                        <li>닉네임 : {{this.form.user_nickname}}</li>
+                        <li>연락처 : {{this.form.phone_num}}</li>
                       </div>
                     </div>
                   </v-card-title>
@@ -82,34 +74,26 @@
             <hr class="horizontal">
           </h6>
           <p class="card-text">{{this.form.contents}}</p>
+
+          <v-flex class="googleFont_finder">
+            <h4>
+              <b-badge>댓글</b-badge>
+            </h4>
+            <b-form @submit.prevent="addComment" v-on:keyup.enter="addComment">
+              <b-form-textarea
+                class="comment_input"
+                placeholder="댓글을 입력하세요."
+                rows="2"
+                max-rows="6"
+                v-model="contents"
+              ></b-form-textarea>
+              <v-flex> 
+                <b-button class="comment" type="submit" size="sm">댓글 작성(Enter)</b-button>
+              </v-flex>
+            </b-form>
+          </v-flex>
         </b-card>
       </b-card-group>
-      <v-flex class="googleFont_finder">
-        <h4>
-          <b-badge variant="dark">댓글</b-badge>
-        </h4>
-        <b-form @submit.prevent="addComment" v-on:keyup.enter="addComment">
-          <b-form-textarea
-            class="comment_input"
-            placeholder="댓글을 입력하세요."
-            rows="2"
-            max-rows="6"
-            v-model="contents"
-          ></b-form-textarea>
-          <v-flex> 
-            <b-button class="comment" type="submit" size="sm">댓글 작성(Enter)</b-button>
-          </v-flex>
-        </b-form>
-      </v-flex>
-      <v-flex>
-      <b-button-group class="googleFont_finder" size="sm">
-        <!-- <b-button
-          v-if="userId == form.userId || admin === 1"
-          v-on:click="updateBoard"
-          variant="primary"
-        >수정</b-button> -->
-      </b-button-group>
-      </v-flex>
 
       <b-modal
         id="modal-delete"

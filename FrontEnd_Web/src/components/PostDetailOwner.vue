@@ -1,5 +1,6 @@
 <template>
     <v-flex class="in_board-view">
+      <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
       <b-card-group deck>
         <b-card header-tag="header" footer-tag="footer">
           <h6 slot="header" class="mb-0">
@@ -15,6 +16,19 @@
             <b-badge variant="dark">견종</b-badge>
             {{this.form.dog_type}}
           </h6>
+          <!-- <div class="detailTitle googleFont_finder" slot="header">
+            <div id="detailTitle-left">
+              <v-btn
+              small
+              depressed
+              right
+              router-link to="/finderBoard">
+                <v-icon color="#FA7268" left>arrow_back</v-icon>
+              </v-btn>
+            </div>
+            <div id="datailTitle-center"><h5 id="detailTitle1">Lost-Daengdaengi</h5></div>
+            <div id="detailTitle-right">조회 : {{this.form.view_count}}</div>
+          </div> -->
           <div>
             <v-layout>
               <v-flex xs12 sm6 offset-sm3>
