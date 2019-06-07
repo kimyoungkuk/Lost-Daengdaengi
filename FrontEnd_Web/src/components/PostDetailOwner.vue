@@ -1,5 +1,6 @@
 <template>
     <v-flex class="in_board-view">
+      <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
       <b-card-group deck>
         <b-card header-tag="header" footer-tag="footer">
           <h6 slot="header" class="mb-0">
@@ -15,6 +16,19 @@
             <b-badge variant="dark">견종</b-badge>
             {{this.form.dog_type}}
           </h6>
+          <!-- <div class="detailTitle googleFont_finder" slot="header">
+            <div id="detailTitle-left">
+              <v-btn
+              small
+              depressed
+              right
+              router-link to="/finderBoard">
+                <v-icon color="#FA7268" left>arrow_back</v-icon>
+              </v-btn>
+            </div>
+            <div id="datailTitle-center"><h5 id="detailTitle1">Lost-Daengdaengi</h5></div>
+            <div id="detailTitle-right">조회 : {{this.form.view_count}}</div>
+          </div> -->
           <div>
             <v-layout>
               <v-flex xs12 sm6 offset-sm3>
@@ -67,7 +81,7 @@
       </b-card-group>
       <v-flex>
         <h4>
-          <b-badge variant="dark">댓글</b-badge>
+          <b-badge variant="dark">댓글{{this.$store.state.user_key}}</b-badge>
         </h4>
         <b-form @submit.prevent="addComment" v-on:keyup.enter="addComment">
           <b-form-textarea
@@ -218,10 +232,12 @@ export default {
     console.log(urlParams.get('key'))
     console.log(urlParams.get('nickname'))
     console.log("TTT")
-    this.$store.state.user_key = urlParams.get('key');
-    this.key = urlParams.get('key');
-    this.$store.state.user_nickname = urlParams.get('nickname');
-    this.nickname = urlParams.get('nickname');
+    if(this.$store.state.user_nickname=="Guest"){
+      this.$store.state.user_key = urlParams.get('key');
+      this.$store.state.user_nickname = urlParams.get('nickname');
+    }
+    this.key = this.$store.state.user_key
+    this.nickname = this.$store.state.user_nickname
     this.getBoardDetail();
     this.getUserId();
   },
@@ -337,8 +353,8 @@ export default {
       comment.commented_post_type = "owner"
       // this.$http.post(`http://202.30.31.91:8000/api/comments/create`, {
       axios.post(`http://202.30.31.91:8000/api/comments/create`, {
-      user_key : this.key,
-      user_nickname : this.nickname,
+      user_key : this.$store.state.user_key,
+      user_nickname : this.$store.state.user_nickname,
       contents : this.contents,
       commented_post : this.form.id,
       commented_post_type : "owner"
@@ -346,9 +362,9 @@ export default {
       .then(res => {
         console.log(res.data);
         console.log("QWEQWE");
-        this.contents = "";
-        this.getBoardDetail();
       });
+      this.contents = "";
+      this.getBoardDetail();
     },
     deleteComment(_id) {
       this.$http
@@ -441,9 +457,16 @@ div.board_back_color {
   margin-top: 50px;
   padding: 20px 20px 50px;
 }
-div.in_board-view {
-  text-align: left;
-  display: inline-block;
+.in_board-view {
+  /* text-align: left; */
+  /* display: inline-block; */
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-size: cover;
+  background-position: center;
+  top: 0;
+  left: 0;
 }
 
 hr.horizontal {
@@ -477,7 +500,7 @@ div.comment_submit {
 }
 
 .comment_input {
-  width: 800px;
+  width: 80px;
 }
 
 p.report_date {

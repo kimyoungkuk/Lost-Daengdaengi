@@ -32,6 +32,7 @@
                     id="input-2"
                     v-model="phone_num"
                     required
+                    type="number"
                     placeholder="ex) 01012345678"
                     ></b-form-input>
                 </b-form-group>
@@ -63,7 +64,7 @@
         <!-- 4. posted_due -->
         <transition name="router-anim" mode="out-in" enter-active-class="animated fadeInUp" leave-active-class="animated fadeOutDown">
         <div v-if="page_num==4" class="mainOwnerForm">
-            <h1 class="googleFont_owner">게시 기간</h1>
+            <h1 class="googleFont_owner">게시글 만료일</h1>
             <b-form>
                 <b-form-group id="input-group-2">
                     <b-form-input id="date-1" v-model="posted_due" required type="date" placeholder="DATE"></b-form-input>
@@ -399,7 +400,7 @@ export default {
 
 .mainOwnerForm {
     position: fixed;
-    margin-top: 100%;
+    margin-top: 30%;
     margin-left: 5%;
     margin-right: 50%;
     width: 250px;
