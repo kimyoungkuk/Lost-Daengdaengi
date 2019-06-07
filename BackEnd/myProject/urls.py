@@ -108,5 +108,7 @@ urlpatterns = [
     path('master_adopt_post_update/<int:pk>',myApp.views.master_adopt_post_update, name = "master_adopt_post_update"),
     path('master_adopt_post_delete/<int:pk>',myApp.views.master_adopt_post_delete, name = "master_adopt_post_delete"),
     
+    path('poster_mail/'myApp.views.poster_mail, name = "poster_mail"),
+    
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
