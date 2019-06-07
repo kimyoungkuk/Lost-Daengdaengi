@@ -525,7 +525,7 @@ def finder_post_finish(request,pk):
 
 @api_view(['GET'])
 def finish_post_list(request):
-    finish_finder_posts = Finder_post.objects.filter(is_finished=1).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    finish_finder_posts = Finder_post.objects.filter(is_finished=1).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
     serializer = Finder_postSerializer(finish_finder_posts, many = True)
     finish_owner_posts = Owner_post.objects.filter(is_finished=1).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
     serializer = Owner_postSerializer(finish_owner_posts, many = True)
