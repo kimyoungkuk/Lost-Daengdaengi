@@ -346,9 +346,10 @@ export default {
       .then(res => {
         console.log(res.data);
         console.log("QWEQWE");
-        this.contents = "";
-        this.getBoardDetail();
+        this.$router.push(`/ownerboard/view/${this.$route.params.id}`);
+        // this.getBoardDetail();
       });
+      this.contents = "";
     },
     deleteComment(_id) {
       this.$http
