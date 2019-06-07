@@ -68,20 +68,11 @@ export default {
     console.log(urlParams.get('key'))
     console.log(urlParams.get('nickname'))
     console.log("TTT")
-    this.$store.state.user_key = urlParams.get('key');
-    this.key = urlParams.get('key');
-    this.$store.state.user_nickname = urlParams.get('nickname');
-    this.nickname = urlParams.get('nickname');
-    if(this.$store.state.user_key=="" || this.$store.state.user_nickname=="")
-    {
+    if(this.$store.state.user_nickname=="Guest"){
       this.$store.state.user_key = urlParams.get('key');
-      this.key = urlParams.get('key');
       this.$store.state.user_nickname = urlParams.get('nickname');
-      this.nickname = urlParams.get('nickname');
-      console.log(this.key)
-      console.log(this.nickname)
     }
-    console.log(this.key)
+    this.key = this.$store.state.user_key
     if(this.key=='adopt_admin'){
         console.log("ZCX")
         console.log(this.key)

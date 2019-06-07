@@ -69,7 +69,7 @@
       </b-card-group>
       <v-flex>
         <h4>
-          <b-badge variant="dark">댓글</b-badge>
+          <b-badge variant="dark">댓글{{this.$store.state.user_key}}</b-badge>
         </h4>
         <b-form @submit.prevent="addComment" v-on:keyup.enter="addComment">
           <b-form-textarea
@@ -218,12 +218,12 @@ export default {
     console.log(urlParams.get('key'))
     console.log(urlParams.get('nickname'))
     console.log("TTT")
-    this.$store.state.user_key = urlParams.get('key');
-    this.key = urlParams.get('key');
-    this.$store.state.user_nickname = urlParams.get('nickname');
-    this.nickname = urlParams.get('nickname');
-            
-    console.log("QWERTYUIOP");
+    if(this.$store.state.user_nickname=="Guest"){
+      this.$store.state.user_key = urlParams.get('key');
+      this.$store.state.user_nickname = urlParams.get('nickname');
+    }
+    this.key = this.$store.state.user_key
+    this.nickname = this.$store.state.user_nickname
     this.getBoardDetail();
     this.getUserId();
   },
@@ -342,8 +342,8 @@ export default {
       comment.commented_post_type = "finder"
       // this.$http.post(`http://202.30.31.91:8000/api/comments/create`, {
       axios.post(`http://202.30.31.91:8000/api/comments/create`, {
-      user_key : this.key,
-      user_nickname : this.nickname,
+      user_key : this.$store.state.user_key,
+      user_nickname : this.$store.state.user_nickname,
       contents : this.contents,
       commented_post : this.form.id,
       commented_post_type : "finder"
@@ -353,7 +353,6 @@ export default {
         console.log("QWEQWE");
       });
       this.contents = "";
-  
       this.getBoardDetail();
     },
     deleteComment(_id) {

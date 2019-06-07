@@ -108,5 +108,13 @@ urlpatterns = [
     path('master_adopt_post_update/<int:pk>',myApp.views.master_adopt_post_update, name = "master_adopt_post_update"),
     path('master_adopt_post_delete/<int:pk>',myApp.views.master_adopt_post_delete, name = "master_adopt_post_delete"),
     
+    path('poster_mail/',myApp.views.poster_mail, name = "poster_mail"),
+    
+
+    path('api/ownerPosts/list/portal/', myApp.views.owner_post_list_portal, name = "ownerPosts/list/portal"),
+    path('api/finderPosts/list/portal/', myApp.views.finder_post_list_portal, name = "finderPosts/list/portal"),
+    path('api/finishPosts/list/portal/', myApp.views.finish_post_list_portal, name = "finishPosts/list/portal"),
+    path('adopt/post/list/portal/',myApp.views.adopt_post_list_portal,name="adopt_post_list/portal"),
+    
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
