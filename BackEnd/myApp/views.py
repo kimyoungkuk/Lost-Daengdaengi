@@ -912,9 +912,9 @@ def poster_mail(request):
     
     email = 'kyk1047715@ajou.ac.kr'
     mail = EmailMessage("포스터 보내드립니다.", "포스터를 제작하여 보내드렸습니다.", to=[email])
-    fp = open('media/classification.jpg', 'rb')
+    fp = open('media/default_image.jpg', 'rb')
     file_data = fp.read()
-    mail.attach('media/classification.jpg',file_data,'image/jpeg')
+    mail.attach('media/default_image.jpg',file_data,'image/jpeg')
 
     mail.send()
     t="QWE"
