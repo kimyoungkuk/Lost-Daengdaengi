@@ -30,16 +30,6 @@ from numpy.linalg import norm
 from numpy import dot
 from math import radians, cos, sin, asin, sqrt
 
-import os, smtplib
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEBase import MIMEBase
-from email.MIMEText import MIMEText
-from email.header import Header
-from email import Encoders
-import time
-import datetime
-import random
-
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Owner_post.objects.all()
@@ -918,14 +908,3 @@ def master_adopt_post_delete(request,pk):
     return render(request,"master_adopt_post_list.html",{'adopt_posts':adopt_posts})
 
 
-
-def poster_mail(request):
-    member_id="kyk1047715@naver.com"
-    
-    msg="ASD"
-    mail_msg = EmailMultiAlternatives("test",msg,"kyk@ld.com",[member_id])
-    mail_msg.attach_alternative("<h1>ASD</h>","text/html")
-    mail_msg.send()
-
-    t="qwe"
-    return render(request,"home.html",{'t':t})
