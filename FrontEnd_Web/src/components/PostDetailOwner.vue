@@ -67,7 +67,7 @@
       </b-card-group>
       <v-flex>
         <h4>
-          <b-badge variant="dark">댓글</b-badge>
+          <b-badge variant="dark">댓글{{this.$store.state.user_key}}</b-badge>
         </h4>
         <b-form @submit.prevent="addComment" v-on:keyup.enter="addComment">
           <b-form-textarea
