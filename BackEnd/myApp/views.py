@@ -914,7 +914,7 @@ def poster_mail(request):
     mail = EmailMessage("포스터 보내드립니다.", "포스터를 제작하여 보내드렸습니다.", to=[email])
     fp = open('media/classification.jpg', 'rb')
     file_data = fp.read()
-    mail.attach('poster.jpg',file_data,'image/jpeg')
+    mail.attach('media/classification.jpg',file_data,'image/jpeg')
 
     mail.send()
     t="QWE"
