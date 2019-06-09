@@ -123,7 +123,10 @@ def FindNearShelter(request):
         nearestQueryset = Dog_shelter.objects.get(pk = id_value)
         nearestDogShelter = Dog_shelterSerializer(nearestQueryset)
         return Response(nearestDogShelter.data, status = status.HTTP_201_CREATED)
-    return Response(nearestDogShelter.errors, status = status.HTTP_400_BAD_REQUEST)
+    logging.error(currentLocation.data['lat'])
+    logging.error(currentLocation.data['lng'])
+
+    return Response(currentLocation.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
 
