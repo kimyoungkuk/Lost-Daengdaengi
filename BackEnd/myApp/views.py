@@ -1009,20 +1009,23 @@ def poster_email(request):
 
     # img.save("media/owner/6/poster.jpg")
     serializer = PosterSerializer(data=request.data)
-    posterid = serializer.data['posterid']
-    email = serializer.data['email']
-    logging.error("ZZZ")
-    logging.error(email)
-    logging.error(posterid)
-    logging.error("XXX")
-    mail = EmailMessage("포스터 보내드립니다.", "포스터를 제작하여 보내드렸습니다.", to=[email])
-    fp = open('media/owner/'+str(posterid)+'/poster.jpg', 'rb')
-    file_data = fp.read()
-    mail.attach('media/owner/'+str(posterid)+'/poster.jpg',file_data,'image/jpeg')
+    
+    if serializer.is_valid():
+        posterid = serializer.data['posterid']
+        email = serializer.data['email']
+        logging.error("ZZZ")
+        logging.error(email)
+        logging.error(posterid)
+        logging.error("XXX")
+        mail = EmailMessage("포스터 보내드립니다.", "포스터를 제작하여 보내드렸습니다.", to=[email])
+        fp = open('media/owner/'+str(posterid)+'/poster.jpg', 'rb')
+        file_data = fp.read()
+        mail.attach('media/owner/'+str(posterid)+'/poster.jpg',file_data,'image/jpeg')
 
-    mail.send()
-    t="QWE"
-    return Response({'email':email,'posterid':posterid})
+        mail.send()
+        t="QWE"
+        return Response({'email':email,'posterid':posterid})
+    return Response(0)
 
 
 @api_view(['GET'])
