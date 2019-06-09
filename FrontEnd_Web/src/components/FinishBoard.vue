@@ -107,7 +107,26 @@ export default {
     this.$http.get('http://202.30.31.91:8000/api/finishPosts/list')
       .then(res => {
           console.log(res.data)
+          // console.log(res.data.finder)
+          // console.log(res.data.owner)
+          
+          // this.posts = res.data.finder
+          // posts.concat(res.data.owner)
+          // console.log(this.posts)
+          // console.log(res.data.finder+res.data.owner)
+          // console.log("ZZZZ")
           this.posts = res.data
+          console.log(this.posts)
+          console.log("ZZZ")
+          console.log(res.data[0].imageurl)
+          console.log(res.data[0].title)
+          console.log(res.data[0].posted_time)
+          console.log(res.data[0].id)
+          
+          console.log(res.data[1].imageurl)
+          console.log(res.data[1].title)
+          console.log(res.data[1].posted_time)
+          console.log(res.data[1].id)
 
           // if (this.lat!=null && this.lng!=null){
           // this.$http.get("http://202.30.31.91:8000/api/ownerPosts/filter/with?key="+this.key+"&nickname="+this.nickname+"&lat=" + this.lat + "&lng=" + this.lng)

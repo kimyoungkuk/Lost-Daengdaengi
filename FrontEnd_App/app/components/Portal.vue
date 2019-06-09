@@ -1,341 +1,259 @@
 <template>
-    <Page class="page" actionBarHidden="true">
-
-        <ActionBar backgroundColor="#44557f" flat="true">
-            <StackLayout orientation="vertical" width="100%" height="100%"
-                backgroundColor="#44557f">
-                <StackLayout backgroundColor="#44557f">
-                    <StackLayout #searchRow orientation="horizontal"
-                        marginTop="5">
-                        <TextField backgroundColor="white" paddingLeft="20"
-                            borderRadius="20" width="80%"
-                            height="40" fontSize="14" hint="Search"></TextField>
-                        <Image src="~/assets/images/shape4@3x.png" height="30"
-                            width="30" marginLeft="10"></Image>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
-        </ActionBar>Y
+    <Page class="page" @loaded="loaded">
+        <ActionBar flat="true" title="로스트 댕댕이">
+           <ActionItem @tap="$goto('makeFinderPost')">
+                <button text="찾았어요" class="btn mybtn font-weight-bold" android:horizontalAlignment="left" >/>
+                </button>
+            </ActionItem>
+            <ActionItem @tap="$goto('makeOwnerPost')" >
+                <button text="찾아주세요" class="btn mybtn font-weight-bold" android:horizontalAlignment="right">/>
+                </button>
+            </ActionItem>
+        </ActionBar>
 
 
         <GridLayout orientation="vertical" width="100%" height="100%" columns="*"
-            rows="*,auto">
-
-            <StackLayout col="0" row="0" backgroundColor="#f8f8f8">
-                <StackLayout backgroundColor="#44557f" paddingBottom="15"
-                    marginTop="-10">
-                    <Label text="공지사항(webview)" class="font-weight-bold"
-                        color="#FFFFFF" padding="15" fontSize="24"></Label>
-                </StackLayout>
-
-                <StackLayout paddingLeft="20" paddingRight="20" paddingTop="20"
-                    paddingBottom="5" marginTop="-20" backgroundImage="~/assets/images/layer14@3x.png"
-                    borderRadius="5" height="180" width="90%" @tap="showDetails()"
-                    stretch="aspectFit" class="album-image">
-                    <GridLayout columns="*" rows="auto,*,auto" height="100%">
-
-                        <GridLayout columns="auto,*,auto" rows="auto,auto"
-                            col="0" row="2" marginBottom="5">
-                            <Label col="0" row="0" class="font-weight-bold"
-                                fontSize="18" color="#FFFFFF" text="Hip Hop so far 2018"></Label>
-                            <Label col="0" row="1" class="font-weight-bold"
-                                fontSize="16" color="#FFFFFF" text="By #Bruno Mars"></Label>
-                        </GridLayout>
-
-                    </GridLayout>
-
-                </StackLayout>
-
+            rows="*,auto" >
+          
+            <StackLayout col="0" row="0" backgroundColor="#ffffff">
+                  <Webview src="http://202.30.31.91/aboutus" id="myWebView" height="auto"/>
+                    <Button class="font-weight-bold fas fa-search-location"
+                                fontSize="25" color="#FA7268" backgroundColor="#ffffff" 
+                                :text="'\uf689' + '내 주변 지도로 확인하기'" @tap="$goto('map')" style="text-align: center;"></Button>
                 <ScrollView orientation="vertical">
                     <StackLayout>
-                        <GridLayout columns="auto,*,auto" rows="auto">
-                            <Label col="0" row="0" class="font-weight-bold"
-                                paddingLeft="10" fontSize="20" color="#000000"
-                                text="찾아주세요" @tap="viewAll_Owner">></Label>
-                            <Label col="2" row="0" class="font-weight-bold"
-                                marginRight="20" fontSize="14" color="#8d8d8d"
-                                text="모두보기" @tap="viewAll_Owner"></Label>
+                        <GridLayout backgroundColor="#FA7268"  columns="auto,*,auto" rows="auto">
+                            <Label col="0" row="0" class="fas fa-search font-weight-bold"
+                                paddingLeft="10" fontSize="16" color="#ffffff"
+                                :text="'\uf002' + '찾아주세요'" @tap="viewAll_Owner">></Label>
+                            <Label col="2" row="0" class="font-weight-bold fas fa-list"
+                                marginRight="20" fontSize="16" color="#ffffff"
+                                :text="'\uf03a' + '모두보기'" @tap="viewAll_Owner"></Label>
                         </GridLayout>
 
 
                         <ScrollView orientation="horizontal">
                             <StackLayout orientation="horizontal">
-                                <StackLayout margin="10">
+                                <StackLayout @tap="viewDetail_Owner" id="Owner_1" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         width="125" :backgroundImage="Owner_imgSrc[0]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" class="fa btn-rounded-sm"
-                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                     
                                     </StackLayout>
                                     <Label fontSize="14" class="font-weight-bold"
                                         color="#000000" :text="Owner_txtSrc[0]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Owner_dtimeSrc[0]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Owner_dtimeSrc[0]).format('YYYY-MM-DD')"></Label>
                                 </StackLayout>
 
-                                <StackLayout margin="10">
+                                <StackLayout @tap="viewDetail_Owner" id="Owner_2" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         width="125" :backgroundImage="Owner_imgSrc[1]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" class="fa btn-rounded-sm"
-                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                     
                                     </StackLayout>
                                     <Label fontSize="14" class="font-weight-bold"
                                         color="#000000" :text="Owner_txtSrc[1]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Owner_dtimeSrc[1]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Owner_dtimeSrc[1]).format('YYYY-MM-DD')"></Label>
                                 </StackLayout>
 
-                                <StackLayout margin="10">
+                                <StackLayout @tap="viewDetail_Owner" id="Owner_3" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         :backgroundImage="Owner_imgSrc[2]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" fontSize="14"
-                                            class="fa btn-rounded-sm" color="#FFFFFF"
-                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                   
                                     </StackLayout>
                                     <Label width="125" fontSize="14" class="font-weight-bold"
                                         color="#000000" textWrap="true" :text="Owner_txtSrc[2]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Owner_dtimeSrc[2]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Owner_dtimeSrc[2]).format('YYYY-MM-DD')"></Label>
 
                                 </StackLayout>
 
-                                  <StackLayout margin="10">
+                                  <StackLayout @tap="viewDetail_Owner" id="Owner_4" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         :backgroundImage="Owner_imgSrc[3]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" fontSize="14"
-                                            class="fa btn-rounded-sm" color="#FFFFFF"
-                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                   
                                     </StackLayout>
                                     <Label width="125" fontSize="14" class="font-weight-bold"
                                         color="#000000" textWrap="true" :text="Owner_txtSrc[3]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Owner_dtimeSrc[3]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Owner_dtimeSrc[3]).format('YYYY-MM-DD')"></Label>
 
                                 </StackLayout>
                             </StackLayout>
                         </ScrollView>
 
-                        <GridLayout columns="auto,*,auto" rows="auto">
-                            <Label col="0" row="0" class="font-weight-bold"
-                                paddingLeft="10" fontSize="20" color="#000000"
-                                text="찾았어요" @tap="viewAll_Finder"></Label>
-                            <Label col="2" row="0" class="font-weight-bold"
-                                marginRight="20" fontSize="14" color="#8d8d8d"
-                                text="모두보기" @tap="viewAll_Finder"></Label>
+                        <GridLayout backgroundColor="#FA7268" columns="auto,*,auto" rows="auto">
+                            <Label col="0" row="0" class="fas fa-search font-weight-bold "
+                                paddingLeft="10" fontSize="16" color="#ffffff"
+                                :text="'\uf002'+ '찾았어요'" @tap="viewAll_Finder"></Label>
+                            <Label col="2" row="0" class="font-weight-bold fas fa-list"
+                                marginRight="20" fontSize="16" color="#ffffff"
+                                :text="'\uf03a' + '모두보기'" @tap="viewAll_Finder"></Label>
                         </GridLayout>
 
                         <ScrollView orientation="horizontal">
                             <StackLayout orientation="horizontal">
-                                <StackLayout margin="10">
+                                <StackLayout @tap="viewDetail_Finder" id="Finder_1" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         width="125" :backgroundImage="Finder_imgSrc[0]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" class="fa btn-rounded-sm"
-                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                        
                                     </StackLayout>
                                     <Label fontSize="14" class="font-weight-bold"
                                         color="#000000" :text="Finder_txtSrc[0]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finder_dtimeSrc[0]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finder_dtimeSrc[0]).format('YYYY-MM-DD')"></Label>
                                 </StackLayout>
 
-                                <StackLayout margin="10">
+                                <StackLayout  @tap="viewDetail_Finder" id="Finder_2" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         width="125" :backgroundImage="Finder_imgSrc[1]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" class="fa btn-rounded-sm"
-                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                     
                                     </StackLayout>
                                     <Label fontSize="14" class="font-weight-bold"
                                         color="#000000" :text="Finder_txtSrc[1]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finder_dtimeSrc[1]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finder_dtimeSrc[1]).format('YYYY-MM-DD')"></Label>
                                 </StackLayout>
 
-                                <StackLayout margin="10">
+                                <StackLayout  @tap="viewDetail_Finder" id="Finder_3" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         :backgroundImage="Finder_imgSrc[2]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" fontSize="14"
-                                            class="fa btn-rounded-sm" color="#FFFFFF"
-                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                     
                                     </StackLayout>
                                     <Label width="125" fontSize="14" class="font-weight-bold"
                                         color="#000000" textWrap="true" :text="Finder_txtSrc[2]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finder_dtimeSrc[2]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finder_dtimeSrc[2]).format('YYYY-MM-DD')"></Label>
 
                                 </StackLayout>
 
-                                  <StackLayout margin="10">
+                                  <StackLayout  @tap="viewDetail_Finder" id="Finder_4" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         :backgroundImage="Finder_imgSrc[3]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" fontSize="14"
-                                            class="fa btn-rounded-sm" color="#FFFFFF"
-                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    
                                     </StackLayout>
                                     <Label width="125" fontSize="14" class="font-weight-bold"
                                         color="#000000" textWrap="true" :text="Finder_txtSrc[3]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finder_dtimeSrc[3]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finder_dtimeSrc[3]).format('YYYY-MM-DD')"></Label>
 
                                 </StackLayout>
                             </StackLayout>
                         </ScrollView>
 
-                        <GridLayout columns="auto,*,auto" rows="auto">
+                        <GridLayout backgroundColor="#FA7268" columns="auto,*,auto" rows="auto">
                             <Label col="0" row="0" class="font-weight-bold"
-                                paddingLeft="10" fontSize="20" color="#000000"
+                                paddingLeft="10" fontSize="16" color="#ffffff"
                                 text="분양 게시물" @tap="viewAll_Adopt"></Label>
-                            <Label col="2" row="0" class="font-weight-bold"
-                                marginRight="20" fontSize="14" color="#8d8d8d"
-                                text="모두보기" @tap="viewAll_Adopt"></Label>
+                            <Label col="2" row="0" class="font-weight-bold fas fa-list"
+                                marginRight="20" fontSize="16" color="#ffffff"
+                                :text="'\uf03a' + '모두보기'" @tap="viewAll_Adopt"></Label>
                         </GridLayout>
 
                         <ScrollView orientation="horizontal">
                             <StackLayout orientation="horizontal">
-                                <StackLayout margin="10">
+                                <StackLayout  @tap="viewDetail_Adopt" id="Adopt_1" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         width="125" :backgroundImage="Adopt_imgSrc[0]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" class="fa btn-rounded-sm"
-                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                      
                                     </StackLayout>
                                     <Label fontSize="14" class="font-weight-bold"
                                         color="#000000" :text="Adopt_txtSrc[0]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Adopt_dtimeSrc[0]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Adopt_dtimeSrc[0]).format('YYYY-MM-DD')"></Label>
                                 </StackLayout>
 
-                                <StackLayout margin="10">
+                                <StackLayout @tap="viewDetail_Adopt" id="Adopt_2" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         width="125" :backgroundImage="Adopt_imgSrc[1]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" class="fa btn-rounded-sm"
-                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                     
                                     </StackLayout>
                                     <Label fontSize="14" class="font-weight-bold"
                                         color="#000000" :text="Adopt_txtSrc[1]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Adopt_dtimeSrc[1]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Adopt_dtimeSrc[1]).format('YYYY-MM-DD')"></Label>
                                 </StackLayout>
 
-                                <StackLayout margin="10">
+                                <StackLayout  @tap="viewDetail_Adopt" id="Adopt_3" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         :backgroundImage="Adopt_imgSrc[2]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" fontSize="14"
-                                            class="fa btn-rounded-sm" color="#FFFFFF"
-                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                      
                                     </StackLayout>
                                     <Label width="125" fontSize="14" class="font-weight-bold"
                                         color="#000000" textWrap="true" :text="Adopt_txtSrc[2]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Adopt_dtimeSrc[2]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Adopt_dtimeSrc[2]).format('YYYY-MM-DD')"></Label>
 
                                 </StackLayout>
 
-                                  <StackLayout margin="10">
+                                  <StackLayout @tap="viewDetail_Adopt" id="Adopt_4" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         :backgroundImage="Adopt_imgSrc[3]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" fontSize="14"
-                                            class="fa btn-rounded-sm" color="#FFFFFF"
-                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    
                                     </StackLayout>
                                     <Label width="125" fontSize="14" class="font-weight-bold"
                                         color="#000000" textWrap="true" :text="Adopt_txtSrc[3]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Adopt_dtimeSrc[3]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Adopt_dtimeSrc[3]).format('YYYY-MM-DD')"></Label>
 
                                 </StackLayout>
                             </StackLayout>
                         </ScrollView>
 
-                        <GridLayout columns="auto,*,auto" rows="auto">
+                        <GridLayout backgroundColor="#FA7268" columns="auto,*,auto" rows="auto">
                             <Label col="0" row="0" class="font-weight-bold"
-                                paddingLeft="10" fontSize="20" color="#000000"
+                                paddingLeft="10" fontSize="16" color="#ffffff"
                                 text="반환완료" @tap="viewAll_Finish"></Label>
-                            <Label col="2" row="0" class="font-weight-bold"
-                                marginRight="20" fontSize="14" color="#8d8d8d"
-                                text="모두보기" @tap="viewAll_Finish"></Label>
+                            <Label col="2" row="0" class="font-weight-bold fas fa-list"
+                                marginRight="20" fontSize="16" color="#ffffff"
+                                :text="'\uf03a' + '모두보기'" @tap="viewAll_Finish"></Label>
                         </GridLayout>
 
                         <ScrollView orientation="horizontal">
                             <StackLayout orientation="horizontal">
-                                <StackLayout margin="10">
+                                <StackLayout @tap="viewDetail_Finish" id="Finish_1" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         width="125" :backgroundImage="Finish_imgSrc[0]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" class="fa btn-rounded-sm"
-                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                  
                                     </StackLayout>
                                     <Label fontSize="14" class="font-weight-bold"
                                         color="#000000" :text="Finish_txtSrc[0]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finish_dtimeSrc[0]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finish_dtimeSrc[0]).format('YYYY-MM-DD')"></Label>
                                 </StackLayout>
 
-                                <StackLayout margin="10">
+                                <StackLayout @tap="viewDetail_Finish" id="Finish_2" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         width="125" :backgroundImage="Finish_imgSrc[1]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" class="fa btn-rounded-sm"
-                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                 
                                     </StackLayout>
                                     <Label fontSize="14" class="font-weight-bold"
                                         color="#000000" :text="Finish_txtSrc[1]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finish_dtimeSrc[1]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finish_dtimeSrc[1]).format('YYYY-MM-DD')"></Label>
                                 </StackLayout>
 
-                                <StackLayout margin="10">
+                                <StackLayout @tap="viewDetail_Finish" id="Finish_3" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         :backgroundImage="Finish_imgSrc[2]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" fontSize="14"
-                                            class="fa btn-rounded-sm" color="#FFFFFF"
-                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+
                                     </StackLayout>
                                     <Label width="125" fontSize="14" class="font-weight-bold"
                                         color="#000000" textWrap="true" :text="Finish_txtSrc[2]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finish_dtimeSrc[2]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finish_dtimeSrc[2]).format('YYYY-MM-DD')"></Label>
 
                                 </StackLayout>
 
-                                  <StackLayout margin="10">
+                                  <StackLayout @tap="viewDetail_Finish" id="Finish_4" margin="10">
                                     <StackLayout class="album-image" height="110"
                                         :backgroundImage="Finish_imgSrc[3]"
                                         borderRadius="5">
-                                        <Button horizontalAlignment="right"
-                                            marginRight="5" marginTop="80"
-                                            width="50" height="20" fontSize="14"
-                                            class="fa btn-rounded-sm" color="#FFFFFF"
-                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+          
                                     </StackLayout>
                                     <Label width="125" fontSize="14" class="font-weight-bold"
                                         color="#000000" textWrap="true" :text="Finish_txtSrc[3]"></Label>
-                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finish_dtimeSrc[3]).format('YYYY년MM월DD일HH시')"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finish_dtimeSrc[3]).format('YYYY-MM-DD')"></Label>
 
                                 </StackLayout>
                             </StackLayout>
@@ -369,6 +287,10 @@
                 Owner_dtimeSrc :[],
                 Finish_dtimeSrc :[],
                 Adopt_dtimeSrc :[],
+                Finder_id : [],
+                Owner_id :[],
+                Finish_id :[],
+                Adopt_id :[],
 
 
             };
@@ -382,6 +304,7 @@
                     this.Owner_imgSrc.push(res.data[i].imageurl);
                     this.Owner_txtSrc.push(res.data[i].title);
                     this.Owner_dtimeSrc.push(res.data[i].posted_time);
+                    this.Owner_id.push(res.data[i].id);
                 }
                 
                // this.Owner_imgSrc = res.data;
@@ -393,7 +316,8 @@
                     this.Finder_imgSrc.push(res.data[i].imageurl);
                     this.Finder_txtSrc.push(res.data[i].title);
                     this.Finder_dtimeSrc.push(res.data[i].posted_time);
-                }
+                    this.Finder_id.push(res.data[i].id);
+              }
             });
             this.$http.get(this.$store.state.API_BACKEND_URL + "/api/finishPosts/list/portal/",{
 
@@ -402,6 +326,8 @@
                     this.Finish_imgSrc.push(res.data[i].imageurl);
                     this.Finish_txtSrc.push(res.data[i].title);
                     this.Finish_dtimeSrc.push(res.data[i].posted_time);
+                    this.Finish_id.push(res.data[i].id);
+
                 }
             });
             this.$http.get(this.$store.state.API_BACKEND_URL + "/adopt/post/list/portal/",{
@@ -411,11 +337,19 @@
                     this.Adopt_imgSrc.push(res.data[i].imageurl);
                     this.Adopt_txtSrc.push(res.data[i].title);
                     this.Adopt_dtimeSrc.push(res.data[i].posted_time);
+                    this.Adopt_id.push(res.data[i].id);
+
                 }
             });
             
         },
         methods: {
+             loaded(webargs) {
+const page = webargs.object
+const webview = page.getViewById('myWebView');
+webview.android.getSettings().setDisplayZoomControls(false);
+webview.android.getSettings().setBuiltInZoomControls(false);
+},  
             onButtonTap() {},
             showDetails() {
                 this.$navigateTo(Details, {
@@ -443,15 +377,79 @@
                 this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/finishboard"+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
                 this.$goto('Portal_to_Board');
             },
+            viewDetail_Owner(args){
+                var Post_id = args.object.id;
+                var Pid_to = 0;
+                switch(Post_id){
+                    case 'Owner_1':
+                        Pid_to = this.Owner_id[0];
+                        break;
+                    case 'Owner_2':
+                        Pid_to = this.Owner_id[1];
+                        break;
+                    case 'Owner_3':
+                        Pid_to = this.Owner_id[2];
+                        break;
+                    case 'Owner_4':
+                        Pid_to = this.Owner_id[3];
+                        break;            
+                }
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/ownerboard/view/"+Pid_to+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$goto('Portal_to_Board');
+            },
+            viewDetail_Finder(args){
+                var Post_id = args.object.id;
+                var Pid_to = 0;
+                switch(Post_id){
+                    case 'Finder_1':
+                        Pid_to = this.Finder_id[0];
+                        break;
+                    case 'Finder_2':
+                        Pid_to = this.Finder_id[1];
+                        break;
+                    case 'Finder_3':
+                        Pid_to = this.Finder_id[2];
+                        break;
+                    case 'Finder_4':
+                        Pid_to = this.Finder_id[3];
+                        break;            
+                }
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/finderboard/view/"+Pid_to+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$goto('Portal_to_Board');
+            },
+            viewDetail_Finish(args){ 
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/finishboard"+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$goto('Portal_to_Board');
+            },
+            viewDetail_Adopt(args){
+                 var Post_id = args.object.id;
+                var Pid_to = 0;
+                switch(Post_id){
+                    case 'Adopt_1':
+                        Pid_to = this.Adopt_id[0];
+                        break;
+                    case 'Adopt_2':
+                        Pid_to = this.Adopt_id[1];
+                        break;
+                    case 'Adopt_3':
+                        Pid_to = this.Adopt_id[2];
+                        break;
+                    case 'Adopt_4':
+                        Pid_to = this.Adopt_id[3];
+                        break;            
+                }
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/adopt/post/detail/"+Pid_to+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$goto('Portal_to_Board');
+            },
         }
     };
 </script>
 
 <style scoped>
-    ActionBar {
-        background-color: transparent;
+ActionBar {
+        background-color: #FA7268;
+        color: #ffffff;
     }
-
     .album-image {
         background-repeat: no-repeat;
         background-size: cover;
@@ -467,6 +465,10 @@
     .description-label {
         margin-bottom: 15;
     }
+    .mybtn{
+  color: #FA7268;
+  background-color: #FFFFFF;
+}
 
     #searchRow {
         margin-top: 20;

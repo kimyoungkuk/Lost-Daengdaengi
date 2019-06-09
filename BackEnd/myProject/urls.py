@@ -109,7 +109,8 @@ urlpatterns = [
     path('master_adopt_post_delete/<int:pk>',myApp.views.master_adopt_post_delete, name = "master_adopt_post_delete"),
     
     path('poster_mail/',myApp.views.poster_mail, name = "poster_mail"),
-    
+
+    path('api/myPosts/',myApp.views.my_post, name = "my_post"),    
 
     path('api/ownerPosts/list/portal/', myApp.views.owner_post_list_portal, name = "ownerPosts/list/portal"),
     path('api/finderPosts/list/portal/', myApp.views.finder_post_list_portal, name = "finderPosts/list/portal"),

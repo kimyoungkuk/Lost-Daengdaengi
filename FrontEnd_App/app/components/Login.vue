@@ -90,7 +90,7 @@ export default {
                     if(response.data.state == '1'){
                         this.$store.state.user_nickname = response.data.nickname
                         console.log(response.data)
-                        this.$goto('map');
+                        this.$goto('portal');
                         this.processing = false;
                     }
                     else if(response.data.state == '0'){

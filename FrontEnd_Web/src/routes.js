@@ -20,7 +20,7 @@ import adoptPostList from './components/adoptPostList'
 import adoptPostCreate from './components/adoptPostCreate'
 import adoptPostDetail from './components/adoptPostDetail'
 import adoptLogin from './components/adoptLogin'
-
+import MakePoster from './components/MakePoster'
 
 export default [
   { // Test Page
@@ -37,6 +37,11 @@ export default [
     path: '/',
     name: 'home-page',
     component: HomePage
+  },
+  {
+    path: '/makeposter',
+    name: 'makeposter',
+    component: MakePoster
   },
   { //
     path: '/counter',

@@ -44,7 +44,7 @@ function gup( name, url ) {
         var query = gup('action', args.url)
         if(query == 'done'){
           console.log("if ok")
-          this.$goto("map")
+          this.$goto("portal")
         }
       },
       OnInit() {
