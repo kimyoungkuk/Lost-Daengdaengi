@@ -232,7 +232,7 @@ def owner_post_create(request):
 
 
 
-        return Response({'posterid':post.id,'posterurl':'media/owner/'+str(post.id)+'/poster.jpg'}, status = status.HTTP_201_CREATED)
+        return Response({'posterid':post.id,'posterurl':'http://202.30.31.91:8000/media/owner/'+str(post.id)+'/poster.jpg'}, status = status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 @api_view(['POST'])
