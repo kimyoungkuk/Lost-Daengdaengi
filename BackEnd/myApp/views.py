@@ -1024,8 +1024,8 @@ def poster_email(request):
 def my_post(request):
     key=request.GET.get("key")
     user = User.objects.get(key=key)
-    finder_posts = Finder_post.objects.filter(user_nickname=user.nickname)
+    finder_posts = Finder_post.objects.filter(user_nickname=user.nickname).order_by('-id').filter(is_finished=1).filter(posted_due__gte=datetime.today())
     finder_serializer = Finder_postSerializer(finder_posts, many = True)
-    owner_posts = Owner_post.objects.filter(user_nickname=user.nickname)
+    owner_posts = Owner_post.objects.filter(user_nickname=user.nickname).order_by('-id').filter(is_finished=1).filter(posted_due__gte=datetime.today())
     owner_serializer = Owner_postSerializer(owner_posts, many = True)
     return Response({'finder':finder_serializer.data,'owner':owner_serializer.data})
