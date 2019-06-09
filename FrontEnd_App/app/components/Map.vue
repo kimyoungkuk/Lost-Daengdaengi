@@ -27,18 +27,17 @@
           > 
           </mapView>
           <fab @tap="myLocTap" row="0" rippleColor="#ffffff" icon = "ic_menu_mylocation" class="fab-button"></fab>
-          <SegmentedBar @selectedIndexChange="onSelectedIndexChange">
-            <SegmentedBarItem title="찾았어요"/>
-            <SegmentedBarItem title="찾아주세요"/>
+          <SegmentedBar @selectedIndexChange="onSelectedIndexChange" selectedBackgroundColor="#FA7268">
+            <SegmentedBarItem title="찾았어요" style="font-weight: bold; "/>
+            <SegmentedBarItem title="찾아주세요" style="font-weight: bold; "/>
           </SegmentedBar>
-      
       </GridLayout>
-      <GridLayout row = "1" rows = "auto,*">
-                <Label row = "0" text = "X" backgroundColor = "#FA7268" @tap="onTapClose" textAlignment="right" padding = "10"></Label>
-                <ScrollView row="1">
-                    <WebView height="500" ref = "webview" @loadFinished="completeLoading" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
-                </ScrollView>
-      </GridLayout>
+      <ScrollView row = "1">
+      <StackLayout>
+                <Label class="far fa-window-close" color="white" row = "0" :text="'\uf410'" backgroundColor = "#FA7268" @tap="onTapClose" textAlignment="right" height="30" fontSize="30"></Label>
+                <WebView ref = "webview" height="2000" @loadFinished="completeLoading" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
+      </StackLayout>
+      </ScrollView>
         </GridLayout>
     </Page>
 </template>
@@ -74,7 +73,7 @@ export default {
         lat :37,
         lng :127,
         padd : [40,40,40,40],
-        row_scale : "*, 40",
+        row_scale : "*, 20",
         count : 0,
         API_WEBVIEW_URL_finder : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_key + "&nickname=" + this.$store.state.user_nickname,
         API_WEBVIEW_URL_finder_temp : this.$store.state.API_WEBVIEW_URL + '/finderboard'+"?key=" + this.$store.state.user_key + "&nickname=" + this.$store.state.user_nickname,
@@ -86,12 +85,7 @@ export default {
         this.loadingComplete=false
         args.object.android.getSettings().setJavaScriptEnabled(true);
         args.object.android.getSettings().setBuiltInZoomControls(false);
-          console.log("--------------------------")
-  var query = gup('key', args.url)
-  console.log(args.object)
-  console.log(args.object.src)
-  console.log("query" + query)
-
+        var query = gup('key', args.url)
       },
       loaded(args) {
     const page = args.object;
@@ -196,7 +190,7 @@ export default {
 
       },
       onTapClose(args) {
-               this.row_scale = "*,40"
+               this.row_scale = "*,20"
       }
     }
 }
