@@ -1008,9 +1008,9 @@ def poster_email(request):
     # draw.text((15,530),"특징 : 어쩌고저쩌고 블라블라~~",(255,255,255),font=font)
 
     # img.save("media/owner/6/poster.jpg")
-    
-    posterid = request.POST.get['posterid']
-    email = request.POST.get['email']
+
+    posterid = request.POST.get('posterid','')
+    email = request.POST.get('email','')
     logging.error("ZZZ")
     logging.error(email)
     logging.error(posterid)
