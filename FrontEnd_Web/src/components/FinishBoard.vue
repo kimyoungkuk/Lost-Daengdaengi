@@ -111,7 +111,7 @@ export default {
           console.log(res.data.owner)
           
           this.posts = res.data.finder
-          posts.append(res.data.owner)
+          posts.concat(res.data.owner)
           console.log(this.posts)
           console.log(res.data.finder+res.data.owner)
           console.log("ZZZZ")
