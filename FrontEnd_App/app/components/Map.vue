@@ -36,7 +36,7 @@
       <ScrollView row = "1">
       <StackLayout>
                 <Label class="far fa-window-close" color="white" row = "0" :text="'\uf410'" backgroundColor = "#FA7268" @tap="onTapClose" textAlignment="right" height="30" fontSize="30"></Label>
-                <WebView ref = "webview" height="2000" @loadFinished="completeLoading" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
+                <WebView ref = "webview" @loadFinished="completeLoading" id="myWebView" :src="this.API_WEBVIEW_URL_finder"/>
       </StackLayout>
       </ScrollView>
         </GridLayout>

@@ -12,6 +12,8 @@ export default new Vuex.Store({
     API_WEBVIEW_URL: "http://202.30.31.91",
     shelter_List : [],
     shelter_List_Near :[],
+    posterid: '',
+    posterurl: '',
     CurrentPostType : true,
     ownerPost: {
       title : " ",      // 입력 : OwnerForm1

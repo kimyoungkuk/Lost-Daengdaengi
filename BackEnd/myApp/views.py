@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+
 from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
@@ -14,18 +15,15 @@ from rest_framework.decorators import api_view
 from rest_framework import viewsets
 
 from datetime import datetime, timedelta
-
+from keras import backend as K
 import logging
 import base64
 from PIL import Image, ImageFont, ImageDraw
 import os
 import numpy as np
-import torch
-from torch.utils.data import DataLoader
-import torchvision
-import torch.nn as nn
-from torch.autograd import Variable
-import torchvision.transforms as transforms
+from extract_bottleneck_features import *
+import tensorflow as tf
+from keras.models import load_model
 from numpy.linalg import norm
 from numpy import dot
 from math import radians, cos, sin, asin, sqrt
@@ -72,8 +70,8 @@ def changeNickname(request):
     if request.method == 'POST':
         serializer = UserSerializer(data = request.data)
         if serializer.is_valid():
-            user = User.objects.get(key = serializer.data['key'])
-            user.nickname = serializer.data['nickname']
+            user = User.objects.get(nickname = serializer.data['nickname'])
+            user.nickname = serializer.data['key']
             user.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
@@ -107,19 +105,19 @@ def haversine(currentLat, currentLng, shelterLat, shelterLng):
 
 @api_view(['POST'])
 def FindNearShelter(request):
+    logging.error(request.data)
     currentLocation = NearSerializer(data = request.data)
     if currentLocation.is_valid():
         queryset = Dog_shelter.objects.all()
         shelterList = Dog_shelterSerializer(queryset, many = True)
 
-        distMIN = 1000
+        distMIN = 100000
         id_value = 0
         for i in range(0,len(shelterList.data)):
             dist = haversine(currentLocation.data['lat'],currentLocation.data['lng'],shelterList.data[i]['lat'],shelterList.data[i]['lng']) 
             if dist <= distMIN:
                 distMIN = dist
                 id_value = i + 1
-        
         nearestQueryset = Dog_shelter.objects.get(pk = id_value)
         nearestDogShelter = Dog_shelterSerializer(nearestQueryset)
         return Response(nearestDogShelter.data, status = status.HTTP_201_CREATED)
@@ -128,18 +126,15 @@ def FindNearShelter(request):
 
     return Response(currentLocation.errors, status = status.HTTP_400_BAD_REQUEST)
 
-
-
-
 @api_view(['GET'])
 def owner_post_list(request):
-
     owner_posts = Owner_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')
+
     serializer = Owner_postSerializer(owner_posts, many = True)
     return Response(owner_posts)
+
 @api_view(['GET'])
 def owner_post_list_portal(request):
-
     owner_posts = Owner_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')[:4]
     serializer = Owner_postSerializer(owner_posts, many = True)
     return Response(owner_posts)
@@ -148,6 +143,7 @@ def owner_post_list_portal(request):
 def finder_post_list(request):
 
     finder_posts = Finder_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')
+
     serializer = Finder_postSerializer(finder_posts, many = True)
     return Response(finder_posts)
 @api_view(['GET'])
@@ -156,6 +152,7 @@ def finder_post_list_portal(request):
     finder_posts = Finder_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')[:4]
     serializer = Finder_postSerializer(finder_posts, many = True)
     return Response(finder_posts)
+
 
 @api_view(['GET'])
 def owner_post_detail(request,pk):
@@ -187,60 +184,83 @@ def finder_post_detail(request,pk):
 @api_view(['POST'])
 def owner_post_create(request):
     serializer = Owner_postSerializer(data = request.data)
+    logging.error(serializer)
     if serializer.is_valid():
-        serializer.save()
-
-        if serializer.data['image'] != "":
-            os.makedirs('./media/owner/'+str(serializer.data['id']))
-            output = open('media/owner/'+str(serializer.data['id'])+'/profile.jpg', 'wb+')
-            output.write(base64.b64decode(serializer.data['image']))
-            output.close()
-
-            post = Owner_post.objects.get(id=serializer.data['id'])
-            post.image = ""
-            post.imageurl = 'http://202.30.31.91:8000/' + 'media/owner/' + str(serializer.data['id']) + '/profile.jpg'
-            post.save()
-        else:
-            pass
+        post = Owner_post.objects.get(lat = serializer.data['lat'])
+        post.title          = serializer.data['title']
+        post.phone_num      = serializer.data['phone_num']
+        post.posted_due     = serializer.data['posted_due']
+        post.lost_time      = serializer.data['lost_time']
+        post.dog_feature    = serializer.data['dog_feature']
+        post.dog_type       = serializer.data['dog_type']
+        post.dog_sex        = serializer.data['dog_sex']
+        post.dog_age        = serializer.data['dog_age']
+        post.dog_name       = serializer.data['dog_name']
+        post.remark         = serializer.data['remark']
+        post.user_nickname  = serializer.data['user_nickname']
+        post.image = ""
+        post.save()
         
 
-
         formimg = cv2.imread('media/poster/poster_form.jpg',1)
-        dogimg = cv2.imread('media/owner/'+str(serializer.data['id'])+'/profile.jpg')
+        dogimg = cv2.imread('media/owner/'+str(post.id)+'/profile.jpg')
     
         dogimg = cv2.resize(dogimg,(344,344))
         formimg[85:85+344,17:17+344] = dogimg
-        cv2.imwrite('media/owner/'+str(serializer.data['id'])+'/poster.jpg',formimg)
-        img = Image.open('media/owner/'+str(serializer.data['id'])+'/poster.jpg')
+        cv2.imwrite('media/owner/'+str(post.id)+'/poster.jpg',formimg)
+        img = Image.open('media/owner/'+str(post.id)+'/poster.jpg')
         draw = ImageDraw.Draw(img)
         font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
-        draw.text((15,435),"연락처 : 010-4478-3569",(255,255,255),font=font)
+        draw.text((15,435),"연락처 : "+str(post.phone_num),(255,255,255),font=font)
         font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
-        draw.text((15,470),"견종 : 포메라니안    이름 : 멍멍이",(255,255,255),font=font)
-        draw.text((15,490),"성별 : 수컷    나이 : 10살",(255,255,255),font=font)
-        draw.text((15,510),"실종시간 : 2019-06-09",(255,255,255),font=font)
-        draw.text((15,530),"특징 : 어쩌고저쩌고 블라블라~~",(255,255,255),font=font)
+        draw.text((15,470),"견종 : "+str(post.dog_type)+"    이름 : "+str(post.dog_name),(255,255,255),font=font)
+        if post.dog_sex==1:
+            dog_sex_temp="수컷"
+        else:
+            dog_sex_temp="암컷"
+        
+        draw.text((15,490),"성별 : "+str(dog_sex_temp)+"    나이 : "+str(post.dog_age)+"살",(255,255,255),font=font)
+        
+        # lost_time_temp=datetime.datetime.strptime(post.lost_time,"%Y-%m-%d").date()
+        draw.text((15,510),"실종시간 : "+str(post.lost_time[:10]),(255,255,255),font=font)
+        draw.text((15,530),"특징 : "+str(post.dog_feature),(255,255,255),font=font)
 
-        img.save('media/owner/'+str(serializer.data['id'])+'/poster.jpg')
+        img.save('media/owner/'+str(post.id)+'/poster.jpg')
 
 
 
 
 
 
-        return Response({'id':post.id,'posterurl':'media/owner/'+str(serializer.data['id'])+'/poster.jpg'}, status = status.HTTP_201_CREATED)
+        return Response({'posterid':post.id,'posterurl':'http://202.30.31.91:8000/media/owner/'+str(post.id)+'/poster.jpg'}, status = status.HTTP_201_CREATED)
+
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 @api_view(['POST'])
 def finder_post_create(request):
+    logging.error("finder_post_crate!!!!!!!!!!!!!!!!")
+    serializer = Finder_postSerializer(data = request.data)
+    logging.error(serializer)
+    if serializer.is_valid():
+        logging.error("111")
+        tmp = Dog_shelter.objects.get(shelter_name = serializer.data['shelter_name'])
+        post = Finder_post.objects.get(lat = serializer.data['lat'])
+        post.shelter = tmp
+        post.title          = serializer.data['title']
+        post.phone_num      = serializer.data['phone_num']
+        post.posted_due     = serializer.data['posted_due']
+        post.find_time      = serializer.data['find_time']
+        post.dog_feature    = serializer.data['dog_feature']
+        post.user_nickname  = serializer.data['user_nickname']
+        post.image = ""
+        post.save()
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
+    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def finder_post_create_before(request):
     serializer = Finder_postSerializer(data = request.data)
     if serializer.is_valid():
         serializer.save()
-
-        tmp = Dog_shelter.objects.get(shelter_name = serializer.data['shelter_name'])
-        post = Finder_post.objects.get(id = serializer.data['id'])
-        post.shelter = tmp
-        post.save()
-
         if serializer.data['image'] != "":
             os.makedirs('./media/finder/' + str(serializer.data['id']))
             output = open('media/finder/' + str(serializer.data['id']) + '/profile.jpg', 'wb+')
@@ -251,10 +271,30 @@ def finder_post_create(request):
             post.image = ""
             post.imageurl = 'http://202.30.31.91:8000/' + 'media/finder/' + str(serializer.data['id']) + '/profile.jpg'
             post.save()
-        else:
-            pass
         return Response(serializer.data, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+@api_view(['POST'])
+def owner_post_create_before(request):
+    logging.error("owner_post_create_before!!!")
+    serializer = Owner_postSerializer(data = request.data)
+    logging.error(serializer)
+    if serializer.is_valid():
+        logging.error("is_valid() enter")
+        serializer.save()
+        if serializer.data['image'] != "":
+            os.makedirs('./media/owner/' + str(serializer.data['id']))
+            output = open('media/owner/' + str(serializer.data['id']) + '/profile.jpg', 'wb+')
+            output.write(base64.b64decode(serializer.data['image']))
+            output.close()
+
+            post = Owner_post.objects.get(id = serializer.data['id'])
+            post.image =""
+            post.imageurl = 'http://202.30.31.91:8000/' + 'media/owner/' + str(serializer.data['id']) + '/profile.jpg'
+            post.save()
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
+    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+
 
 @api_view(['POST'])
 def owner_post_delete(request,pk):
@@ -423,38 +463,37 @@ def filteringOwner(request):
 
 dirnames=['치와와','골든리트리버','보스턴불독','포메라니안','말티즈','도베르만','비글','시베리안허스키','셰퍼드','시츄','푸들','코카스패니얼','콜리','요크셔테리어','퍼그']
 
-loader = transforms.Compose([transforms.Scale(224), transforms.ToTensor()])
+#loader = transforms.Compose([transforms.Scale(224), transforms.ToTensor()])
 
-def image_loader(image_name):
-    """load image, returns cuda tensor"""
-    image = Image.open(image_name).convert('RGB')
-    image = loader(image).float()
-    image = Variable(image, requires_grad=True)
-    image = image.unsqueeze(0)  #this is for VGG, may not be needed for ResNet
-    return image
 
 def cos_sim(A, B):
        return dot(A, B)/(norm(A)*norm(B))
+
 
 @api_view(['POST'])
 def classificationImage(request):
     getImage = GetImageSerializer(data = request.data)
     if getImage.is_valid():
         if getImage.data['image'] != "":
+
+        
             output = open('media/classification.jpg', 'wb+')
             output.write(base64.b64decode(getImage.data['image']))
             output.close()
+            output = None
 
-
-
+            K.clear_session()
             # Classification
             Resnet50_model = load_model('media/modeldir/weights.best.ResNet50.hdf5')##추후 개선안 생각할부분
             bottleneck_feature = extract_Resnet50(path_to_tensor('media/classification.jpg'))
-            bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
-            bottleneck_feature = np.expand_dims(bottleneck_feature,axis=0)
-            predicted_vector = Resnet50_model.predict(bottleneck_feature) #shape error occurs hers
+            bottleneck_feature = np.expand_dims(bottleneck_feature, axis=0)
+            bottleneck_feature = np.expand_dims(bottleneck_feature, axis=0)
+            predicted_vector = Resnet50_model.predict(bottleneck_feature) #shape error occurs here
             outputs = dog_names[np.argmax(predicted_vector)]
-            
+            Resnet50_model = None
+            bottleneck_feature = None
+            predicted_vector = None
+                        
             return Response(outputs, status = status.HTTP_201_CREATED)
 
             # # Classification
@@ -479,6 +518,7 @@ def classificationImage(request):
             # dogType = candi[0][2]
 
             # return Response(dogType, status = status.HTTP_201_CREATED)
+
 
         else :
             logging.error("getImage.data['image'] is empty!!!!!")
@@ -603,6 +643,7 @@ def adopt_login(request):
         else:
             return Response(0)
 
+
 @api_view(['GET'])
 def adopt_post_list(request):
     adopt_posts = Adopt_post.objects.order_by('-id').all().values('title','id','posted_time','dog_type','imageurl','posted_time')
@@ -620,6 +661,9 @@ def adopt_post_create(request):
     serializer = Adopt_postSerializer(data = request.data)
     if serializer.is_valid():
         serializer.save()
+
+
+
         
         if serializer.data['image'] != "":
             os.makedirs('./media/adopt/'+str(serializer.data['id']))
@@ -651,6 +695,7 @@ def adopt_post_detail(request,pk):
     comments_serializer = CommentSerializer(comments, many = True)
     
     return Response({'post':post_serializer.data,'comments':comments_serializer.data})
+
 
 @api_view(['POST'])
 def adopt_post_delete(request,pk):
@@ -943,42 +988,49 @@ def master_adopt_post_delete(request,pk):
     return render(request,"master_adopt_post_list.html",{'adopt_posts':adopt_posts})
 
 
-def poster_mail(request):
+@api_view(['POST'])
+def poster_email(request):
     
-    formimg = cv2.imread('media/poster/poster_form.jpg',1)
-    dogimg = cv2.imread('media/owner/6/profile.jpg')
+    # formimg = cv2.imread('media/poster/poster_form.jpg',1)
+    # dogimg = cv2.imread('media/owner/6/profile.jpg')
 
-    dogimg = cv2.resize(dogimg,(344,344))
-    formimg[85:85+344,17:17+344] = dogimg
-    cv2.imwrite('media/owner/6/poster.jpg',formimg)
-    img = Image.open('media/owner/6/poster.jpg')
-    draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
-    draw.text((15,435),"연락처 : 010-4478-3569",(255,255,255),font=font)
-    font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
-    draw.text((15,470),"견종 : 포메라니안    이름 : 멍멍이",(255,255,255),font=font)
-    draw.text((15,490),"성별 : 수컷    나이 : 10살",(255,255,255),font=font)
-    draw.text((15,510),"실종시간 : 2019-06-09",(255,255,255),font=font)
-    draw.text((15,530),"특징 : 어쩌고저쩌고 블라블라~~",(255,255,255),font=font)
+    # dogimg = cv2.resize(dogimg,(344,344))
+    # formimg[85:85+344,17:17+344] = dogimg
+    # cv2.imwrite('media/owner/6/poster.jpg',formimg)
+    # img = Image.open('media/owner/6/poster.jpg')
+    # draw = ImageDraw.Draw(img)
+    # font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
+    # draw.text((15,435),"연락처 : 010-4478-3569",(255,255,255),font=font)
+    # font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
+    # draw.text((15,470),"견종 : 포메라니안    이름 : 멍멍이",(255,255,255),font=font)
+    # draw.text((15,490),"성별 : 수컷    나이 : 10살",(255,255,255),font=font)
+    # draw.text((15,510),"실종시간 : 2019-06-09",(255,255,255),font=font)
+    # draw.text((15,530),"특징 : 어쩌고저쩌고 블라블라~~",(255,255,255),font=font)
 
-    img.save("media/owner/6/poster.jpg")
+    # img.save("media/owner/6/poster.jpg")
 
-    
-    email = 'kyk1047715@ajou.ac.kr'
+    posterid = request.POST.get('posterid')
+    email = request.POST.get('email')
+    logging.error("ZZZ")
+    logging.error(email)
+    logging.error(posterid)
+    logging.error("XXX")
     mail = EmailMessage("포스터 보내드립니다.", "포스터를 제작하여 보내드렸습니다.", to=[email])
-    fp = open('media/owner/6/poster.jpg', 'rb')
+    fp = open('media/owner/'+str(posterid)+'/poster.jpg', 'rb')
     file_data = fp.read()
-    mail.attach('media/owner/6/poster.jpg',file_data,'image/jpeg')
+    mail.attach('media/owner/'+str(posterid)+'/poster.jpg',file_data,'image/jpeg')
 
     mail.send()
     t="QWE"
-    return render(request,"home.html",{'t':t})
+    return Response({'email':email,'posterid':posterid})
 
 
 @api_view(['GET'])
-def my_post(request,pk):
-    user = User.objects.get(id=pk)
-    finder_posts = Finder_post.objects.filter(user_nickname=user.nickname)
-    owner_posts = Owner_post.objects.filter(user_nickname=user.nickname)
-
-    return Response({'finder':finder_posts,'owner':owner_posts})
+def my_post(request):
+    key=request.GET.get("key")
+    user = User.objects.get(key=key)
+    finder_posts = Finder_post.objects.filter(user_nickname=user.nickname).order_by('-id').filter(is_finished=1).filter(posted_due__gte=datetime.today())
+    finder_serializer = Finder_postSerializer(finder_posts, many = True)
+    owner_posts = Owner_post.objects.filter(user_nickname=user.nickname).order_by('-id').filter(is_finished=1).filter(posted_due__gte=datetime.today())
+    owner_serializer = Owner_postSerializer(owner_posts, many = True)
+    return Response({'finder':finder_serializer.data,'owner':owner_serializer.data})

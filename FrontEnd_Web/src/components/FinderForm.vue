@@ -11,8 +11,9 @@
                         <b-form-input
                         id="input-2"
                         v-model="title"
-                        required
+                        requiredd
                         placeholder="ex) 주인을 찾습니다~"
+                        @keypress.13.prevent="enterHandler"
                         ></b-form-input>
                     </b-form-group>
                     <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
@@ -34,6 +35,7 @@
                         required
                         type ="number"
                         placeholder="ex) 01012345678"
+                        @keypress.13.prevent="enterHandler"
                         ></b-form-input>
                     </b-form-group>
                     <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
@@ -88,6 +90,7 @@
                         v-model="dog_feature"
                         required
                         placeholder="ex) 사람을 무서워하고 털이 많아요 !"
+                        @keypress.13.prevent="enterHandler"
                         ></b-form-input>
                     </b-form-group>
                     <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
@@ -217,6 +220,9 @@ export default {
                 console.log(res.data);
             })
         },
+        enterHandler(){
+            this.emptyHandler();
+        },
         emptyHandler(){
             switch(this.page_num){
                 case 1: // title
@@ -305,7 +311,7 @@ export default {
     position: fixed;
     /* 90 */
     margin-top: 90%;
-    margin-left: 25%;
+    margin-left: 20%;
     margin-right: 20%;
     width: 300px;
     /* margin: 0 auto; */
