@@ -47,7 +47,7 @@
     methods: {
       onSubmit(evt) {
         evt.preventDefault()
-                   this.$http.post('http://202.30.31.91:8000/api/poster_email',{
+                   this.$http.post('http://202.30.31.91:8000/api/poster_email/',{
                        email : this.email,
                        posterid: this.$store.state.posterid
            }).then(res => {
