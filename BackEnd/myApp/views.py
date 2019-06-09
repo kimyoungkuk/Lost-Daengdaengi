@@ -553,10 +553,10 @@ def finish_post_list(request):
 
 @api_view(['GET'])
 def finish_post_list_portal(request):
-    finish_finder_posts = Finder_post.objects.order_by('-id').filter(is_finished=1)
-    finder_serializer = Finder_postSerializer(finish_finder_posts, many = True)[:2]
-    finish_owner_posts = Owner_post.objects.order_by('-id').filter(is_finished=1)
-    owner_serializer = Owner_postSerializer(finish_owner_posts, many = True)[:2]
+    finish_finder_posts = Finder_post.objects.order_by('-id').filter(is_finished=1)[:2]
+    finder_serializer = Finder_postSerializer(finish_finder_posts, many = True)
+    finish_owner_posts = Owner_post.objects.order_by('-id').filter(is_finished=1)[:2]
+    owner_serializer = Owner_postSerializer(finish_owner_posts, many = True)
     # return Response({'owner':finish_owner_posts, 'finder':finish_finder_posts})
     return Response(owner_serializer.data+finder_serializer.data)
 
