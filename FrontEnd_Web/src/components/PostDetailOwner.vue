@@ -287,7 +287,7 @@ export default {
       }
     },
     finishBoard(){
-      this.$router.push(`/ownerboard/finish/${this.$route.params.id}`);
+      // this.$router.push(`/ownerboard/finish/${this.$route.params.id}`);
       if(this.form.user_nickname==this.nickname){
 
         this.$http
