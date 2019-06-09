@@ -1009,8 +1009,8 @@ def poster_email(request):
 
     # img.save("media/owner/6/poster.jpg")
 
-    posterid = request.POST.get('posterid','')
-    email = request.POST.get('email','')
+    posterid = request.POST.get('posterid')
+    email = request.POST.get('email')
     logging.error("ZZZ")
     logging.error(email)
     logging.error(posterid)
