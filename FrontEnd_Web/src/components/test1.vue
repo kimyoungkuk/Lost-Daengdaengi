@@ -1,11 +1,10 @@
 <template>
-  <div class="text-xs-center">
-    
-
-    <div>
-      <v-btn color="orange darken-2" dark>
-        <v-icon dark left>arrow_back</v-icon>Back
-      </v-btn>
-    </div>    
-  </div>
+<div>
+  <b-nav>
+    <b-nav-item active>Active</b-nav-item>
+    <b-nav-item>Link</b-nav-item>
+    <b-nav-item>Another Link</b-nav-item>
+    <b-nav-item disabled>Disabled</b-nav-item>
+  </b-nav>
+</div>
 </template>

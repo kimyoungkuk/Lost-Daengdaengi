@@ -45,7 +45,8 @@ export default new Vuex.Store({
     posted_due:"1111-11-11",
     shelter_name:"x"
   },
-  sideDrawer: false
+  sideDrawer: false,
+  selected_loc : ""
 },
   mutations: {
     setSideDrawer (state, data) {

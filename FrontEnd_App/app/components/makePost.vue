@@ -7,7 +7,10 @@
             <GridLayout row = "0" rows = "*,auto">
                 <Image row= "0" :src="this.imageSrc" id="image" stretch="aspectFit"/>
                 <ScrollView row="1" >
-                    <RadDataForm ref = "dataform" :source = "source" :metadata="meta" :groups="groups"></RadDataForm>
+                    <StackLayout>
+                        <RadDataForm ref = "dataform" :source = "source" :metadata="meta" :groups="groups"></RadDataForm>
+                        <Label :text="this.$store.state.selected_loc" fontSize="15" horizontalAlignment="center"/>
+                    </StackLayout>
                 </ScrollView>
             </GridLayout>
             <Button class="btn mybtn" row = "1" text = "위치 재설정" height="50" width="100" @tap = "onTap_Loc"></Button>
@@ -50,8 +53,6 @@
                 },
                 source: 
                     {
-                        lat: this.$store.state.ownerPost.lat,
-                        lng: this.$store.state.ownerPost.lng
                     },
                 isSingleMode: true,
                 imageAssets: [],

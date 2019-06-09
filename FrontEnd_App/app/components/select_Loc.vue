@@ -67,6 +67,7 @@
                         this.marker.title = this.address
                         this.markerinfo.push(this.marker)
                         this.mapView.addMarker(this.marker)
+                        this.$store.state.selected_loc = "위치 : " + res.data.results[0].formatted_address
                     })
                     this.$store.state.ownerPost.lat = loc.latitude;
                     this.$store.state.ownerPost.lng = loc.longitude;
