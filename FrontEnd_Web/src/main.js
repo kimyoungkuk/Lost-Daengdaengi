@@ -11,15 +11,12 @@ import VueMomentJS from 'vue-momentjs'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import store from './store'
-import VueBridgeWebview from 'vue-bridge-webview'
 
 Vue.prototype.$http = axios
 Vue.use(VueMomentJS, moment)
 Vue.use(BootstrapVue)
 Vue.use(Router)
 Vue.config.productionTip = false
-Vue.use(VueBridgeWebview)
-VueBridgeWebview.config(0, true);
 
 
 const router = new Router({
