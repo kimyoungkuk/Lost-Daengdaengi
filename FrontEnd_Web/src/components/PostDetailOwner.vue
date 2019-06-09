@@ -462,11 +462,11 @@ div.board_back_color {
   /* display: inline-block; */
   width: 100%;
   height: 100%;
-  position: fixed;
-  background-size: cover;
-  background-position: center;
-  top: 0;
-  left: 0;
+  /* position: fixed; */
+  /* background-size: cover; */
+  /* background-position: center; */
+  /* top: 0; */
+  /* left: 0; */
 }
 
 hr.horizontal {
