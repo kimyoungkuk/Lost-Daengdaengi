@@ -202,7 +202,33 @@ def owner_post_create(request):
             post.save()
         else:
             pass
-        return Response(serializer.data, status = status.HTTP_201_CREATED)
+        
+
+
+        formimg = cv2.imread('media/poster/poster_form.jpg',1)
+        dogimg = cv2.imread('media/owner/'+str(serializer.data['id'])+'/profile.jpg')
+    
+        dogimg = cv2.resize(dogimg,(344,344))
+        formimg[85:85+344,17:17+344] = dogimg
+        cv2.imwrite('media/owner/'+str(serializer.data['id'])+'/poster.jpg',formimg)
+        img = Image.open('media/owner/'+str(serializer.data['id'])+'/poster.jpg')
+        draw = ImageDraw.Draw(img)
+        font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
+        draw.text((15,435),"연락처 : 010-4478-3569",(255,255,255),font=font)
+        font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
+        draw.text((15,470),"견종 : 포메라니안    이름 : 멍멍이",(255,255,255),font=font)
+        draw.text((15,490),"성별 : 수컷    나이 : 10살",(255,255,255),font=font)
+        draw.text((15,510),"실종시간 : 2019-06-09",(255,255,255),font=font)
+        draw.text((15,530),"특징 : 어쩌고저쩌고 블라블라~~",(255,255,255),font=font)
+
+        img.save('media/owner/'+str(serializer.data['id'])+'/poster.jpg')
+
+
+
+
+
+
+        return Response({'id':post.id,'posterurl':'media/owner/'+str(serializer.data['id'])+'/poster.jpg'}, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 @api_view(['POST'])
 def finder_post_create(request):
@@ -921,6 +947,7 @@ def poster_mail(request):
     
     formimg = cv2.imread('media/poster/poster_form.jpg',1)
     dogimg = cv2.imread('media/owner/6/profile.jpg')
+
     dogimg = cv2.resize(dogimg,(344,344))
     formimg[85:85+344,17:17+344] = dogimg
     cv2.imwrite('media/owner/6/poster.jpg',formimg)
