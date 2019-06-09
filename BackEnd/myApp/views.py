@@ -215,7 +215,9 @@ def owner_post_create(request):
         font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
         draw.text((15,470),"견종 : "+str(post.dog_type)+"    이름 : "+str(post.dog_name),(255,255,255),font=font)
         draw.text((15,490),"성별 : "+str(post.dog_sex)+"    나이 : "+str(post.dog_age)+"살",(255,255,255),font=font)
-        draw.text((15,510),"실종시간 : "+str(post.lost_time.date()),(255,255,255),font=font)
+        
+        lost_time_temp=datetime.datetime.strptime(post.lost_time,"%Y-%m-%d").date()
+        draw.text((15,510),"실종시간 : "+str(lost_time),(255,255,255),font=font)
         draw.text((15,530),"특징 : "+str(post.dog_feature),(255,255,255),font=font)
 
         img.save('media/owner/'+str(post.id)+'/poster.jpg')
@@ -981,37 +983,36 @@ def master_adopt_post_delete(request,pk):
     return render(request,"master_adopt_post_list.html",{'adopt_posts':adopt_posts})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def poster_mail(request):
     
-    formimg = cv2.imread('media/poster/poster_form.jpg',1)
-    dogimg = cv2.imread('media/owner/6/profile.jpg')
+    # formimg = cv2.imread('media/poster/poster_form.jpg',1)
+    # dogimg = cv2.imread('media/owner/6/profile.jpg')
 
-    dogimg = cv2.resize(dogimg,(344,344))
-    formimg[85:85+344,17:17+344] = dogimg
-    cv2.imwrite('media/owner/6/poster.jpg',formimg)
-    img = Image.open('media/owner/6/poster.jpg')
-    draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
-    draw.text((15,435),"연락처 : 010-4478-3569",(255,255,255),font=font)
-    font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
-    draw.text((15,470),"견종 : 포메라니안    이름 : 멍멍이",(255,255,255),font=font)
-    draw.text((15,490),"성별 : 수컷    나이 : 10살",(255,255,255),font=font)
-    draw.text((15,510),"실종시간 : 2019-06-09",(255,255,255),font=font)
-    draw.text((15,530),"특징 : 어쩌고저쩌고 블라블라~~",(255,255,255),font=font)
+    # dogimg = cv2.resize(dogimg,(344,344))
+    # formimg[85:85+344,17:17+344] = dogimg
+    # cv2.imwrite('media/owner/6/poster.jpg',formimg)
+    # img = Image.open('media/owner/6/poster.jpg')
+    # draw = ImageDraw.Draw(img)
+    # font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
+    # draw.text((15,435),"연락처 : 010-4478-3569",(255,255,255),font=font)
+    # font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
+    # draw.text((15,470),"견종 : 포메라니안    이름 : 멍멍이",(255,255,255),font=font)
+    # draw.text((15,490),"성별 : 수컷    나이 : 10살",(255,255,255),font=font)
+    # draw.text((15,510),"실종시간 : 2019-06-09",(255,255,255),font=font)
+    # draw.text((15,530),"특징 : 어쩌고저쩌고 블라블라~~",(255,255,255),font=font)
 
-    img.save("media/owner/6/poster.jpg")
-
-    
-    email = 'kyk1047715@ajou.ac.kr'
+    # img.save("media/owner/6/poster.jpg")
+    posterid=request.POST['posterid']    
+    email = request.POST['email']
     mail = EmailMessage("포스터 보내드립니다.", "포스터를 제작하여 보내드렸습니다.", to=[email])
-    fp = open('media/owner/6/poster.jpg', 'rb')
+    fp = open('media/owner/'+str(posterid)+'/poster.jpg', 'rb')
     file_data = fp.read()
-    mail.attach('media/owner/6/poster.jpg',file_data,'image/jpeg')
+    mail.attach('media/owner/'+str(posterid)+'/poster.jpg',file_data,'image/jpeg')
 
     mail.send()
     t="QWE"
-    return render(request,"home.html",{'t':t})
+    return Response({'email':email,'posterid':posterid})
 
 
 @api_view(['GET'])
