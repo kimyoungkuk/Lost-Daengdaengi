@@ -35,6 +35,7 @@
                         required
                         type ="number"
                         placeholder="ex) 01012345678"
+                        @keypress.13.prevent="enterHandler"
                         ></b-form-input>
                     </b-form-group>
                     <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
@@ -89,6 +90,7 @@
                         v-model="dog_feature"
                         required
                         placeholder="ex) 사람을 무서워하고 털이 많아요 !"
+                        @keypress.13.prevent="enterHandler"
                         ></b-form-input>
                     </b-form-group>
                     <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
