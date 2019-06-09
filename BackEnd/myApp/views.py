@@ -1008,8 +1008,12 @@ def poster_email(request):
     # draw.text((15,530),"특징 : 어쩌고저쩌고 블라블라~~",(255,255,255),font=font)
 
     # img.save("media/owner/6/poster.jpg")
-    posterid=request.POST['posterid']    
+    posterid=request.POST['posterid']
     email = request.POST['email']
+    logging.error("ZZZ")
+    logging.error(email)
+    logging.error(posterid)
+    logging.error("XXX")
     mail = EmailMessage("포스터 보내드립니다.", "포스터를 제작하여 보내드렸습니다.", to=[email])
     fp = open('media/owner/'+str(posterid)+'/poster.jpg', 'rb')
     file_data = fp.read()
