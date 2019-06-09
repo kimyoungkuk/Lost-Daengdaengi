@@ -123,7 +123,7 @@ def FindNearShelter(request):
         nearestQueryset = Dog_shelter.objects.get(pk = id_value)
         nearestDogShelter = Dog_shelterSerializer(nearestQueryset)
         return Response(nearestDogShelter.data, status = status.HTTP_201_CREATED)
-    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    return Response(nearestDogShelter.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -924,7 +924,7 @@ def poster_mail(request):
     img = Image.open('media/owner/6/poster.jpg')
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
-    draw.text((15,435),"연락처:010-4478-3569",(255,255,255),font=font)
+    draw.text((15,435),"연락처 : 010-4478-3569",(255,255,255),font=font)
     font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",20)
     draw.text((15,470),"견종 : 포메라니안    이름 : 멍멍이",(255,255,255),font=font)
     draw.text((15,490),"성별 : 수컷    나이 : 10살",(255,255,255),font=font)
@@ -943,3 +943,12 @@ def poster_mail(request):
     mail.send()
     t="QWE"
     return render(request,"home.html",{'t':t})
+
+
+@api_view(['GET'])
+def my_post(request,pk):
+    user = User.objects.get(id=pk)
+    finder_posts = Finder_post.objects.filter(user_nickname=user.nickname)
+    owner_posts = Owner_post.objects.filter(user_nickname=user.nickname)
+
+    return Response({'finder':finder_posts,'owner':owner_posts})
