@@ -1,6 +1,7 @@
 <template>
 	 <Page @loaded="loaded" ref="page">
      <ActionBar class="action-bar" title=''>
+            <NavigationButton icon = "~/assets/images/baseline_menu_black_18dp.png" @tap="openDrawer"/>
             <ActionItem @tap="$goto('makeFinderPost')">
                 <button text="찾았어요" class="btn mybtn font-weight-bold" android:horizontalAlignment="left" >/>
                 </button>
@@ -51,6 +52,7 @@ var webViewModule = require('ui/web-view');
 const SwipeDirection = require("tns-core-modules/ui/gestures").SwipeDirection;
 import * as http from "http";
 import { Image } from 'tns-core-modules/ui/image/image';
+import sideDrawer from '~/mixins/sideDrawer'
 
 function gup( name, url ) {
     if (!url) url = location.href;
@@ -62,7 +64,7 @@ function gup( name, url ) {
 }
 
 export default {
-  
+    mixins: [ sideDrawer ],
     data() {
       return {
         marker_Finder :[],
@@ -198,10 +200,10 @@ export default {
 
 <style scoped>
 .fab-button {
-  height: 70;
-  margin: 15;
+  height: 80;
+  margin: 20;
   background-color: #ffffff;
-  horizontal-align: right;
+  horizontal-align: left;
   vertical-align: bottom;
 }
 .mybtn{
