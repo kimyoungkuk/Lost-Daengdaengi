@@ -211,12 +211,12 @@ def owner_post_create(request):
         img = Image.open('media/owner/'+str(post.id)+'/poster.jpg')
         draw = ImageDraw.Draw(img)
         font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
-        draw.text((15,435),"연락처 : 010-4478-3569",(255,255,255),font=font)
+        draw.text((15,435),"연락처 : "+str(post.phone_num),(255,255,255),font=font)
         font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
-        draw.text((15,470),"견종 : 포메라니안    이름 : 멍멍이",(255,255,255),font=font)
-        draw.text((15,490),"성별 : 수컷    나이 : 10살",(255,255,255),font=font)
-        draw.text((15,510),"실종시간 : 2019-06-09",(255,255,255),font=font)
-        draw.text((15,530),"특징 : 어쩌고저쩌고 블라블라~~",(255,255,255),font=font)
+        draw.text((15,470),"견종 : "+str(post.dog_type)+"    이름 : "+str(post.dog_name),(255,255,255),font=font)
+        draw.text((15,490),"성별 : "+str(post.dog_sex)+"    나이 : "+str(post.dog_age)+"살",(255,255,255),font=font)
+        draw.text((15,510),"실종시간 : "+str(post.lost_time.date()),(255,255,255),font=font)
+        draw.text((15,530),"특징 : "+str(post.dog_feature),(255,255,255),font=font)
 
         img.save('media/owner/'+str(post.id)+'/poster.jpg')
 
@@ -981,6 +981,7 @@ def master_adopt_post_delete(request,pk):
     return render(request,"master_adopt_post_list.html",{'adopt_posts':adopt_posts})
 
 
+@api_view(['GET'])
 def poster_mail(request):
     
     formimg = cv2.imread('media/poster/poster_form.jpg',1)
