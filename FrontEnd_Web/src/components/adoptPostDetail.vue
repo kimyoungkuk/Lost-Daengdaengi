@@ -32,11 +32,10 @@
                       </h3>
                       <div style="line-height:2em;">
                         <li>나&nbsp&nbsp&nbsp&nbsp이 : {{this.form.dog_age}}</li>
-                        <li v-if="this.form.dog_sex==1">성&nbsp&nbsp&nbsp&nbsp별 : {{this.form.dog_sex}}</li>
-                        <li v-if="this.form.dog_sex==2">성&nbsp&nbsp&nbsp&nbsp별 : {{this.form.dog_sex}}</li>
-                        <li>중&nbsp성&nbsp화 : {{this.form.is_new}}</li>
-                        <li>특&nbsp&nbsp&nbsp&nbsp징 : {{this.form.dog_feature}}</li>
-                        <li>예방접종 : {{this.form.is_vec}}</li>
+                        <li v-if="this.form.dog_sex==1">성&nbsp&nbsp&nbsp&nbsp별 : 수컷</li>
+                        <li v-if="this.form.dog_sex==2">성&nbsp&nbsp&nbsp&nbsp별 : 암컷</li>
+                        <li>중&nbsp성&nbsp화 : {{this.form.is_neu}}</li>
+                        <li>예방접종 : {{this.form.is_vac}}</li>
                         <li>보&nbsp호&nbsp소 : {{this.form.shelter}}</li>
                         <li>연&nbsp락&nbsp처 : {{this.form.phone_num}}</li>
                         <li>내&nbsp&nbsp&nbsp&nbsp용 : {{this.form.contents}}</li>
