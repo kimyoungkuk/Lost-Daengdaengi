@@ -78,7 +78,7 @@
             <td>{{ report.reported_time }}</td>
             <td>{{ report.reported_post_type }}</td>
             <td>{{ report.reported_post }}</td>
-            <td>{{ report.contents }}</td>
+            <td>{{ report.report_contents }}</td>
             {% ifequal report.reported_post_type 'owner' %}
             <td><a href="{%url 'master_owner_post_detail' pk=report.reported_post %}">해당 게시물</a></td>
             {% else %}
