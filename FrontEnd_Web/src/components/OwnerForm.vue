@@ -13,6 +13,7 @@
                     v-model="title"
                     required
                     placeholder="ex) OOO 찾아주세요 ㅜㅜ"
+                    @keypress.13.prevent="enterHandler"
                     ></b-form-input>
                 </b-form-group>
                 <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
@@ -34,6 +35,7 @@
                     required
                     type="number"
                     placeholder="ex) 01012345678"
+                    @keypress.13.prevent="enterHandler"
                     ></b-form-input>
                 </b-form-group>
                 <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
@@ -88,6 +90,7 @@
                     v-model="dog_name"
                     required
                     placeholder="ex) 초코"
+                    @keypress.13.prevent="enterHandler"
                     ></b-form-input>
                 </b-form-group>
                 <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
@@ -125,6 +128,7 @@
                     v-model="dog_type"
                     required
                     placeholder="ex) 말티즈, 푸들, ..."
+                    @keypress.13.prevent="enterHandler"
                     ></b-form-input>
                 </b-form-group>
                 <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
@@ -141,7 +145,13 @@
             <h1 class="googleFont_owner">반려견 나이</h1>
             <b-form>
                 <b-form-group id="input-group-2">
-                    <b-form-input id="age-1" v-model.number="dog_age" required type="number" placeholder="Enter your dog age."></b-form-input>
+                    <b-form-input
+                    id="age-1"
+                    v-model.number="dog_age"
+                    required type="number"
+                    placeholder="Enter your dog age."
+                    @keypress.13.prevent="enterHandler"
+                    ></b-form-input>
                 </b-form-group>
                 <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
                 <b-button class="btn btn-primary custom-btn" v-on:click="emptyHandler">다음</b-button>
@@ -162,6 +172,7 @@
                     v-model="dog_feature"
                     required
                     placeholder="ex) 사람보면 짖어요."
+                    @keypress.13.prevent="enterHandler"
                     ></b-form-input>
                 </b-form-group>
                 <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
@@ -183,6 +194,7 @@
                     v-model="remark"
                     required
                     placeholder="ex) 사례하겠습니다 ㅜㅜ"
+                    @keypress.13.prevent="enterHandler"
                     ></b-form-input>
                 </b-form-group>
                 <b-button class="btn btn-primary custom-btn" v-on:click="toPrev">이전</b-button>
@@ -281,6 +293,9 @@ export default {
         toPrev(){
             this.page_num--;
             this.empty_check = 0;
+        },
+        enterHandler(){
+            this.emptyHandler();
         },
         emptyHandler(){
             switch(this.page_num){
