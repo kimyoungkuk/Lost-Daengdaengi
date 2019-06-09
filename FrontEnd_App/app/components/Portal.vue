@@ -1,20 +1,14 @@
 <template>
-    <Page class="page" actionBarHidden="true">
-
-        <ActionBar backgroundColor="#44557f" flat="true">
-            <StackLayout orientation="vertical" width="100%" height="100%"
-                backgroundColor="#44557f">
-                <StackLayout backgroundColor="#44557f">
-                    <StackLayout #searchRow orientation="horizontal"
-                        marginTop="5">
-                        <TextField backgroundColor="white" paddingLeft="20"
-                            borderRadius="20" width="80%"
-                            height="40" fontSize="14" hint="Search"></TextField>
-                        <Image src="~/assets/images/shape4@3x.png" height="30"
-                            width="30" marginLeft="10"></Image>
-                    </StackLayout>
-                </StackLayout>
-            </StackLayout>
+    <Page class="page" @loaded="loaded">
+        <ActionBar flat="true" title="로스트 댕댕이">
+           <ActionItem @tap="$goto('makeFinderPost')">
+                <button text="찾았어요" class="btn mybtn font-weight-bold" android:horizontalAlignment="left" >/>
+                </button>
+            </ActionItem>
+            <ActionItem @tap="$goto('makeOwnerPost')" >
+                <button text="찾아주세요" class="btn mybtn font-weight-bold" android:horizontalAlignment="right">/>
+                </button>
+            </ActionItem>
         </ActionBar>
 
 
@@ -22,35 +16,19 @@
             rows="*,auto" >
           
             <StackLayout col="0" row="0" backgroundColor="#ffffff">
-                  <Webview src="http://202.30.31.91/aboutus" height="auto"/>
-                <!-- <StackLayout backgroundColor="#44557f" paddingBottom="15"
-                    marginTop="-10">
-                    <Label text="공지사항(webview)" class="font-weight-bold"
-                        color="#FFFFFF" padding="15" fontSize="24"></Label>
-                </StackLayout>
-
-                <StackLayout paddingLeft="20" paddingRight="20" paddingTop="20"
-                    paddingBottom="5" marginTop="-20" backgroundImage="~/assets/images/layer14@3x.png"
-                    borderRadius="5" height="180" width="90%" @tap="showDetails()"
-                    stretch="aspectFit" class="album-image">
-                    <GridLayout columns="*" rows="auto,*,auto" height="100%">
-
-                        
-                        
-
-                    </GridLayout>
-
-                </StackLayout> -->
-
+                  <Webview src="http://202.30.31.91/aboutus" id="myWebView" height="auto"/>
+                    <Button class="font-weight-bold fas fa-search-location"
+                                fontSize="25" color="#FA7268" backgroundColor="#ffffff" 
+                                :text="'\uf689' + '내 주변 지도로 확인하기'" @tap="$goto('map')" style="text-align: center;"></Button>
                 <ScrollView orientation="vertical">
                     <StackLayout>
                         <GridLayout backgroundColor="#FA7268"  columns="auto,*,auto" rows="auto">
-                            <Label col="0" row="0" class="font-weight-bold"
-                                paddingLeft="10" fontSize="20" color="#ffffff"
-                                text="찾아주세요" @tap="viewAll_Owner">></Label>
-                            <Label col="2" row="0" class="font-weight-bold"
-                                marginRight="20" fontSize="14" color="#ffffff"
-                                text="모두보기" @tap="viewAll_Owner"></Label>
+                            <Label col="0" row="0" class="fas fa-search font-weight-bold"
+                                paddingLeft="10" fontSize="16" color="#ffffff"
+                                :text="'\uf002' + '찾아주세요'" @tap="viewAll_Owner">></Label>
+                            <Label col="2" row="0" class="font-weight-bold fas fa-list"
+                                marginRight="20" fontSize="16" color="#ffffff"
+                                :text="'\uf03a' + '모두보기'" @tap="viewAll_Owner"></Label>
                         </GridLayout>
 
 
@@ -105,12 +83,12 @@
                         </ScrollView>
 
                         <GridLayout backgroundColor="#FA7268" columns="auto,*,auto" rows="auto">
-                            <Label col="0" row="0" class="font-weight-bold"
-                                paddingLeft="10" fontSize="20" color="#ffffff"
-                                text="찾았어요" @tap="viewAll_Finder"></Label>
-                            <Label col="2" row="0" class="font-weight-bold"
-                                marginRight="20" fontSize="14" color="#ffffff"
-                                text="모두보기" @tap="viewAll_Finder"></Label>
+                            <Label col="0" row="0" class="fas fa-search font-weight-bold "
+                                paddingLeft="10" fontSize="16" color="#ffffff"
+                                :text="'\uf002'+ '찾았어요'" @tap="viewAll_Finder"></Label>
+                            <Label col="2" row="0" class="font-weight-bold fas fa-list"
+                                marginRight="20" fontSize="16" color="#ffffff"
+                                :text="'\uf03a' + '모두보기'" @tap="viewAll_Finder"></Label>
                         </GridLayout>
 
                         <ScrollView orientation="horizontal">
@@ -165,11 +143,11 @@
 
                         <GridLayout backgroundColor="#FA7268" columns="auto,*,auto" rows="auto">
                             <Label col="0" row="0" class="font-weight-bold"
-                                paddingLeft="10" fontSize="20" color="#ffffff"
+                                paddingLeft="10" fontSize="16" color="#ffffff"
                                 text="분양 게시물" @tap="viewAll_Adopt"></Label>
-                            <Label col="2" row="0" class="font-weight-bold"
-                                marginRight="20" fontSize="14" color="#ffffff"
-                                text="모두보기" @tap="viewAll_Adopt"></Label>
+                            <Label col="2" row="0" class="font-weight-bold fas fa-list"
+                                marginRight="20" fontSize="16" color="#ffffff"
+                                :text="'\uf03a' + '모두보기'" @tap="viewAll_Adopt"></Label>
                         </GridLayout>
 
                         <ScrollView orientation="horizontal">
@@ -224,11 +202,11 @@
 
                         <GridLayout backgroundColor="#FA7268" columns="auto,*,auto" rows="auto">
                             <Label col="0" row="0" class="font-weight-bold"
-                                paddingLeft="10" fontSize="20" color="#ffffff"
+                                paddingLeft="10" fontSize="16" color="#ffffff"
                                 text="반환완료" @tap="viewAll_Finish"></Label>
-                            <Label col="2" row="0" class="font-weight-bold"
-                                marginRight="20" fontSize="14" color="#ffffff"
-                                text="모두보기" @tap="viewAll_Finish"></Label>
+                            <Label col="2" row="0" class="font-weight-bold fas fa-list"
+                                marginRight="20" fontSize="16" color="#ffffff"
+                                :text="'\uf03a' + '모두보기'" @tap="viewAll_Finish"></Label>
                         </GridLayout>
 
                         <ScrollView orientation="horizontal">
@@ -366,6 +344,12 @@
             
         },
         methods: {
+             loaded(webargs) {
+const page = webargs.object
+const webview = page.getViewById('myWebView');
+webview.android.getSettings().setDisplayZoomControls(false);
+webview.android.getSettings().setBuiltInZoomControls(false);
+},  
             onButtonTap() {},
             showDetails() {
                 this.$navigateTo(Details, {
@@ -462,8 +446,9 @@
 </script>
 
 <style scoped>
-    ActionBar {
-        background-color: transparent;
+ActionBar {
+        background-color: #FA7268;
+        color: #ffffff;
     }
     .album-image {
         background-repeat: no-repeat;
@@ -480,6 +465,10 @@
     .description-label {
         margin-bottom: 15;
     }
+    .mybtn{
+  color: #FA7268;
+  background-color: #FFFFFF;
+}
 
     #searchRow {
         margin-top: 20;
