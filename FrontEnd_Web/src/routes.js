@@ -98,7 +98,7 @@ export default [
     name: 'o2f_recommend',
     component: o2f_recommend
   },
-  { //
+  { //반환완료 게시판
     path: '/finishboard',
     name: 'finishboard',
     component: FinishBoard
@@ -126,7 +126,7 @@ export default [
     name: 'adoptHome',
     component: adoptHome
   },
-  {
+  {//분양글게시판
     path: '/adopt/post/list',
     name: 'adoptPostList',
     component: adoptPostList
@@ -136,7 +136,7 @@ export default [
     name: 'adoptPostCreate',
     component: adoptPostCreate
   },
-  {
+  {//분양글 상세페이지
     path: '/adopt/post/detail/:id',
     name: 'adoptPostDetail',
     component: adoptPostDetail

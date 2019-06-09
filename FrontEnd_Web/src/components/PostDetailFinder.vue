@@ -281,7 +281,7 @@ export default {
       }
     },
     finishBoard(){
-      this.$router.push(`/finderboard/finish/${this.$route.params.id}`);
+      // this.$router.push(`/finderboard/finish/${this.$route.params.id}`);
       if(this.form.user_nickname==this.nickname){
 
         this.$http
@@ -442,10 +442,10 @@ div.board_back_color {
   margin-top: 50px;
   padding: 20px 20px 50px;
 }
-div.in_board-view {
-  text-align: left;
-  display: inline-block;
-}
+/* div.in_board-view { */
+  /* text-align: left; */
+  /* display: inline-block; */
+/* } */
 
 hr.horizontal {
   border: thin dotted gray;

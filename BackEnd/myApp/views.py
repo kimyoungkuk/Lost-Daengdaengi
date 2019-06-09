@@ -17,7 +17,7 @@ from datetime import datetime, timedelta
 
 import logging
 import base64
-from PIL import Image
+from PIL import Image, ImageFont, ImageDraw
 import os
 import numpy as np
 import torch
@@ -29,6 +29,8 @@ import torchvision.transforms as transforms
 from numpy.linalg import norm
 from numpy import dot
 from math import radians, cos, sin, asin, sqrt
+
+import cv2
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -541,18 +543,18 @@ def finder_post_finish(request,pk):
 @api_view(['GET'])
 def finish_post_list(request):
     finish_finder_posts = Finder_post.objects.order_by('-id').filter(is_finished=1).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')
-    serializer = Finder_postSerializer(finish_finder_posts, many = True)
+    finder_serializer = Finder_postSerializer(finish_finder_posts, many = True)
     finish_owner_posts = Owner_post.objects.order_by('-id').filter(is_finished=1).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')
-    serializer = Owner_postSerializer(finish_owner_posts, many = True)
-    return Response(finish_owner_posts.data+finish_finder_posts.data)
+    owner_serializer = Owner_postSerializer(finish_owner_posts, many = True)
+    return Response({'owner':finish_owner_posts, 'finder':finish_finder_posts})
 
 @api_view(['GET'])
 def finish_post_list_portal(request):
     finish_finder_posts = Finder_post.objects.order_by('-id').filter(is_finished=1).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')
-    serializer = Finder_postSerializer(finish_finder_posts, many = True)[:2]
+    finder_serializer = Finder_postSerializer(finish_finder_posts, many = True)[:2]
     finish_owner_posts = Owner_post.objects.order_by('-id').filter(is_finished=1).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')
-    serializer = Owner_postSerializer(finish_owner_posts, many = True)[:2]
-    return Response(finish_owner_posts.data+finish_finder_posts.data)
+    owner_serializer = Owner_postSerializer(finish_owner_posts, many = True)[:2]
+    return Response({'owner':finish_owner_posts, 'finder':finish_finder_posts})
 
 
 @api_view(['POST'])
@@ -910,11 +912,29 @@ def master_adopt_post_delete(request,pk):
 
 def poster_mail(request):
     
+    formimg = cv2.imread('media/poster/poster_form.jpg',1)
+    dogimg = cv2.imread('media/owner/6/profile.jpg')
+    dogimg = cv2.resize(dogimg,(344,344))
+    formimg[85:85+344,17:17+344] = dogimg
+    cv2.imwrite('media/owner/6/poster.jpg',formimg)
+    img = Image.open('media/owner/6/poster.jpg')
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
+    draw.text((15,435),"연락처:010-4478-3569",(255,255,255),font=font)
+    font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",20)
+    draw.text((15,470),"견종 : 포메라니안    이름 : 멍멍이",(255,255,255),font=font)
+    draw.text((15,490),"성별 : 수컷    나이 : 10살",(255,255,255),font=font)
+    draw.text((15,510),"실종시간 : 2019-06-09",(255,255,255),font=font)
+    draw.text((15,530),"특징 : 어쩌고저쩌고 블라블라~~",(255,255,255),font=font)
+
+    img.save("media/owner/6/poster.jpg")
+
+    
     email = 'kyk1047715@ajou.ac.kr'
     mail = EmailMessage("포스터 보내드립니다.", "포스터를 제작하여 보내드렸습니다.", to=[email])
-    fp = open('media/default_image.jpg', 'rb')
+    fp = open('media/owner/6/poster.jpg', 'rb')
     file_data = fp.read()
-    mail.attach('media/default_image.jpg',file_data,'image/jpeg')
+    mail.attach('media/owner/6/poster.jpg',file_data,'image/jpeg')
 
     mail.send()
     t="QWE"

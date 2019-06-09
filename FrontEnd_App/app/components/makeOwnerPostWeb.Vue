@@ -41,9 +41,7 @@ function gup( name, url ) {
 },
       completeLoading(args){
         this.loadingComplete=false
-          console.log("--------------------------")
-       var query = gup('action', args.url)
-       console.log("query : " + query)
+        var query = gup('action', args.url)
         if(query == 'done'){
           console.log("if ok")
           this.$goto("map")
