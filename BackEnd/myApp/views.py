@@ -129,26 +129,26 @@ def FindNearShelter(request):
 @api_view(['GET'])
 def owner_post_list(request):
 
-    owner_posts = Owner_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    owner_posts = Owner_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')
     serializer = Owner_postSerializer(owner_posts, many = True)
     return Response(owner_posts)
 @api_view(['GET'])
 def owner_post_list_portal(request):
 
-    owner_posts = Owner_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')[:4]
+    owner_posts = Owner_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')[:4]
     serializer = Owner_postSerializer(owner_posts, many = True)
     return Response(owner_posts)
 
 @api_view(['GET'])
 def finder_post_list(request):
 
-    finder_posts = Finder_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
+    finder_posts = Finder_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')
     serializer = Finder_postSerializer(finder_posts, many = True)
     return Response(finder_posts)
 @api_view(['GET'])
 def finder_post_list_portal(request):
 
-    finder_posts = Finder_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')[:4]
+    finder_posts = Finder_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')[:4]
     serializer = Finder_postSerializer(finder_posts, many = True)
     return Response(finder_posts)
 
@@ -466,14 +466,14 @@ def o2f_recommend(request,pk):
     owner_post = Owner_post.objects.get(id=pk)
 
 
-    finder_posts1 = Finder_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).filter(dog_type=owner_post.dog_type).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
-    finder_posts2 = Finder_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).filter(find_time__gte=owner_post.lost_time+timedelta(days=-7)).filter(find_time__lte=owner_post.lost_time+timedelta(days=7)).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
+    finder_posts1 = Finder_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).filter(dog_type=owner_post.dog_type).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')
+    finder_posts2 = Finder_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).filter(find_time__gte=owner_post.lost_time+timedelta(days=-7)).filter(find_time__lte=owner_post.lost_time+timedelta(days=7)).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')
     finder_posts3 = Finder_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).filter(
         lat__gte = owner_post.lat - 0.005,
         lat__lte = owner_post.lat + 0.005,
         lng__gte = owner_post.lng - 0.005,
         lng__lte = owner_post.lng + 0.005
-        ).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
+        ).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')
     serializerFinder1 = Finder_postSerializer(finder_posts1, many = True)
     serializerFinder2 = Finder_postSerializer(finder_posts2, many = True)
     serializerFinder3 = Finder_postSerializer(finder_posts3, many = True)
@@ -483,7 +483,7 @@ def o2f_recommend(request,pk):
         lat__lte = owner_post.lat + 0.005,
         lng__gte = owner_post.lng - 0.005,
         lng__lte = owner_post.lng + 0.005
-        ).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
+        ).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')
     serializerFinder = Finder_postSerializer(finder_posts, many = True)
     
     return Response({'recommend' : finder_posts}, status = status.HTTP_201_CREATED)  
@@ -496,14 +496,14 @@ def f2o_recommend(request,pk):
     finder_post = Finder_post.objects.get(id=pk)
     
 
-    owner_posts1 = Owner_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).filter(dog_type=finder_post.dog_type).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
-    owner_posts2 = Owner_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).filter(lost_time__gte=finder_post.find_time+timedelta(days=-7)).filter(lost_time__lte=finder_post.find_time+timedelta(days=7)).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    owner_posts1 = Owner_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).filter(dog_type=finder_post.dog_type).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')
+    owner_posts2 = Owner_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).filter(lost_time__gte=finder_post.find_time+timedelta(days=-7)).filter(lost_time__lte=finder_post.find_time+timedelta(days=7)).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')
     owner_posts3 = Owner_post.objects.order_by('-id').filter(posted_due__gte=datetime.today()).filter(is_finished=0).filter(
         lat__gte = finder_post.lat - 0.01,
         lat__lte = finder_post.lat + 0.01,
         lng__gte = finder_post.lng - 0.01,
         lng__lte = finder_post.lng + 0.01
-        ).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+        ).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')
     serializerOwner1 = Owner_postSerializer(owner_posts1, many = True)
     serializerOwner2 = Owner_postSerializer(owner_posts2, many = True)
     serializerOwner3 = Owner_postSerializer(owner_posts3, many = True)
@@ -513,7 +513,7 @@ def f2o_recommend(request,pk):
         lat__lte = finder_post.lat + 0.01,
         lng__gte = finder_post.lng - 0.01,
         lng__lte = finder_post.lng + 0.01
-        ).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+        ).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')
     serializerOwner = Owner_postSerializer(owner_posts, many = True)
 
     return Response({'recommend' : owner_posts}, status = status.HTTP_201_CREATED)
@@ -540,17 +540,17 @@ def finder_post_finish(request,pk):
 
 @api_view(['GET'])
 def finish_post_list(request):
-    finish_finder_posts = Finder_post.objects.order_by('-id').filter(is_finished=1).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
+    finish_finder_posts = Finder_post.objects.order_by('-id').filter(is_finished=1).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')
     serializer = Finder_postSerializer(finish_finder_posts, many = True)
-    finish_owner_posts = Owner_post.objects.order_by('-id').filter(is_finished=1).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    finish_owner_posts = Owner_post.objects.order_by('-id').filter(is_finished=1).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')
     serializer = Owner_postSerializer(finish_owner_posts, many = True)
     return Response(finish_owner_posts.data+finish_finder_posts.data)
 
 @api_view(['GET'])
 def finish_post_list_portal(request):
-    finish_finder_posts = Finder_post.objects.order_by('-id').filter(is_finished=1).values('title','id','dog_type','find_time','imageurl','view_count','lat','lng')
+    finish_finder_posts = Finder_post.objects.order_by('-id').filter(is_finished=1).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')
     serializer = Finder_postSerializer(finish_finder_posts, many = True)[:2]
-    finish_owner_posts = Owner_post.objects.order_by('-id').filter(is_finished=1).values('title','id','dog_type','lost_time','imageurl','view_count','lat','lng')
+    finish_owner_posts = Owner_post.objects.order_by('-id').filter(is_finished=1).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')
     serializer = Owner_postSerializer(finish_owner_posts, many = True)[:2]
     return Response(finish_owner_posts.data+finish_finder_posts.data)
 
@@ -570,13 +570,13 @@ def adopt_login(request):
 
 @api_view(['GET'])
 def adopt_post_list(request):
-    adopt_posts = Adopt_post.objects.order_by('-id').all().values('title','id','dog_type','imageurl','posted_time')
+    adopt_posts = Adopt_post.objects.order_by('-id').all().values('title','id','posted_time','dog_type','imageurl','posted_time')
     serializer = Adopt_postSerializer(adopt_posts, many = True)
     return Response(adopt_posts)
 
 @api_view(['GET'])
 def adopt_post_list_portal(request):
-    adopt_posts = Adopt_post.objects.order_by('-id').all().values('title','id','dog_type','imageurl','posted_time')[:4]
+    adopt_posts = Adopt_post.objects.order_by('-id').all().values('title','id','posted_time','dog_type','imageurl','posted_time')[:4]
     serializer = Adopt_postSerializer(adopt_posts, many = True)
     return Response(adopt_posts)
 
@@ -912,10 +912,10 @@ def poster_mail(request):
     
     email = 'kyk1047715@ajou.ac.kr'
     mail = EmailMessage("포스터 보내드립니다.", "포스터를 제작하여 보내드렸습니다.", to=[email])
-    fp = open('media/classification.jpg', 'rb')
+    fp = open('media/default_image.jpg', 'rb')
     file_data = fp.read()
-    mail.add_attachment(file_data,maintype='plain',subtype='text',filename='poster.jpg')
-            
+    mail.attach('media/default_image.jpg',file_data,'image/jpeg')
+
     mail.send()
     t="QWE"
     return render(request,"home.html",{'t':t})
