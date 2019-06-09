@@ -15,7 +15,7 @@
                     <Label textWrap="true" class="p-10" text="2. 유기견 보호소 연락"/>
 					<Label textWrap="true" class="p-10" text="반려견을 어디부터 찾아봐야 하나요? 전국의 유기견 보호소를 100% 커버하는 LDAPP을 통해 주변 유기견 보호소부터 연락을 취하세요."/>
                     <Label textWrap="true" class="p-10" text="3. 반려견을 더 빨리 찾기 위한 꿀팁"/>
-					<Label textWrap="true" class="p-10" text="반려견을 찾기 위해 당장 무엇부터 시작해야 하나요? LDAPP에서 제공하는 꿀팁을 참고하세요."/>
+					<Label textWrap="true" class="p-10" text="반려견을 찾기 위해 당장 무엇부터 시작해야 하나요? LDApp에서 제공하는 꿀팁을 참고하고 게시글 내용을 통해 자동으로 전단지를 제작해주는 시스템을 이용하세요."/>
                     <Label textWrap="true" class="p-10" text="주인을 찾지 못한 유기견은 큰 사고를 당할 위험이 높으며 보호소에서 주인을 찾지 못한 반려견은 한 달내로 안락사 처리됩니다. LDAPP을 통해 여러분의 소중한 가족을 하루 빨리 찾으세요."/>
                     <Label textWrap="true" text="먼저, 버튼을 눌러 반려견을 잃어버린 위치를 알려주세요." class="h2 description-label" />
                     <Button class="btn mybtn" row = "1" text = "위치 선택" height="50" width="100" @tap ="onTap_Loc"></Button>
