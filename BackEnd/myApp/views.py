@@ -913,11 +913,11 @@ def master_adopt_post_delete(request,pk):
 def poster_mail(request):
     
     formimg = cv2.imread('media/poster/poster_form.jpg',1)
-    dogimg = cv2.imread('media/owner/3/profile.jpg')
+    dogimg = cv2.imread('media/owner/6/profile.jpg')
     dogimg = cv2.resize(dogimg,(344,344))
     formimg[85:85+344,17:17+344] = dogimg
-    cv2.imwrite('media/owner/3/poster.jpg',formimg)
-    img = Image.open('media/owner/3/poster.jpg')
+    cv2.imwrite('media/owner/6/poster.jpg',formimg)
+    img = Image.open('media/owner/6/poster.jpg')
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("media/poster/H2GTRE.ttf",30)
     draw.text((15,435),"연락처:010-4478-3569",(255,255,255),font=font)
@@ -927,14 +927,14 @@ def poster_mail(request):
     draw.text((15,510),"실종시간 : 2019-06-09",(255,255,255),font=font)
     draw.text((15,530),"특징 : 어쩌고저쩌고 블라블라~~",(255,255,255),font=font)
 
-    img.save("media/owner/3/poster.jpg")
+    img.save("media/owner/6/poster.jpg")
 
     
     email = 'kyk1047715@ajou.ac.kr'
     mail = EmailMessage("포스터 보내드립니다.", "포스터를 제작하여 보내드렸습니다.", to=[email])
-    fp = open('media/owner/3/poster.jpg', 'rb')
+    fp = open('media/owner/6/poster.jpg', 'rb')
     file_data = fp.read()
-    mail.attach('media/owner/3/poster.jpg',file_data,'image/jpeg')
+    mail.attach('media/owner/6/poster.jpg',file_data,'image/jpeg')
 
     mail.send()
     t="QWE"
