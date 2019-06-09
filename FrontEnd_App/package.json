@@ -18,6 +18,7 @@
     "@vue/devtools": "^5.1.0",
     "email-validator": "^2.0.4",
     "mapbox-gl": "^0.54.0",
+    "moment": "^2.24.0",
     "nativescript-background-http": "^3.4.0",
     "nativescript-camera": "^4.5.0",
     "nativescript-floatingactionbutton": "^5.0.3",
@@ -45,6 +46,7 @@
     "nativescript-vue-fab": "^1.0.13",
     "net": "^1.0.2",
     "tns-core-modules": "^5.4.0",
+    "vue-momentjs": "^0.1.2",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

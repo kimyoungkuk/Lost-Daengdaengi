@@ -8,14 +8,14 @@
                     <StackLayout #searchRow orientation="horizontal"
                         marginTop="5">
                         <TextField backgroundColor="white" paddingLeft="20"
-                            borderRadius="20" v-model="textFieldValue" width="80%"
+                            borderRadius="20" width="80%"
                             height="40" fontSize="14" hint="Search"></TextField>
                         <Image src="~/assets/images/shape4@3x.png" height="30"
                             width="30" marginLeft="10"></Image>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
-        </ActionBar>
+        </ActionBar>Y
 
 
         <GridLayout orientation="vertical" width="100%" height="100%" columns="*"
@@ -51,10 +51,10 @@
                         <GridLayout columns="auto,*,auto" rows="auto">
                             <Label col="0" row="0" class="font-weight-bold"
                                 paddingLeft="10" fontSize="20" color="#000000"
-                                text="찾아주세요"></Label>
+                                text="찾아주세요" @tap="viewAll_Owner">></Label>
                             <Label col="2" row="0" class="font-weight-bold"
                                 marginRight="20" fontSize="14" color="#8d8d8d"
-                                text="View All (146)"></Label>
+                                text="모두보기" @tap="viewAll_Owner"></Label>
                         </GridLayout>
 
 
@@ -62,7 +62,7 @@
                             <StackLayout orientation="horizontal">
                                 <StackLayout margin="10">
                                     <StackLayout class="album-image" height="110"
-                                        width="125" backgroundImage="~/assets/images/layer4@3x.png"
+                                        width="125" :backgroundImage="Owner_imgSrc[0]"
                                         borderRadius="5">
                                         <Button horizontalAlignment="right"
                                             marginRight="5" marginTop="80"
@@ -70,13 +70,13 @@
                                             color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
                                     </StackLayout>
                                     <Label fontSize="14" class="font-weight-bold"
-                                        color="#000000" text="Havana (Remix)"></Label>
-                                    <Label fontSize="12" color="#999999" text="2018"></Label>
+                                        color="#000000" :text="Owner_txtSrc[0]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Owner_dtimeSrc[0]).format('YYYY년MM월DD일HH시')"></Label>
                                 </StackLayout>
 
                                 <StackLayout margin="10">
                                     <StackLayout class="album-image" height="110"
-                                        width="125" backgroundImage="~/assets/images/layer5@3x.png"
+                                        width="125" :backgroundImage="Owner_imgSrc[1]"
                                         borderRadius="5">
                                         <Button horizontalAlignment="right"
                                             marginRight="5" marginTop="80"
@@ -84,13 +84,13 @@
                                             color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
                                     </StackLayout>
                                     <Label fontSize="14" class="font-weight-bold"
-                                        color="#000000" text="Sweetener"></Label>
-                                    <Label fontSize="12" color="#999999" text="2018"></Label>
+                                        color="#000000" :text="Owner_txtSrc[1]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Owner_dtimeSrc[1]).format('YYYY년MM월DD일HH시')"></Label>
                                 </StackLayout>
 
                                 <StackLayout margin="10">
                                     <StackLayout class="album-image" height="110"
-                                        backgroundImage="~/assets/images/layer6@3x.png"
+                                        :backgroundImage="Owner_imgSrc[2]"
                                         borderRadius="5">
                                         <Button horizontalAlignment="right"
                                             marginRight="5" marginTop="80"
@@ -99,138 +99,243 @@
                                             backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
                                     </StackLayout>
                                     <Label width="125" fontSize="14" class="font-weight-bold"
-                                        color="#000000" textWrap="true" text="Glory Days: The Platinum Edition"></Label>
-                                    <Label fontSize="12" color="#999999" text="2018"></Label>
+                                        color="#000000" textWrap="true" :text="Owner_txtSrc[2]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Owner_dtimeSrc[2]).format('YYYY년MM월DD일HH시')"></Label>
 
                                 </StackLayout>
-                            </StackLayout>
-                        </ScrollView>
 
-                        <GridLayout columns="auto,*,auto" rows="auto">
-                            <Label col="0" row="0" class="font-weight-bold"
-                                paddingLeft="10" fontSize="20" color="#000000"
-                                text="찾았어요"></Label>
-                            <Label col="2" row="0" class="font-weight-bold"
-                                marginRight="20" fontSize="14" color="#8d8d8d"
-                                text="View All"></Label>
-                        </GridLayout>
-
-                        <ScrollView orientation="horizontal">
-                            <StackLayout orientation="horizontal">
-                                <StackLayout margin="10" height="130" width="110"
-                                    backgroundColor="#FFFFFF" borderRadius="5">
-                                    <Image src="~/assets/images/shape@3x.png"
-                                        width="20" height="20"
-                                        horizontalAlignment="right"
-                                        marginRight="5"></Image>
-                                    <StackLayout horizontalAlignment="center"
-                                        verticalAlignment="center">
-
-                                        <Image height="50" width="50" src="~/assets/images/layer7@3x.png"
-                                            borderRadius="50"></Image>
-                                        <Label fontSize="14" class="font-weight-bold"
-                                            color="#000000" text="Bruno Mars"></Label>
-                                        <Label fontSize="12" color="#999999"
-                                            text="228 Songs"
-                                            horizontalAlignment="center"
-                                            verticalAlignment="center"></Label>
-                                    </StackLayout>
-
-                                    <Button width="75" class="btn-rounded-lg"
-                                        text="View All" textTransform="none"
-                                        marginBottom="5" backgroundColor="#89acff"
-                                        color="#FFFFFF" @tap="onButtonTap()"></Button>
-                                </StackLayout>
-
-                                <StackLayout margin="10" height="130" width="110"
-                                    backgroundColor="#FFFFFF" borderRadius="5">
-                                    <Image src="~/assets/images/shape@3x.png"
-                                        width="20" height="20"
-                                        horizontalAlignment="right"
-                                        marginRight="5"></Image>
-                                    <StackLayout horizontalAlignment="center"
-                                        verticalAlignment="center">
-                                        <Image height="50" width="50" src="~/assets/images/layer8@3x.png"
-                                            borderRadius="50"></Image>
-                                        <Label fontSize="14" class="font-weight-bold"
-                                            color="#000000" text="Ariana Grande"></Label>
-                                        <Label fontSize="12" color="#999999"
-                                            text="185 Songs"
-                                            horizontalAlignment="center"
-                                            verticalAlignment="center"></Label>
-
-                                    </StackLayout>
-                                    <Button width="75" class="btn-rounded-lg"
-                                        text="View All" textTransform="none"
-                                        marginBottom="5" backgroundColor="#89acff"
-                                        color="#FFFFFF" @tap="onButtonTap()"></Button>
-                                </StackLayout>
-
-                                <StackLayout margin="10" height="130" width="110"
-                                    backgroundColor="#FFFFFF" borderRadius="5">
-                                    <Image src="~/assets/images/shape@3x.png"
-                                        width="20" height="20"
-                                        horizontalAlignment="right"
-                                        marginRight="5"></Image>
-                                    <StackLayout horizontalAlignment="center"
-                                        verticalAlignment="center">
-                                        <Image height="50" width="50" src="~/assets/images/layer9@3x.png"
-                                            borderRadius="50"></Image>
-                                        <Label fontSize="14" class="font-weight-bold"
-                                            color="#000000" text="Big Sean"></Label>
-                                        <Label fontSize="12" color="#999999"
-                                            text="178 Songs"
-                                            horizontalAlignment="center"
-                                            verticalAlignment="center"></Label>
-                                    </StackLayout>
-                                    <Button width="75" class="btn-rounded-lg"
-                                        text="View All" textTransform="none"
-                                        marginBottom="5" backgroundColor="#89acff"
-                                        color="#FFFFFF" @tap="onButtonTap()"></Button>
-                                </StackLayout>
-
-                            </StackLayout>
-                        </ScrollView>
-
-                        <GridLayout columns="auto,*,auto" rows="auto">
-                            <Label col="0" row="0" class="font-weight-bold"
-                                paddingLeft="10" fontSize="20" color="#000000"
-                                text="분양 게시물"></Label>
-                            <Label col="2" row="0" class="font-weight-bold"
-                                marginRight="20" fontSize="14" color="#8d8d8d"
-                                text="View All"></Label>
-                        </GridLayout>
-
-                        <ScrollView orientation="horizontal">
-                            <StackLayout orientation="horizontal">
-                                <StackLayout margin="10">
+                                  <StackLayout margin="10">
                                     <StackLayout class="album-image" height="110"
-                                        width="125" backgroundImage="~/assets/images/layer10@3x.png"
+                                        :backgroundImage="Owner_imgSrc[3]"
                                         borderRadius="5">
-                                    </StackLayout>
-                                    <Label fontSize="14" class="font-weight-bold"
-                                        color="#000000" text="Wings"></Label>
-                                    <Label fontSize="12" color="#999999" text="2018"></Label>
-                                </StackLayout>
-
-                                <StackLayout margin="10">
-                                    <StackLayout class="album-image" height="110"
-                                        width="125" backgroundImage="~/assets/images/layer11@3x.png"
-                                        borderRadius="5">
-                                    </StackLayout>
-                                    <Label fontSize="14" class="font-weight-bold"
-                                        color="#000000" text="SAX"></Label>
-                                    <Label fontSize="12" color="#999999" text="2018"></Label>
-                                </StackLayout>
-
-                                <StackLayout margin="10">
-                                    <StackLayout class="album-image" height="110"
-                                        backgroundImage="~/assets/images/layer12@3x.png"
-                                        borderRadius="5">
+                                        <Button horizontalAlignment="right"
+                                            marginRight="5" marginTop="80"
+                                            width="50" height="20" fontSize="14"
+                                            class="fa btn-rounded-sm" color="#FFFFFF"
+                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
                                     </StackLayout>
                                     <Label width="125" fontSize="14" class="font-weight-bold"
-                                        color="#000000" textWrap="true" text="You Know I Know"></Label>
-                                    <Label fontSize="12" color="#999999" text="2018"></Label>
+                                        color="#000000" textWrap="true" :text="Owner_txtSrc[3]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Owner_dtimeSrc[3]).format('YYYY년MM월DD일HH시')"></Label>
+
+                                </StackLayout>
+                            </StackLayout>
+                        </ScrollView>
+
+                        <GridLayout columns="auto,*,auto" rows="auto">
+                            <Label col="0" row="0" class="font-weight-bold"
+                                paddingLeft="10" fontSize="20" color="#000000"
+                                text="찾았어요" @tap="viewAll_Finder"></Label>
+                            <Label col="2" row="0" class="font-weight-bold"
+                                marginRight="20" fontSize="14" color="#8d8d8d"
+                                text="모두보기" @tap="viewAll_Finder"></Label>
+                        </GridLayout>
+
+                        <ScrollView orientation="horizontal">
+                            <StackLayout orientation="horizontal">
+                                <StackLayout margin="10">
+                                    <StackLayout class="album-image" height="110"
+                                        width="125" :backgroundImage="Finder_imgSrc[0]"
+                                        borderRadius="5">
+                                        <Button horizontalAlignment="right"
+                                            marginRight="5" marginTop="80"
+                                            width="50" height="20" class="fa btn-rounded-sm"
+                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    </StackLayout>
+                                    <Label fontSize="14" class="font-weight-bold"
+                                        color="#000000" :text="Finder_txtSrc[0]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finder_dtimeSrc[0]).format('YYYY년MM월DD일HH시')"></Label>
+                                </StackLayout>
+
+                                <StackLayout margin="10">
+                                    <StackLayout class="album-image" height="110"
+                                        width="125" :backgroundImage="Finder_imgSrc[1]"
+                                        borderRadius="5">
+                                        <Button horizontalAlignment="right"
+                                            marginRight="5" marginTop="80"
+                                            width="50" height="20" class="fa btn-rounded-sm"
+                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    </StackLayout>
+                                    <Label fontSize="14" class="font-weight-bold"
+                                        color="#000000" :text="Finder_txtSrc[1]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finder_dtimeSrc[1]).format('YYYY년MM월DD일HH시')"></Label>
+                                </StackLayout>
+
+                                <StackLayout margin="10">
+                                    <StackLayout class="album-image" height="110"
+                                        :backgroundImage="Finder_imgSrc[2]"
+                                        borderRadius="5">
+                                        <Button horizontalAlignment="right"
+                                            marginRight="5" marginTop="80"
+                                            width="50" height="20" fontSize="14"
+                                            class="fa btn-rounded-sm" color="#FFFFFF"
+                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    </StackLayout>
+                                    <Label width="125" fontSize="14" class="font-weight-bold"
+                                        color="#000000" textWrap="true" :text="Finder_txtSrc[2]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finder_dtimeSrc[2]).format('YYYY년MM월DD일HH시')"></Label>
+
+                                </StackLayout>
+
+                                  <StackLayout margin="10">
+                                    <StackLayout class="album-image" height="110"
+                                        :backgroundImage="Finder_imgSrc[3]"
+                                        borderRadius="5">
+                                        <Button horizontalAlignment="right"
+                                            marginRight="5" marginTop="80"
+                                            width="50" height="20" fontSize="14"
+                                            class="fa btn-rounded-sm" color="#FFFFFF"
+                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    </StackLayout>
+                                    <Label width="125" fontSize="14" class="font-weight-bold"
+                                        color="#000000" textWrap="true" :text="Finder_txtSrc[3]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finder_dtimeSrc[3]).format('YYYY년MM월DD일HH시')"></Label>
+
+                                </StackLayout>
+                            </StackLayout>
+                        </ScrollView>
+
+                        <GridLayout columns="auto,*,auto" rows="auto">
+                            <Label col="0" row="0" class="font-weight-bold"
+                                paddingLeft="10" fontSize="20" color="#000000"
+                                text="분양 게시물" @tap="viewAll_Adopt"></Label>
+                            <Label col="2" row="0" class="font-weight-bold"
+                                marginRight="20" fontSize="14" color="#8d8d8d"
+                                text="모두보기" @tap="viewAll_Adopt"></Label>
+                        </GridLayout>
+
+                        <ScrollView orientation="horizontal">
+                            <StackLayout orientation="horizontal">
+                                <StackLayout margin="10">
+                                    <StackLayout class="album-image" height="110"
+                                        width="125" :backgroundImage="Adopt_imgSrc[0]"
+                                        borderRadius="5">
+                                        <Button horizontalAlignment="right"
+                                            marginRight="5" marginTop="80"
+                                            width="50" height="20" class="fa btn-rounded-sm"
+                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    </StackLayout>
+                                    <Label fontSize="14" class="font-weight-bold"
+                                        color="#000000" :text="Adopt_txtSrc[0]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Adopt_dtimeSrc[0]).format('YYYY년MM월DD일HH시')"></Label>
+                                </StackLayout>
+
+                                <StackLayout margin="10">
+                                    <StackLayout class="album-image" height="110"
+                                        width="125" :backgroundImage="Adopt_imgSrc[1]"
+                                        borderRadius="5">
+                                        <Button horizontalAlignment="right"
+                                            marginRight="5" marginTop="80"
+                                            width="50" height="20" class="fa btn-rounded-sm"
+                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    </StackLayout>
+                                    <Label fontSize="14" class="font-weight-bold"
+                                        color="#000000" :text="Adopt_txtSrc[1]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Adopt_dtimeSrc[1]).format('YYYY년MM월DD일HH시')"></Label>
+                                </StackLayout>
+
+                                <StackLayout margin="10">
+                                    <StackLayout class="album-image" height="110"
+                                        :backgroundImage="Adopt_imgSrc[2]"
+                                        borderRadius="5">
+                                        <Button horizontalAlignment="right"
+                                            marginRight="5" marginTop="80"
+                                            width="50" height="20" fontSize="14"
+                                            class="fa btn-rounded-sm" color="#FFFFFF"
+                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    </StackLayout>
+                                    <Label width="125" fontSize="14" class="font-weight-bold"
+                                        color="#000000" textWrap="true" :text="Adopt_txtSrc[2]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Adopt_dtimeSrc[2]).format('YYYY년MM월DD일HH시')"></Label>
+
+                                </StackLayout>
+
+                                  <StackLayout margin="10">
+                                    <StackLayout class="album-image" height="110"
+                                        :backgroundImage="Adopt_imgSrc[3]"
+                                        borderRadius="5">
+                                        <Button horizontalAlignment="right"
+                                            marginRight="5" marginTop="80"
+                                            width="50" height="20" fontSize="14"
+                                            class="fa btn-rounded-sm" color="#FFFFFF"
+                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    </StackLayout>
+                                    <Label width="125" fontSize="14" class="font-weight-bold"
+                                        color="#000000" textWrap="true" :text="Adopt_txtSrc[3]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Adopt_dtimeSrc[3]).format('YYYY년MM월DD일HH시')"></Label>
+
+                                </StackLayout>
+                            </StackLayout>
+                        </ScrollView>
+
+                        <GridLayout columns="auto,*,auto" rows="auto">
+                            <Label col="0" row="0" class="font-weight-bold"
+                                paddingLeft="10" fontSize="20" color="#000000"
+                                text="반환완료" @tap="viewAll_Finish"></Label>
+                            <Label col="2" row="0" class="font-weight-bold"
+                                marginRight="20" fontSize="14" color="#8d8d8d"
+                                text="모두보기" @tap="viewAll_Finish"></Label>
+                        </GridLayout>
+
+                        <ScrollView orientation="horizontal">
+                            <StackLayout orientation="horizontal">
+                                <StackLayout margin="10">
+                                    <StackLayout class="album-image" height="110"
+                                        width="125" :backgroundImage="Finish_imgSrc[0]"
+                                        borderRadius="5">
+                                        <Button horizontalAlignment="right"
+                                            marginRight="5" marginTop="80"
+                                            width="50" height="20" class="fa btn-rounded-sm"
+                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    </StackLayout>
+                                    <Label fontSize="14" class="font-weight-bold"
+                                        color="#000000" :text="Finish_txtSrc[0]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finish_dtimeSrc[0]).format('YYYY년MM월DD일HH시')"></Label>
+                                </StackLayout>
+
+                                <StackLayout margin="10">
+                                    <StackLayout class="album-image" height="110"
+                                        width="125" :backgroundImage="Finish_imgSrc[1]"
+                                        borderRadius="5">
+                                        <Button horizontalAlignment="right"
+                                            marginRight="5" marginTop="80"
+                                            width="50" height="20" class="fa btn-rounded-sm"
+                                            color="#FFFFFF" backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    </StackLayout>
+                                    <Label fontSize="14" class="font-weight-bold"
+                                        color="#000000" :text="Finish_txtSrc[1]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finish_dtimeSrc[1]).format('YYYY년MM월DD일HH시')"></Label>
+                                </StackLayout>
+
+                                <StackLayout margin="10">
+                                    <StackLayout class="album-image" height="110"
+                                        :backgroundImage="Finish_imgSrc[2]"
+                                        borderRadius="5">
+                                        <Button horizontalAlignment="right"
+                                            marginRight="5" marginTop="80"
+                                            width="50" height="20" fontSize="14"
+                                            class="fa btn-rounded-sm" color="#FFFFFF"
+                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    </StackLayout>
+                                    <Label width="125" fontSize="14" class="font-weight-bold"
+                                        color="#000000" textWrap="true" :text="Finish_txtSrc[2]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finish_dtimeSrc[2]).format('YYYY년MM월DD일HH시')"></Label>
+
+                                </StackLayout>
+
+                                  <StackLayout margin="10">
+                                    <StackLayout class="album-image" height="110"
+                                        :backgroundImage="Finish_imgSrc[3]"
+                                        borderRadius="5">
+                                        <Button horizontalAlignment="right"
+                                            marginRight="5" marginTop="80"
+                                            width="50" height="20" fontSize="14"
+                                            class="fa btn-rounded-sm" color="#FFFFFF"
+                                            backgroundColor="#3b75ff">{{ 'fa-star' | fonticon }}4.9</Button>
+                                    </StackLayout>
+                                    <Label width="125" fontSize="14" class="font-weight-bold"
+                                        color="#000000" textWrap="true" :text="Finish_txtSrc[3]"></Label>
+                                    <Label fontSize="12" color="#999999" :text="$moment(this.Finish_dtimeSrc[3]).format('YYYY년MM월DD일HH시')"></Label>
 
                                 </StackLayout>
                             </StackLayout>
@@ -239,22 +344,6 @@
 
                     </StackLayout>
                 </ScrollView>
-            </StackLayout>
-
-            <StackLayout col="0" row="1" orientation="horizontal"
-                backgroundColor="#FFFFFF" height="60">
-                <GridLayout rows="*" columns="*,*,*,*,*">
-                    <Image col="0" row="0" (tap)="onButtonTap()" height="25"
-                        width="25" margin="10" src="~/assets/images/shape2@3x.png"></Image>
-                    <Image col="1" row="0" (tap)="onButtonTap()" height="25"
-                        width="25" margin="10" src="~/assets/images/shape1@3x.png"></Image>
-                    <Image col="2" row="0" (tap)="onButtonTap()" height="60"
-                        width="60" margin="10" src="~/assets/images/home@3x.png"></Image>
-                    <Image col="3" row="0" (tap)="onButtonTap()" height="25"
-                        width="25" margin="10" src="~/assets/images/shape3@3x.png"></Image>
-                    <Image col="4" row="0" (tap)="onButtonTap()" height="25"
-                        width="25" margin="10" src="~/assets/images/icon04@3x.png"></Image>
-                </GridLayout>
             </StackLayout>
 
         </GridLayout>
@@ -267,7 +356,64 @@
         computed: {},
         mounted() {},
         data() {
-            return {};
+            return {
+                Finder_imgSrc : [],
+                Owner_imgSrc :[],
+                Finish_imgSrc :[],
+                Adopt_imgSrc :[],
+                Finder_txtSrc : [],
+                Owner_txtSrc :[],
+                Finish_txtSrc :[],
+                Adopt_txtSrc :[],
+                Finder_dtimeSrc : [],
+                Owner_dtimeSrc :[],
+                Finish_dtimeSrc :[],
+                Adopt_dtimeSrc :[],
+
+
+            };
+        },
+        created(){
+            this.$http.get(this.$store.state.API_BACKEND_URL + "/api/ownerPosts/list/portal/",{
+
+            }).then(res=> {
+                console.log(res.data);
+                for(var i=0;i<4;i++){
+                    this.Owner_imgSrc.push(res.data[i].imageurl);
+                    this.Owner_txtSrc.push(res.data[i].title);
+                    this.Owner_dtimeSrc.push(res.data[i].posted_time);
+                }
+                
+               // this.Owner_imgSrc = res.data;
+            });
+            this.$http.get(this.$store.state.API_BACKEND_URL + "/api/finderPosts/list/portal/",{
+
+            }).then(res=> {
+                for(var i=0;i<4;i++){
+                    this.Finder_imgSrc.push(res.data[i].imageurl);
+                    this.Finder_txtSrc.push(res.data[i].title);
+                    this.Finder_dtimeSrc.push(res.data[i].posted_time);
+                }
+            });
+            this.$http.get(this.$store.state.API_BACKEND_URL + "/api/finishPosts/list/portal/",{
+
+            }).then(res=> {
+                for(var i=0;i<4;i++){
+                    this.Finish_imgSrc.push(res.data[i].imageurl);
+                    this.Finish_txtSrc.push(res.data[i].title);
+                    this.Finish_dtimeSrc.push(res.data[i].posted_time);
+                }
+            });
+            this.$http.get(this.$store.state.API_BACKEND_URL + "/adopt/post/list/portal/",{
+
+            }).then(res=> {
+                for(var i=0;i<4;i++){
+                    this.Adopt_imgSrc.push(res.data[i].imageurl);
+                    this.Adopt_txtSrc.push(res.data[i].title);
+                    this.Adopt_dtimeSrc.push(res.data[i].posted_time);
+                }
+            });
+            
         },
         methods: {
             onButtonTap() {},
@@ -280,7 +426,23 @@
                         curve: "easeIn"
                     }
                 });
-            }
+            },
+            viewAll_Owner(args){
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/ownerboard"+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$goto('Portal_to_Board');
+            },
+            viewAll_Finder(args){
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/finderboard"+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$goto('Portal_to_Board');
+            },
+            viewAll_Adopt(args){
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/adopt/post/list"+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$goto('Portal_to_Board');
+            },
+            viewAll_Finish(args){
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/finishboard"+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$goto('Portal_to_Board');
+            },
         }
     };
 </script>
