@@ -81,6 +81,11 @@ class Master_adminSerializer(serializers.ModelSerializer):
         model = Master_admin
         fields = '__all__'
 
+class PosterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Poster
+        fields = '__all__'
+
 
 # class KeySerializer(serializers.ModelSerializer):
 #     class Meta:

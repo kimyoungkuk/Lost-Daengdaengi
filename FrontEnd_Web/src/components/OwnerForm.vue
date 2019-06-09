@@ -285,7 +285,9 @@ export default {
                user_nickname  : this.$store.state.user_nickname
            }).then(res => {
                console.log(res.data)
-               this.$router.push("/SubmitPage");
+               this.$store.state.posterid = res.data.posterid
+               this.$store.state.posterurl = res.data.posterurl
+               this.$router.push("/makeposter");
            })
         },
         toPrev(){

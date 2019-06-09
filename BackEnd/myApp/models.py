@@ -132,6 +132,12 @@ class Filtering(models.Model):
     finaltime       =   models.DateTimeField()
     category        =   models.CharField(max_length = 100)
     value           =   models.CharField(max_length = 100)
+
+class Poster(models.Model):
+    posterid        =   models.IntegerField(blank=True, default = 0)
+    email           =   models.CharField(max_length = 100)
+
+
 #class Report(models.Model):
 #    reason          =   models.CharField(max_length = 10)
 #    detail          =   models.TextField()
