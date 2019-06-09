@@ -1025,6 +1025,7 @@ def my_post(request):
     key=request.GET.get("key")
     user = User.objects.get(key=key)
     finder_posts = Finder_post.objects.filter(user_nickname=user.nickname)
+    finder_serializer = Finder_postSerializer(finder_posts, many = True)
     owner_posts = Owner_post.objects.filter(user_nickname=user.nickname)
-
-    return Response({'finder':finder_posts,'owner':owner_posts})
+    owner_serializer = Owner_postSerializer(owner_posts, many = True)
+    return Response({'finder':finder_serializer.data,'owner':owner_serializer.data})
