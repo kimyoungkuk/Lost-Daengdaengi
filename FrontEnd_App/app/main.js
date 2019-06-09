@@ -4,6 +4,9 @@ import VueDevtools from 'nativescript-vue-devtools'
 import router from './router'
 import store from './store'
 import store_ from '~/store'
+import "moment/locale/ko"
+import moment from 'moment'
+import VueMomentJS from 'vue-momentjs'
 import axios from 'axios'
 import RadDataForm from 'nativescript-ui-dataform/vue'
 import { TNSFontIcon, fonticon } from './nativescript-fonticon/nativescript-fonticon';
@@ -16,6 +19,7 @@ import drawerContent from '~/components/drawerContent'
 Vue.use(ButtonPlugin);
 Vue.use(CardViewPlugin);
 Vue.use(FabPlugin)
+Vue.use(VueMomentJS, moment)
 
 Vue.prototype.$router = router
 Vue.prototype.$goto = function (to, options) {
