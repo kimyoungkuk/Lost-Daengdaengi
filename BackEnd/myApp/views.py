@@ -214,10 +214,15 @@ def owner_post_create(request):
         draw.text((15,435),"연락처 : "+str(post.phone_num),(255,255,255),font=font)
         font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
         draw.text((15,470),"견종 : "+str(post.dog_type)+"    이름 : "+str(post.dog_name),(255,255,255),font=font)
-        draw.text((15,490),"성별 : "+str(post.dog_sex)+"    나이 : "+str(post.dog_age)+"살",(255,255,255),font=font)
+        if post.dog_sex==1:
+            dog_sex_temp="수컷"
+        else:
+            dog_sex_temp="암컷"
         
-        # lost_time_temp=datetime.datetime.strptime(post.lost_time,"%Y-%m-%d").date()
-        draw.text((15,510),"실종시간 : "+str(post.lost_time),(255,255,255),font=font)
+        draw.text((15,490),"성별 : "+str(post.dog_sex_temp)+"    나이 : "+str(post.dog_age)+"살",(255,255,255),font=font)
+        
+        lost_time_temp=datetime.datetime.strptime(post.lost_time,"%Y-%m-%d").date()
+        draw.text((15,510),"실종시간 : "+str(lost_time_temp),(255,255,255),font=font)
         draw.text((15,530),"특징 : "+str(post.dog_feature),(255,255,255),font=font)
 
         img.save('media/owner/'+str(post.id)+'/poster.jpg')
@@ -984,7 +989,7 @@ def master_adopt_post_delete(request,pk):
 
 
 @api_view(['POST'])
-def poster_mail(request):
+def poster_email(request):
     
     # formimg = cv2.imread('media/poster/poster_form.jpg',1)
     # dogimg = cv2.imread('media/owner/6/profile.jpg')
@@ -1016,8 +1021,9 @@ def poster_mail(request):
 
 
 @api_view(['GET'])
-def my_post(request,pk):
-    user = User.objects.get(id=pk)
+def my_post(request):
+    key=request.GET.get("key")
+    user = User.objects.get(key=key)
     finder_posts = Finder_post.objects.filter(user_nickname=user.nickname)
     owner_posts = Owner_post.objects.filter(user_nickname=user.nickname)
 
