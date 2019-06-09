@@ -123,7 +123,10 @@ def FindNearShelter(request):
         nearestQueryset = Dog_shelter.objects.get(pk = id_value)
         nearestDogShelter = Dog_shelterSerializer(nearestQueryset)
         return Response(nearestDogShelter.data, status = status.HTTP_201_CREATED)
-    return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    logging.error(currentLocation.data['lat'])
+    logging.error(currentLocation.data['lng'])
+
+    return Response(currentLocation.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -199,7 +202,33 @@ def owner_post_create(request):
             post.save()
         else:
             pass
-        return Response(serializer.data, status = status.HTTP_201_CREATED)
+        
+
+
+        formimg = cv2.imread('media/poster/poster_form.jpg',1)
+        dogimg = cv2.imread('media/owner/'+str(serializer.data['id'])+'/profile.jpg')
+    
+        dogimg = cv2.resize(dogimg,(344,344))
+        formimg[85:85+344,17:17+344] = dogimg
+        cv2.imwrite('media/owner/'+str(serializer.data['id'])+'/poster.jpg',formimg)
+        img = Image.open('media/owner/'+str(serializer.data['id'])+'/poster.jpg')
+        draw = ImageDraw.Draw(img)
+        font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
+        draw.text((15,435),"연락처 : 010-4478-3569",(255,255,255),font=font)
+        font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
+        draw.text((15,470),"견종 : 포메라니안    이름 : 멍멍이",(255,255,255),font=font)
+        draw.text((15,490),"성별 : 수컷    나이 : 10살",(255,255,255),font=font)
+        draw.text((15,510),"실종시간 : 2019-06-09",(255,255,255),font=font)
+        draw.text((15,530),"특징 : 어쩌고저쩌고 블라블라~~",(255,255,255),font=font)
+
+        img.save('media/owner/'+str(serializer.data['id'])+'/poster.jpg')
+
+
+
+
+
+
+        return Response({'id':post.id,'posterurl':'media/owner/'+str(serializer.data['id'])+'/poster.jpg'}, status = status.HTTP_201_CREATED)
     return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 @api_view(['POST'])
 def finder_post_create(request):
@@ -542,19 +571,23 @@ def finder_post_finish(request,pk):
 
 @api_view(['GET'])
 def finish_post_list(request):
-    finish_finder_posts = Finder_post.objects.order_by('-id').filter(is_finished=1).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')
+    finish_finder_posts = Finder_post.objects.order_by('-id').filter(is_finished=1)
     finder_serializer = Finder_postSerializer(finish_finder_posts, many = True)
-    finish_owner_posts = Owner_post.objects.order_by('-id').filter(is_finished=1).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')
+    finish_owner_posts = Owner_post.objects.order_by('-id').filter(is_finished=1)
     owner_serializer = Owner_postSerializer(finish_owner_posts, many = True)
-    return Response({'owner':finish_owner_posts, 'finder':finish_finder_posts})
+    # return Response({'owner':finish_owner_posts, 'finder':finish_finder_posts})
+    return Response(owner_serializer.data+finder_serializer.data)
+
+
 
 @api_view(['GET'])
 def finish_post_list_portal(request):
-    finish_finder_posts = Finder_post.objects.order_by('-id').filter(is_finished=1).values('title','id','posted_time','dog_type','find_time','imageurl','view_count','lat','lng')
-    finder_serializer = Finder_postSerializer(finish_finder_posts, many = True)[:2]
-    finish_owner_posts = Owner_post.objects.order_by('-id').filter(is_finished=1).values('title','id','posted_time','dog_type','lost_time','imageurl','view_count','lat','lng')
-    owner_serializer = Owner_postSerializer(finish_owner_posts, many = True)[:2]
-    return Response({'owner':finish_owner_posts, 'finder':finish_finder_posts})
+    finish_finder_posts = Finder_post.objects.order_by('-id').filter(is_finished=1)[:2]
+    finder_serializer = Finder_postSerializer(finish_finder_posts, many = True)
+    finish_owner_posts = Owner_post.objects.order_by('-id').filter(is_finished=1)[:2]
+    owner_serializer = Owner_postSerializer(finish_owner_posts, many = True)
+    # return Response({'owner':finish_owner_posts, 'finder':finish_finder_posts})
+    return Response(owner_serializer.data+finder_serializer.data)
 
 
 @api_view(['POST'])
@@ -914,14 +947,15 @@ def poster_mail(request):
     
     formimg = cv2.imread('media/poster/poster_form.jpg',1)
     dogimg = cv2.imread('media/owner/6/profile.jpg')
+
     dogimg = cv2.resize(dogimg,(344,344))
     formimg[85:85+344,17:17+344] = dogimg
     cv2.imwrite('media/owner/6/poster.jpg',formimg)
     img = Image.open('media/owner/6/poster.jpg')
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
-    draw.text((15,435),"연락처:010-4478-3569",(255,255,255),font=font)
-    font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",20)
+    draw.text((15,435),"연락처 : 010-4478-3569",(255,255,255),font=font)
+    font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
     draw.text((15,470),"견종 : 포메라니안    이름 : 멍멍이",(255,255,255),font=font)
     draw.text((15,490),"성별 : 수컷    나이 : 10살",(255,255,255),font=font)
     draw.text((15,510),"실종시간 : 2019-06-09",(255,255,255),font=font)
@@ -939,3 +973,12 @@ def poster_mail(request):
     mail.send()
     t="QWE"
     return render(request,"home.html",{'t':t})
+
+
+@api_view(['GET'])
+def my_post(request,pk):
+    user = User.objects.get(id=pk)
+    finder_posts = Finder_post.objects.filter(user_nickname=user.nickname)
+    owner_posts = Owner_post.objects.filter(user_nickname=user.nickname)
+
+    return Response({'finder':finder_posts,'owner':owner_posts})
