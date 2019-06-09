@@ -925,7 +925,7 @@ def poster_mail(request):
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
     draw.text((15,435),"연락처 : 010-4478-3569",(255,255,255),font=font)
-    font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",20)
+    font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
     draw.text((15,470),"견종 : 포메라니안    이름 : 멍멍이",(255,255,255),font=font)
     draw.text((15,490),"성별 : 수컷    나이 : 10살",(255,255,255),font=font)
     draw.text((15,510),"실종시간 : 2019-06-09",(255,255,255),font=font)
