@@ -3,58 +3,59 @@
       <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
       <b-card-group deck>
         <b-card header-tag="header" footer-tag="footer">
-          <h6 slot="header" class="mb-0">
-            <b-badge variant="dark">작성자</b-badge>
-            {{this.form.user_nickname}}
-            <b-badge variant="dark">잃어버린 날짜</b-badge>
-            {{this.form.lost_time}}
-            <b-badge variant="dark">조회수</b-badge>
-            {{this.form.view_count}}
-            <br>
-            <b-badge variant="dark">제목</b-badge>
-            {{this.form.title}}
-            <b-badge variant="dark">견종</b-badge>
-            {{this.form.dog_type}}
-          </h6>
-          <!-- <div class="detailTitle googleFont_finder" slot="header">
+          <div class="detailTitle googleFont_finder" slot="header">
             <div id="detailTitle-left">
               <v-btn
               small
               depressed
               right
-              router-link to="/finderBoard">
+              router-link to="/ownerBoard">
                 <v-icon color="#FA7268" left>arrow_back</v-icon>
               </v-btn>
             </div>
             <div id="datailTitle-center"><h5 id="detailTitle1">Lost-Daengdaengi</h5></div>
             <div id="detailTitle-right">조회 : {{this.form.view_count}}</div>
-          </div> -->
-          <div>
+          </div>
+          <div class="googleFont_finder">
             <v-layout>
               <v-flex xs12 sm6 offset-sm3>
                 <v-card>
-                  <v-img class="white--text" height="300px" :src="this.form.imageurl">
-                    <v-container fill-height fluid>
-                      <v-layout fill-height>
-                        <v-flex xs12 align-end flexbox>
-                          <span class="headline">{{this.form.dog_type}}</span>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                  </v-img>
+                  <v-img class="white--text" height="300px" :src="this.form.imageurl"></v-img>
                   <v-card-title>
                     <div>
-                      <span class="grey--text">연락처 : {{this.form.phone_num}}</span>
-                      <br>
-                      <span>특징 : {{this.form.dog_feature}}</span>
-                      <br>
-                      <span>비고 : {{this.form.remark}}</span>
+                      <h3>
+                        <p>
+                          <b-badge variant="danger">실종</b-badge>
+                          [{{this.form.dog_type}}]
+                          {{this.form.title}}
+                        </p>
+                      </h3>
+                      <div style="line-height:2em;">
+                        <li>날&nbsp&nbsp짜 : {{this.form.lost_time}}</li>
+                        <li>성&nbsp&nbsp별 : {{this.form.dog_sex}}</li>
+                        <li v-if="this.form.dog_age==1">나&nbsp&nbsp이 : 암컷</li>
+                        <li v-if="this.form.dog_age==2">나&nbsp&nbsp이 : 수컷</li>
+                        <li>특&nbsp&nbsp징 : {{this.form.dog_feature}}</li>
+                        <li>닉네임 : {{this.form.user_nickname}}</li>
+                        <li>연락처 : {{this.form.phone_num}}</li>
+                        <li>비&nbsp&nbsp고 : {{this.form.remark}}</li>
+                      </div>
                     </div>
                   </v-card-title>
                   <v-card-actions>
-                    <v-btn flat color="orange" v-b-modal.modal-finish>Finish</v-btn>
-                    <v-btn flat color="orange" v-on:click="recommend">Explore</v-btn>
-                    <v-btn flat color="orange" v-b-modal.modal-report v-on:click="reportBoard">report</v-btn>
+                    <v-btn class="btn btn-primary custom-btn" color="white" flat v-b-modal.modal-finish>반환 완료</v-btn>
+                    <v-btn class="btn btn-primary custom-btn" color="white" flat v-on:click="recommend">유기견 찾기</v-btn>
+                    <v-btn class="btn btn-primary custom-btn" color="white" flat v-b-modal.modal-report v-on:click="reportBoard">신고</v-btn>
+                    <div class="detailDelete-icon" align="right">
+                      <v-btn
+                      small
+                      depressed
+                      flat
+                      v-b-modal.modal-delete
+                      >
+                        <i class="material-icons">delete</i>
+                      </v-btn>
+                    </div>
                   </v-card-actions>
                 </v-card>
               </v-flex>
@@ -79,9 +80,10 @@
           <p class="card-text">{{this.form.contents}}</p>
         </b-card>
       </b-card-group>
-      <v-flex>
+
+      <v-flex class="googleFont_finder">
         <h4>
-          <b-badge variant="dark">댓글{{this.$store.state.user_key}}</b-badge>
+          <b-badge variant="dark">댓글</b-badge>
         </h4>
         <b-form @submit.prevent="addComment" v-on:keyup.enter="addComment">
           <b-form-textarea
@@ -92,23 +94,9 @@
             v-model="contents"
           ></b-form-textarea>
           <v-flex> 
-            <b-button class="comment" type="submit" variant="primary" size="sm">댓글 작성(Enter)</b-button>
+            <b-button class="comment" type="submit" size="sm">댓글 작성(Enter)</b-button>
           </v-flex>
         </b-form>
-      </v-flex>
-      <v-flex>
-      <b-button-group size="sm">
-        <b-button v-on:click="toBoard" class="view_button" variant="primary">목록</b-button>
-        <b-button
-          v-if="userId == form.userId || admin === 1"
-          v-on:click="updateBoard"
-          variant="primary"
-        >수정</b-button>
-        <b-button
-          v-b-modal.modal-delete
-          variant="danger"
-        >삭제</b-button>
-      </b-button-group>
       </v-flex>
 
 
@@ -463,10 +451,10 @@ div.board_back_color {
   width: 100%;
   height: 100%;
   /* position: fixed; */
-  /* background-size: cover; */
-  /* background-position: center; */
-  /* top: 0; */
-  /* left: 0; */
+  background-size: cover;
+  background-position: center;
+  top: 0;
+  left: 0;
 }
 
 hr.horizontal {
