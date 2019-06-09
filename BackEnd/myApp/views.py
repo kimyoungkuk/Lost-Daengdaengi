@@ -221,8 +221,8 @@ def owner_post_create(request):
         
         draw.text((15,490),"성별 : "+str(post.dog_sex_temp)+"    나이 : "+str(post.dog_age)+"살",(255,255,255),font=font)
         
-        lost_time_temp=datetime.datetime.strptime(post.lost_time,"%Y-%m-%d").date()
-        draw.text((15,510),"실종시간 : "+str(lost_time_temp),(255,255,255),font=font)
+        # lost_time_temp=datetime.datetime.strptime(post.lost_time,"%Y-%m-%d").date()
+        draw.text((15,510),"실종시간 : "+str(post.lost_time),(255,255,255),font=font)
         draw.text((15,530),"특징 : "+str(post.dog_feature),(255,255,255),font=font)
 
         img.save('media/owner/'+str(post.id)+'/poster.jpg')
