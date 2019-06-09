@@ -1,9 +1,13 @@
 <template lang="html">
-  <ScrollView @swipe = "onSwipe">
+ <gridlayout rows = "*,auto">
+  <ScrollView  row="0" @swipe = "onSwipe">
+   
     <StackLayout width="100%">
-      <Label class="drawer-header" :text="this.$store.state.user_nick_visible"/>
+      <Label class="drawer-header" backgroundColor= "#FA7268" color = "#ffffff" :text="this.$store.state.user_nick_visible"/>
 
       <Label
+        backgroundColor = "#ffffff"
+        color = "#FA7268"
         v-for="(page, i) in pages"
         @tap="goToPage(page.component)"
         class="drawer-item"
@@ -11,9 +15,13 @@
         :key="i"
       />
 
-      <Button class="drawer-close-button" @tap="$goto('googlemap_t')">Close Drawer</Button>
+      
     </StackLayout>
+   
+   
   </ScrollView>
+   <Button row="1"class="drawer-close-button" backgroundColor= "#FA7268" color = "#ffffff" @tap="closeDrawer" verticalAlignment="bottom">닫기</Button>
+   </gridlayout>
   
 </template>
 
@@ -29,8 +37,7 @@ export default {
       
       pages: [
         { name: '마이 페이지', component: this.$router.mypage },
-        { name: '내가 쓴 게시물', component: this.$router.PageOne },
-        { name: '포탈 테스트', component: this.$router.portal }
+        { name: '내가쓴 게시물', component: this.$router.myPosts }
       ]
     }
   },

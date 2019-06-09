@@ -1,6 +1,7 @@
 <template>
     <Page class="page" @loaded="loaded">
         <ActionBar flat="true" title="로스트 댕댕이">
+            <NavigationButton icon = "~/assets/images/baseline_menu_black_18dp.png" @tap="openDrawer"/>
            <ActionItem @tap="$goto('makeFinderPost')">
                 <button text="찾았어요" class="btn mybtn font-weight-bold" android:horizontalAlignment="left" >/>
                 </button>
@@ -268,9 +269,9 @@
     </page>
 </template>
 <script>
-    import Details from "./Details";
-
+    import sideDrawer from '~/mixins/sideDrawer'
     export default {
+        mixins: [ sideDrawer ],
         computed: {},
         mounted() {},
         data() {

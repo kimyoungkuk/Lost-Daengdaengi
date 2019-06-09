@@ -14,9 +14,9 @@ import makeFinderPost_ from '../components/makeFinderPost'
 import makeFinderPostWeb_ from '../components/makeFinderPostWeb'
 import makeOwnerPost_ from '../components/makeOwnerPost'
 import makeOwnerPostWeb_ from '../components/makeOwnerPostWeb'
-import googlemap_t_ from '../components/googlemap_t'
 import portal_ from '../components/Portal'
 import Portal_to_Board_ from '../components/Portal_to_Board'
+import myPosts_ from '../components/myPosts'
 
 const router = { 
    mypage : Mypage_,
@@ -35,8 +35,8 @@ const router = {
    makeFinderPostWeb: makeFinderPostWeb_,
    makeOwnerPost: makeOwnerPost_,
    makeOwnerPostWeb: makeOwnerPostWeb_,
-   googlemap_t : googlemap_t_,
    portal : portal_,
-   Portal_to_Board : Portal_to_Board_
+   Portal_to_Board : Portal_to_Board_,
+   myPosts : myPosts_
 }
 export default router
