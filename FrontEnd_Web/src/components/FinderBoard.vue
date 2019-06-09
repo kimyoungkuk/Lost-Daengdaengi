@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="googleFont_board">
     <!-- 발견인 게시판 & 유기견주 게시판 선택 버튼 -->
     <div>
       <b-button-group>
-        <b-button router-link to='/finderboard' variant="outline-primary">발견인 게시판</b-button>
-        <b-button router-link to='/ownerboard' variant="outline-primary">유기견주 게시판</b-button>
-        <b-button router-link to='/finishboard' variant="outline-primary">반환완료 게시판</b-button>
-        <b-button router-link to='/adopt/post/list' variant="outline-primary">분양 게시판</b-button>
+        <b-button class="btn btn-primary custom-btn" router-link to='/finderboard' dark>발견인 게시판</b-button>
+        <b-button class="btn btn-primary custom-btn" router-link to='/ownerboard' variant="outline-primary">유기견주 게시판</b-button>
+        <b-button class="btn btn-primary custom-btn" router-link to='/finishboard' variant="outline-primary">반환완료 게시판</b-button>
+        <b-button class="btn btn-primary custom-btn" router-link to='/adopt/post/list' variant="outline-primary">분양 게시판</b-button>
       </b-button-group>
     </div>
     <!-- 검색 관련 div -->
@@ -169,3 +169,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.googleFont_board {
+    font-family: 'Jua', sans-serif;
+    /* color: #FA7268; */
+}
+</style>
