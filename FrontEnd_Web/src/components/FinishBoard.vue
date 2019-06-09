@@ -110,9 +110,13 @@ export default {
           console.log(res.data.finder)
           console.log(res.data.owner)
           
+          this.posts = res.data.finder
+          posts.append(res.data.owner)
+          console.log(this.posts)
           console.log(res.data.finder+res.data.owner)
           console.log("ZZZZ")
           this.posts = res.data
+          console.log(this.posts)
 
           // if (this.lat!=null && this.lng!=null){
           // this.$http.get("http://202.30.31.91:8000/api/ownerPosts/filter/with?key="+this.key+"&nickname="+this.nickname+"&lat=" + this.lat + "&lng=" + this.lng)
