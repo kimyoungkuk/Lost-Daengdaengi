@@ -108,7 +108,7 @@ urlpatterns = [
     path('master_adopt_post_update/<int:pk>',myApp.views.master_adopt_post_update, name = "master_adopt_post_update"),
     path('master_adopt_post_delete/<int:pk>',myApp.views.master_adopt_post_delete, name = "master_adopt_post_delete"),
     
-    path('api/poster_email/',myApp.views.poster_email, name = "poster_email"),
+    path('api/poster_email',myApp.views.poster_email, name = "poster_email"),
 
     path('api/myPosts/',myApp.views.my_post, name = "my_post"),    
 
