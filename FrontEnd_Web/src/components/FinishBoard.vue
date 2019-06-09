@@ -107,6 +107,11 @@ export default {
     this.$http.get('http://202.30.31.91:8000/api/finishPosts/list')
       .then(res => {
           console.log(res.data)
+          console.log(res.data.finder)
+          console.log(res.data.owner)
+          
+          console.log(res.data.finder+res.data.owner)
+          console.log("ZZZZ")
           this.posts = res.data
 
           // if (this.lat!=null && this.lng!=null){
