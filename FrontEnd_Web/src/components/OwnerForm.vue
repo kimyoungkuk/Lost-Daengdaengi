@@ -286,7 +286,7 @@ export default {
            }).then(res => {
                console.log(res.data)
                this.$store.state.posterid = res.data.posterid
-               this.$sotre.state.posterurl = res.data.posterurl
+               this.$store.state.posterurl = res.data.posterurl
                this.$router.push("/makeposter");
            })
         },
