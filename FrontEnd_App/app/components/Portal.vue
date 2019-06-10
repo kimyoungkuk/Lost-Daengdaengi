@@ -363,19 +363,19 @@ webview.android.getSettings().setBuiltInZoomControls(false);
                 });
             },
             viewAll_Owner(args){
-                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/ownerboard"+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/ownerboard"+ "?key=" + this.$store.state.user_key +"&nickname=" +this.$store.state.user_nickname;
                 this.$goto('Portal_to_Board');
             },
             viewAll_Finder(args){
-                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/finderboard"+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/finderboard"+ "?key=" + this.$store.state.user_key +"&nickname=" +this.$store.state.user_nickname;
                 this.$goto('Portal_to_Board');
             },
             viewAll_Adopt(args){
-                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/adopt/post/list"+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/adopt/post/list"+ "?key=" + this.$store.state.user_key +"&nickname=" +this.$store.state.user_nickname;
                 this.$goto('Portal_to_Board');
             },
             viewAll_Finish(args){
-                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/finishboard"+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/finishboard"+ "?key=" + this.$store.state.user_key +"&nickname=" +this.$store.state.user_nickname;
                 this.$goto('Portal_to_Board');
             },
             viewDetail_Owner(args){
@@ -395,7 +395,7 @@ webview.android.getSettings().setBuiltInZoomControls(false);
                         Pid_to = this.Owner_id[3];
                         break;            
                 }
-                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/ownerboard/view/"+Pid_to+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/ownerboard/view/"+Pid_to+ "?key=" + this.$store.state.user_key +"&nickname=" +this.$store.state.user_nickname;
                 this.$goto('Portal_to_Board');
             },
             viewDetail_Finder(args){
@@ -415,11 +415,11 @@ webview.android.getSettings().setBuiltInZoomControls(false);
                         Pid_to = this.Finder_id[3];
                         break;            
                 }
-                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/finderboard/view/"+Pid_to+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/finderboard/view/"+Pid_to+ "?key=" + this.$store.state.user_key +"&nickname=" +this.$store.state.user_nickname;
                 this.$goto('Portal_to_Board');
             },
             viewDetail_Finish(args){ 
-                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/finishboard"+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/finishboard"+ "?key=" + this.$store.state.user_key +"&nickname=" +this.$store.state.user_nickname;
                 this.$goto('Portal_to_Board');
             },
             viewDetail_Adopt(args){
@@ -439,7 +439,7 @@ webview.android.getSettings().setBuiltInZoomControls(false);
                         Pid_to = this.Adopt_id[3];
                         break;            
                 }
-                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/adopt/post/detail/"+Pid_to+ "?key=" + this.user_key +"&nickname=" +this.user_nickname;
+                this.$store.state.Redirect_URL = this.$store.state.API_WEBVIEW_URL + "/adopt/post/detail/"+Pid_to+ "?key=" + this.$store.state.user_key +"&nickname=" +this.$store.state.user_nickname;
                 this.$goto('Portal_to_Board');
             },
         }

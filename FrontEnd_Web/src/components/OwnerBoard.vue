@@ -1,12 +1,13 @@
 <template>
-<div>
+<div class="googleFont_board">
+  <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
     <div>
       <b-button-group>
-      <b-button router-link to='/finderboard' variant="outline-primary">발견인 게시판</b-button>
-      <b-button router-link to='/ownerboard' variant="outline-primary">유기견주 게시판</b-button>
-      <b-button router-link to='/finishboard' variant="outline-primary">반환완료 게시판</b-button>
-      <b-button router-link to='/adopt/post/list' variant="outline-primary">분양 게시판</b-button>
-    </b-button-group>
+        <b-button class="btn btn-primary custom-invert btn-size" router-link to='/finderboard'>발견인 게시판</b-button>
+        <b-button :pressed="true" class="btn btn-primary custom-invert btn-size" router-link to='/ownerboard'>유기견주 게시판</b-button>
+        <b-button class="btn btn-primary custom-invert btn-size" router-link to='/finishboard'>반환완료 게시판</b-button>
+        <b-button class="btn btn-primary custom-invert btn-size" router-link to='/adopt/post/list'>분양 게시판</b-button>
+      </b-button-group>
     </div>
     <div>
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -34,8 +35,8 @@
           :options="categories"
         ></b-form-select>
       </b-form-group>
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="submit" class="btn btn-primary custom-btn">Submit</b-button>
+      <b-button type="reset" class="btn btn-primary custom-invert">Reset</b-button>
     </b-form>
      </div>
      <div>
@@ -46,9 +47,6 @@
                 style="max-width: 30rem;"
                 img-top>
             <p class="card-text">
-                <strong>ID : </strong> {{post.id}}
-            </p>
-            <p class="card-text">
                 <strong>견종 : </strong>{{post.dog_type}}
             </p>
             <p class="card-text">
@@ -56,7 +54,7 @@
             </p>
             <div slot="footer">
                 <!-- <b-btn variant="primary" block>상세보기</b-btn> -->
-                <router-link :to="`/ownerboard/view/${post.id}`"><b-btn variant="primary" block>상세보기</b-btn></router-link>
+                <router-link :to="`/ownerboard/view/${post.id}`"><b-btn class="btn btn-primary custom-btn" block>상세보기</b-btn></router-link>
             </div>
         </b-card>
     </b-card-group>

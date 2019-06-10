@@ -32,9 +32,9 @@
                       </h3>
                       <div style="line-height:2em;">
                         <li>날&nbsp&nbsp짜 : {{this.form.lost_time}}</li>
-                        <li>성&nbsp&nbsp별 : {{this.form.dog_sex}}</li>
-                        <li v-if="this.form.dog_age==1">나&nbsp&nbsp이 : 암컷</li>
-                        <li v-if="this.form.dog_age==2">나&nbsp&nbsp이 : 수컷</li>
+                        <li >나&nbsp&nbsp이 : {{this.form.dog_age}}</li>
+                        <li v-if="this.form.dog_sex==1">성&nbsp&nbsp별 : 암컷</li>
+                        <li v-if="this.form.dog_sex==2">성&nbsp&nbsp별 : 수컷</li>
                         <li>특&nbsp&nbsp징 : {{this.form.dog_feature}}</li>
                         <li>닉네임 : {{this.form.user_nickname}}</li>
                         <li>연락처 : {{this.form.phone_num}}</li>
@@ -238,17 +238,14 @@ export default {
     },
     getBoardDetail() {
       this.$http
-        .get(
-          `http://202.30.31.91:8000/api/ownerPosts/detail/${
-            this.$route.params.id
-          }`
-        )
+        .get(`http://202.30.31.91:8000/api/ownerPosts/detail/${this.$route.params.id}`)
         .then(res => {
-          console.log(res.data.post[0]);
-          console.log(res.data.comments)
           this.form = res.data.post[0];
           this.comments = res.data.comments
+          console.log(11111111111111111);
+          console.log(this.$route.params.id);
           console.log(this.form);
+          console.log(this.comments);
           this.form.lost_time = this.$moment(this.form.lost_time).format(
             "LLLL"
           );
@@ -349,10 +346,9 @@ export default {
       })
       .then(res => {
         console.log(res.data);
-        console.log("QWEQWE");
+        this.getBoardDetail();
+        this.contents = "";
       });
-      this.contents = "";
-      this.getBoardDetail();
     },
     deleteComment(_id) {
       this.$http

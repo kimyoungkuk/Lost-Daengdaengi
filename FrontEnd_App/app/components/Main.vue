@@ -32,11 +32,10 @@
 </template>
 
 <script>
-import sideDrawer from '~/mixins/sideDrawer'
+
 import * as wViewModule from "ui/web-view";
 
   export default {
-    mixins: [ sideDrawer ],
     data() {
       return {
         loadingValue: 0,
