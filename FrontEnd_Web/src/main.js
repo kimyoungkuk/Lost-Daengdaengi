@@ -18,13 +18,13 @@ Vue.use(BootstrapVue)
 Vue.use(Router)
 Vue.config.productionTip = false
 
-
 const router = new Router({
   pageRouting: true,
   mode: 'history',
   scrollBehavior: () => ({y: 0}),
   routes
 })
+
 
 new Vue({
   store,

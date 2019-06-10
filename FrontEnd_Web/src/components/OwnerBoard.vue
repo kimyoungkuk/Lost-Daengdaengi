@@ -56,7 +56,7 @@
             <!-- {{post.imageurl}} -->
           </div>
           <div class="listContentRight">
-            <h3><b-badge variant="danger">실종</b-badge>&nbsp{{post.title}}</h3>
+            <h5><b-badge variant="danger">실종</b-badge>&nbsp{{post.title}}</h5>
             <h5><li>견종 : {{post.dog_type}}</li></h5>
             <h5><li>잃어버린 날짜 : {{$moment($moment(post.lost_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}</li></h5>
             <router-link :to="`/ownerboard/view/${post.id}`">

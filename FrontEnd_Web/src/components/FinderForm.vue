@@ -320,6 +320,8 @@ export default {
 .btn-primary.custom-btn {
 	background-color: #FA7268;
 	border-color: #FA7268;
+    /* padding: 0; */
+    min-width: 0;
 }
 
 </style>
