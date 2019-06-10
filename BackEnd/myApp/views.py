@@ -213,13 +213,15 @@ def owner_post_create(request):
         font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
         draw.text((15,435),"연락처 : "+str(post.phone_num),(255,255,255),font=font)
         font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
-        draw.text((15,470),"견종 : "+str(post.dog_type)+"    이름 : "+str(post.dog_name),(255,255,255),font=font)
+        draw.text((15,470),"견종 : "+str(post.dog_type),(255,255,255),font=font)
+        draw.text((220,470),"이름 : "+str(post.dog_name),(255,255,255),font=font)
         if post.dog_sex==1:
             dog_sex_temp="수컷"
         else:
             dog_sex_temp="암컷"
         
-        draw.text((15,490),"성별 : "+str(dog_sex_temp)+"    나이 : "+str(post.dog_age)+"살",(255,255,255),font=font)
+        draw.text((15,490),"성별 : "+str(dog_sex_temp),(255,255,255),font=font)
+        draw.text((220,490),"나이 : "+str(post.dog_age)+"살",(255,255,255),font=font)
         
         # lost_time_temp=datetime.datetime.strptime(post.lost_time,"%Y-%m-%d").date()
         draw.text((15,510),"실종시간 : "+str(post.lost_time[:10]),(255,255,255),font=font)
@@ -1008,21 +1010,24 @@ def poster_email(request):
     # draw.text((15,530),"특징 : 어쩌고저쩌고 블라블라~~",(255,255,255),font=font)
 
     # img.save("media/owner/6/poster.jpg")
+    serializer = PosterSerializer(data=request.data)
+    
+    if serializer.is_valid():
+        posterid = serializer.data['posterid']
+        email = serializer.data['email']
+        logging.error("ZZZ")
+        logging.error(email)
+        logging.error(posterid)
+        logging.error("XXX")
+        mail = EmailMessage("포스터 보내드립니다.", "포스터를 제작하여 보내드렸습니다.", to=[email])
+        fp = open('media/owner/'+str(posterid)+'/poster.jpg', 'rb')
+        file_data = fp.read()
+        mail.attach('media/owner/'+str(posterid)+'/poster.jpg',file_data,'image/jpeg')
 
-    posterid = request.POST.get('posterid')
-    email = request.POST.get('email')
-    logging.error("ZZZ")
-    logging.error(email)
-    logging.error(posterid)
-    logging.error("XXX")
-    mail = EmailMessage("포스터 보내드립니다.", "포스터를 제작하여 보내드렸습니다.", to=[email])
-    fp = open('media/owner/'+str(posterid)+'/poster.jpg', 'rb')
-    file_data = fp.read()
-    mail.attach('media/owner/'+str(posterid)+'/poster.jpg',file_data,'image/jpeg')
-
-    mail.send()
-    t="QWE"
-    return Response({'email':email,'posterid':posterid})
+        mail.send()
+        t="QWE"
+        return Response({'email':email,'posterid':posterid})
+    return Response(0)
 
 
 @api_view(['GET'])

@@ -3,10 +3,10 @@
     <!-- 발견인 게시판 & 유기견주 게시판 선택 버튼 -->
     <div>
       <b-button-group>
-        <b-button class="btn btn-primary custom-btn" router-link to='/finderboard' dark>발견인 게시판</b-button>
-        <b-button class="btn btn-primary custom-btn" router-link to='/ownerboard' variant="outline-primary">유기견주 게시판</b-button>
-        <b-button class="btn btn-primary custom-btn" router-link to='/finishboard' variant="outline-primary">반환완료 게시판</b-button>
-        <b-button class="btn btn-primary custom-btn" router-link to='/adopt/post/list' variant="outline-primary">분양 게시판</b-button>
+        <b-button :pressed="true" class="btn btn-primary custom-invert" router-link to='/finderboard'>발견인 게시판</b-button>
+        <b-button class="btn btn-primary custom-invert" router-link to='/ownerboard'>유기견주 게시판</b-button>
+        <b-button class="btn btn-primary custom-invert" router-link to='/finishboard'>반환완료 게시판</b-button>
+        <b-button class="btn btn-primary custom-invert" router-link to='/adopt/post/list'>분양 게시판</b-button>
       </b-button-group>
     </div>
     <!-- 검색 관련 div -->
@@ -37,8 +37,8 @@
           ></b-form-select>
         </b-form-group>
         <!-- 제출 및 리셋 버튼 -->
-        <b-button type="submit" variant="primary">Submit{{this.$store.state.user_key}}</b-button>
-        <b-button type="reset" variant="danger">Reset{{this.$store.state.user_nickname}}</b-button>
+        <b-button type="submit" class="btn btn-primary custom-btn">Submit</b-button>
+        <b-button type="reset" class="btn btn-primary custom-invert">Reset</b-button>
       </b-form>
     </div>
 
@@ -51,16 +51,13 @@
           style="max-width: 30rem;"
           img-top>
           <p class="card-text">
-            <strong>ID : </strong> {{post.id}}
-          </p>
-          <p class="card-text">
             <strong>견종 : </strong>{{post.dog_type}}
           </p>
           <p class="card-text">
             <strong>찾은 날짜 : </strong>{{$moment($moment(post.find_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}
           </p>
           <div slot="footer">
-            <router-link :to="`/finderboard/view/${post.id}`"><b-btn variant="primary" block>상세보기</b-btn></router-link>
+            <router-link :to="`/finderboard/view/${post.id}`"><b-btn class="btn btn-primary custom-btn" block>상세보기</b-btn></router-link>
           </div>
         </b-card>
       </b-card-group>
@@ -175,4 +172,22 @@ export default {
     font-family: 'Jua', sans-serif;
     /* color: #FA7268; */
 }
+
+.btn-primary.custom-invert {
+  background-color: white;
+  border-color: #FA7268;
+  color: #FA7268;
+}
+
+.btn-primary.custom-invert:active {
+  background-color: white;
+  border-color: #FA7268;
+  color: #FA7268;
+}
+
+/* .btn-primary.custom-invert:focus {
+  background-color: white;
+  border-color: #FA7268;
+  color: #FA7268;
+} */
 </style>
