@@ -59,7 +59,9 @@
           </div>
           <h6 slot="footer" v-for="item in comments" v-bind:key="item.id">
             <p class="comment_name">{{item.user_nickname}}</p>&emsp;
-            <p class="comment_date">{{item.commented_date}}</p>
+            <p class="comment_date float-right">{{$moment(item.commented_time).format(
+            "LLLL"
+          )}}</p>
             <div class="comment">
               <p class="comment">{{item.contents}}</p>
               <b-badge
@@ -109,7 +111,7 @@
           v-on:click="deleteBoard"
           variant="danger"
         >삭제</b-button>
-        <b-button
+        <b-button class="float-right"
           @click="$bvModal.hide('modal-delete')"
         >취소</b-button>
       </b-modal>
@@ -128,7 +130,7 @@
           v-on:click="finishBoard"
           variant="danger"
         >예</b-button>
-        <b-button
+        <b-button class="float-right"
           @click="$bvModal.hide('modal-finish')"
         >아니요</b-button>
       </b-modal>
@@ -201,7 +203,7 @@ export default {
             user_key: "",
             user_nickname: "",
             contents: "",
-            commented_date: new Date(),
+            commented_time: new Date(),
             commented_post_type: '',
             commented_post: Number,
           }
@@ -248,6 +250,7 @@ export default {
           console.log(res.data.comments)
           this.form = res.data.post[0];
           this.comments = res.data.comments
+          
           console.log(this.form);
           this.form.find_time = this.$moment(this.form.find_time).format(
             "LLLL"
