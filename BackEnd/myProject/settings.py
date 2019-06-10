@@ -143,8 +143,8 @@ EMAIL_HOST_USER = 'kyk1047715@gmail.com'
 EMAIL_HOST_PASSWORD = 'kyt631217'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Lost-Daengdaengi'
-
+DEFAULT_FROM_EMAIL = 'Lost-Daengdaengi<kyk1047715@gmail.com>'
+SERVER_EMAIL = 'Lost-Daengdaengi'
 
 # django-cors-headers
 CORS_ALLOW_CREDENTIALS = True
