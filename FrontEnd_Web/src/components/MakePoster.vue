@@ -16,9 +16,8 @@
      <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <b-form-group
         id="input-group-1"
-        label="Email address:"
         label-for="input-1"
-        description="We'll never share your email with anyone else."
+        description="포스터를 받으려면 이메일을 입력하세요."
       >
         <b-form-input
           id="input-1"
@@ -28,8 +27,8 @@
           placeholder="Enter email"
         ></b-form-input>
       </b-form-group>
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="submit" variant="primary">포스터받기</b-button>
+      <b-button type="reset" variant="danger">글만작성</b-button>
     </b-form>
     </div>
 </div>
@@ -47,9 +46,9 @@
     methods: {
       onSubmit(evt) {
         evt.preventDefault()
-                   this.$http.post('http://202.30.31.91:8000/api/poster_email/',{
-                       email : this.email,
-                       posterid: this.$store.state.posterid
+            this.$http.post('http://202.30.31.91:8000/api/poster_email',{
+                    email : this.email,
+                    posterid: this.$store.state.posterid
            }).then(res => {
                 console.log(res.data)
                 alert("제작된 전단지를 메일로 보냈습니다.")
