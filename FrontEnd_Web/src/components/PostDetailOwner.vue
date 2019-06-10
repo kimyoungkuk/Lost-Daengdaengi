@@ -44,7 +44,7 @@
                   </v-card-title>
                   <v-card-actions>
                     <v-btn class="btn btn-primary custom-btn" color="white" flat v-b-modal.modal-finish>반환 완료</v-btn>
-                    <v-btn class="btn btn-primary custom-btn" color="white" flat v-on:click="recommend">유기견 찾기</v-btn>
+                    <!-- <v-btn class="btn btn-primary custom-btn" color="white" flat v-on:click="recommend">유기견 찾기</v-btn> -->
                     <v-btn class="btn btn-primary custom-btn" color="white" flat v-b-modal.modal-report v-on:click="reportBoard">신고</v-btn>
                     <div class="detailDelete-icon" align="right">
                       <v-btn
