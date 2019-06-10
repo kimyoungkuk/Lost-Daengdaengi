@@ -344,9 +344,9 @@ export default {
       .then(res => {
         console.log(res.data);
         console.log("QWEQWE");
+        this.getBoardDetail();
+        this.contents = "";
       });
-      this.contents = "";
-      this.getBoardDetail();
     },
     deleteComment(_id) {
       this.$http
@@ -389,8 +389,6 @@ export default {
       })
       .then(res => {
         console.log(res.data);
-        console.log("ZXCZXC");
-
       });
       this.contents = "";
       this.getBoardDetail();
