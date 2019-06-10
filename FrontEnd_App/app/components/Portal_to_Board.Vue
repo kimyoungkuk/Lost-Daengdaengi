@@ -1,8 +1,8 @@
 <template>
     <Page @loaded="loaded" actionBarHidden="true">
-              <ScrollView>
+              <ScrollView @loaded="scrloaded">
                 <StackLayout>  
-                <WebView id="myWebView" row="0" :height="900" @loadFinished="completeLoading"  :src="this.src"/>
+                <WebView id="myWebView" @loadFinished="completeLoading"  :src="this.src"/>
                 <Progress row="1" color="#FA7268" v-show="loadingComplete" :value="loadingValue"/>
               </StackLayout>  
             </ScrollView>
@@ -22,9 +22,15 @@ var webViewModule = require('ui/web-view');
         user_nickname: this.$store.state.user_nickname,
         lat: this.$store.state.FinderPost.lat,
         lng: this.$store.state.FinderPost.lng,
+        height : "auto",
+        scrview : null
       }
     },
-    methods:{      
+    methods:{     
+      scrloaded(args){
+          this.scrview = args.object;
+          console.log(this.scrview.height)
+      }, 
       loaded(args) {
           const page = args.object;
           const webView = page.getViewById('myWebView')
@@ -32,9 +38,10 @@ var webViewModule = require('ui/web-view');
           webView.android.getSettings().setBuiltInZoomControls(false);
       },
       completeLoading(args){
+        this.src = args.object.src
         this.loadingComplete=false
- 
       },
+      
       OnInit() {
           this.src = this.$store.state.Redirect_URL
           console.log(this.src)
