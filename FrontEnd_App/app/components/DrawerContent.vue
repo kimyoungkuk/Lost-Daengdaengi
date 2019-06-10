@@ -37,7 +37,8 @@ export default {
       
       pages: [
         { name: '마이 페이지', component: this.$router.mypage },
-        { name: '내가쓴 게시물', component: this.$router.myPosts }
+        { name: '내가쓴 게시물', component: this.$router.myPosts },
+        { name: '닮은 강아지 찾기', component: this.$router.jamjam }
       ]
     }
   },
