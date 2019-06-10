@@ -28,8 +28,14 @@ var webViewModule = require('ui/web-view');
       loaded(args) {
           const page = args.object;
           const webView = page.getViewById('myWebView')
-          webView.android.getSettings().setDisplayZoomControls(false);
-          webView.android.getSettings().setBuiltInZoomControls(false);
+    webView.android.getSettings().setJavaScriptEnabled(true);
+    webView.android.getSettings().setDisplayZoomControls(false);
+    webView.android.getSettings().setBuiltInZoomControls(false);
+    webView.android.getSettings().setAllowFileAccessFromFileURLs(true);
+    webView.android.getSettings().setAllowUniversalAccessFromFileURLs(true);
+    webView.android.getSettings().setMediaPlaybackRequiresUserGesture(false);
+    webView.android.getSettings().setUseWideViewPort(true);
+    webView.android.getSettings().setDomStorageEnabled(true);
       },
       completeLoading(args){
         this.loadingComplete=false
