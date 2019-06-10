@@ -167,6 +167,34 @@
         <b-button class="mt-3 btn-primary" block @click="hideReportConfirmModal">확인</b-button>
       </b-modal>
 
+      <b-modal ref="delete-success-confirm-modal" hide-footer title="삭제 완료">
+        <div class="d-block text-center">
+          <h5>정상적으로 삭제되었습니다.</h5>
+        </div>
+        <b-button class="mt-3 btn-primary" block @click="hideDeleteSuccessConfirmModal">확인</b-button>
+      </b-modal>
+
+      <b-modal ref="delete-fail-confirm-modal" hide-footer title="삭제 권한 없음">
+        <div class="d-block text-center">
+          <h5>권한이 없습니다.</h5>
+        </div>
+        <b-button class="mt-3 btn-primary" block @click="hideDeleteFailConfirmModal">확인</b-button>
+      </b-modal>
+
+      <b-modal ref="finish-success-confirm-modal" hide-footer title="반환 처리 완료">
+        <div class="d-block text-center">
+          <h5>정상적으로 반환처리되었습니다.</h5>
+        </div>
+        <b-button class="mt-3 btn-primary" block @click="hideFinishSuccessConfirmModal">확인</b-button>
+      </b-modal>
+
+      <b-modal ref="finish-fail-confirm-modal" hide-footer title="반환처리 권한 없음">
+        <div class="d-block text-center">
+          <h5>권한이 없습니다.</h5>
+        </div>
+        <b-button class="mt-3 btn-primary" block @click="hideFinishFailConfirmModal">확인</b-button>
+      </b-modal>
+
     </v-flex>
   
 </template>
@@ -273,8 +301,8 @@ export default {
         .then(res => {
           const status = res.status;
           // if (status === 200) {
-            alert("정상적으로 삭제되었습니다.");
-            this.$router.push("/finderboard");
+            this.$bvModal.hide('modal-delete')
+            this.showDeleteSuccessConfirmModal()
           // } else if (status === 203) {
           //   alert("해당 권한이 존재하지 않습니다.");
           //   this.$router.push("/board");
@@ -285,8 +313,8 @@ export default {
         });
       }
       else{
-        alert("해당 권한이 존재하지 않습니다.");
-        this.$router.push("/finderboard");
+        this.$bvModal.hide('modal-delete')
+        this.showDeleteFailConfirmModal();
       }
     },
     finishBoard(){
@@ -297,15 +325,16 @@ export default {
         .post(`http://202.30.31.91:8000/api/finderPosts/finish/${this.$route.params.id}`)
         .then(res => {
           const status = res.status;
-            this.$router.push("/finderboard");
+            this.$bvModal.hide('modal-finish')
+            this.showFinishSuccessConfirmModal()
         })
         .catch(err => {
           alert(err);
         });
       }
       else{
-        alert("해당 권한이 존재하지 않습니다.");
-        this.$router.push("/finderboard");
+        this.$bvModal.hide('modal-finish')
+        this.showFinishFailConfirmModal();
       }
 
     },
@@ -445,6 +474,35 @@ export default {
     hideReportConfirmModal() {
       this.$refs['report-confirm-modal'].hide()
     },
+    showDeleteSuccessConfirmModal() {
+      this.$refs['delete-success-confirm-modal'].show()
+    },
+    hideDeleteSuccessConfirmModal() {
+      this.$refs['delete-success-confirm-modal'].hide()
+      
+      this.$router.push("/finderboard");
+    },
+    showDeleteFailConfirmModal() {
+      this.$refs['delete-fail-confirm-modal'].show()
+    },
+    hideDeleteFailConfirmModal() {
+      this.$refs['delete-fail-confirm-modal'].hide()
+    },
+    showFinishSuccessConfirmModal() {
+      this.$refs['finish-success-confirm-modal'].show()
+    },
+    hideFinishSuccessConfirmModal() {
+      this.$refs['finish-success-confirm-modal'].hide()
+      
+      this.$router.push("/finderboard");
+    },
+    showFinishFailConfirmModal() {
+      this.$refs['finish-fail-confirm-modal'].show()
+    },
+    hideFinishFailConfirmModal() {
+      this.$refs['finish-fail-confirm-modal'].hide()
+    },
+
   }
 };
 </script>
