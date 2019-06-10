@@ -164,6 +164,13 @@
           </b-form-group>
         </form>
       </b-modal>
+
+      <b-modal ref="report-confirm-modal" hide-footer title="신고 접수">
+        <div class="d-block text-center">
+          <h5>정상적으로 신고가 접수되었습니다.</h5>
+        </div>
+        <b-button class="mt-3 btn-primary" block @click="hideReportConfirmModal">확인</b-button>
+      </b-modal>
    
 
     </v-flex>
@@ -378,7 +385,7 @@ export default {
         reported_post: Number,
         reported_post_type: ""
       };
-      report.user_nickname = "ChanYoung"
+      report.user_nickname = this.$store.state.user_nickname
       report.report_contents = this.report_contents;
       report.reported_post = this.form.id;
       report.reported_post_type = "owner"
@@ -425,8 +432,15 @@ export default {
         this.$nextTick(() => {
           this.$refs.modal.hide()
           this.createReport()
+          this.showReportConfirmModal()
         })
-    }
+    },
+    showReportConfirmModal() {
+      this.$refs['report-confirm-modal'].show()
+    },
+    hideReportConfirmModal() {
+      this.$refs['report-confirm-modal'].hide()
+    },
 
     
   }

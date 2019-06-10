@@ -158,6 +158,12 @@
         </form>
       </b-modal>
 
+      <b-modal ref="report-confirm-modal" hide-footer title="신고 접수">
+        <div class="d-block text-center">
+          <h5>정상적으로 신고가 접수되었습니다.</h5>
+        </div>
+        <b-button class="mt-3 btn-primary" block @click="hideReportConfirmModal">확인</b-button>
+      </b-modal>
 
     </v-flex>
   
@@ -343,9 +349,8 @@ export default {
       })
       .then(res => {
         console.log(res.data);
-        console.log("QWEQWE");
-        this.getBoardDetail();
         this.contents = "";
+        this.getBoardDetail();
       });
     },
     deleteComment(_id) {
@@ -376,10 +381,10 @@ export default {
         reported_post: Number,
         reported_post_type: ""
       };
-      report.user_nickname = "ChanYoung"
+      report.user_nickname = this.$store.state.user_nickname
       report.report_contents = this.report_contents;
       report.reported_post = this.form.id;
-      report.reported_post_type = "owner"
+      report.reported_post_type = "finder"
       // this.$http.post(`http://202.30.31.91:8000/api/reports/create`, {
       axios.post(`http://202.30.31.91:8000/api/reports/create`, {
       user_nickname : report.user_nickname,
@@ -389,6 +394,8 @@ export default {
       })
       .then(res => {
         console.log(res.data);
+        console.log("ZXCZXC");
+
       });
       this.contents = "";
       this.getBoardDetail();
@@ -421,13 +428,20 @@ export default {
         this.$nextTick(() => {
           this.$refs.modal.hide()
           this.createReport()
+          this.showReportConfirmModal()
         })
     },
     hd(){
       this.$nextTick(() => {
         this.$refs.modal.hide()
       })
-    }
+    },
+    showReportConfirmModal() {
+      this.$refs['report-confirm-modal'].show()
+    },
+    hideReportConfirmModal() {
+      this.$refs['report-confirm-modal'].hide()
+    },
   }
 };
 </script>
