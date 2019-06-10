@@ -2,11 +2,9 @@
     <Page @loaded="loaded" actionBarHidden="true">
               <ScrollView @loaded="scrloaded">
                 <StackLayout>  
-<<<<<<< HEAD
-                <WebView id="myWebView" @loadFinished="completeLoading"  :src="this.src"/>
-=======
-                <WebView id="myWebView" row="0" @loadFinished="completeLoading"  :src="this.src"/>
->>>>>>> b9aba0757cef797ce5d79d6a92ee6b251753b589
+
+                <WebView  id="myWebView" @loadFinished="completeLoading"  :src="this.src"/>
+
                 <Progress row="1" color="#FA7268" v-show="loadingComplete" :value="loadingValue"/>
               </StackLayout>  
             </ScrollView>
