@@ -49,16 +49,16 @@
     </div>
 
     <div>
-      <b-list-group deck deck v-for="row in formattedPosts">
+      <b-list-group deck>
         <b-list-group-item
         class="listBoardStyle"
-        v-for="post in row">
+        v-for="post in filteredPosts">
           <div class="listContentLeft">
             <img class="listImage" v-bind:src="post.imageurl" alt="alt 텍스트">
             <!-- {{post.imageurl}} -->
           </div>
           <div class="listContentRight">
-            <h3><b-badge variant="primary">발견</b-badge>&nbsp{{post.title}}</h3>
+            <h5><b-badge variant="primary">발견</b-badge>&nbsp{{post.title}}</h5>
             <h5><li>견종 : {{post.dog_type}}</li></h5>
             <h5><li>발견 날짜 : {{$moment($moment(post.find_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}</li></h5>
             <router-link :to="`/finderboard/view/${post.id}`">
@@ -68,6 +68,13 @@
         </b-list-group-item>
       </b-list-group>
     </div>
+          <div class="text-xs-center">
+    <v-pagination
+      v-model="page"
+      :length="this.len"
+      :total-visible="5"
+    ></v-pagination>
+  </div>
   </div>
 </template>
 
@@ -83,11 +90,14 @@ export default {
   // API (/api/ownerPosts/list)
   data: function () {
     return {
+      page: 1,
       key : '',
       nickname : '',
       lat : 0,
       lng : 0,
+      len : 0,
       posts: [{title:'', dog_type:'', find_time:'', imageurl:''}],
+      filteredPosts: [],
       form: {
           starttime: null,
           finaltime: null,
@@ -99,11 +109,7 @@ export default {
     }
   },
   created(){
-    console.log("TTT")
     let urlParams = new URLSearchParams(window.location.search);
-    console.log(urlParams.get('key'))
-    console.log(urlParams.get('nickname'))
-    console.log("TTT")
     if(this.$store.state.user_nickname=="Guest"){
       this.$store.state.user_key = urlParams.get('key');
       this.$store.state.user_nickname = urlParams.get('nickname');
@@ -111,13 +117,17 @@ export default {
     this.key = this.$store.state.user_key
     this.lat = urlParams.get('lat');
     this.lng = urlParams.get('lng');
-    console.log(this.lat)
-    console.log(this.lng)
+
     this.$http.get('http://202.30.31.91:8000/api/finderPosts/list')
       .then(res => {
           console.log(res.data)
           this.posts = res.data
-            
+          this.fetchData()
+          this.len = this.posts.length / 5 
+          if(this.posts.length % 5 >= 1){
+            this.len += 1
+          }
+          this.len = Math.floor(this.len)
           if (this.lat!=null && this.lng!=null){
             this.$http.get("http://202.30.31.91:8000/api/finderPosts/filter/with?key="+this.key+"&nickname="+this.nickname+"&lat=" + this.lat + "&lng=" + this.lng)
               .then(res => {
@@ -128,18 +138,10 @@ export default {
           
       })
   },
-  computed: {
-            formattedPosts() {
-          return this.posts.reduce((c, n, i) => {
-              if (i % 4 === 0) c.push([]);
-              c[c.length - 1].push(n);
-              return c;
-          }, []);
-      },
-
-      
-  },
   methods: {
+    fetchData () {
+      this.filteredPosts = this.posts.slice((this.page - 1) * 5, (this.page) * 5)
+    },
     onSubmit(evt) {
       evt.preventDefault()
       this.$http.post('http://202.30.31.91:8000/api/finderPosts/filter', {
@@ -147,8 +149,6 @@ export default {
         finaltime : this.form.finaltime,
         category : this.form.category,
         value : this.form.value
-        // category : this.form.category,
-        // value : this.form.value
       }).then(res => {
         console.log(res.data)
         this.posts = res.data
@@ -168,6 +168,11 @@ export default {
       this.$nextTick(() => {
         this.show = true
       })
+    },
+  },
+  watch: {
+    page: function () {
+      this.fetchData()
     },
   }
 }

@@ -10,10 +10,10 @@
     </b-button-group>
     </div>
      <div>
-    <b-card-group deck deck v-for="row in formattedPosts">
-        <b-card  v-for="post in row"
+    <b-card-group deck>
+        <b-card v-for="post in filteredPosts"
                 :title="post.title"
-                :img-src=post.imageurl
+                :img-src="post.imageurl"
                 style="max-width: 30rem;"
                 img-top>
             <p class="card-text">
@@ -26,6 +26,13 @@
         </b-card>
     </b-card-group>
     </div>
+           <div class="text-xs-center">
+    <v-pagination
+      v-model="page"
+      :length="this.len"
+      :total-visible="5"
+    ></v-pagination>
+  </div>
     </div>
 </template>
 
@@ -38,10 +45,13 @@ export default {
   // finder 게시글 제목(title), 견종(dog_type) , 잃어버린 날짜(lost_time), imgsrc(imageurl)
   data: function () {
     return {
+      page : 1,
+      filteredPosts: [],
       key : this.$store.state.user_key,
       nickname : this.$store.state.user_nickname,
       lat : 0,
       lng : 0,
+      len : 0,
       posts: [{title:'', dog_type:'', lost_time:'', imageurl:''}],
       form: {
           starttime: null,
@@ -55,8 +65,6 @@ export default {
   },
   created(){
     let urlParams = new URLSearchParams(window.location.search);
-    console.log(urlParams.get('key'))
-    console.log(urlParams.get('nickname'))
     if(this.$store.state.user_nickname=="Guest"){
       this.$store.state.user_key = urlParams.get('key');
       this.$store.state.user_nickname = urlParams.get('nickname');
@@ -64,26 +72,22 @@ export default {
     this.key = this.$store.state.user_key
     this.lat = urlParams.get('lat');
     this.lng = urlParams.get('lng');
-    console.log(this.lat)
-    console.log(this.lng)
     this.$http.get('http://202.30.31.91:8000/api/finishPosts/list')
       .then(res => {
+        this.posts = res.data;
+        this.fetchData()
+           this.len = this.posts.length / 5 
+          if(this.posts.length % 5 >= 1){
+            this.len += 1
+          }
+          this.len = Math.floor(this.len)
           console.log(res.data)
-          this.posts = res.data;
       })
     },
-  computed: {
-            formattedPosts() {
-          return this.posts.reduce((c, n, i) => {
-              if (i % 4 === 0) c.push([]);
-              c[c.length - 1].push(n);
-              return c;
-          }, []);
-      },
-
-      
-  },
   methods:{
+      fetchData () {
+      this.filteredPosts = this.posts.slice((this.page - 1) * 5, (this.page) * 5)
+    },
     onSubmit(evt) {
       evt.preventDefault()
       this.$http.post('http://202.30.31.91:8000/api/ownerPosts/filter', {
@@ -112,6 +116,10 @@ export default {
       })
     },
   },
-
+  watch: {
+    page: function () {
+      this.fetchData()
+    },
+  }
 }
 </script>
