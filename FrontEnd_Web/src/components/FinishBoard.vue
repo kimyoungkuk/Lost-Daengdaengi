@@ -1,11 +1,12 @@
 <template>
 <div class="googleFont_board">
+  <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
   <div>
     <b-button-group>
-        <b-button class="btn btn-primary custom-invert" router-link to='/finderboard'>발견인 게시판</b-button>
-        <b-button class="btn btn-primary custom-invert" router-link to='/ownerboard'>유기견주 게시판</b-button>
-        <b-button :pressed="true" class="btn btn-primary custom-invert" router-link to='/finishboard'>반환완료 게시판</b-button>
-        <b-button class="btn btn-primary custom-invert" router-link to='/adopt/post/list'>분양 게시판</b-button>
+        <b-button class="btn btn-primary custom-invert btn-size" router-link to='/finderboard'>발견인 게시판</b-button>
+        <b-button class="btn btn-primary custom-invert btn-size" router-link to='/ownerboard'>유기견주 게시판</b-button>
+        <b-button :pressed="true" class="btn btn-primary custom-invert btn-size" router-link to='/finishboard'>반환완료 게시판</b-button>
+        <b-button class="btn btn-primary custom-invert btn-size" router-link to='/adopt/post/list'>분양 게시판</b-button>
     </b-button-group>
     </div>
      <div>

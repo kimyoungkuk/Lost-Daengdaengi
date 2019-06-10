@@ -1,12 +1,13 @@
 <template>
   <div class="googleFont_board">
+    <link href="https://fonts.googleapis.com/css?family=Jua&display=swap&subset=korean" rel="stylesheet">
     <!-- 발견인 게시판 & 유기견주 게시판 선택 버튼 -->
     <div>
       <b-button-group>
-        <b-button :pressed="true" class="btn btn-primary custom-invert" router-link to='/finderboard'>발견인 게시판</b-button>
-        <b-button class="btn btn-primary custom-invert" router-link to='/ownerboard'>유기견주 게시판</b-button>
-        <b-button class="btn btn-primary custom-invert" router-link to='/finishboard'>반환완료 게시판</b-button>
-        <b-button class="btn btn-primary custom-invert" router-link to='/adopt/post/list'>분양 게시판</b-button>
+        <b-button :pressed="true" class="btn btn-primary custom-invert btn-size" router-link to='/finderboard'>발견인 게시판</b-button>
+        <b-button class="btn btn-primary custom-invert btn-size" router-link to='/ownerboard'>유기견주 게시판</b-button>
+        <b-button class="btn btn-primary custom-invert btn-size" router-link to='/finishboard'>반환완료 게시판</b-button>
+        <b-button class="btn btn-primary custom-invert btn-size" router-link to='/adopt/post/list'>분양 게시판</b-button>
       </b-button-group>
     </div>
     <!-- 검색 관련 div -->
@@ -177,6 +178,10 @@ export default {
   background-color: white;
   border-color: #FA7268;
   color: #FA7268;
+}
+
+.btn-primary.custom-invert.btn-size {
+  font-size: 12px;
 }
 
 .btn-primary.custom-invert:active {
