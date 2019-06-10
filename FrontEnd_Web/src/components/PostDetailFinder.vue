@@ -97,7 +97,7 @@
         </b-form>
       </v-flex>
 
-      <b-modal
+      <!-- <b-modal
         id="modal-delete"
         ref="modal"
         title="정말로 삭제하실건가요?"
@@ -193,7 +193,7 @@
           <h5>권한이 없습니다.</h5>
         </div>
         <b-button class="mt-3 btn-primary" block @click="hideFinishFailConfirmModal">확인</b-button>
-      </b-modal>
+      </b-modal> -->
 
     </v-flex>
   
