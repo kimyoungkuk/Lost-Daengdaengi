@@ -57,8 +57,6 @@
           class="pt-2"
           :options="[{text:'수컷', value:1}, {text:'암컷', value:2}]"
         >
-          <b-form-radio value=1>수컷</b-form-radio>
-          <b-form-radio value=2>암컷</b-form-radio>
         </b-form-radio-group>
       </b-form-group>
 
