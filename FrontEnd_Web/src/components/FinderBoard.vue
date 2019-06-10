@@ -49,24 +49,24 @@
     </div>
 
     <div>
-      <b-card-group deck deck v-for="row in formattedPosts">
-        <b-card 
-          v-for="post in row"
-          :title="post.title"
-          :img-src="post.imageurl"
-          style="max-width: 30rem;"
-          img-top>
-          <p class="card-text">
-            <strong>견종 : </strong>{{post.dog_type}}
-          </p>
-          <p class="card-text">
-            <strong>찾은 날짜 : </strong>{{$moment($moment(post.find_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}
-          </p>
-          <div slot="footer">
-            <router-link :to="`/finderboard/view/${post.id}`"><b-btn class="btn btn-primary custom-btn" block>상세보기</b-btn></router-link>
+      <b-list-group deck deck v-for="row in formattedPosts">
+        <b-list-group-item
+        class="listBoardStyle"
+        v-for="post in row">
+          <div class="listContentLeft">
+            <img class="listImage" v-bind:src="post.imageurl" alt="alt 텍스트">
+            <!-- {{post.imageurl}} -->
           </div>
-        </b-card>
-      </b-card-group>
+          <div class="listContentRight">
+            <h3><b-badge variant="primary">발견</b-badge>&nbsp{{post.title}}</h3>
+            <h5><li>견종 : {{post.dog_type}}</li></h5>
+            <h5><li>발견 날짜 : {{$moment($moment(post.find_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}</li></h5>
+            <router-link :to="`/finderboard/view/${post.id}`">
+              <b-button class="btn btn-primary custom-list">상세보기</b-button>
+            </router-link>
+          </div>
+        </b-list-group-item>
+      </b-list-group>
     </div>
   </div>
 </template>

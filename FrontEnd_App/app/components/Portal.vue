@@ -15,7 +15,6 @@
 
         <GridLayout orientation="vertical" width="100%" height="100%" columns="*"
             rows="*,auto" >
-          
             <StackLayout col="0" row="0" backgroundColor="#ffffff">
                   <Webview src="http://202.30.31.91/aboutus" id="myWebView" height="auto"/>
                     <Button class="font-weight-bold fas fa-search-location"

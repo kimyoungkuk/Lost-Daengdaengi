@@ -45,25 +45,26 @@
         <b-button type="reset" class="btn btn-primary custom-invert">Reset</b-button>
       </b-form>
     </div>
-     <div>
-    <b-card-group deck deck v-for="row in formattedPosts">
-        <b-card  v-for="post in row"
-                :title="post.title"
-                :img-src=post.imageurl
-                style="max-width: 30rem;"
-                img-top>
-            <p class="card-text">
-                <strong>견종 : </strong>{{post.dog_type}}
-            </p>
-            <p class="card-text">
-              <strong>잃어버린 날짜 : </strong>{{$moment($moment(post.lost_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}
-            </p>
-            <div slot="footer">
-                <!-- <b-btn variant="primary" block>상세보기</b-btn> -->
-                <router-link :to="`/ownerboard/view/${post.id}`"><b-btn class="btn btn-primary custom-btn" block>상세보기</b-btn></router-link>
-            </div>
-        </b-card>
-    </b-card-group>
+    
+    <div>
+      <b-list-group deck deck v-for="row in formattedPosts">
+        <b-list-group-item
+        class="listBoardStyle"
+        v-for="post in row">
+          <div class="listContentLeft">
+            <img class="listImage" v-bind:src="post.imageurl" alt="alt 텍스트">
+            <!-- {{post.imageurl}} -->
+          </div>
+          <div class="listContentRight">
+            <h3><b-badge variant="danger">실종</b-badge>&nbsp{{post.title}}</h3>
+            <h5><li>견종 : {{post.dog_type}}</li></h5>
+            <h5><li>잃어버린 날짜 : {{$moment($moment(post.lost_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}</li></h5>
+            <router-link :to="`/ownerboard/view/${post.id}`">
+              <b-button class="btn btn-primary custom-list">상세보기</b-button>
+            </router-link>
+          </div>
+        </b-list-group-item>
+      </b-list-group>
     </div>
     </div>
 </template>
@@ -77,6 +78,7 @@ export default {
   // finder 게시글 제목(title), 견종(dog_type) , 잃어버린 날짜(lost_time), imgsrc(imageurl)
   data: function () {
     return {
+      tmpurl:'http://202.30.31.91:8000/media/owner/37/profile.jpg',
       key : this.$store.state.user_key,
       nickname : this.$store.state.user_nickname,
       lat : 0,
@@ -161,6 +163,42 @@ export default {
       })
     },
   },
-
 }
 </script>
+
+<style>
+.listBoardStyle {
+    height: 150px;
+}
+
+.listContentLeft {
+  /* border:1px solid gold; */
+  float:left;
+  width:30%;
+  height:100%;
+}
+
+.listContentRight {
+  /* border:1px solid gold; */
+  float:left;
+  width:70%;
+  height:100%;
+  text-align: left;
+}
+
+.listImage {
+  position: absolute;
+  top:0;
+  left:0;
+  width:30%;
+  height:100%;
+}
+
+.btn-primary.custom-list {
+  background-color: #FA7268;
+  border-color: #FA7268;
+  color: white;
+  width: 100%;
+}
+
+</style>

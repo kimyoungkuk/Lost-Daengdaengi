@@ -2,7 +2,7 @@
     <Page @loaded="loaded" actionBarHidden="true">
               <ScrollView>
                 <StackLayout>  
-                <WebView id="myWebView" row="0" :height="900" @loadFinished="completeLoading"  :src="this.src"/>
+                <WebView id="myWebView" row="0" @loadFinished="completeLoading"  :src="this.src"/>
                 <Progress row="1" color="#FA7268" v-show="loadingComplete" :value="loadingValue"/>
               </StackLayout>  
             </ScrollView>
@@ -28,8 +28,14 @@ var webViewModule = require('ui/web-view');
       loaded(args) {
           const page = args.object;
           const webView = page.getViewById('myWebView')
-          webView.android.getSettings().setDisplayZoomControls(false);
-          webView.android.getSettings().setBuiltInZoomControls(false);
+    webView.android.getSettings().setJavaScriptEnabled(true);
+    webView.android.getSettings().setDisplayZoomControls(false);
+    webView.android.getSettings().setBuiltInZoomControls(false);
+    webView.android.getSettings().setAllowFileAccessFromFileURLs(true);
+    webView.android.getSettings().setAllowUniversalAccessFromFileURLs(true);
+    webView.android.getSettings().setMediaPlaybackRequiresUserGesture(false);
+    webView.android.getSettings().setUseWideViewPort(true);
+    webView.android.getSettings().setDomStorageEnabled(true);
       },
       completeLoading(args){
         this.loadingComplete=false

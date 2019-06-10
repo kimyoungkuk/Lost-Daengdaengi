@@ -30,7 +30,6 @@
                 saveToGallery: false,
                 allowsEditing: false,
                 keepAspectRatio: false,
-
                 width: 224,
                 height: 224,
                 cameraImage: "~/assets/images/DaengDaengi.png",
