@@ -22,7 +22,7 @@
             <!-- {{post.imageurl}} -->
           </div>
           <div class="listContentRight">
-            <h3><b-badge variant="info">분양</b-badge>&nbsp{{post.title}}</h3>
+            <h5><b-badge variant="info">분양</b-badge>&nbsp{{post.title}}</h5>
             <h5><li>견종 : {{post.dog_type}}</li></h5>
             <h5><li>게시 날짜 : {{$moment($moment(post.posted_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}</li></h5>
             <router-link :to="`/adopt/post/detail/${post.id}`">
