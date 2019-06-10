@@ -55,8 +55,9 @@
           id="dog-sex"
           v-model="dog_sex"
           class="pt-2"
-          :options="['수컷', '암컷']"
-        ></b-form-radio-group>
+          :options="[{text:'수컷', value:1}, {text:'암컷', value:2}]"
+        >
+        </b-form-radio-group>
       </b-form-group>
 
       <b-form-group

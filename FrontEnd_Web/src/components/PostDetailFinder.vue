@@ -39,9 +39,9 @@
                     </div>
                   </v-card-title>
                   <v-card-actions>
-                    <v-btn class="btn btn-primary custom-btn" color="white" flat v-b-modal.modal-finish>반환 완료</v-btn>
-                    <v-btn class="btn btn-primary custom-btn" color="white" flat v-on:click="recommend">유기견 찾기</v-btn>
-                    <v-btn class="btn btn-primary custom-btn" color="white" flat v-b-modal.modal-report v-on:click="reportBoard">신고</v-btn>
+                    <v-btn class="btn btn-primary custom-btn" small="true" color="white" flat v-b-modal.modal-finish>반환 완료</v-btn>
+                    <v-btn class="btn btn-primary custom-btn" small="true" color="white" flat v-on:click="recommend">유기견 찾기</v-btn>
+                    <v-btn class="btn btn-primary custom-btn" small="true" color="white" flat v-b-modal.modal-report v-on:click="reportBoard">신고</v-btn>
                     <div class="detailDelete-icon" align="right">
                       <v-btn
                       small
@@ -59,7 +59,9 @@
           </div>
           <h6 slot="footer" v-for="item in comments" v-bind:key="item.id">
             <p class="comment_name">{{item.user_nickname}}</p>&emsp;
-            <p class="comment_date">{{item.commented_date}}</p>
+            <p class="comment_date float-right">{{$moment(item.commented_time).format(
+            "LLLL"
+          )}}</p>
             <div class="comment">
               <p class="comment">{{item.contents}}</p>
               <b-badge
@@ -109,7 +111,7 @@
           v-on:click="deleteBoard"
           variant="danger"
         >삭제</b-button>
-        <b-button
+        <b-button class="float-right"
           @click="$bvModal.hide('modal-delete')"
         >취소</b-button>
       </b-modal>
@@ -128,7 +130,7 @@
           v-on:click="finishBoard"
           variant="danger"
         >예</b-button>
-        <b-button
+        <b-button class="float-right"
           @click="$bvModal.hide('modal-finish')"
         >아니요</b-button>
       </b-modal>
@@ -158,6 +160,40 @@
         </form>
       </b-modal>
 
+      <b-modal ref="report-confirm-modal" hide-footer title="신고 접수">
+        <div class="d-block text-center">
+          <h5>정상적으로 신고가 접수되었습니다.</h5>
+        </div>
+        <b-button class="mt-3 btn-primary" block @click="hideReportConfirmModal">확인</b-button>
+      </b-modal>
+
+      <b-modal ref="delete-success-confirm-modal" hide-footer title="삭제 완료">
+        <div class="d-block text-center">
+          <h5>정상적으로 삭제되었습니다.</h5>
+        </div>
+        <b-button class="mt-3 btn-primary" block @click="hideDeleteSuccessConfirmModal">확인</b-button>
+      </b-modal>
+
+      <b-modal ref="delete-fail-confirm-modal" hide-footer title="삭제 권한 없음">
+        <div class="d-block text-center">
+          <h5>권한이 없습니다.</h5>
+        </div>
+        <b-button class="mt-3 btn-primary" block @click="hideDeleteFailConfirmModal">확인</b-button>
+      </b-modal>
+
+      <b-modal ref="finish-success-confirm-modal" hide-footer title="반환 처리 완료">
+        <div class="d-block text-center">
+          <h5>정상적으로 반환처리되었습니다.</h5>
+        </div>
+        <b-button class="mt-3 btn-primary" block @click="hideFinishSuccessConfirmModal">확인</b-button>
+      </b-modal>
+
+      <b-modal ref="finish-fail-confirm-modal" hide-footer title="반환처리 권한 없음">
+        <div class="d-block text-center">
+          <h5>권한이 없습니다.</h5>
+        </div>
+        <b-button class="mt-3 btn-primary" block @click="hideFinishFailConfirmModal">확인</b-button>
+      </b-modal>
 
     </v-flex>
   
@@ -195,7 +231,7 @@ export default {
             user_key: "",
             user_nickname: "",
             contents: "",
-            commented_date: new Date(),
+            commented_time: new Date(),
             commented_post_type: '',
             commented_post: Number,
           }
@@ -242,6 +278,7 @@ export default {
           console.log(res.data.comments)
           this.form = res.data.post[0];
           this.comments = res.data.comments
+          
           console.log(this.form);
           this.form.find_time = this.$moment(this.form.find_time).format(
             "LLLL"
@@ -264,8 +301,8 @@ export default {
         .then(res => {
           const status = res.status;
           // if (status === 200) {
-            alert("정상적으로 삭제되었습니다.");
-            this.$router.push("/finderboard");
+            this.$bvModal.hide('modal-delete')
+            this.showDeleteSuccessConfirmModal()
           // } else if (status === 203) {
           //   alert("해당 권한이 존재하지 않습니다.");
           //   this.$router.push("/board");
@@ -276,8 +313,8 @@ export default {
         });
       }
       else{
-        alert("해당 권한이 존재하지 않습니다.");
-        this.$router.push("/finderboard");
+        this.$bvModal.hide('modal-delete')
+        this.showDeleteFailConfirmModal();
       }
     },
     finishBoard(){
@@ -288,15 +325,16 @@ export default {
         .post(`http://202.30.31.91:8000/api/finderPosts/finish/${this.$route.params.id}`)
         .then(res => {
           const status = res.status;
-            this.$router.push("/finderboard");
+            this.$bvModal.hide('modal-finish')
+            this.showFinishSuccessConfirmModal()
         })
         .catch(err => {
           alert(err);
         });
       }
       else{
-        alert("해당 권한이 존재하지 않습니다.");
-        this.$router.push("/finderboard");
+        this.$bvModal.hide('modal-finish')
+        this.showFinishFailConfirmModal();
       }
 
     },
@@ -343,10 +381,9 @@ export default {
       })
       .then(res => {
         console.log(res.data);
-        console.log("QWEQWE");
+        this.contents = "";
+        this.getBoardDetail();
       });
-      this.contents = "";
-      this.getBoardDetail();
     },
     deleteComment(_id) {
       this.$http
@@ -376,10 +413,10 @@ export default {
         reported_post: Number,
         reported_post_type: ""
       };
-      report.user_nickname = "ChanYoung"
+      report.user_nickname = this.$store.state.user_nickname
       report.report_contents = this.report_contents;
       report.reported_post = this.form.id;
-      report.reported_post_type = "owner"
+      report.reported_post_type = "finder"
       // this.$http.post(`http://202.30.31.91:8000/api/reports/create`, {
       axios.post(`http://202.30.31.91:8000/api/reports/create`, {
       user_nickname : report.user_nickname,
@@ -423,13 +460,49 @@ export default {
         this.$nextTick(() => {
           this.$refs.modal.hide()
           this.createReport()
+          this.showReportConfirmModal()
         })
     },
     hd(){
       this.$nextTick(() => {
         this.$refs.modal.hide()
       })
-    }
+    },
+    showReportConfirmModal() {
+      this.$refs['report-confirm-modal'].show()
+    },
+    hideReportConfirmModal() {
+      this.$refs['report-confirm-modal'].hide()
+    },
+    showDeleteSuccessConfirmModal() {
+      this.$refs['delete-success-confirm-modal'].show()
+    },
+    hideDeleteSuccessConfirmModal() {
+      this.$refs['delete-success-confirm-modal'].hide()
+      
+      this.$router.push("/finderboard");
+    },
+    showDeleteFailConfirmModal() {
+      this.$refs['delete-fail-confirm-modal'].show()
+    },
+    hideDeleteFailConfirmModal() {
+      this.$refs['delete-fail-confirm-modal'].hide()
+    },
+    showFinishSuccessConfirmModal() {
+      this.$refs['finish-success-confirm-modal'].show()
+    },
+    hideFinishSuccessConfirmModal() {
+      this.$refs['finish-success-confirm-modal'].hide()
+      
+      this.$router.push("/finderboard");
+    },
+    showFinishFailConfirmModal() {
+      this.$refs['finish-fail-confirm-modal'].show()
+    },
+    hideFinishFailConfirmModal() {
+      this.$refs['finish-fail-confirm-modal'].hide()
+    },
+
   }
 };
 </script>
@@ -555,5 +628,13 @@ div.report_submit {
 
 .detailDelete-icon {
   flex: 1;
+}
+
+.detail-btn-left {
+
+}
+
+.detail-btn-right {
+  
 }
 </style>
