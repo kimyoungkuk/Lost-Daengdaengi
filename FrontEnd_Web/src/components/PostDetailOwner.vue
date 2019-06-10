@@ -385,7 +385,7 @@ export default {
         reported_post: Number,
         reported_post_type: ""
       };
-      report.user_nickname = "ChanYoung"
+      report.user_nickname = this.$store.state.user_nickname
       report.report_contents = this.report_contents;
       report.reported_post = this.form.id;
       report.reported_post_type = "owner"

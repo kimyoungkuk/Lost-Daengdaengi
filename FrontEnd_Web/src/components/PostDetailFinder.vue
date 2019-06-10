@@ -382,10 +382,10 @@ export default {
         reported_post: Number,
         reported_post_type: ""
       };
-      report.user_nickname = "ChanYoung"
+      report.user_nickname = this.$store.state.user_nickname
       report.report_contents = this.report_contents;
       report.reported_post = this.form.id;
-      report.reported_post_type = "owner"
+      report.reported_post_type = "finder"
       // this.$http.post(`http://202.30.31.91:8000/api/reports/create`, {
       axios.post(`http://202.30.31.91:8000/api/reports/create`, {
       user_nickname : report.user_nickname,
