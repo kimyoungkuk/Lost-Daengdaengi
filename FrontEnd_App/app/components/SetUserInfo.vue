@@ -40,7 +40,7 @@ export default {
                         // console.log(result.text)
                         this.$store.state.user_nickname = response.data.nickname
                         console.log(result.text)
-                        this.$goto('map')
+                        this.$goto('portal')
                       }
                       else if(response.data.state == '1'){
                         //같은 닉네임의 유저가 이미 있을때

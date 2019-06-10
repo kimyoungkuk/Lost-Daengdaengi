@@ -194,7 +194,6 @@
         </div>
         <b-button class="mt-3 btn-primary" block @click="hideFinishFailConfirmModal">확인</b-button>
       </b-modal>
-
     </v-flex>
   
 </template>
