@@ -14,31 +14,36 @@
     <div>
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
         <!-- 검색 시작시간 입력 -->
-        <b-form-group id="input-group-1" label="검색 시작시간" label-for="input-1">
-          <datepicker id="input-1" placeholder="검색을 시작할 기간을 입력하세요" v-model="form.starttime"></datepicker>
-        </b-form-group>
+        <div><h3 style="color:#FA7268; margin-top:2%;">Lost Daengdaengi</h3></div>
+        <div><h4>검색</h4></div>
+        <div style="float:left; width:50%;">
+          <i class="material-icons">event</i>
+          <b-form-group id="input-group-1" label="검색 시작시간" label-for="input-1">
+            <datepicker id="input-1" placeholder="YYYY-MM-DD" v-model="form.starttime"></datepicker>
+          </b-form-group>       
+        </div>
         <!-- 검색 최종시간 입력 -->
-        <b-form-group id="input-group-2" label="검색 최종시간" label-for="input-2">
-          <datepicker id="input-2" placeholder="검색을 끝낼 기간을 입력하세요" v-model="form.finaltime"></datepicker>
-        </b-form-group>
-        <!-- 검색 내용 입력 -->
-        <b-form-group id="input-group-3" label="검색 내용" label-for="input-3">
+        <div style="float:left; width:50%;">
+          <i class="material-icons">event</i>
+          <b-form-group id="input-group-2" label="검색 최종시간" label-for="input-2">
+            <datepicker id="input-2" placeholder="YYYY-MM-DD" v-model="form.finaltime"></datepicker>
+          </b-form-group>
+        </div>
+        <!-- 검색 카테고리 -->
+        <b-form-group id="input-group-4" label-for="input-4">
+          <b-form-select
+            id="input-4"
+            v-model="form.category"
+            :options="categories"
+          ></b-form-select>
           <b-form-input
             id="input-3"
             v-model="form.value"
             placeholder="검색 내용을 입력하세요."
           ></b-form-input>
         </b-form-group>
-        <!-- 검색 카테고리 -->
-        <b-form-group id="input-group-4" label="검색 카테고리" label-for="input-4">
-          <b-form-select
-            id="input-4"
-            v-model="form.category"
-            :options="categories"
-          ></b-form-select>
-        </b-form-group>
         <!-- 제출 및 리셋 버튼 -->
-        <b-button type="submit" class="btn btn-primary custom-btn">Submit</b-button>
+        <b-button type="submit" class="btn btn-primary custom-btn">Search</b-button>
         <b-button type="reset" class="btn btn-primary custom-invert">Reset</b-button>
       </b-form>
     </div>
@@ -178,13 +183,17 @@ export default {
   background-color: white;
   border-color: #FA7268;
   color: #FA7268;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .btn-primary.custom-invert.btn-size {
   font-size: 12px;
 }
 
-.btn-primary.custom-invert:active {
+.btn-primary.custom-invert:hover:after {
   background-color: white;
   border-color: #FA7268;
   color: #FA7268;
@@ -195,4 +204,16 @@ export default {
   border-color: #FA7268;
   color: #FA7268;
 } */
+
+#input-2 {
+  width: 100%;
+  flex: 1;
+  text-align: center;
+}
+
+#input-1 {
+  width: 100%;
+  flex: 1;
+  text-align: center;
+}
 </style>

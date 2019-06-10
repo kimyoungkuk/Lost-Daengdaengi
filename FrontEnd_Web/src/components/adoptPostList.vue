@@ -11,8 +11,8 @@
         <b-button v-if="this.lap" class="btn btn-primary custom-invert" router-link to='/adopt/post/create'>유기견 분양글 작성</b-button>
       </b-button-group>
     </div>
-    
-     <div>
+
+    <div>
     <b-card-group deck deck v-for="row in formattedPosts">
         <b-card  v-for="post in row"
                 :title="post.title"
@@ -33,7 +33,7 @@
         </b-card>
     </b-card-group>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
