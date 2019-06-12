@@ -25,7 +25,7 @@
             <h5><b-badge variant="info">분양</b-badge>&nbsp{{post.title}}</h5>
             <h5><li>견종 : {{post.dog_type}}</li></h5>
             <h5><li>게시 날짜 : {{$moment($moment(post.posted_time).format('YYYYMMDDHH'),"YYYYMMDDHH").fromNow()}}</li></h5>
-            <router-link :to="`/adopt/post/detail/${post.id}?is=${this.is}`">
+            <router-link :to="`/adopt/post/detail/${post.id}`">
               <b-button class="btn btn-primary custom-list">상세보기</b-button>
             </router-link>
           </div>
@@ -57,7 +57,6 @@ export default {
       mob : true,
       lap : false,
       len : 0,
-      is : "g",
       posts: [{title:'', dog_type:'', imageurl:'', posted_time:''}],
       form: {
           starttime: null,
@@ -77,7 +76,6 @@ export default {
     }
     this.key = this.$store.state.user_key
     if(urlParams.get('is')=='a'){
-      this.is = 'a'
       this.$store.state.user_nickname='adopt'
       this.$store.state.user_key='adopt_admin'
       console.log("ZCX")
