@@ -6,6 +6,7 @@
           <div class="detailTitle googleFont_finder" slot="header">
             <div id="detailTitle-left">
               <v-btn
+              v-if="this.mob"
               small
               depressed
               right
@@ -194,6 +195,8 @@ export default {
       name: '',
       nameState: null,
       submittedNames: [],
+      mob : true,
+      lap : false,
         
       form: {
         _id: this.$route.params.id,
@@ -226,6 +229,10 @@ export default {
     };
   },
   created() {
+    if(this.$store.state.user_nickname='adopt'){
+      this.mob=false
+      this.lab=true
+    }
     console.log("TTT")
     let urlParams = new URLSearchParams(window.location.search);
     console.log(urlParams.get('key'))
