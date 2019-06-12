@@ -211,7 +211,7 @@ def owner_post_create(request):
         img = Image.open('media/owner/'+str(post.id)+'/poster.jpg')
         draw = ImageDraw.Draw(img)
         font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",30)
-        draw.text((15,435),"연락처 : "+str(post.phone_num),(255,255,255),font=font)
+        draw.text((15,435),"연락처 : "+str(post.phone_num[0:3])+"-"+str(post.phone_num[3:7])+"-"+str(post.phone_num[7:11]),(255,255,255),font=font)
         font = ImageFont.truetype("media/poster/NanumGothicExtraBold.ttf",18)
         draw.text((15,470),"견종 : "+str(post.dog_type),(255,255,255),font=font)
         draw.text((220,470),"이름 : "+str(post.dog_name),(255,255,255),font=font)
