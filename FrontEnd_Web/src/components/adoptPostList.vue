@@ -8,7 +8,7 @@
         <b-button v-if="this.mob" class="btn btn-primary custom-invert btn-size" router-link to='/finishboard'>반환완료 게시판</b-button>
         <b-button :pressed="true" v-if="this.mob" class="btn btn-primary custom-invert btn-size" router-link to='/adopt/post/list'>분양 게시판</b-button>
       
-        <b-button v-if="this.lap" class="btn btn-primary custom-invert" router-link to='/adopt/post/create'>유기견 분양글 작성</b-button>
+        <b-button v-if="this.lap" class="btn btn-primary custom-invert" router-link to='/adopt/post/create?is=a'>유기견 분양글 작성</b-button>
       </b-button-group>
     </div>
 

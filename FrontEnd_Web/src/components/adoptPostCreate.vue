@@ -175,6 +175,15 @@
         ]
       }
     },
+    created(){
+      let urlParams = new URLSearchParams(window.location.search);
+      if(urlParams.get('is')=='a'){
+        this.$store.state.user_nickname='adopt'
+        this.$store.state.user_key='adopt_admin'
+        console.log("ZCX")
+        console.log(this.key)
+      }
+    },
     methods:{
         onFileSelected(evt){
             this.selectedFile = event.target.files[0]
