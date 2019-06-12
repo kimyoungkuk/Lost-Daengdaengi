@@ -76,10 +76,12 @@ export default {
     }
     this.key = this.$store.state.user_key
     if(urlParams.get('is')=='a'){
-        console.log("ZCX")
-        console.log(this.key)
-        this.mob=false
-        this.lap=true
+      this.$store.state.user_nickname='adopt'
+      this.$store.state.user_key='adopt_admin'
+      console.log("ZCX")
+      console.log(this.key)
+      this.mob=false
+      this.lap=true
     }
     this.$http.get('http://202.30.31.91:8000/adopt/post/list')
       .then(res => {
