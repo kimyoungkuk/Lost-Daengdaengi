@@ -162,7 +162,6 @@
         imageurl:'',
         shelter:'',
         options: [
-          { value: null , text: '---------------' },
           { value: '대전광역시 동물보호센터', text: '대전광역시 동물보호센터' },
           { value: '반송원', text: '반송원' },
           { value: '용인시 동물보호센터', text: '용인시 동물보호센터' },

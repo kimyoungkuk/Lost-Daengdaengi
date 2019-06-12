@@ -75,7 +75,7 @@ export default {
       this.$store.state.user_nickname = urlParams.get('nickname');
     }
     this.key = this.$store.state.user_key
-    if(this.key=='adopt_admin'){
+    if(urlParams.get('is')=='a'){
         console.log("ZCX")
         console.log(this.key)
         this.mob=false

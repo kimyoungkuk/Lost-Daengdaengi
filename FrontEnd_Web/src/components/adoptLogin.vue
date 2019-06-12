@@ -60,7 +60,7 @@
                 this.$store.state.user_nickname=this.account
                 this.$store.state.user_key="adopt_admin"
                 console.log(this.$store.state.user_key)
-                this.$router.push("/adopt/post/list");
+                this.$router.push("/adopt/post/list?is=a");
             }
             else{
                 alert("계정과 비밀번호를 다시 확인해주세요")
