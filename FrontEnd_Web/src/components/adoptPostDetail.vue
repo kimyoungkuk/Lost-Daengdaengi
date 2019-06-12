@@ -194,6 +194,7 @@ export default {
       name: '',
       nameState: null,
       submittedNames: [],
+      is:"g",
         
       form: {
         _id: this.$route.params.id,
