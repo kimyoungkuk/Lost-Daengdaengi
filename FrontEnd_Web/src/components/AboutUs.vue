@@ -7,6 +7,13 @@
         indicators
         fade
         style="text-shadow: 2px 2px 4px #333; img-width:15px;">
+
+        <b-carousel-slide
+          caption="Capstone Design 1등"
+          text="Greative 우수상 입상"
+          :img-src= "src"
+        ></b-carousel-slide>
+
         <b-carousel-slide
           caption="현장을 확인합니다"
           text="실종현장 확인. 그리고 그 부근을 신속히 이동하면서 탐문합니다"
@@ -47,6 +54,7 @@ export default {
         sliding: null,
         counter: 45,
         max: 100,
+        src : require('../assets/a.jpg'),
         src1: require('../assets/a1.jpg'),
         src2: require('../assets/a2.jpg'),
         src3: require('../assets/a3.jpg'),

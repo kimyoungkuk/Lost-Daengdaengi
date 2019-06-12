@@ -104,7 +104,7 @@ export default {
           category: null,
           value: '',
       },
-      categories: [{ text: '선택하세요.', value: null }, '견종', '작성자', '내용'],
+      categories: [{ text: '선택하세요.', value: null }, '견종'],
       show: true
     }
   },
@@ -151,7 +151,12 @@ export default {
         value : this.form.value
       }).then(res => {
         console.log(res.data)
-        this.posts = res.data
+        this.filteredPosts = res.data
+                this.len = this.filteredPosts.length / 5 
+          if(this.filteredPosts.length % 5 >= 1){
+            this.len += 1
+          }
+          this.len = Math.floor(this.len)
       })
       alert(JSON.stringify(this.form))
       console.log(this.form)
