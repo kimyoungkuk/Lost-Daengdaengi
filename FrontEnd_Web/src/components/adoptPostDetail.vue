@@ -226,6 +226,15 @@ export default {
     };
   },
   created() {
+    if(urlParams.get('is')=='a'){
+      this.is = 'a'
+      this.$store.state.user_nickname='adopt'
+      this.$store.state.user_key='adopt_admin'
+      console.log("ZCX")
+      console.log(this.key)
+      this.mob=false
+      this.lap=true
+    }
     console.log("TTT")
     let urlParams = new URLSearchParams(window.location.search);
     console.log(urlParams.get('key'))
@@ -401,7 +410,7 @@ export default {
     hideDeleteSuccessConfirmModal() {
       this.$refs['delete-success-confirm-modal'].hide()
       
-      this.$router.push("/adopt/post/list");
+      this.$router.push("/adopt/post/list?is=a");
     },
     showDeleteFailConfirmModal() {
       this.$refs['delete-fail-confirm-modal'].show()

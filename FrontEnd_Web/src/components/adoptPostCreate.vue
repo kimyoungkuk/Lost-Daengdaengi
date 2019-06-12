@@ -207,7 +207,7 @@
             console.log("QWE")
             console.log(res.data)
             console.log("QWE")
-            this.$router.push("/adopt/post/list");
+            this.$router.push("/adopt/post/list?is=a");
             // this.posts = res.data
         })
 
