@@ -282,6 +282,9 @@ export default {
       
       console.log("!@#")
       console.log(this.form.user_nickname)
+      console.log(this.nickname)
+      console.log(this.$store.state.user_nickname)
+      console.log("!@#")
       if(this.form.user_nickname==this.nickname){
 
         this.$http
