@@ -147,7 +147,7 @@ export default {
         value : this.form.value
       }).then(res => {
           console.log(res.data)
-          this.posts = res.data
+          this.filteredPosts = res.data
       })
       alert(JSON.stringify(this.form))
       console.log(this.form)
