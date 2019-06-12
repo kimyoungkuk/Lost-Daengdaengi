@@ -14,7 +14,7 @@
         label="제목:"
         label-align-sm="right"
         label-for="nested-title"
-        invalid-feedback="신고내용이 입력되지 않았습니다."
+        invalid-feedback="내용이 입력되지 않았습니다."
       >
         <b-form-input id="nested-title" required v-model="title"></b-form-input>
       </b-form-group>
@@ -24,7 +24,7 @@
         label="연락처:"
         label-align-sm="right"
         label-for="nested-phone-number"
-        invalid-feedback="신고내용이 입력되지 않았습니다."
+        invalid-feedback="내용이 입력되지 않았습니다."
       >
         <b-form-input id="nested-phone-number" required v-model="phone_num"></b-form-input>
       </b-form-group>
@@ -34,7 +34,7 @@
         label="견종:"
         label-align-sm="right"
         label-for="nested-dog-type"
-        invalid-feedback="신고내용이 입력되지 않았습니다."
+        invalid-feedback="내용이 입력되지 않았습니다."
       >
         <b-form-input id="nested-dog-type" required v-model="dog_type"></b-form-input>
       </b-form-group>
@@ -44,7 +44,7 @@
         label="연령:"
         label-align-sm="right"
         label-for="nested-dog-age"
-        invalid-feedback="신고내용이 입력되지 않았습니다."
+        invalid-feedback="내용이 입력되지 않았습니다."
       >
         <b-form-input id="nested-dog-age" required v-model="dog_age"></b-form-input>
       </b-form-group>
@@ -54,7 +54,7 @@
         label="성별:"
         label-align-sm="right"
         label-for="nested-dog-sex"
-        invalid-feedback="신고내용이 입력되지 않았습니다."
+        invalid-feedback="내용이 선택되지 않았습니다."
       >
         <b-form-radio-group
           id="dog-sex"
@@ -71,7 +71,7 @@
         label="중성화:"
         label-align-sm="right"
         label-for="nested-neutralizer"
-        invalid-feedback="신고내용이 입력되지 않았습니다."
+        invalid-feedback="내용이 선택되지 않았습니다."
       >
         <b-form-radio-group
           id="nested-neutralizer"
@@ -87,7 +87,7 @@
         label="예방접종:"
         label-align-sm="right"
         label-for="nested-vaccine"
-        invalid-feedback="신고내용이 입력되지 않았습니다."
+        invalid-feedback="내용이 선택되지 않았습니다."
       >
         <b-form-radio-group
           id="nested-vaccine"
@@ -103,7 +103,7 @@
         label="내용:"
         label-align-sm="right"
         label-for="nested-contents"
-        invalid-feedback="신고내용이 입력되지 않았습니다."
+        invalid-feedback="내용이 입력되지 않았습니다."
       >
         <b-form-textarea
           id="textarea"
@@ -122,7 +122,7 @@
         label="이미지:"
         label-align-sm="right"
         label-for="nested-contents"
-        invalid-feedback="신고내용이 입력되지 않았습니다."
+        invalid-feedback="파일이 선택되지 않았습니다."
       >
         <b-form-file required  @change="onFileSelected" v-model="selectedFile" class="mt-3" plain></b-form-file>
         <div class="mt-3">선택된 이미지: {{ selectedFile ? selectedFile.name : '' }}</div>
@@ -133,9 +133,9 @@
         label="보호소:"
         label-align-sm="right"
         label-for="nested-shelter"
-        invalid-feedback="신고내용이 입력되지 않았습니다."
+        invalid-feedback="내용이 입력되지 않았습니다."
       >
-        <b-form-input id="nested-shelter" required v-model="shelter"></b-form-input>
+        <b-form-select id="nested-shelter" required v-model="shelter" :options="options"></b-form-select>
       </b-form-group>
       
       <b-button type="submit" variant="primary">Submit</b-button>
@@ -161,6 +161,19 @@
         image:'',
         imageurl:'',
         shelter:'',
+        options: [
+          { value: null , text: '---------------' },
+          { value: '대전광역시 동물보호센터', text: '대전광역시 동물보호센터' },
+          { value: '반송원', text: '반송원' },
+          { value: '용인시 동물보호센터', text: '용인시 동물보호센터' },
+          { value: '아산천사원유기견보호소', text: '아산천사원유기견보호소' },
+          { value: '영암 유기견보호소', text: '영암 유기견보호소' },
+          { value: '반려동물과함께하는내사랑바둑이', text: '반려동물과함께하는내사랑바둑이' },
+          { value: '남양동물보호센터', text: '남양동물보호센터' },
+          { value: '나나우리봉사단', text: '나나우리봉사단' },
+          { value: '대관령동물병원', text: '대관령동물병원' },
+          { value: '대장마을협동조합 반려동물놀이터', text: '대장마을협동조합 반려동물놀이터' }
+        ]
       }
     },
     methods:{
