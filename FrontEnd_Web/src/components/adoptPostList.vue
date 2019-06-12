@@ -57,7 +57,6 @@ export default {
       mob : true,
       lap : false,
       len : 0,
-      is : "g",
       posts: [{title:'', dog_type:'', imageurl:'', posted_time:''}],
       form: {
           starttime: null,
@@ -77,7 +76,6 @@ export default {
     }
     this.key = this.$store.state.user_key
     if(urlParams.get('is')=='a'){
-      this.is = 'a'
       this.$store.state.user_nickname='adopt'
       this.$store.state.user_key='adopt_admin'
       console.log("ZCX")
