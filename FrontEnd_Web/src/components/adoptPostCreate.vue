@@ -14,8 +14,9 @@
         label="제목:"
         label-align-sm="right"
         label-for="nested-title"
+        invalid-feedback="신고내용이 입력되지 않았습니다."
       >
-        <b-form-input id="nested-title" v-model="title"></b-form-input>
+        <b-form-input id="nested-title" required v-model="title"></b-form-input>
       </b-form-group>
 
       <b-form-group
@@ -23,8 +24,9 @@
         label="연락처:"
         label-align-sm="right"
         label-for="nested-phone-number"
+        invalid-feedback="신고내용이 입력되지 않았습니다."
       >
-        <b-form-input id="nested-phone-number" v-model="phone_num"></b-form-input>
+        <b-form-input id="nested-phone-number" required v-model="phone_num"></b-form-input>
       </b-form-group>
 
       <b-form-group
@@ -32,8 +34,9 @@
         label="견종:"
         label-align-sm="right"
         label-for="nested-dog-type"
+        invalid-feedback="신고내용이 입력되지 않았습니다."
       >
-        <b-form-input id="nested-dog-type" v-model="dog_type"></b-form-input>
+        <b-form-input id="nested-dog-type" required v-model="dog_type"></b-form-input>
       </b-form-group>
 
       <b-form-group
@@ -41,8 +44,9 @@
         label="연령:"
         label-align-sm="right"
         label-for="nested-dog-age"
+        invalid-feedback="신고내용이 입력되지 않았습니다."
       >
-        <b-form-input id="nested-dog-age" v-model="dog_age"></b-form-input>
+        <b-form-input id="nested-dog-age" required v-model="dog_age"></b-form-input>
       </b-form-group>
 
       <b-form-group
@@ -50,9 +54,11 @@
         label="성별:"
         label-align-sm="right"
         label-for="nested-dog-sex"
+        invalid-feedback="신고내용이 입력되지 않았습니다."
       >
         <b-form-radio-group
           id="dog-sex"
+          required
           v-model="dog_sex"
           class="pt-2"
           :options="[{text:'수컷', value:1}, {text:'암컷', value:2}]"
@@ -65,9 +71,11 @@
         label="중성화:"
         label-align-sm="right"
         label-for="nested-neutralizer"
+        invalid-feedback="신고내용이 입력되지 않았습니다."
       >
         <b-form-radio-group
           id="nested-neutralizer"
+          required
           v-model="is_neu"
           class="pt-2"
           :options="['O', 'X']"
@@ -79,9 +87,11 @@
         label="예방접종:"
         label-align-sm="right"
         label-for="nested-vaccine"
+        invalid-feedback="신고내용이 입력되지 않았습니다."
       >
         <b-form-radio-group
           id="nested-vaccine"
+          required
           v-model="is_vac"
           class="pt-2"
           :options="['O', 'X']"
@@ -93,9 +103,11 @@
         label="내용:"
         label-align-sm="right"
         label-for="nested-contents"
+        invalid-feedback="신고내용이 입력되지 않았습니다."
       >
         <b-form-textarea
           id="textarea"
+          required
           v-model="contents"
           placeholder="소개글을 적어주세요"
           rows="6"
@@ -110,6 +122,7 @@
         label="이미지:"
         label-align-sm="right"
         label-for="nested-contents"
+        invalid-feedback="신고내용이 입력되지 않았습니다."
       >
         <b-form-file @change="onFileSelected" v-model="selectedFile" class="mt-3" plain></b-form-file>
         <div class="mt-3">선택된 이미지: {{ selectedFile ? selectedFile.name : '' }}</div>
@@ -120,8 +133,9 @@
         label="보호소:"
         label-align-sm="right"
         label-for="nested-shelter"
+        invalid-feedback="신고내용이 입력되지 않았습니다."
       >
-        <b-form-input id="nested-shelter" v-model="shelter"></b-form-input>
+        <b-form-input id="nested-shelter" required v-model="shelter"></b-form-input>
       </b-form-group>
       
       <b-button type="submit" variant="primary">Submit</b-button>
