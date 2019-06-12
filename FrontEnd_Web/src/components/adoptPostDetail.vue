@@ -229,7 +229,7 @@ export default {
     };
   },
   created() {
-    if(this.$store.state.user_nickname='adopt'){
+    if(this.$store.state.user_nickname=='adopt'){
       this.mob=false
       this.lab=true
     }
