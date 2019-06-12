@@ -17,6 +17,7 @@ import makeOwnerPostWeb_ from '../components/makeOwnerPostWeb'
 import portal_ from '../components/Portal'
 import Portal_to_Board_ from '../components/Portal_to_Board'
 import myPosts_ from '../components/myPosts'
+import jamjam_ from '../components/jamjam'
 
 const router = { 
    mypage : Mypage_,
@@ -37,6 +38,7 @@ const router = {
    makeOwnerPostWeb: makeOwnerPostWeb_,
    portal : portal_,
    Portal_to_Board : Portal_to_Board_,
-   myPosts : myPosts_
+   myPosts : myPosts_,
+   jamjam :jamjam_
 }
 export default router

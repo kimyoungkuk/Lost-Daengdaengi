@@ -73,6 +73,7 @@ urlpatterns = [
     path('adopt/post/list',myApp.views.adopt_post_list,name="adopt_post_list"),
     path('adopt/post/create',myApp.views.adopt_post_create,name="adopt_post_create"),
     path('adopt/post/detail/<int:pk>',myApp.views.adopt_post_detail,name="adopt_post_detail"),
+    path('adopt/post/delete/<int:pk>',myApp.views.adopt_post_delete,name="adopt_post_delete"),
 
 
     path('master_login/',myApp.views.master_login, name = "master_login"),
