@@ -104,7 +104,7 @@ export default {
           category: null,
           value: '',
       },
-      categories: [{ text: '선택하세요.', value: null }, '견종', '작성자', '내용'],
+      categories: [{ text: '선택하세요.', value: null }, '견종'],
       show: true
     }
   },
