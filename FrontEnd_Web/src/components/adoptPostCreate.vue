@@ -124,7 +124,7 @@
         label-for="nested-contents"
         invalid-feedback="신고내용이 입력되지 않았습니다."
       >
-        <b-form-file @change="onFileSelected" v-model="selectedFile" class="mt-3" plain></b-form-file>
+        <b-form-file required  @change="onFileSelected" v-model="selectedFile" class="mt-3" plain></b-form-file>
         <div class="mt-3">선택된 이미지: {{ selectedFile ? selectedFile.name : '' }}</div>
 
       </b-form-group>
