@@ -62,7 +62,7 @@
     "nativescript-dev-webpack": "^0.22.0",
     "nativescript-vue-template-compiler": "^2.2.2",
     "nativescript-worker-loader": "~0.9.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "sass-loader": "^7.1.0",
     "terser-webpack-plugin": "^1.2.4",
     "vue-loader": "^15.2.6",
