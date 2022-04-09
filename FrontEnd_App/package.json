@@ -18,7 +18,7 @@
     "@vue/devtools": "^5.1.0",
     "email-validator": "^2.0.4",
     "mapbox-gl": "^0.54.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "nativescript-background-http": "^3.4.0",
     "nativescript-camera": "^4.5.0",
     "nativescript-floatingactionbutton": "^5.0.3",
